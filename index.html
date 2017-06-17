@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Duit</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/colors/duit.css" id="colors">
+
+    <!-- Scripts
+    ================================================== -->
+    <script type="text/javascript" src="/scripts/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript" src="/scripts/chosen.min.js"></script>
+    <script type="text/javascript" src="/scripts/magnific-popup.min.js"></script>
+    <script type="text/javascript" src="/scripts/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="/scripts/rangeSlider.js"></script>
+    <script type="text/javascript" src="/scripts/sticky-kit.min.js"></script>
+    <script type="text/javascript" src="/scripts/slick.min.js"></script>
+    <script type="text/javascript" src="/scripts/jquery.jpanelmenu.js"></script>
+    <script type="text/javascript" src="/scripts/tooltips.min.js"></script>
+    <script type="text/javascript" src="/scripts/masonry.min.js"></script>
+    <script type="text/javascript" src="/scripts/angular.min.js"></script>
+    <script type="text/javascript" src="/scripts/angular-route.min.js"></script>
+    <!-- <script type="text/javascript" src="/scripts/custom.js"></script> -->
+    <script type="text/javascript" src="/scripts/uiFunctions.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <!-- Tokko API -->  
+    <script type="text/javascript" src="/scripts/tokkoApi.js"></script>
+    <!-- Views scripts -->
+    <script type="text/javascript" src="/views/common/common.js"></script>
+    <script type="text/javascript" src="/views/home.js"></script>
+    <script type="text/javascript" src="/data/propertiesSubTypesFixture.js"></script>
+  </head>
+  <body>
+    <!-- Wrapper -->
+    <div id='wrapper' ng-app='duit' ng-controller='index'>
+      <!-- Header Container
+      ================================================== -->
+      <div ng-include="'/views/common/header.html'"></div>
+      <!-- Header Container / End -->
+      <!-- Content
+      ================================================== -->
+      <div ng-view></div>
+      <!-- Content / End -->
+
+      <!-- Footer
+      ================================================== -->
+      <div ng-include="'/views/common/footer.html'"></div>
+      <!-- Footer / End -->
+      <!-- Back To Top Button -->
+      <div id="backtotop"><a href="#"></a></div>
+    </div>
+  </body>
+</html>

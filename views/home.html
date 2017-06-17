@@ -1,0 +1,217 @@
+<!-- Made with: index.html and index-2.html-->
+
+<!-- Banner
+================================================== -->
+<div class="parallax" data-background="images/home-parallax.jpg" data-color="#36383e" data-color-opacity="0.45" data-img-width="2500" data-img-height="1600">
+  <div class="parallax-content">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+
+          <!-- Main Search Container -->
+          <div class="main-search-container">
+            <h2>¿Qué estas buscando?</h2>
+            
+            <!-- Main Search -->
+            <form class="main-search-form" ng-controller="homeSearch">
+              
+              <!-- Type -->
+              <div class="search-type">
+                <label class="active"><input class="first-tab operationType" ng-model="operationType" name="tab" checked="checked" type="radio" value="2">Alquiler</label>
+                <label><input class="operationType" ng-model="operationType" name="tab" type="radio" value="1">Venta</label>
+                <!-- <label><input name="tab" type="radio">Emprendimientos</label> -->
+                <div class="search-type-arrow"></div>
+              </div>
+
+              
+              <!-- Box -->
+              <div class="main-search-box">
+
+                <!-- Row -->
+                <div class="row with-forms">
+
+                  <!-- Property Type -->
+                  <div class="col-md-5">
+                    <select data-placeholder="Tipo de propiedad" class="chosen-select-no-single" ng-model="typeSelected" ng-change="updateChosen()">
+                      <option value="3">Casa</option> 
+                      <option value="2">Departamento</option>
+                      <option value="7">Local</option>
+                      <option value="5">Oficina</option>
+                      <option value="1">Terreno</option>
+                      <option value="10">Cochera</option>
+                      <option value="14">Depósito</option>
+                    </select>
+                  </div>
+
+                  <!-- Property Sub type -->
+                  <div class="col-md-5">
+                    <select data-placeholder="Condición" class="chosen-select-no-single" ng-model="stSelected"
+                    ng-options="st.name for st in subTypes[typeSelected] track by st.id" ng-init="stSelected = subTypes[typeSelected]">
+                    </select>
+                  </div>
+
+                  <!-- Min Price -->
+                  <div class="col-md-2">
+                    <button class="button">Buscar</button>
+                  </div>
+
+                </div>
+                <!-- Row / End -->
+
+              </div>
+              <!-- Box / End -->
+
+            </form>
+            <!-- Main Search -->
+
+          </div>
+          <!-- Main Search Container / End -->
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+    
+<!-- Content
+================================================== -->
+<!-- Fullwidth Section -->
+<section class="fullwidth margin-top-0 z-index-100" data-background-color="#f7f7f7">
+
+  <!-- Box Headline -->
+  <h3 class="headline-box">¿Qué necesitás?</h3>
+  
+  <!-- Content -->
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-4 col-sm-6">
+        <!-- Icon Box -->
+        <div class="icon-box-1">
+
+          <div class="icon-container">
+            <i class="im im-icon-Office"></i>
+            <div class="icon-links">
+              <a href="listings-grid-standard-with-sidebar.html">Contactános</a>
+            </div>
+          </div>
+
+          <h3>Te asesoramos</h3>
+          <p>Aliquam dictum elit vitae mauris facilisis, at dictum urna dignissim donec vel lectus vel felis.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6">
+        <!-- Icon Box -->
+        <div class="icon-box-1">
+
+          <div class="icon-container">
+            <i class="im im-icon-Home-2"></i>
+            <div class="icon-links">
+              <a href="listings-grid-standard-with-sidebar.html">Contactános</a>
+            </div>
+          </div>
+
+          <h3>Valuamos tu casa</h3>
+          <p>Aliquam dictum elit vitae mauris facilisis, at dictum urna dignissim donec vel lectus vel felis.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6">
+        <!-- Icon Box -->
+        <div class="icon-box-1">
+
+          <div class="icon-container">
+            <i class="im im-icon-Car-3"></i>
+            <div class="icon-links">
+              <a href="listings-grid-standard-with-sidebar.html">Mas info</a>
+            </div>
+          </div>
+
+          <h3>Emprendimientos</h3>
+          <p>Aliquam dictum elit vitae mauris facilisis, at dictum urna dignissim donec vel lectus vel felis.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- Fullwidth Section / End -->
+
+<!-- Parallax -->
+<div class="parallax margin-bottom-70"
+  data-background="/images/team/team-4.jpg"
+  data-color="#36383e"
+  data-color-opacity="0.7"
+  data-img-width="900"
+  data-img-height="505">
+
+  <!-- Infobox -->
+  <div class="text-content white-font">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-lg-6 col-sm-8">
+          <h2>It's your journey. We're here to help.</h2>
+          <p>We’re full-service, local agents who know how to find people and home each together. We use online tools with an unmatched search capability to make you smarter and faster.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Infobox / End -->
+
+</div>
+<!-- Parallax / End -->
+
+<!-- Featured -->
+<div class="container" ng-controller='featuredProps'>
+  <div class="row">
+  
+    <div class="col-md-12">
+      <h3 class="headline margin-bottom-25">Destacados</h3>
+    </div>
+    <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="apiReady"></div>
+    <!-- Carousel -->
+    <div class="col-md-12" ng-show="apiReady">
+      <div class="carousel">
+        
+        <!-- Listing Item -->
+        <div class="carousel-item" ng-repeat="p in featured">
+          <div class="listing-item compact">
+
+            <a href="single-property-page-1.html" class="listing-img-container">
+
+              <div class="listing-badges">
+                <span class="featured">Destacado</span>
+                <span>{{p.type}}</span>
+              </div>
+
+              <div class="listing-img-content">
+                <span class="listing-compact-title">{{p.address}} <i>{{p.currency}} {{p.price}}</i></span>
+
+                <ul class="listing-hidden-content">
+                  <li>Superficie <span>{{p.area}} M2</span></li>
+                  <li>Hab. <span>{{p.rooms}}</span></li>
+                  <li>Baños <span>{{p.baths}}</span></li>
+                </ul>
+              </div>
+
+              <img src="{{p.cover_photo}}" alt="">
+            </a>
+
+          </div>
+        </div>
+        <!-- Listing Item / End -->
+
+      </div>
+    </div>
+    <!-- Carousel / End -->
+
+  </div>
+</div>
+<!-- Featured / End 
