@@ -1,12 +1,25 @@
-const app = angular.module('duit', ['ngRoute']);
+const app = angular.module('duit', ['ui.router']);
 
-app.config(function($routeProvider) {
-  $routeProvider
-  .when('/', {
-    templateUrl: "/views/home.html",
-  })
+app.config(function($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise('/');
+  $stateProvider.state('home', {
+    url: '/',
+    templateUrl: '/views/home/home.html'
+  });
+  $stateProvider.state('propertySearch', {
+    url: '/propertySearch',
+    templateUrl: '/views/listing/listing.html',
+    params: {args: null},
+  });
+  $stateProvider.state('contactUs', {
+    url: '/contactUs',
+    templateUrl: '/views/contact/contact.html'
+  });
 });
 
-app.controller('index', function($scope) {
-  
-});
+app.controller('global', function($scope) {
+  setTimeout(function(){
+    uiFunctions.buildStickyHeader();
+    uiFunctions.buildTopBarMobileMenu();
+  }, 0)
+})

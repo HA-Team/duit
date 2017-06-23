@@ -1,22 +1,16 @@
 app.controller('featuredProps', function($scope, tokkoApi) {
   setTimeout(function(){
-    // findeoJs();
     uiFunctions.buildParallax();
     uiFunctions.buildChosen();
     uiFunctions.buildFooter();
+    uiFunctions.buildSearchTypeButtons();
+    uiFunctions.buildBackToTop();
   }, 0);
   $scope.featured = [];
   $scope.apiReady = false;
-  const args = {
-    data:`{"current_localization_id":0,
-    "current_localization_type":"country",
-    "price_from":0,"price_to":999999999,
-    "operation_types":[1,2],
-    "property_types":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],
-    "currency":"ANY",
-    "filters":[["is_starred_on_web","=","true"]]}`,
-    order: 'desc',
-  }
+  let data = tokkoSearchArgs.data;
+  data.filters.push(["is_starred_on_web", "=", "true"]);
+  const args = {data: JSON.stringify(data), order: 'desc'}
   tokkoApi.find('property/search', args, function(result){
     let props = [];
     result.forEach((p) => {
@@ -29,6 +23,7 @@ app.controller('featuredProps', function($scope, tokkoApi) {
         price: p.operations[p.operations.length-1].prices.slice(-1)[0].price,
         rooms: p.room_amount,
         baths: p.bathroom_amount,
+        parkings: p.parking_lot_amount,
         // Not working yet because there is props without front cover photo asigned
         //cover_photo: p.photos.map(function(p){if(p.is_front_cover){return p.thumb}})[0],
         // Instead we take the first photo as cover.
@@ -43,13 +38,24 @@ app.controller('featuredProps', function($scope, tokkoApi) {
   });
 })
 
-app.controller('homeSearch', function($scope) {
+app.controller('homeSearch', function($scope, $state) {
   $scope.operationType = 2;
   $scope.subTypes = propertiesSubTypes;
-  $scope.updateChosen = function() {
-    setTimeout(function(){
+  $scope.updateChosen = () => {
+    setTimeout(() => {
       $('.chosen-select-no-single').trigger("chosen:updated");
     }, 0);
+  };
+  $scope.find = () => {
+    let data = tokkoSearchArgs.data;
+    data.operation_types = [$scope.operationType];
+    data.property_types = [$scope.propertyType];
+    data.with_custom_tags = [$scope.subTypeSelected.id];
+    const args = {data: JSON.stringify(data), order: 'desc'};
+    // console.log(args);
+    $state.go('propertySearch', {args: args});
+    // $http.post("/propertySearch/",$httpParamSerializer(args));
+    // $location.path("/propertySearch/"+{data: JSON.stringify(data), order: 'desc'});
   }
 })
 

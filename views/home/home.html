@@ -33,7 +33,7 @@
 
                   <!-- Property Type -->
                   <div class="col-md-5">
-                    <select data-placeholder="Tipo de propiedad" class="chosen-select-no-single" ng-model="typeSelected" ng-change="updateChosen()">
+                    <select data-placeholder="Tipo de propiedad" class="chosen-select-no-single" ng-model="propertyType" ng-change="updateChosen()">
                       <option value="3">Casa</option> 
                       <option value="2">Departamento</option>
                       <option value="7">Local</option>
@@ -46,14 +46,14 @@
 
                   <!-- Property Sub type -->
                   <div class="col-md-5">
-                    <select data-placeholder="Condición" class="chosen-select-no-single" ng-model="stSelected"
-                    ng-options="st.name for st in subTypes[typeSelected] track by st.id" ng-init="stSelected = subTypes[typeSelected]">
+                    <select data-placeholder="Condición" class="chosen-select-no-single" ng-model="subTypeSelected"
+                    ng-options="st.name for st in subTypes[propertyType] track by st.id" ng-init="subTypeSelected = subTypes[propertyType]">
                     </select>
                   </div>
 
                   <!-- Min Price -->
                   <div class="col-md-2">
-                    <button class="button">Buscar</button>
+                    <button class="button" ng-click="find()">Buscar</button>
                   </div>
 
                 </div>
@@ -142,7 +142,7 @@
 <!-- Fullwidth Section / End -->
 
 <!-- Parallax -->
-<div class="parallax margin-bottom-70"
+<div id="nosotros" class="parallax margin-bottom-70"
   data-background="/images/team/team-4.jpg"
   data-color="#36383e"
   data-color-opacity="0.7"
@@ -155,8 +155,9 @@
 
       <div class="row">
         <div class="col-lg-6 col-sm-8">
-          <h2>It's your journey. We're here to help.</h2>
-          <p>We’re full-service, local agents who know how to find people and home each together. We use online tools with an unmatched search capability to make you smarter and faster.</p>
+          <h2>Nosotros.</h2>
+          <!-- <p>We’re full-service, local agents who know how to find people and home each together. We use online tools with an unmatched search capability to make you smarter and faster.</p> -->
+          <p>Somos una inmobiliaria joven, fundada por personas con más de 10 años de experiencia en el rubro. Liderados por Agustín Aznarez. Tenemos un amplio conocimiento del mercado inmobiliario y entendemos su dinámica. Somos un grupo de emprendedores, con fuerza y renombre, para garantizar la eficacia de la inversión. En Duit vas a encontrar las mejores ofertas de propiedades en Córdoba y el país, para asegurarte de hacer una inversión inteligente a largo plazo.</p>
         </div>
       </div>
 
@@ -196,8 +197,9 @@
 
                 <ul class="listing-hidden-content">
                   <li>Superficie <span>{{p.area}} M2</span></li>
-                  <li>Hab. <span>{{p.rooms}}</span></li>
-                  <li>Baños <span>{{p.baths}}</span></li>
+                  <li><i class="fa fa-bed"></i> <span>{{p.rooms}}</span></li>
+                  <li><i class="fa fa-bathtub"></i> <span>{{p.baths}}</span></li>
+                  <li><i class="fa fa-car"></i> <span>{{p.parkings}}</span></li>
                 </ul>
               </div>
 

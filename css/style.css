@@ -72,6 +72,7 @@
 @import url("bootstrap.css");					/* Default Reset, Typography, Forms, Responsive Grid etc. */
 @import url("icons.css");						/* Webfont Icons: FontAwesome, Line, Simple Line */
 @import url("http://fonts.googleapis.com/css?family=Varela+Round");
+@import url("../views/listing/listing.css");
 
 
 /* ------------------------------------------------------------------- */
@@ -79,16 +80,20 @@
 ---------------------------------------------------------------------- */
 
 /* ---------------------------------- */
-/* Topbar
+/* Ux
 ------------------------------------- */
-
-/* Common Styles */
 .spinner {
 	font-size: 80px;
 	margin-left: 48%;
 	margin-top: 20px;
 	color: #c8001e;
 }
+
+/* ---------------------------------- */
+/* Topbar
+------------------------------------- */
+
+/* Common Styles */
 #top-bar {
 	background-color: #66676b;
 	color: #fff;
@@ -2255,6 +2260,8 @@ button.fs-map-btn.button {
 .listing-img-container img {
 	width: 100%;
 	border-radius: 3px 3px 0 0;
+	height: 250px !important;
+	object-fit: cover;
 }
 
 .listing-img-container:after,
@@ -5069,6 +5076,16 @@ body .carousel {
 
 .owl-theme .owl-controls{
 	text-align: center;
+}
+
+.listing-carousel > div {
+  display: none;
+}
+.listing-carousel > div:first-child {
+  display: block
+}
+.listing-carousel.owl-carousel > div {
+  display: block
 }
 
 

@@ -1,0 +1,209 @@
+<div ng-controller="listing" id="listing">
+<!-- Search
+================================================== -->
+<section class="search margin-bottom-50" >
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <!-- Form -->
+      <div class="main-search-box no-shadow">
+        <!-- Row With Forms -->
+        <div class="row with-forms">
+          <!-- Operation -->
+          <div class="col-md-3">
+            <select data-placeholder="Operación" class="chosen-select-no-single" ng-model="operationType">
+              <option value="1">Venta</option>
+              <option value="2">Alquiler</option>
+            </select>
+          </div>
+          <!-- Property Type -->
+          <div class="col-md-3">
+            <select data-placeholder="Tipo" class="chosen-select-no-single" ng-model="propertyType" ng-change="updateChosen()">
+              <option value="3">Casa</option> 
+              <option value="2">Departamento</option>
+              <option value="7">Local</option>
+              <option value="5">Oficina</option>
+              <option value="1">Terreno</option>
+              <option value="10">Cochera</option>
+              <option value="14">Depósito</option>
+            </select>
+          </div>
+          <!-- Condition -->
+          <div class="col-md-3">
+            <select data-placeholder="Condición" class="chosen-select-no-single" ng-model="subTypeSelected" ng-options="st.name for st in subTypes[propertyType] track by st.id" ng-init="subTypeSelected = subTypes[propertyType]">
+            </select>
+          </div>
+          <div class="col-md-3">
+            <button class="button search" ng-click="find()">Buscar</button>
+          </div>
+        </div>
+        <!-- Row With Forms / End -->
+        <!-- Row With Forms -->
+        <div class="row with-forms">
+        <fieldset ng-show="ifResults(false)">
+          <legend>Filtros</legend>
+          <!-- Min Price -->
+          <div class="col-md-3">
+            <!-- Select Input -->
+            <div class="select-input disabled-first-option">
+              <input type="text" placeholder="Min Price" data-unit="USD" ng-model="minPrice" ng-model-options='{ debounce: 1000 }' ng-change="filter()">
+            </div>
+            <!-- Select Input / End -->
+          </div>
+          <!-- Max Price -->
+          <div class="col-md-3">
+            <!-- Select Input -->
+            <div class="select-input disabled-first-option">
+              <input type="text" placeholder="Max Price" data-unit="USD" ng-model="maxPrice" ng-model-options='{ debounce: 1000 }' ng-change="filter()">
+            </div>
+            <!-- Select Input / End -->
+          </div>
+          <!-- Location -->
+          <div class="col-md-3">
+            <select data-placeholder="Ciudad/Barrio" class="chosen-select-no-single" ng-model="location" ng-options="l.name for l in locations track by l.id" ng-change="filter()">
+            </select>
+          </div>
+          <!-- Rooms -->
+          <div class="col-md-3">
+            <select data-placeholder="Dormitorios" class="chosen-select-no-single" ng-model="rooms" ng-change="filter()">
+              <option label="blank"></option>
+              <option value="0">Todos</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </div>
+        </fieldset>
+        </div>
+        <!-- Row With Forms / End -->
+      </div>
+      <!-- Box / End -->
+    </div>
+  </div>
+</div>
+</section>
+
+
+
+<!-- Content
+================================================== -->
+<div class="container" >
+  <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="apiReady"></div>
+  <div class="row fullwidth-layout" ng-show="ifResults(true)">
+
+    <div class="col-md-12">
+
+      <!-- Sorting / Layout Switcher -->
+      <div class="row margin-bottom-15">
+
+        <div class="col-md-6">
+          <!-- Sort by -->
+          <div class="sort-by">
+            <label>Ordenar por:</label>
+
+            <div class="sort-by-select">
+              <select data-placeholder="Default order" class="chosen-select-no-single" > 
+                <option>Mayor Precio</option>
+                <option>Menor Precio</option>
+                <option>Más Recientes</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <!-- Layout Switcher -->
+          <div class="layout-switcher">
+            <a href="#" class="grid-three"><i class="fa fa-th"></i></a>
+            <a href="#" class="grid"><i class="fa fa-th-large"></i></a>
+            <a href="#" class="list"><i class="fa fa-th-list"></i></a>
+          </div>
+        </div>
+      </div>
+      <!-- Listings -->
+      <div class="listings-container grid-layout-three" >
+        <!-- Listing Item -->
+        <div class="listing-item" ng-repeat="p in filteredResults">
+
+          <a href="single-property-page-1.html" class="listing-img-container">
+
+            <div class="listing-badges">
+              <!-- <span class="featured">Featured</span> -->
+              <span>{{p.type}}</span>
+            </div>
+
+            <div class="listing-img-content">
+              <span class="listing-price">{{p.currency}} {{p.price}}</span>
+              <!-- <span class="like-icon tooltip"></span> -->
+            </div>
+
+            <div class="listing-carousel">
+              <div ng-repeat="photo in p.photos"><img src="{{photo.image}}" alt=""></div>
+              <!-- <div><img src="images/listing-01b.jpg" alt=""></div>
+              <div><img src="images/listing-01c.jpg" alt=""></div> -->
+            </div>
+          </a>
+          
+          <div class="listing-content">
+
+            <div class="listing-title">
+              <h4><a href="single-property-page-1.html">{{p.title}}</a></h4>
+              <a href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&hl=en&t=v&hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom" class="listing-address popup-gmaps">
+                <i class="fa fa-map-marker"></i>
+                {{p.address}}
+              </a>
+
+              <a href="single-property-page-1.html" class="details button border">Detalles</a>
+            </div>
+
+            <ul class="listing-details">
+              <li>{{p.area}} M2</li>
+              <li><i class="fa fa-bed"></i> {{p.rooms}}</li>
+              <li><i class="fa fa-bath"></i> {{p.baths}}</li>
+              <li><i class="fa fa-car"></i> {{p.parkings}}</li>
+            </ul>
+
+            <div class="listing-footer">
+              <a href="#"><i class="fa fa-user"></i> {{p.agent}}</a>
+              <!-- <span><i class="fa fa-calendar-o"></i> 1 day ago</span> -->
+            </div>
+
+          </div>
+
+        </div>
+        <!-- Listing Item / End -->
+      </div>
+      <!-- Listings Container / End -->
+
+      <div class="clearfix"></div>
+      <!-- Pagination -->
+      <!-- <div class="pagination-container margin-top-20">
+        <nav class="pagination">
+          <ul>
+            <li><a href="#" class="current-page">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li class="blank">...</li>
+            <li><a href="#">22</a></li>
+          </ul>
+        </nav>
+
+        <nav class="pagination-next-prev">
+          <ul>
+            <li><a href="#" class="prev">Previous</a></li>
+            <li><a href="#" class="next">Next</a></li>
+          </ul>
+        </nav>
+      </div> -->
+      <!-- Pagination / End -->
+    </div>
+  </div>
+  <div class="row fullwidth-layout text-center no-results" ng-hide="ifResults(true)">
+    <i class="fa fa-5x fa-frown-o"></i>
+    <h3>¡Ups! No hay nada aquí. ¡<a href="!#contactUs">Contactános</a> para ver mas opciones!</h3>
+  </div> 
+</div>
+</div>

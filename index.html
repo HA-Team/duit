@@ -23,27 +23,34 @@
     <script type="text/javascript" src="/scripts/tooltips.min.js"></script>
     <script type="text/javascript" src="/scripts/masonry.min.js"></script>
     <script type="text/javascript" src="/scripts/angular.min.js"></script>
-    <script type="text/javascript" src="/scripts/angular-route.min.js"></script>
+    <script type="text/javascript" src="/scripts/angular-ui-router.min.js"></script>
     <!-- <script type="text/javascript" src="/scripts/custom.js"></script> -->
     <script type="text/javascript" src="/scripts/uiFunctions.js"></script>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABX6GNDaY8T41-jsuOKmAucLMsHUj_BjU"
+  type="text/javascript"></script>
+    <!-- <script type="text/javascript" src="/scripts/maps.js"></script> -->
     <script type="text/javascript" src="index.js"></script>
     <!-- Tokko API -->  
     <script type="text/javascript" src="/scripts/tokkoApi.js"></script>
     <!-- Views scripts -->
     <script type="text/javascript" src="/views/common/common.js"></script>
-    <script type="text/javascript" src="/views/home.js"></script>
+    <script type="text/javascript" src="/views/home/home.js"></script>
+    <script type="text/javascript" src="/views/listing/listing.js"></script>
+    <script type="text/javascript" src="/views/contact/contact.js"></script>
     <script type="text/javascript" src="/data/propertiesSubTypesFixture.js"></script>
+    <script type="text/javascript" src="/data/tokkoSearchArgs.js"></script>
   </head>
   <body>
     <!-- Wrapper -->
-    <div id='wrapper' ng-app='duit' ng-controller='index'>
+    <div id='wrapper' ng-app='duit' ng-controller="global">
       <!-- Header Container
       ================================================== -->
       <div ng-include="'/views/common/header.html'"></div>
       <!-- Header Container / End -->
       <!-- Content
       ================================================== -->
-      <div ng-view></div>
+      <!-- <div ng-view></div> -->
+      <ui-view></ui-view>
       <!-- Content / End -->
 
       <!-- Footer
