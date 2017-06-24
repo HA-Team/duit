@@ -2,7 +2,7 @@ app.controller('featuredProps', function($scope, tokkoApi) {
   setTimeout(function(){
     uiFunctions.buildParallax();
     uiFunctions.buildChosen();
-    uiFunctions.buildFooter();
+    // uiFunctions.buildFooter();
     uiFunctions.buildSearchTypeButtons();
     uiFunctions.buildBackToTop();
   }, 0);

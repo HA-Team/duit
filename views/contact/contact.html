@@ -60,31 +60,31 @@
 
         <div id="contact-message"></div> 
 
-          <form method="post" action="contact.php" name="contactform" id="contactform" autocomplete="on">
+          <form ng-controller="contactForm" id="contactform" autocomplete="on">
 
           <div class="row">
             <div class="col-md-6">
               <div>
-                <input name="name" type="text" id="name" placeholder="Nombre" required="required" />
+                <input name="name" type="text" ng-model="name" placeholder="Nombre" required="required" />
               </div>
             </div>
 
             <div class="col-md-6">
               <div>
-                <input name="email" type="email" id="email" placeholder="Email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" required="required" />
+                <input name="email" type="email" ng-model="email" placeholder="Email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" required="required" />
               </div>
             </div>
           </div>
 
           <div>
-            <input name="subject" type="text" id="subject" placeholder="Asunto" required="required" />
+            <input name="subject" type="text" ng-model="phone" placeholder="Teléfono" />
           </div>
 
           <div>
-            <textarea name="comments" cols="40" rows="3" id="comments" placeholder="Mensaje" spellcheck="true" required="required"></textarea>
+            <textarea name="message" cols="40" rows="3" ng-model="message" placeholder="Mensaje" spellcheck="true" required="required"></textarea>
           </div>
 
-          <input type="submit" class="submit button" id="submit" value="Enviar" />
+          <button class="button" id="submit" ng-click="send()">Enviar</button>
 
           </form>
       </section>
