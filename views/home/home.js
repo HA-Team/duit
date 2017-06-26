@@ -16,7 +16,7 @@ app.controller('featuredProps', function($scope, tokkoApi) {
     result.forEach((p) => {
       props.push({
         id: p.id,
-        address: p.address,
+        title: p.publication_title,
         area: p.roofed_surface,
         type: p.operations[0].operation_type,
         currency: p.operations[p.operations.length-1].prices.slice(-1)[0].currency,
@@ -38,7 +38,8 @@ app.controller('featuredProps', function($scope, tokkoApi) {
   });
 })
 
-app.controller('homeSearch', function($scope, $state) {
+app.controller('homeSearch', function($rootScope, $scope, $state) {
+  $rootScope.activeMenu = 'home';
   $scope.operationType = 2;
   $scope.subTypes = propertiesSubTypes;
   $scope.updateChosen = () => {

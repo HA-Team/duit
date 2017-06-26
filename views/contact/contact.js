@@ -11,18 +11,45 @@ app.controller('map', function($scope) {
   });
 });
 
-app.controller('contactForm', function($scope, tokkoApi) {
-  $scope.send = () => {
-    const data = {
-      name: $scope.name,
-      email: $scope.email,
-      phone: $scope.phone,
-      text: $scope.message,
-    }
-    tokkoApi.insert('webcontact', data, (response) => {
-      if (response.result=='success') {
-        alert('Mensaje enviado correctamente');
+app.controller('contactForm', function($rootScope, $scope, tokkoApi) {
+  $rootScope.activeMenu = 'contactUs';
+  $scope.submitText = 'Enviar';
+  $scope.sending = false;
+  $scope.success = false;
+  $scope.error = false;
+  $scope.send = function () {
+    if ($scope.name || $scope.email) {
+      $scope.submitText = 'Enviando';
+      $scope.sending = true;
+      const data = {
+        name: $scope.name,
+        email: $scope.email,
+        phone: $scope.phone,
+        text: $scope.message,
       }
-    });
+      tokkoApi.insert('webcontact', data, function (response) {
+        if (response.result=='success') {
+          $scope.sending = false;
+          $scope.submitText = 'Enviar';
+          $scope.success = true;
+          $scope.name = '';
+          $scope.email = '';
+          $scope.phone = '';
+          $scope.message = '';
+          setTimeout(function(){
+            $scope.success = false;
+            $scope.$apply()
+          },3000);
+          $scope.$apply();
+        } else {
+          $scope.error = true;
+          $scope.$apply();
+          setTimeout(function(){
+            $scope.error = false;
+            $scope.$apply()
+          },3000);
+        }
+      });
+    }
   };
 });

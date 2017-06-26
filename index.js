@@ -15,6 +15,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: '/contactUs',
     templateUrl: '/views/contact/contact.html'
   });
+  $stateProvider.state('property', {
+    url: '/property/:propertyId',
+    templateUrl: '/views/property/property.html'
+  });
 });
 
 app.controller('global', function($scope) {

@@ -53,7 +53,8 @@ const applyFilters = ($scope) => {
   }
 }
 
-app.controller('listing', function($scope, tokkoApi, $stateParams){
+app.controller('listing', function($rootScope, $scope, tokkoApi, $stateParams){
+  $rootScope.activeMenu = '';
   $scope.results = [];
   $scope.locations = [];
   $scope.filteredResults = [];

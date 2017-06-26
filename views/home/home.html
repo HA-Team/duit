@@ -87,50 +87,41 @@
   <!-- Content -->
   <div class="container">
     <div class="row">
-
       <div class="col-md-4 col-sm-6">
         <!-- Icon Box -->
         <div class="icon-box-1">
-
           <div class="icon-container">
             <i class="im im-icon-Office"></i>
             <div class="icon-links">
-              <a href="listings-grid-standard-with-sidebar.html">Contactános</a>
+              <a ui-sref="contactUs">Contactános</a>
             </div>
           </div>
-
           <h3>Te asesoramos</h3>
           <p>Aliquam dictum elit vitae mauris facilisis, at dictum urna dignissim donec vel lectus vel felis.</p>
         </div>
       </div>
-
       <div class="col-md-4 col-sm-6">
         <!-- Icon Box -->
         <div class="icon-box-1">
-
           <div class="icon-container">
             <i class="im im-icon-Home-2"></i>
             <div class="icon-links">
-              <a href="listings-grid-standard-with-sidebar.html">Contactános</a>
+              <a ui-sref="contactUs">Contactános</a>
             </div>
           </div>
-
           <h3>Valuamos tu casa</h3>
           <p>Aliquam dictum elit vitae mauris facilisis, at dictum urna dignissim donec vel lectus vel felis.</p>
         </div>
       </div>
-
       <div class="col-md-4 col-sm-6">
         <!-- Icon Box -->
         <div class="icon-box-1">
-
           <div class="icon-container">
-            <i class="im im-icon-Car-3"></i>
+            <i class="im im-icon-Building"></i>
             <div class="icon-links">
-              <a href="listings-grid-standard-with-sidebar.html">Mas info</a>
+              <a ui-sref="contactUs">Mas info</a>
             </div>
           </div>
-
           <h3>Emprendimientos</h3>
           <p>Aliquam dictum elit vitae mauris facilisis, at dictum urna dignissim donec vel lectus vel felis.</p>
         </div>
@@ -193,7 +184,7 @@
               </div>
 
               <div class="listing-img-content">
-                <span class="listing-compact-title">{{p.address}} <i>{{p.currency}} {{p.price}}</i></span>
+                <span class="listing-compact-title">{{p.title}} <i>{{p.currency}} {{p.price}}</i></span>
 
                 <ul class="listing-hidden-content">
                   <li>Superficie <span>{{p.area}} M2</span></li>

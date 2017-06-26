@@ -1,0 +1,175 @@
+<div ng-controller="property">
+<div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="apiReady"></div>
+<div id="titlebar" class="property-titlebar margin-bottom-0" ng-show="apiReady">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        
+        <a href="listings-list-with-sidebar.html" class="back-to-listings"></a>
+        <div class="property-title">
+          <h2>{{p.prop.publication_title}} <span class="property-badge">{{p.operation_type}}</span></h2>
+          <span>
+            <a href="#location" class="listing-address">
+              <i class="fa fa-map-marker"></i>
+              {{p.prop.address}}
+            </a>
+          </span>
+        </div>
+        <div class="property-pricing">
+          <div>{{p.currency}} {{p.price}}</div>
+          <div class="sub-price">ID: {{p.prop.reference_code}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Slider -->
+<div class="fullwidth-property-slider margin-bottom-50" ng-show="apiReady">
+  <a ng-repeat="i in p.prop.photos"  data-background-image="{{i.image}}" class="item mfp-gallery"></a>
+</div>
+<div class="container" ng-show="apiReady">
+  <div class="row">
+    <!-- Property Description -->
+    <div class="col-lg-8 col-md-7">
+      <div class="property-description">
+        <!-- Main Features -->
+        <ul class="property-main-features">
+          <li>Superficie <span>{{p.prop.roofed_surface}} M2</span></li>
+          <li>Habitaciones <span>{{p.rooms}}</span></li>
+          <li>Baños <span>{{p.baths}}</span></li>
+          <li>Cocheras <span>{{p.parking_lot_amount}}</span></li>
+        </ul>
+        <!-- Description -->
+        <h3 class="desc-headline">Descripción</h3>
+        <div class="show-more">
+          <p>{{p.prop.description}}</p>
+          <a href="#" class="show-more-button">Mostrar Más <i class="fa fa-angle-down"></i></a>
+        </div>
+        <!-- Features -->
+        <h3 class="desc-headline">Características</h3>
+        <ul class="property-features checkboxes margin-top-0">
+          <li ng-repeat="tag in p.prop.tags">{{tag.name}}</li>
+        </ul>
+        <!-- Location -->
+        <h3 class="desc-headline no-border" id="location">Ubicación</h3>
+        <div id="propertyMap-container">
+          <div id="propertyMap"></div>
+          <!-- <a href="#" id="streetView">Street View</a> -->
+        </div>
+      </div>
+    </div>
+    <!-- Property Description / End -->
+    <!-- Sidebar -->
+    <div class="col-lg-4 col-md-5">
+      <div class="sidebar sticky right">
+        <!-- Widget -->
+        <div class="widget margin-bottom-30">
+          <button class="widget-button"><i class="sl sl-icon-printer"></i> Imprimir</button>
+          <!-- <button class="widget-button save" data-save-title="Save" data-saved-title="Saved"><span class="like-icon"></span></button> -->
+        </div>
+        <!-- Widget / End -->
+        <!-- Widget -->
+        <div class="widget" ng-controller="propContactForm">
+          <!-- Agent Widget -->
+          <div class="agent-widget">
+            <div class="agent-title">
+              <div class="agent-photo"><img src="{{p.prop.producer.picture[0]}}" alt="" /></div>
+              <div class="agent-details">
+                <h4>{{p.prop.producer.name}}</h4>
+                <span><i class="sl sl-icon-call-in"></i>{{p.prop.producer.phone}}</span>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <input type="text" placeholder="Tu Email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" ng-model="email">
+            <input type="text" placeholder="Tu Teléfono" ng-model="phone">
+            <textarea ng-model="message"></textarea>
+            <div class="notification success closeable col-md-12" ng-show="success">
+              <p>Mensaje enviado con éxito.</p>
+            </div>
+            <button class="button fullwidth margin-top-5" ng-click="send()">{{submitText}} <i class='fa fa-spinner fa-spin' ng-show="sending"></i></button>
+          </div>
+          <!-- Agent Widget / End -->
+        </div>
+        <!-- Widget / End -->
+        <div class="widget">
+          <h3 class="margin-bottom-35">Destacados</h3>
+          <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="featReady"></div>
+          <div class="listing-carousel outer" ng-show="apiReady">
+            <!-- Item -->
+            <div class="item" ng-repeat="p in featured">
+              <div class="listing-item compact">
+                <a ui-sref="property({propertyId: p.id})" class="listing-img-container">
+                  <div class="listing-badges">
+                    <span class="featured">Destacado</span>
+                    <span>{{p.type}}</span>
+                  </div>
+                  <div class="listing-img-content">
+                    <span class="listing-compact-title">{{p.prop.publication_title}} <i>{{p.currency}} {{p.price}}</i></span>
+                    <ul class="listing-hidden-content">
+                      <li>Superficie <span>{{p.prop.roofed_surface}} M2</span></li>
+                      <li><i class="fa fa-bed"></i> <span>{{p.prop.rooms_amount}}</span></li>
+                      <li><i class="fa fa-bathtub"></i> <span>{{p.prop.bathroom_amount}}</span></li>
+                      <li><i class="fa fa-car"></i> <span>{{p.parking_lot_amount}}</span></li>
+                    </ul>
+                  </div>
+                  <img src="{{p.cover_photo}}" alt="">
+                </a>
+              </div>
+            </div>
+            <!-- Item / End -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- Sidebar / End -->
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <!-- Similar Listings Container -->
+      <h3 class="desc-headline no-border margin-bottom-35 margin-top-60">Propiedades Similares</h3>
+      <!-- Layout Switcher -->
+      <div class="layout-switcher hidden"><a href="#" class="list"><i class="fa fa-th-list"></i></a></div>
+      <div class="listings-container list-layout">
+      <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="simReady"></div>
+        <!-- Listing Item -->
+        <div class="listing-item" ng-repeat="p in similar">
+          <a ui-sref="property({propertyId: p.id})" class="listing-img-container">
+            <div class="listing-badges">
+              <span>{{p.type}}</span>
+            </div>
+            <div class="listing-img-content">
+              <span class="listing-price">{{p.currency}} {{p.price}}</span>
+              <span class="like-icon"></span>
+            </div>
+            <img src="{{p.cover_photo}}" alt="">
+          </a>
+          <div class="listing-content">
+            <div class="listing-title">
+              <h4><a ui-sref="property({propertyId: p.id})">{{p.prop.publication_title}}</a></h4>
+              <a ui-sref="property({propertyId: p.id})">
+                <i class="fa fa-map-marker"></i>
+                {{p.prop.address}}
+              </a>
+              <a ui-sref="property({propertyId: p.id})" class="details button border">Detalles</a>
+            </div>
+            <ul class="listing-details">
+              <li>{{p.prop.roofed_surface}} M2</li>
+              <li><i class="fa fa-bed"></i> <span>{{p.room_amount}}</span></li>
+              <li><i class="fa fa-bathtub"></i> <span>{{p.bathroom_amount}}</span></li>
+              <li><i class="fa fa-car"></i> <span>{{p.prop.parking_lot_amount}}</span></li>
+            </ul>
+            <div class="listing-footer">
+              <a ui-sref="property({propertyId: p.id})"><i class="fa fa-user"></i> {{p.prop.producer.name}}</a>
+              <!-- <span><i class="fa fa-calendar-o"></i> 4 days ago</span> -->
+            </div>
+          </div>
+          <!-- Listing Item / End -->
+        </div>
+        <!-- Listing Item / End -->
+      </div>
+      <!-- Similar Listings Container / End -->
+    </div>
+  </div>
+</div>
+</div>

@@ -55,15 +55,15 @@
     <nav id="navigation" class="style-2" ng-controller="navigation">
       <div class="container">
           <ul id="responsive">
-
-            <li><a class="current" href="#!" >Home</a></li>
+            
+            <li><a ng-click="setActive('home')" ng-class="{'current' : activeMenu === 'home'}" ui-sref="home">Home</a></li>
 
             <!-- <li><a href="#nosotros" >Nosotros</a></li> -->
 
-            <li><a href="#" >Asesores</a>
+            <li><a ng-click="setActive('sellers')" ng-class="{'current' : activeMenu === 'sellers'}" ui-sref="sellers" >Asesores</a>
             </li>
 
-            <li><a href="#!contactUs" ">Contacto</a>
+            <li><a ng-click="setActive('contactUs')" ng-class="{'current' : activeMenu === 'contactUs'}" ui-sref="contactUs">Contacto</a>
             </li>
 
           </ul>

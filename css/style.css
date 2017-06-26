@@ -79,6 +79,10 @@
 /*  02. Layout Components
 ---------------------------------------------------------------------- */
 
+.container.ng-scope {
+	margin-bottom: 55px;
+}
+
 /* ---------------------------------- */
 /* Ux
 ------------------------------------- */
@@ -3177,7 +3181,7 @@ section.fullwidth.border-bottom { border-bottom: 1px solid #e4e4e4;}
 }
 
 .agent-widget h4 {
-	color: #333;
+	color: #c8001e;
 	margin: 0px 0 6px 0;
 }
 
