@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-md-12">
         
-        <a href="listings-list-with-sidebar.html" class="back-to-listings"></a>
+        <a onclick="window.history.back()" class="back-to-listings"></a>
         <div class="property-title">
           <h2>{{p.prop.publication_title}} <span class="property-badge">{{p.operation_type}}</span></h2>
           <span>
@@ -39,12 +39,6 @@
           <li>Baños <span>{{p.baths}}</span></li>
           <li>Cocheras <span>{{p.parking_lot_amount}}</span></li>
         </ul>
-        <!-- Description -->
-        <h3 class="desc-headline">Descripción</h3>
-        <div class="show-more">
-          <p>{{p.prop.description}}</p>
-          <a href="#" class="show-more-button">Mostrar Más <i class="fa fa-angle-down"></i></a>
-        </div>
         <!-- Features -->
         <h3 class="desc-headline">Características</h3>
         <ul class="property-features checkboxes margin-top-0">
@@ -55,6 +49,12 @@
         <div id="propertyMap-container">
           <div id="propertyMap"></div>
           <!-- <a href="#" id="streetView">Street View</a> -->
+        </div>
+        <!-- Description -->
+        <h3 class="desc-headline">Descripción</h3>
+        <div class="show-more">
+          <p>{{p.prop.description}}</p>
+          <a href="#" class="show-more-button">Mostrar Más <i class="fa fa-angle-down"></i></a>
         </div>
       </div>
     </div>

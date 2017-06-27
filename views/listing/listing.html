@@ -40,7 +40,7 @@
         <!-- Row With Forms / End -->
         <!-- Row With Forms -->
         <div class="row with-forms">
-        <fieldset ng-show="ifResults(false)">
+        <fieldset ng-show="ifResults">
           <legend>Filtros</legend>
           <!-- Min Price -->
           <div class="col-md-3">
@@ -92,7 +92,7 @@
 ================================================== -->
 <div class="container" >
   <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="apiReady"></div>
-  <div class="row fullwidth-layout" ng-show="ifResults(true)">
+  <div class="row fullwidth-layout" ng-show="ifResults">
 
     <div class="col-md-12">
 
@@ -101,7 +101,7 @@
 
         <div class="col-md-6">
           <!-- Sort by -->
-          <div class="sort-by">
+          <!-- <div class="sort-by">
             <label>Ordenar por:</label>
 
             <div class="sort-by-select">
@@ -111,7 +111,7 @@
                 <option>Más Recientes</option>
               </select>
             </div>
-          </div>
+          </div> -->
         </div>
 
         <div class="col-md-6">
@@ -128,7 +128,7 @@
         <!-- Listing Item -->
         <div class="listing-item" ng-repeat="p in filteredResults">
 
-          <a ui-sref="property({propertyId: p.id})" class="listing-img-container">
+          <a class="listing-img-container">
 
             <div class="listing-badges">
               <!-- <span class="featured">Featured</span> -->
@@ -201,9 +201,9 @@
       <!-- Pagination / End -->
     </div>
   </div>
-  <div class="row fullwidth-layout text-center no-results" ng-hide="ifResults(true)">
+  <div class="row fullwidth-layout text-center no-results" ng-hide="ifResults">
     <i class="fa fa-5x fa-frown-o"></i>
-    <h3>¡Ups! No hay nada aquí. ¡<a href="!#contactUs">Contactános</a> para ver mas opciones!</h3>
+    <h3>¡Ups! No hay nada aquí. ¡<a href="#!/contactUs">Contactános</a> para ver mas opciones!</h3>
   </div> 
 </div>
 </div>

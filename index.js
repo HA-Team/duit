@@ -4,12 +4,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
   $stateProvider.state('home', {
     url: '/',
-    templateUrl: '/views/home/home.html'
+    templateUrl: '/views/home/home.html',
   });
   $stateProvider.state('propertySearch', {
-    url: '/propertySearch',
+    url: '/propertySearch?args',
     templateUrl: '/views/listing/listing.html',
-    params: {args: null},
+    // params: {args: null},
   });
   $stateProvider.state('contactUs', {
     url: '/contactUs',
@@ -18,6 +18,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('property', {
     url: '/property/:propertyId',
     templateUrl: '/views/property/property.html'
+  });
+  $stateProvider.state('agents', {
+    url: '/agents',
+    templateUrl: '/views/agents/agents.html'
   });
 });
 

@@ -93,6 +93,11 @@
 	color: #c8001e;
 }
 
+.byha {
+  width: 67px;
+  float: right;
+}
+
 /* ---------------------------------- */
 /* Topbar
 ------------------------------------- */
@@ -1704,7 +1709,7 @@ input.second-slider-value {
     background-repeat: no-repeat;
     background-position: 50% 50%;
     position: relative;
-    z-index: 99;
+    // z-index: 99;
 }
 
 /* fullscreen setup */
@@ -1740,7 +1745,7 @@ input.second-slider-value {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	z-index: 101;
+	// z-index: 101;
 	background-color: #333;
 	opacity: 0.4;
 }

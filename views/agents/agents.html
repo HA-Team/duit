@@ -1,0 +1,55 @@
+<!-- Titlebar
+================================================== -->
+<div id="titlebar">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Asesores</h2>
+        <span>Conocé a nuestro equipo.</span>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Content
+================================================== -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <!-- Agents Container -->
+        <div class="agents-grid-container" ng-controller="agents">
+          <!-- Agent -->
+          <div class="grid-item col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="a in agents">
+            <div class="agent">
+              <div class="agent-avatar">
+                <!-- <a href="agent-page.html"> -->
+                  <img src="{{a.pic}}" alt="">
+                  <!-- <span class="view-profile-btn">View Profile</span> -->
+                <!-- </a> -->
+              </div>
+              <div class="agent-content">
+                <div class="agent-name">
+                  <h4><a href="agent-page.html">{{a.name}}</a></h4>
+                  <span>{{a.position}}</span>
+                </div>
+                <ul class="agent-contact-details">
+                  <li><i class="sl sl-icon-call-in"></i>{{a.phone}}</li>
+                  <li><i class="fa fa-envelope-o "></i><a href="mailto:{{a.email}}">{{a.email}}</a></li>
+                </ul>
+                <ul class="social-icons">
+                  <li ng-show="a.facebook"><a class="facebook" href="{{a.facebook}}" target="blank"><i class="icon-facebook"></i></a></li>
+                  <li ng-show="a.twitter"><a class="twitter" href="{{a.twitter}}" target="blank"><i class="icon-twitter"></i></a></li>
+                  <li ng-show="a.instagram"><a class="instagram" href="{{a.gplus}}" target="blank"><i class="icon-instagram"></i></a></li>
+                  <li ng-show="a.linkedin"><a class="linkedin" href="{{a.linkedin}}" target="blank"><i class="icon-linkedin"></i></a></li>
+                </ul>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Agent / End -->
+        </div>
+        <!-- Agents Container / End -->
+      </div>
+    </div>
+  </div>
+</div>

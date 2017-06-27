@@ -33,6 +33,7 @@
     <!-- Angular Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script type="text/javascript" src="/scripts/angular-ui-router.min.js"></script>
+    <!-- <script type="text/javascript" src="/scripts/ui-router-styles.js"></script> -->
     <script type="text/javascript" src="index.js"></script>
     <!-- End Angular Scripts -->
 
@@ -49,11 +50,13 @@
     <script defer type="text/javascript" src="/views/listing/listing.js"></script>
     <script defer type="text/javascript" src="/views/property/property.js"></script>
     <script defer type="text/javascript" src="/views/contact/contact.js"></script>
+    <script defer type="text/javascript" src="/views/agents/agents.js"></script>
+    <script defer type="text/javascript" src="/data/agents.js"></script>
     <!-- End views Scripts -->
   </head>
   <body>
     <!-- Wrapper -->
-    <div id='wrapper' ng-app='duit' ng-controller="global">
+    <div id='wrapper' ng-app='duit' ui-router-styles ng-controller="global">
       <!-- Header Container
       ================================================== -->
       <div ng-include="'/views/common/header.html'"></div>

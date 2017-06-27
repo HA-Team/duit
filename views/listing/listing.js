@@ -1,6 +1,7 @@
-const getProperties = ($scope, tokkoApi, params) => {
+const getProperties = ($scope, tokkoApi, args) => {
   $scope.apiReady = false;
-  const args = {data: params.args.data, order: params.args.order}
+  $scope.ifResults = true;
+  args = {data: args.data, order: args.order}
   tokkoApi.find('property/search', args, function(result){
     let props = [];
     let locations = [{id:0, name:'Todos'}];
@@ -30,6 +31,7 @@ const getProperties = ($scope, tokkoApi, params) => {
         locations.push(loc);
       }
     });
+    props.length > 0 ? $scope.ifResults = true : $scope.ifResults = false;
     $scope.results = props;
     $scope.filteredResults = props;
     $scope.locations = locations;
@@ -53,31 +55,27 @@ const applyFilters = ($scope) => {
   }
 }
 
-app.controller('listing', function($rootScope, $scope, tokkoApi, $stateParams){
+app.controller('listing', function($rootScope, $scope, tokkoApi, $stateParams, $state){
   $rootScope.activeMenu = '';
   $scope.results = [];
   $scope.locations = [];
   $scope.filteredResults = [];
   $scope.apiReady = true;
+  $scope.ifResults = false;
   $scope.subTypes = propertiesSubTypes;
-  $scope.ifResults = (filtered) => {
-    if (filtered) {
-      return $scope.filteredResults.length > 0 && $scope.apiReady;
-    } else {return $scope.results.length > 0 && $scope.apiReady;}
-  }
-  if ($stateParams.args) {
-    $scope.operationType = JSON.parse($stateParams.args.data).operation_types[0];
-    $scope.propertyType = JSON.parse($stateParams.args.data).property_types[0];
-    $scope.subTypeSelected = JSON.parse($stateParams.args.data).with_custom_tags[0];
-    getProperties($scope, tokkoApi, $stateParams);
-  } else {$scope.showWelcome = true}
+  let args = JSON.parse($stateParams.args);
+  $scope.operationType = JSON.parse(args.data).operation_types[0];
+  $scope.propertyType = JSON.parse(args.data).property_types[0];
+  $scope.subTypeSelected = JSON.parse(args.data).with_custom_tags[0];
+  getProperties($scope, tokkoApi, args);
   $scope.find = () => {
     let data = tokkoSearchArgs.data;
     data.operation_types = [$scope.operationType];
     data.property_types = [$scope.propertyType];
     data.with_custom_tags = [$scope.subTypeSelected.id];
-    const args = {data: JSON.stringify(data), order: 'desc'};
-    getProperties($scope, tokkoApi, {args: args});
+    let args = {data: JSON.stringify(data), order: 'desc'};
+    // getProperties($scope, tokkoApi, {args: args});
+    $state.go('propertySearch', {args: JSON.stringify(args)});
   }
   setTimeout(() => {
     uiFunctions.buildChosen();
@@ -90,10 +88,11 @@ app.controller('listing', function($rootScope, $scope, tokkoApi, $stateParams){
   $scope.filter = () => {
     $scope.filteredResults = $scope.results.filter(applyFilters($scope)['filters']);
     if($scope.filteredResults.length > 0) {
+      $scope.ifResults = true;
       setTimeout(() => {
         uiFunctions.buildCarousel();
         uiFunctions.gridSwitcher();
       }, 0)
-    }
+    } else {$scope.ifResults = false}
   }
 });

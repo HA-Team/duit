@@ -54,7 +54,7 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
     data.with_custom_tags = [$scope.subTypeSelected.id];
     const args = {data: JSON.stringify(data), order: 'desc'};
     // console.log(args);
-    $state.go('propertySearch', {args: args});
+    $state.go('propertySearch', {args: JSON.stringify(args)});
     // $http.post("/propertySearch/",$httpParamSerializer(args));
     // $location.path("/propertySearch/"+{data: JSON.stringify(data), order: 'desc'});
   }
