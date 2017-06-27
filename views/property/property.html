@@ -37,7 +37,7 @@
           <li>Superficie <span>{{p.prop.roofed_surface}} M2</span></li>
           <li>Habitaciones <span>{{p.rooms}}</span></li>
           <li>Baños <span>{{p.baths}}</span></li>
-          <li>Cocheras <span>{{p.parking_lot_amount}}</span></li>
+          <li>Cocheras <span>{{p.parkings}}</span></li>
         </ul>
         <!-- Features -->
         <h3 class="desc-headline">Características</h3>
@@ -107,9 +107,9 @@
                     <span class="listing-compact-title">{{p.prop.publication_title}} <i>{{p.currency}} {{p.price}}</i></span>
                     <ul class="listing-hidden-content">
                       <li>Superficie <span>{{p.prop.roofed_surface}} M2</span></li>
-                      <li><i class="fa fa-bed"></i> <span>{{p.prop.rooms_amount}}</span></li>
+                      <li><i class="fa fa-bed"></i> <span>{{p.prop.room_amount}}</span></li>
                       <li><i class="fa fa-bathtub"></i> <span>{{p.prop.bathroom_amount}}</span></li>
-                      <li><i class="fa fa-car"></i> <span>{{p.parking_lot_amount}}</span></li>
+                      <li><i class="fa fa-car"></i> <span>{{p.parkings}}</span></li>
                     </ul>
                   </div>
                   <img src="{{p.cover_photo}}" alt="">
@@ -155,9 +155,9 @@
             </div>
             <ul class="listing-details">
               <li>{{p.prop.roofed_surface}} M2</li>
-              <li><i class="fa fa-bed"></i> <span>{{p.room_amount}}</span></li>
-              <li><i class="fa fa-bathtub"></i> <span>{{p.bathroom_amount}}</span></li>
-              <li><i class="fa fa-car"></i> <span>{{p.prop.parking_lot_amount}}</span></li>
+              <li><i class="fa fa-bed"></i> <span>{{p.prop.room_amount}}</span></li>
+              <li><i class="fa fa-bathtub"></i> <span>{{p.prop.bathroom_amount}}</span></li>
+              <li><i class="fa fa-car"></i> <span>{{p.parkings}}</span></li>
             </ul>
             <div class="listing-footer">
               <a ui-sref="property({propertyId: p.id})"><i class="fa fa-user"></i> {{p.prop.producer.name}}</a>

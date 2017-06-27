@@ -17,7 +17,7 @@ const getProperties = ($scope, tokkoApi, args) => {
         price: p.operations[p.operations.length-1].prices.slice(-1)[0].price,
         rooms: p.room_amount ? p.room_amount : 0,
         baths: p.bathroom_amount ? p.bathroom_amount : 0,
-        parkings: p.parking_lot_amount,
+        parkings: p.parking_lot_amount ? p.parking_lot_amount : 0,
         // Not working yet because there is props without front cover photo asigned
         //cover_photo: p.photos.map(function(p){if(p.is_front_cover){return p.thumb}})[0],
         // Instead we take the first photo as cover.

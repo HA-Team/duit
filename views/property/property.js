@@ -13,6 +13,7 @@ const getFeatured = (scope, tokkoApi) => {
         currency: p.operations[p.operations.length-1].prices.slice(-1)[0].currency,
         price: p.operations[p.operations.length-1].prices.slice(-1)[0].price,
         cover_photo: p.photos[0].thumb,
+        parkings: p.parking_lot_amount ? p.parking_lot_amount : 0,
         prop: p
       })
     });
@@ -43,6 +44,7 @@ const getSimilar = (scope, tokkoApi) => {
         currency: p.operations[p.operations.length-1].prices.slice(-1)[0].currency,
         price: p.operations[p.operations.length-1].prices.slice(-1)[0].price,
         cover_photo: p.photos[0].thumb,
+        parkings: p.parking_lot_amount ? p.parking_lot_amount : 0,
         prop: p
       })
     });
@@ -65,6 +67,7 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
       rooms: result.room_amount ? result.room_amount : 0,
       baths: result.bathroom_amount ? result.bathroom_amount : 0,
       cover_photo: result.photos[0].thumb,
+      parkings: result.parking_lot_amount ? result.parking_lot_amount : 0,
       prop: result,
     };
     let myLatLng = {lat: parseFloat($scope.p.prop.geo_lat), lng: parseFloat($scope.p.prop.geo_long)};

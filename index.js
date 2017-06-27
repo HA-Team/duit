@@ -23,6 +23,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: '/agents',
     templateUrl: '/views/agents/agents.html'
   });
+  $stateProvider.state('developments', {
+    url: '/developments',
+    templateUrl: '/views/home/home.html'
+  });
 });
 
 app.controller('global', function($scope) {
