@@ -21,21 +21,21 @@ const agents = [{
 }, {
   name: 'Daniel Ganim',
   position: 'Asesor',
-  phone: '3513102556',
+  phone: '(351) 5647780',
   email: 'danielganim@duitpropiedades.com.ar',
   facebook: '',
-  twitter: 's',
+  twitter: '',
   linkedin: '',
   instagram: '',
   pic: '/images/team/daniel-ganim-profile.jpg'
 }, {
   name: 'Fernando Gavier',
   position: 'Asesor',
-  phone: '3513102556',
+  phone: '(0351) 155145491',
   email: 'fgavier@duitpropiedades.com.ar',
-  facebook: '',
-  twitter: '',
-  linkedin: 's',
+  facebook: 'https://www.facebook.com/fngavier',
+  twitter: 'https://twitter.com/fngavier',
+  linkedin: '',
   instagram: '',
   pic: '/images/team/fernando-gavier-profile.jpg'
 }, {
@@ -46,17 +46,17 @@ const agents = [{
   facebook: '',
   twitter: '',
   linkedin: '',
-  instagram: 's',
+  instagram: '',
   pic: '/images/team/hugo-miranda-profile.jpg'
 }, {
   name: 'Severo Sosa',
   position: 'Asesor',
-  phone: '3513102556',
+  phone: '(351) 5648467',
   email: 'severo@duitpropiedades.com.ar',
-  facebook: '',
-  twitter: '',
-  linkedin: '',
-  instagram: '',
+  facebook: 'https://www.facebook.com/sapo.sosa',
+  twitter: 'https://twitter.com/severososa',
+  linkedin: 'https://www.linkedin.com/in/severo-sosa-barreneche-590a3b1b/',
+  instagram: 'http://www.instagram.com/sapososa/',
   pic: '/images/team/severo-sosa-profile.jpg'
 }, {
   name: 'Teresita Sciortino',
