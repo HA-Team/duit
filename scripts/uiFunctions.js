@@ -132,6 +132,7 @@ const uiFunctions = (function () {
           var attrImage = $(this).attr('data-background');
           var attrColor = $(this).attr('data-color');
           var attrOpacity = $(this).attr('data-color-opacity');
+          var attrZindex = $(this).attr('data-z-index');
           if(attrImage !== undefined) {
             $(this).css('background-image', 'url('+attrImage+')');
           }
@@ -140,6 +141,9 @@ const uiFunctions = (function () {
           }
           if(attrOpacity !== undefined) {
             $(this).find(".parallax-overlay").css('opacity', ''+attrOpacity+'');
+          }
+          if(attrZindex !== undefined) {
+            $(this).css('z-index', ''+attrZindex+'');
           }
         });
       };

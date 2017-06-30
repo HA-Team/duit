@@ -74,7 +74,6 @@
 @import url("http://fonts.googleapis.com/css?family=Varela+Round");
 @import url("../views/listing/listing.css");
 
-
 /* ------------------------------------------------------------------- */
 /*  02. Layout Components
 ---------------------------------------------------------------------- */
@@ -1233,6 +1232,7 @@ body .search-container button:before {
 	margin: 0 auto;
 	position: relative;
 	margin-top: 35px;
+	text-align: center;
 }
 
 .main-search-box {
@@ -1242,6 +1242,7 @@ body .search-container button:before {
 	padding-bottom: 20px;
 	margin-top: -9px;
 	border-radius: 3px;
+	text-align: left
 }
 
 .main-search-box.no-shadow {
@@ -1256,6 +1257,7 @@ body .search-container button:before {
 	display: inline-block;
 	padding-bottom: 35px;
 	position: relative;
+	text-align: center;
 }
 
 .search-type input[type="radio"] { display: none; }
@@ -1709,7 +1711,7 @@ input.second-slider-value {
     background-repeat: no-repeat;
     background-position: 50% 50%;
     position: relative;
-    // z-index: 99;
+    // z-index: 9;
 }
 
 /* fullscreen setup */
@@ -9890,6 +9892,13 @@ body .counter-boxes-inside-parallax .counter-box-icon i,
 /* Standard 1180 (devices and browsers) */
 @media only screen and (min-width: 1240px) {
 	/* styles here */
+}
+
+@media only screen and (max-width: 1370px) and (min-width: 1024px)  {
+  body {
+    zoom: 0.8;
+    zoom: 80%;
+  }
 }
 
 /* Smaller than standard 1180 (devices and browsers) */
