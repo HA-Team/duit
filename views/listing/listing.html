@@ -1,117 +1,116 @@
 <div ng-controller="listing" id="listing">
-<!-- Search
-================================================== -->
-<section class="search margin-bottom-50" >
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <!-- Form -->
-      <div class="main-search-box no-shadow">
-        <!-- Row With Forms -->
-        <div class="row with-forms">
-          <!-- Operation -->
-          <div class="col-md-3">
-            <select data-placeholder="Operación" class="chosen-select-no-single" ng-model="operationType">
-              <option value="1">Venta</option>
-              <option value="2">Alquiler</option>
-            </select>
-          </div>
-          <!-- Property Type -->
-          <div class="col-md-3">
-            <select data-placeholder="Tipo" class="chosen-select-no-single" ng-model="propertyType" ng-change="updateChosen()">
-              <option value="3">Casa</option> 
-              <option value="2">Departamento</option>
-              <option value="7">Local</option>
-              <option value="5">Oficina</option>
-              <option value="1">Terreno</option>
-              <option value="10">Cochera</option>
-              <option value="14">Depósito</option>
-            </select>
-          </div>
-          <!-- Condition -->
-          <div class="col-md-3">
-            <select data-placeholder="Condición" class="chosen-select-no-single" ng-model="subTypeSelected" ng-options="st.name for st in subTypes[propertyType] track by st.id" ng-init="subTypeSelected = subTypes[propertyType]">
-            </select>
-          </div>
-          <div class="col-md-3">
-            <button class="button search" ng-click="find()">Buscar</button>
-          </div>
-        </div>
-        <!-- Row With Forms / End -->
-        <!-- Row With Forms -->
-        <div class="row with-forms">
-        <fieldset ng-show="ifResults">
-          <legend>Filtros</legend>
-          <!-- Min Price -->
-          <div class="col-md-3">
-            <!-- Select Input -->
-            <div class="select-input disabled-first-option">
-              <input type="text" placeholder="Min Price" data-unit="USD" ng-model="minPrice" ng-model-options='{ debounce: 1000 }' ng-change="filter()">
-            </div>
-            <!-- Select Input / End -->
-          </div>
-          <!-- Max Price -->
-          <div class="col-md-3">
-            <!-- Select Input -->
-            <div class="select-input disabled-first-option">
-              <input type="text" placeholder="Max Price" data-unit="USD" ng-model="maxPrice" ng-model-options='{ debounce: 1000 }' ng-change="filter()">
-            </div>
-            <!-- Select Input / End -->
-          </div>
-          <!-- Location -->
-          <div class="col-md-3">
-            <select data-placeholder="Ciudad/Barrio" class="chosen-select-no-single" ng-model="location" ng-options="l.name for l in locations track by l.id" ng-change="filter()">
-            </select>
-          </div>
-          <!-- Rooms -->
-          <div class="col-md-3">
-            <select data-placeholder="Dormitorios" class="chosen-select-no-single" ng-model="rooms" ng-change="filter()">
-              <option label="blank"></option>
-              <option value="0">Todos</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-            </select>
-          </div>
-        </fieldset>
-        </div>
-        <!-- Row With Forms / End -->
-      </div>
-      <!-- Box / End -->
-    </div>
-  </div>
-</div>
-</section>
-
-
-
 <!-- Content
 ================================================== -->
-<div class="container" >
-  <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="apiReady"></div>
-  <div class="row fullwidth-layout" ng-show="ifResults">
+<div class="container margin-top-50" >
+  <!-- <div class="row fullwidth-layout" ng-show="ifResults"> -->
 
-    <div class="col-md-12">
+  <!-- Sidebar
+    ================================================== -->
+    <div class="col-md-3 sidebar-col">
+      <div class="sidebar sticky right">
+        <!-- Widget -->
+        <div class="widget margin-bottom-40">
+          <h3 class="margin-top-0 margin-bottom-35">Filtrar búsqueda</h3>
+          <!-- Row -->
+          <div class="row with-forms">
+            <div class="col-md-12">
+              <label class="text-primary">Rango de precio</label>
+            </div>
+            <!-- Min Price -->
+            <div class="col-md-6">
+              <input type="text" placeholder="Min." data-unit="USD" ng-model="minPrice" ng-model-options='{ debounce: 1500 }' ng-change="find()">
+            </div>
+            <!-- Max Price -->
+            <div class="col-md-6">
+              <input type="text" placeholder="Max." data-unit="USD" ng-model="maxPrice" ng-model-options='{ debounce: 1500 }' ng-change="find()">
+            </div>
+          </div>
+          <div class="row with-forms">
+            <!-- Status -->
+            <div class="col-md-12">
+              <label class="text-primary">Operación</label>
+              <h4 class="badge badge-default" ng-if="sideBarParams.operations.length == 1" ng-repeat="o in sideBarParams.operations">
+                {{opName(o.operation_type)}} <span class="badge badge-danger" ng-click="changeFilter({type: 'o', val: [1,2]})"><i class="fa fa-times"></i></span>
+              </h4>
+              <h4 class="badge badge-info" ng-if="sideBarParams.operations.length > 1" ng-repeat="o in sideBarParams.operations"
+              ng-click="changeFilter({type: 'o', val: [o.id]})">
+                {{opName(o.operation_type)}} ({{o.count}})</i></span>
+              </h4>
+            </div>
+          </div>
+          <div class="row with-forms">
+            <!-- Type -->
+            <div class="col-md-12">
+              <label class="text-primary">Tipo</label> 
+                <h4 class="badge badge-default" ng-if="sideBarParams.types.length == 1" ng-repeat="t in sideBarParams.types">
+                  {{t.type}} <span class="badge badge-danger" ng-click="changeFilter({type: 't', val: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]})"><i class="fa fa-times"></i></span>
+                </h4>
+                <h4 class="badge badge-info" ng-if="sideBarParams.types.length > 1" ng-repeat="t in sideBarParams.types" ng-click="changeFilter({type: 't', val: [t.id]})">
+                  {{t.type}} ({{t.count}})</i></span>
+                </h4>
+            </div>
+          </div>
+          <div class="row with-forms" ng-if="sideBarParams.types.length == 1">
+            <div class="col-md-12">
+              <label class="text-primary">Condición</label>
+              <h4 class="badge badge-default" ng-if="sideBarParams.subTypes.length == 1" ng-repeat="st in sideBarParams.subTypes">
+                {{st.name}} <span class="badge badge-danger" ng-click="changeFilter({type: 'st', val: []})"><i class="fa fa-times"></i></span>
+              </h4>
+              <h4 class="badge badge-info" ng-if="sideBarParams.subTypes.length > 1" ng-repeat="st in sideBarParams.subTypes" ng-click="changeFilter({type: 'st', val: [st.id]})">
+                {{st.name}}</i></span>
+              </h4>
+            </div>
+          </div>
+          <div class="row with-forms">
+            <!-- Cities -->
+            <div class="col-md-12">
+              <label class="text-primary">Ciudad/Barrio</label>
+              <h4 class="badge badge-default" ng-if="sideBarParams.locations.length == 1" ng-repeat="l in sideBarParams.locations">
+                {{l.location_name}}<span class="badge badge-danger" ng-click="changeFilter({type: 'l', val: []})"><i class="fa fa-times"></i></span>
+              </h4>
+              <h4 class="badge badge-info" ng-if="sideBarParams.locations.length > 1" ng-repeat="l in sideBarParams.locations" ng-click="changeFilter({type: 'l', val: [l.location_id]})">
+                {{l.location_name}} ({{l.count}})</i></span>
+              </h4>
+            </div>
+          </div>
+          <div class="row with-forms">
+            <!-- Cities -->
+            <div class="col-md-12">
+              <label class="text-primary">Dormitorios</label>
+              <h4 class="badge badge-default" ng-if="sideBarParams.rooms.length == 1" ng-repeat="r in sideBarParams.rooms">
+                {{r.amount}} Dormitorios<span class="badge badge-danger" ng-click="changeFilter({type: 'r', val: []})"><i class="fa fa-times"></i></span>
+              </h4>
+              <h4 class="badge badge-info" ng-if="sideBarParams.rooms.length > 1" ng-repeat="r in sideBarParams.rooms" ng-click="changeFilter({type: 'r', val: ['room_amount', '=', r.amount.toString()]})">
+                {{r.amount}} Dormitorios ({{r.count}})</i></span>
+              </h4>
+            </div>
+          </div>
+          <!-- <button class="button fullwidth margin-top-30">Search</button> -->
+        </div>
+        <!-- Widget / End -->
+
+      </div>
+    </div>
+    <!-- Sidebar / End -->
+    <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="apiReady"></div>
+    <div class="col-md-9" ng-show="apiReady">
 
       <!-- Sorting / Layout Switcher -->
       <div class="row margin-bottom-15">
 
         <div class="col-md-6">
           <!-- Sort by -->
-          <!-- <div class="sort-by">
-            <label>Ordenar por:</label>
+          <div class="sort-by">
+            <label>{{resultsCount}} Propiedades encontradas</label>
 
-            <div class="sort-by-select">
+            <!-- <div class="sort-by-select">
               <select data-placeholder="Default order" class="chosen-select-no-single" > 
                 <option>Mayor Precio</option>
                 <option>Menor Precio</option>
                 <option>Más Recientes</option>
               </select>
-            </div>
-          </div> -->
+            </div> -->
+          </div>
         </div>
 
         <div class="col-md-6">
@@ -124,9 +123,9 @@
         </div>
       </div>
       <!-- Listings -->
-      <div class="listings-container grid-layout-three" >
+      <div class="listings-container grid-layout-three" infinite-scroll="loadMoreProps()" infinite-scroll-distance="2" infinite-scroll-immediate-check='false'>
         <!-- Listing Item -->
-        <div class="listing-item" ng-repeat="p in filteredResults">
+        <div class="listing-item " ng-repeat="p in results">
 
           <a class="listing-img-container">
 
@@ -179,26 +178,6 @@
       <!-- Listings Container / End -->
 
       <div class="clearfix"></div>
-      <!-- Pagination -->
-      <!-- <div class="pagination-container margin-top-20">
-        <nav class="pagination">
-          <ul>
-            <li><a href="#" class="current-page">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li class="blank">...</li>
-            <li><a href="#">22</a></li>
-          </ul>
-        </nav>
-
-        <nav class="pagination-next-prev">
-          <ul>
-            <li><a href="#" class="prev">Previous</a></li>
-            <li><a href="#" class="next">Next</a></li>
-          </ul>
-        </nav>
-      </div> -->
-      <!-- Pagination / End -->
     </div>
   </div>
   <div class="row fullwidth-layout text-center no-results" ng-hide="ifResults">

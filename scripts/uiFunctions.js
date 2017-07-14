@@ -21,8 +21,8 @@ const uiFunctions = (function () {
         autoPlay: false,
         navigation: true,
         slideSpeed: 600,
-        items : 4,
-        itemsDesktop : [1239,4],
+        items : 5,
+        itemsDesktop : [1239,3],
         itemsTablet : [991,2],
         itemsMobile : [767,1]
       });

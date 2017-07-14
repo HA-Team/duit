@@ -32,7 +32,11 @@ app.service('tokkoApi', function($http) {
         url += 'id=' + args + '&';
       };
       httpGetAsync(url+'key='+tokkoAuth.key+"&lang="+tokkoAuth.lang, function(response) {
-        callback(JSON.parse(response).objects);
+        if (endpoint === 'property/get_search_summary') {
+          callback(JSON.parse(response))
+        } else {
+          callback(JSON.parse(response).objects);
+        }
       });
     },
     findOne: function (endpoint, args, callback) {

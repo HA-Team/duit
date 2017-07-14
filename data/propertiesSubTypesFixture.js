@@ -1,9 +1,6 @@
 const propertiesSubTypes = {
   // Houses subtypes
   3: [{
-    id: 0,
-    name: 'Todos',
-  }, {
     id: 718,
     name: 'Barrios Abiertos',
   }, {
@@ -12,9 +9,6 @@ const propertiesSubTypes = {
   }],
   // Apartments subtypes
   2: [{
-    id: 0,
-    name: 'Todos',
-  }, {
     id: 673,
     name: 'A Estrenar',
   }, {
@@ -36,9 +30,6 @@ const propertiesSubTypes = {
   }],
   // Terreno
   1: [{
-    id: 0,
-    name: 'Todos',
-  }, {
     id: 720,
     name: 'Abiertos',
   }, {

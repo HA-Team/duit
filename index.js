@@ -1,4 +1,4 @@
-const app = angular.module('duit', ['ui.router']);
+const app = angular.module('duit', ['ui.router', 'infinite-scroll']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
@@ -9,7 +9,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('propertySearch', {
     url: '/propertySearch?args',
     templateUrl: '/views/listing/listing.html',
-    // params: {args: null},
+    reloadOnSearch: false,
   });
   $stateProvider.state('contactUs', {
     url: '/contactUs',

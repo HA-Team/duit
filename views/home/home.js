@@ -8,7 +8,7 @@ app.controller('featuredProps', function($scope, tokkoApi) {
   }, 0);
   $scope.featured = [];
   $scope.apiReady = false;
-  let data = tokkoSearchArgs.data;
+  let data = JSON.parse(_.clone(tokkoSearchArgs.sData));
   data.filters.push(["is_starred_on_web", "=", "true"]);
   const args = {data: JSON.stringify(data), order: 'desc'}
   tokkoApi.find('property/search', args, function(result){
@@ -48,12 +48,11 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
     }, 0);
   };
   $scope.find = () => {
-    let data = tokkoSearchArgs.data;
-    data.operation_types = [$scope.operationType];
-    data.property_types = [$scope.propertyType];
-    data.with_custom_tags = [$scope.subTypeSelected.id];
-    const args = {data: JSON.stringify(data), order: 'desc'};
-    // console.log(args);
+    let data = JSON.parse(_.clone(tokkoSearchArgs.sData));
+    data.operation_types = [$scope.operationType[0]];
+    data.property_types = [$scope.propertyType[0]];
+    data.with_custom_tags = parseInt($scope.subTypeSelected.id) == 0 ? [] : [$scope.subTypeSelected.id];
+    const args = {data: JSON.stringify(data), order: 'desc', offset: 0};
     $state.go('propertySearch', {args: JSON.stringify(args)});
     // $http.post("/propertySearch/",$httpParamSerializer(args));
     // $location.path("/propertySearch/"+{data: JSON.stringify(data), order: 'desc'});

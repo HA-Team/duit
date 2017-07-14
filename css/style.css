@@ -2339,6 +2339,29 @@ button.fs-map-btn.button {
 
 
 /* Badges */
+.badge {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 90%;
+    // font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    margin-right: 100%;
+}
+.badge-danger {
+  background-color: #d9534f;
+}
+.badge-default {
+  background-color: #636c72;
+}
+.badge-info {
+	background-color: #eee;
+	color: #000000;
+}
 .listing-badges {
 	position: absolute;
 	top: 0;
