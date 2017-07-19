@@ -36,3 +36,14 @@
       text-align: center
     li
       padding-left: 10px
+  @media (min-width: 991px)
+    .sidebar-col
+      position: -webkit-sticky
+      position: sticky
+      top: 70px
+      height: 100vh
+      overflow: scroll
+    ::-webkit-scrollbar {
+        width: 0px  /* remove scrollbar space */
+        background: transparent  /* optional: just make scrollbar invisible */
+    }
