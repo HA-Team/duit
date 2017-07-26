@@ -86,6 +86,9 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
     uiFunctions.buildSlickCarousel();
     getFeatured($scope, tokkoApi);
     getSimilar($scope, tokkoApi);
+    setTimeout(() => {
+      google.maps.event.trigger(map, 'resize');
+    }, 0)
   });
 });
 

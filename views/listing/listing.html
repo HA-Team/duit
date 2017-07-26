@@ -78,10 +78,10 @@
             <div class="col-md-12">
               <label class="text-primary">Dormitorios</label>
               <h4 class="badge badge-default" ng-if="sideBarParams.rooms.length == 1" ng-repeat="r in sideBarParams.rooms">
-                {{r.amount}} Dormitorios<span class="badge badge-danger" ng-click="changeFilter({type: 'r', val: []})"><i class="fa fa-times"></i></span>
+                {{roomAmtName(r.amount)}}<span class="badge badge-danger" ng-click="changeFilter({type: 'r', val: []})"><i class="fa fa-times"></i></span>
               </h4>
-              <h4 class="badge badge-info" ng-if="sideBarParams.rooms.length > 1" ng-repeat="r in sideBarParams.rooms" ng-click="changeFilter({type: 'r', val: ['room_amount', '=', r.amount.toString()]})">
-                {{r.amount}} Dormitorios ({{r.count}})</i></span>
+              <h4 class="badge badge-info" ng-if="sideBarParams.rooms.length > 1" ng-repeat="r in sideBarParams.rooms" ng-click="changeFilter({type: 'r', val: ['suite_amount', '=', r.amount.toString()]})">
+                {{roomAmtName(r.amount)}} ({{r.count}})</i></span>
               </h4>
             </div>
           </div>
@@ -127,7 +127,7 @@
         <!-- Listing Item -->
         <div class="listing-item " ng-repeat="p in results">
 
-          <a class="listing-img-container">
+          <a class="listing-img-container" href="/#!/property/{{p.id}}">
 
             <div class="listing-badges">
               <!-- <span class="featured">Featured</span> -->
@@ -140,7 +140,7 @@
             </div>
 
             <div class="listing-carousel">
-              <div ng-repeat="photo in p.photos"><img src="{{photo.image}}" alt=""></div>
+              <div ng-repeat="photo in p.photos"><img src="{{photo.image}}" alt="" ></div>
               <!-- <div><img src="images/listing-01b.jpg" alt=""></div>
               <div><img src="images/listing-01c.jpg" alt=""></div> -->
             </div>
@@ -179,10 +179,11 @@
 
       <div class="clearfix"></div>
     </div>
+    <div class="row fullwidth-layout text-center no-results" ng-hide="ifResults">
+      <i class="fa fa-5x fa-frown-o"></i>
+      <h3>¡Ups! No hay nada aquí. ¡<a href="#!/contactUs">Contactános</a> para ver mas opciones!</h3>
+    </div> 
   </div>
-  <div class="row fullwidth-layout text-center no-results" ng-hide="ifResults">
-    <i class="fa fa-5x fa-frown-o"></i>
-    <h3>¡Ups! No hay nada aquí. ¡<a href="#!/contactUs">Contactános</a> para ver mas opciones!</h3>
-  </div> 
+  
 </div>
 </div>

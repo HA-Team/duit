@@ -18,7 +18,7 @@ const getProperties = ($scope, tokkoApi, rargs) => {
           }
         })(),
         operations: result.objects.operation_types,
-        rooms: result.objects.room_amount,
+        rooms: result.objects.suite_amount,
       };
       $scope.resultsCount = result.meta.total_count;
     });
@@ -80,11 +80,17 @@ app.controller('listing', function($location, $rootScope, $scope, tokkoApi, $sta
   $scope.filteredResults = [];
   $scope.apiReady = true;
   $scope.ifResults = false;
+  $scope.goLocation = (url) => {
+    $state.go(url);
+  }
   $scope.opName = (type) => {
     if (type === 1) {return 'Venta'};
     if (type === 2) {return 'Alquiler'} else {
       return 'Otro'
     }
+  }
+  $scope.roomAmtName = (amount) => {
+    return parseInt(amount) > 0 ? amount + " Dormitorios " : "Loft ";
   }
   args = JSON.parse($stateParams.args);
   $scope.operationType = JSON.parse(args.data).operation_types;

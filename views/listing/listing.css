@@ -50,6 +50,10 @@
 #listing .listing-content li {
   padding-left: 10px;
 }
+#listing .sidebar h4 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 @media (min-width: 991px) {
   #listing .sidebar-col {
     position: -webkit-sticky;

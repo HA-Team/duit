@@ -1,6 +1,6 @@
 const app = angular.module('duit', ['ui.router', 'infinite-scroll']);
 
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider, $provide) {
   $urlRouterProvider.otherwise('/');
   $stateProvider.state('home', {
     url: '/',
@@ -27,11 +27,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: '/developments',
     templateUrl: '/views/home/home.html'
   });
+  $provide.decorator('$uiViewScroll', function ($delegate) {
+    return function (uiViewElement) {
+      // let top = uiViewElement.getBoundingClientRect().top;
+      window.scrollTo(0, 0);
+      // Or some other custom behaviour...
+    }; 
+  });
 });
 
 app.controller('global', function($scope) {
   setTimeout(function(){
     uiFunctions.buildStickyHeader();
     uiFunctions.buildTopBarMobileMenu();
-  }, 0)
+  }, 0);
 })
