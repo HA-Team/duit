@@ -1,4 +1,4 @@
-const app = angular.module('duit', ['ui.router', 'infinite-scroll']);
+const app = angular.module('duit', ['ui.router', 'infinite-scroll', 'angular-google-analytics']);
 
 app.config(function($stateProvider, $urlRouterProvider, $provide) {
   $urlRouterProvider.otherwise('/');
@@ -39,6 +39,11 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
     }; 
   });
 });
+
+app.config(['AnalyticsProvider', function (AnalyticsProvider) {
+   // Add configuration code as desired
+   AnalyticsProvider.setAccount('UA-79529729-2'); //Duit official: UA-79529729-1
+}]).run(['Analytics', function(Analytics) { }]);
 
 app.controller('global', function($scope) {
   setTimeout(function(){
