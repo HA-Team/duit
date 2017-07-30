@@ -8,7 +8,7 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
   });
   $stateProvider.state('propertySearch', {
     url: '/propertySearch?args',
-    templateUrl: '/views/listing/listing.html',
+    templateUrl: '/views/properties_listing/properties_listing.html',
     reloadOnSearch: false,
   });
   $stateProvider.state('contactUs', {
@@ -25,7 +25,11 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
   });
   $stateProvider.state('developments', {
     url: '/developments',
-    templateUrl: '/views/home/home.html'
+    templateUrl: '/views/developments_listing/developments_listing.html'
+  });
+  $stateProvider.state('development', {
+    url: '/development/:devId',
+    templateUrl: '/views/development/development.html'
   });
   $provide.decorator('$uiViewScroll', function ($delegate) {
     return function (uiViewElement) {

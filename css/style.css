@@ -72,7 +72,8 @@
 @import url("bootstrap.css");					/* Default Reset, Typography, Forms, Responsive Grid etc. */
 @import url("icons.css");						/* Webfont Icons: FontAwesome, Line, Simple Line */
 @import url("http://fonts.googleapis.com/css?family=Varela+Round");
-@import url("../views/listing/listing.css");
+@import url("../views/properties_listing/properties_listing.css");
+@import url("../views/developments_listing/developments_listing.css");
 
 /* ------------------------------------------------------------------- */
 /*  02. Layout Components

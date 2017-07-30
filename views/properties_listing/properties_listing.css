@@ -1,68 +1,68 @@
-#listing fieldset {
+#propsListing fieldset {
   border: none;
   border-top: 1px solid #c8001e;
 }
-#listing legend {
+#propsListing legend {
   text-align: center;
   padding: 0 1em;
   margin-bottom: 18px;
 }
-#listing .search {
+#propsListing .search {
   width: 100%;
 }
-#listing .no-results {
+#propsListing .no-results {
   height: 50vh;
 }
-#listing input,
-#listing input[type="text"] {
+#propsListing input,
+#propsListing input[type="text"] {
   height: 25px;
   padding: 0 5px;
 }
-#listing .badge-danger,
-#listing .badge-info {
+#propsListing .badge-danger,
+#propsListing .badge-info {
   cursor: pointer;
 }
-#listing .spinner {
+#propsListing .spinner {
   margin-left: 61%;
   margin-top: 120px;
 }
-#listing .busy-sidebar {
+#propsListing .busy-sidebar {
   opacity: 0.5;
 }
-#listing .listing-item {
+#propsListing .listing-item {
   height: 100%;
   max-height: 525px;
 }
-#listing .listing-title {
+#propsListing .listing-title {
   padding-bottom: 0;
 }
-#listing .listing-title h4 {
+#propsListing .listing-title h4 {
   max-height: 60px;
   overflow: hidden;
 }
-#listing .listing-title a {
+#propsListing .listing-title a {
   height: 45px;
   overflow: hidden;
 }
-#listing .listing-content ul {
+#propsListing .listing-content ul {
   text-align: center;
 }
-#listing .listing-content li {
+#propsListing .listing-content li {
   padding-left: 10px;
 }
-#listing .sidebar h4 {
+#propsListing .sidebar h4 {
   margin-top: 5px;
   margin-bottom: 5px;
 }
 @media (min-width: 991px) {
-  #listing .sidebar-col {
+  #propsListing .sidebar-col {
     position: -webkit-sticky;
     position: sticky;
     top: 70px;
     height: 100vh;
     overflow: scroll;
   }
-  #listing ::-webkit-scrollbar {
+  #propsListing ::-webkit-scrollbar {
     width: 0px /* remove scrollbar space */;
     background: transparent /* optional: just make scrollbar invisible */;
   }
