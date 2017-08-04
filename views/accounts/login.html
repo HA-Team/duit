@@ -1,0 +1,135 @@
+<!-- Container -->
+<div class="container" ng-controller="login">
+
+  <div class="row">
+  <div class="col-md-4 col-md-offset-4">
+
+  <!--Tab -->
+  <div class="my-account style-1 margin-top-5 margin-bottom-40">
+
+    <ul class="tabs-nav">
+      <li class=""><a href="#tab1">Ingresar</a></li>
+      <li><a href="#tab2">Registrarse</a></li>
+    </ul>
+
+    <div class="tabs-container alt">
+
+      <!-- Login -->
+      <div class="tab-content" id="tab1" style="display: none;">
+        <div class="notification error closeable" ng-show="wrongUserOrPass">
+          <p>Usuario o contraseña incorrecto.</p>
+          <a class="close"></a>
+        </div>
+        <div class="col-md-12 text-center">
+          <button class="loginBtn loginBtn--facebook">
+            Continuá con Facebook
+          </button>
+          <hr />
+          <h4>O ingresá tus datos:</h4>
+        </div>
+        <form method="post" class="login">
+          <p class="form-row form-row-wide">
+            <label for="username">Usuario:
+              <i class="im im-icon-Male"></i>
+              <input type="text" class="input-text" name="username" id="username" ng-model="username" />
+            </label>
+          </p>
+
+          <p class="form-row form-row-wide">
+            <label for="password">Contraseña:
+              <i class="im im-icon-Lock-2"></i>
+              <input class="input-text" type="password" name="password" id="password" ng-model="password"/>
+            </label>
+          </p>
+
+          <p class="form-row">
+            <button class="button border margin-top-10" name="login" ng-click="loginWithPassword()">
+              Ingresar
+            </button>
+
+            <label for="rememberme" class="rememberme">
+            <input name="rememberme" type="checkbox" id="rememberme" value="forever" /> Recordarme</label>
+          </p>
+
+          <p class="lost_password">
+            <a href="#" >¿Olvidó su contraseña?</a>
+          </p>
+          
+        </form>
+      </div>
+
+      <!-- Register -->
+      <div class="tab-content" id="tab2" style="display: none;">
+        <div class="notification error closeable" ng-show="formIncomplete">
+          <p>Por favor complete todos los campos.</p>
+          <a class="close"></a>
+        </div>
+        <div class="notification error closeable" ng-show="passNotMatch">
+          <p>La contraseñas no coinciden.</p>
+          <a class="close"></a>
+        </div>
+        <div class="notification error closeable" ng-show="userExists">
+          <p>El usuario que desea crear ya existe, por favor elija otro nombre de usuario.</p>
+          <a class="close"></a>
+        </div>
+        <div class="notification error closeable" ng-show="otherError">
+          <p>Se produjo un error al crear el usuario, por favor contactese con Duit para resolver el problema.</p>
+          <a class="close"></a>
+        </div>
+        <div class="col-md-12 text-center">
+          <button class="loginBtn loginBtn--facebook">
+            Continuá con Facebook
+          </button>
+          <hr />
+          <h4>O completá el formulario de registro:</h4>
+        </div>
+        <hr />
+        <form method="post" class="register">
+          
+        <p class="form-row form-row-wide">
+          <label for="username2">Usuario:
+            <i class="im im-icon-Male"></i>
+            <input type="text" class="input-text" name="username" id="username2" ng-model="username" />
+          </label>
+        </p>
+          
+        <p class="form-row form-row-wide">
+          <label for="email2">Email:
+            <i class="im im-icon-Mail"></i>
+            <input type="text" class="input-text" name="email" id="email2" ng-model="email" />
+          </label>
+        </p>
+
+        <p class="form-row form-row-wide">
+          <label for="password1">Contraseña:
+            <i class="im im-icon-Lock-2"></i>
+            <input class="input-text" type="password" name="password1" id="password1" ng-model="password"/>
+          </label>
+        </p>
+
+        <p class="form-row form-row-wide">
+          <label for="password2">Repetir Contraseña:
+            <i class="im im-icon-Lock-2"></i>
+            <input class="input-text" type="password" name="password2" id="password2" ng-model="password2"/>
+          </label>
+        </p>
+
+        <p class="form-row">
+          <button class="button border fw margin-top-10" name="register" ng-click="registerUser()" >
+            Registrarse
+          </button>
+        </p>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  </div>
+  </div>
+
+</div>
+<!-- Container / End -->

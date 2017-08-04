@@ -31,6 +31,10 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
     url: '/development/:devId',
     templateUrl: '/views/development/development.html'
   });
+  $stateProvider.state('login', {
+    url: '/login',
+    templateUrl: '/views/accounts/login.html'
+  });
   $provide.decorator('$uiViewScroll', function ($delegate) {
     return function (uiViewElement) {
       // let top = uiViewElement.getBoundingClientRect().top;
@@ -45,7 +49,8 @@ app.config(['AnalyticsProvider', function (AnalyticsProvider) {
    AnalyticsProvider.setAccount('UA-79529729-2'); //Duit official: UA-79529729-1
 }]).run(['Analytics', function(Analytics) { }]);
 
-app.controller('global', function($scope) {
+app.controller('global', function($scope, $rootScope) {
+  $rootScope.Meteor = Meteor;
   setTimeout(function(){
     uiFunctions.buildStickyHeader();
     uiFunctions.buildTopBarMobileMenu();
