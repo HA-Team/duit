@@ -14,5 +14,9 @@ app.controller('navigation', function($scope, $rootScope, $state){
 app.controller('headerLogin', function($scope) {
   $scope.loggedIn = () => {
     return Meteor.user() ? true : false;
+  };
+  $scope.logOut = () => {
+    Meteor.logout();
+    $scope.$apply();
   }
 })

@@ -15,12 +15,12 @@ app.controller('login', function($scope){
   };
   $scope.loginWithFacebook = () => {
     Meteor.loginWithFacebook({
-      requestPermissions: ['public_profile', 'email'],
-      loginStyle: "popup",
-      redirectUrl: 'http://localhost:8080/_oauth/facebook?close'},
+      requestPermissions: ['public_profile', 'email']},
       function(err){
         if (err) {
           console.log('Handle errors here: ', err);
+        } else {
+          window.history.back();
         }
       }
     );
