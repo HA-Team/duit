@@ -37,6 +37,13 @@
             </div>
           </li>
 
+          <li ng-controller="headerLogin">
+            <a ng-if="!loggedIn()" ui-sref="login" class="sign-in"><i class="fa fa-user"></i> Ingresar / Registrarse </a>
+            <a ng-if="loggedIn()" class="sign-in"><i class="fa fa-user"></i> {{Meteor.user().username}}<br />
+              <a ng-if="loggedIn()" href="" ng-click="logOut()" class="right">Salir</a>
+            </a>
+          </li>
+
           <!-- <li class="with-btn"><a href="submit-property.html" class="button border">Submit Property</a></li> -->
         </ul>
       </div>
