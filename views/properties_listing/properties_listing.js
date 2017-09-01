@@ -69,5 +69,15 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
   $scope.loadMoreProps = () => {
     args.offset += 20; 
     getProperties($scope, tokkoApi, args);
-  }
+  };
+  $scope.addFavorite = ($event, propId) => {
+    $event.preventDefault();
+    $($event.currentTarget).toggleClass('liked');
+    if (Meteor.user()) {
+      tokkoApi.findOne('property', propId, function(result){
+        let propObj = result;
+        Meteor.call('insertFavorite', { userId: Meteor.user()._id, prop: propObj})
+      });
+    }
+  };
 });

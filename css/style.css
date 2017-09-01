@@ -75,10 +75,17 @@
 @import url("../views/properties_listing/properties_listing.css");
 @import url("../views/developments_listing/developments_listing.css");
 @import url("../views/accounts/facebook_button.css");
+@import url("../views/common/header.css");
 
 /* ------------------------------------------------------------------- */
 /*  02. Layout Components
 ---------------------------------------------------------------------- */
+
+@media (min-width: 1240px) {
+  .container {
+    width: calc(100% - 5em)
+  }
+}
 
 .container.ng-scope {
 	margin-bottom: 55px;

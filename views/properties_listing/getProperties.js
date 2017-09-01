@@ -20,7 +20,6 @@ const getProperties = ($scope, tokkoApi, rargs) => {
         rooms: result.objects.suite_amount,
       };
       $scope.resultsCount = result.meta.total_count;
-      $scope.results.length > 0 ? $scope.ifResults = true : $scope.ifResults = false;
     });
   }
   tokkoApi.find('property/search', args, function(result){
@@ -47,6 +46,7 @@ const getProperties = ($scope, tokkoApi, rargs) => {
         full_prop: p,
       });
     });
+    $scope.results.length > 0 ? $scope.ifResults = true : $scope.ifResults = false;
     // $scope.results = props;
     // $scope.filteredResults = $scope.results;
     // console.log($scope.results);

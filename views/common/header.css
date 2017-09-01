@@ -1,0 +1,9 @@
+#header-container .fav-link {
+  cursor: pointer;
+}
+#header-container .fav-link i {
+  color: #ffcf00;
+}
+#header-container .fav-link:hover {
+  background-color: transparent !important;
+}

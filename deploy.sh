@@ -6,6 +6,11 @@ git pull origin master
 minify scripts/meteor-client.bundle.js -d scripts/
 minify scripts/uiFunctions.js -d scripts/
 minify scripts/tokkoApi.js -d scripts/
+# Minify css
+uglifycss css/bootstrap.css --output css/bootstrap.css
+uglifycss css/icons.css --output css/icons.css
+uglifycss css/style.css --output css/style.css
+uglifycss css/colors/duit.css --output css/colors/duit.css
 #commit and push
 git add -u
 git commit -m 'Minification and deploy'

@@ -23,13 +23,6 @@
   type="text/javascript"></script>
     <script defer type="text/javascript" src="/scripts/slick.min.js"></script>
     <script src="/scripts/lodash.core.js"></script>
-    <!-- Scripts not in used yet, remove after website is finished -->
-    <!-- <script type="text/javascript" src="/scripts/magnific-popup.min.js"></script> -->
-    <!-- <script type="text/javascript" src="/scripts/tooltips.min.js"></script> -->
-    <!-- <script type="text/javascript" src="/scripts/masonry.min.js"></script> -->
-    <!-- <script type="text/javascript" src="/scripts/custom.js"></script> -->
-    <!-- <script type="text/javascript" src="/scripts/maps.js"></script> -->
-    <!-- Third part scripts End -->
 
     <!-- Angular Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
@@ -38,13 +31,11 @@
     <script defer type="text/javascript" src="/scripts/meteor-client.bundle.js"></script>
     <script type="text/javascript" src="/scripts/ng-infinite-scroll.min.js"></script>
     <script type="text/javascript" src="/scripts/angular-google-analytics.min.js"></script>
-    <!-- <script type="text/javascript" src="/scripts/ui-router-styles.js"></script> -->
     <script type="text/javascript" src="index.js"></script>
     <!-- End Angular Scripts -->
 
     <!-- Custom and third party scripts Handlers -->
-    <script defer type="text/javascript" src="/scripts/uiFunctions.js"></script>  
-    <script defer type="text/javascript" src="/scripts/tokkoApi.js"></script>
+    <script defer type="text/javascript" src="/scripts/uiFunctions.js"></script>
     <!-- End Custom and third party scripts Handlers -->
 
     <!-- Views scripts -->
@@ -61,11 +52,33 @@
     <script defer type="text/javascript" src="/views/contact/contact.js"></script>
     <script defer type="text/javascript" src="/views/agents/agents.js"></script>
     <script defer type="text/javascript" src="/data/agents.js"></script>
+    <script defer type="text/javascript" src="/views/favorites/favorites.js"></script>
     <!-- End views Scripts -->
+    <!-- Chatra {literal} -->
+    <script>
+      window.ChatraSetup = {
+        colors: {
+          buttonText: '#f0f0f0', /* chat button text color */
+          buttonBg: '#c8001e'    /* chat button background color */
+        }
+      };
+      (function(d, w, c) {
+        w.ChatraID = 'QqbvaHuNbDqWEK8h9';
+        var s = d.createElement('script');
+        w[c] = w[c] || function() {
+            (w[c].q = w[c].q || []).push(arguments);
+        };
+        s.async = true;
+        s.src = (d.location.protocol === 'https:' ? 'https:': 'http:')
+        + '//call.chatra.io/chatra.js';
+        if (d.head) d.head.appendChild(s);
+      })(document, window, 'Chatra');
+    </script>
+    <!-- /Chatra {/literal} -->
   </head>
   <body>
     <!-- Wrapper -->
-    <div id='wrapper' ng-app='duit' ui-router-styles ng-controller="global">
+    <div id='wrapper' ng-app='duit' ui-router-styles ng-controller="startUp">
       <!-- Header Container
       ================================================== -->
       <div ng-include="'/views/common/header.html'"></div>

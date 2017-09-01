@@ -2,8 +2,8 @@ app.controller('login', function($scope){
   $scope.wrongUserOrPass = false;
   uiFunctions.buildTabs();
   $scope.loginWithPassword = () => {
-    if ($scope.username && $scope.password) {
-      Meteor.loginWithPassword($scope.username, $scope.password, (error) => {
+    if ($scope.email && $scope.password) {
+      Meteor.loginWithPassword($scope.email, $scope.password, (error) => {
         if (error) {
           $scope.wrongUserOrPass = true;
         } else {
@@ -30,11 +30,11 @@ app.controller('login', function($scope){
     $scope.formIncomplete = false;
     $scope.userExists = false;
     $scope.otherError = false;
-    if ($scope.username && $scope.email && $scope.password && $scope.password2) {
+    if ($scope.email && $scope.password && $scope.password2) {
       if ($scope.password === $scope.password2) {
         $scope.passNotMatch = false;
         $scope.formIncomplete = false;
-        Accounts.createUser({username: $scope.username, email: $scope.email, password: $scope.password}, (error) => {
+        Accounts.createUser({email: $scope.email, password: $scope.password}, (error) => {
           if (error && error.reason === "Username already exists.") {
             $scope.userExists = true;
           } else if (error) {
@@ -52,5 +52,4 @@ app.controller('login', function($scope){
       $scope.formIncomplete = true;
     }
   }
-
 })

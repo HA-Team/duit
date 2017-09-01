@@ -136,7 +136,7 @@
 
             <div class="listing-img-content">
               <span class="listing-price">{{p.currency}} {{p.price}}</span>
-              <span class="like-icon tooltip"></span>
+              <span class="like-icon tooltip" ng-class="isFavorite(p.id) ? 'liked' : ''" ng-click="addFavorite($event, p.id)"></span>
             </div>
 
             <div class="listing-carousel">

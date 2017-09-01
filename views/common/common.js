@@ -11,12 +11,16 @@ app.controller('navigation', function($scope, $rootScope, $state){
   }
 });
 
-app.controller('headerLogin', function($scope) {
+app.controller('headerLogin', function($rootScope, $scope, $state) {
   $scope.loggedIn = () => {
     return Meteor.user() ? true : false;
   };
   $scope.logOut = () => {
-    Meteor.logout();
-    $scope.$apply();
+    Meteor.logout((err) => {
+      $rootScope.favorites.props = [];
+      $rootScope.$apply();
+      $state.go('home');
+      // window.location.reload();
+    });
   }
 })
