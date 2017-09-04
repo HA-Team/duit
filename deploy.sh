@@ -1,10 +1,16 @@
 #First go to master and update branch
 git checkout master
 git pull origin master
-#Minify Meteor bundle, ui functions and tokkoapi
-uglifyjs scripts/meteor-client.bundle.js -o scripts/meteor-client.bundle.js
-uglifyjs scripts/uiFunctions.js -o scripts/uiFunctions.js
-uglifyjs scripts/tokkoApi.js -o scripts/tokkoApi.js
+# Minify Meteor bundle, ui functions and tokkoapi
+# Require babel minify --> npm install babel-minify -g
+minify scripts/meteor-client.bundle.js -d scripts/
+minify scripts/uiFunctions.js -d scripts/
+minify scripts/tokkoApi.js -d scripts/
+# Minify css
+uglifycss css/bootstrap.css --output css/bootstrap.css
+uglifycss css/icons.css --output css/icons.css
+uglifycss css/style.css --output css/style.css
+uglifycss css/colors/duit.css --output css/colors/duit.css
 #commit and push
 git add -u
 git commit -m 'Minification and deploy'
