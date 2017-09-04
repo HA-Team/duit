@@ -1,10 +1,6 @@
 (function() {
   'use strict';
   var OauthProxy, appRun;
-  // var __meteor_runtime_config__ = {
-  //   "meteorEnv": {},
-  //   "DDP_DEFAULT_CONNECTION_URL": "http://localhost:3000/"
-  // };
   var __meteor_runtime_config__ = (() => {
     if (window.location.href.indexOf('localhost') === -1) {
       return {
