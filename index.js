@@ -1,1 +1,148 @@
-const app=angular.module('duit',['ui.router','infinite-scroll','angular-google-analytics']);app.config(function(c,d,a){d.otherwise('/'),c.state('home',{url:'/',templateUrl:'/views/home/home.html'}),c.state('propertySearch',{url:'/propertySearch?args',templateUrl:'/views/properties_listing/properties_listing.html',reloadOnSearch:!1}),c.state('contactUs',{url:'/contactUs',templateUrl:'/views/contact/contact.html'}),c.state('property',{url:'/property/:propertyId',templateUrl:'/views/property/property.html'}),c.state('agents',{url:'/agents',templateUrl:'/views/agents/agents.html'}),c.state('developments',{url:'/developments',templateUrl:'/views/developments_listing/developments_listing.html'}),c.state('development',{url:'/development/:devId',templateUrl:'/views/development/development.html'}),c.state('favorites',{url:'/favorites',templateUrl:'/views/favorites/favorites.html'}),c.state('login',{url:'/login',templateUrl:'/views/accounts/login.html'}),a.decorator('$uiViewScroll',function(){return function(){window.scrollTo(0,0)}})}),app.config(['AnalyticsProvider',function(a){a.setAccount('UA-79529729-2')}]).run(['Analytics',function(){}]),app.service('tokkoApi',function(){const i={key:'f26431aec0277d4e7912e2709af35707fb9362e6',lang:'es_ar'},d=function(c,d){let a=new XMLHttpRequest;a.onreadystatechange=function(){4==a.readyState&&200==a.status&&d(a.responseText)},a.open('GET',c,!0),a.send(null)};return{find:function(a,b,f){let g='https://tokkobroker.com/api/v1/'+a+'/?format=json&';if('object'==typeof b)for(let c in b)g+=c+'='+b[c]+'&';else g+='id='+b+'&';d(g+'key='+i.key+'&lang='+i.lang,function(b){'property/get_search_summary'===a?f(JSON.parse(b)):f(JSON.parse(b).objects)})},findOne:function(c,d,a){this.find(c,d,function(b){a(b[0])})},insert:function(g,a,b){let c=new XMLHttpRequest,d='https://tokkobroker.com/api/v1/'+g+'/?key='+i.key,e=JSON.stringify(a);c.open('POST',d,!0),c.setRequestHeader('Content-type','application/json'),c.onreadystatechange=function(){4==c.readyState&&(200==c.status||201==c.status)?b({result:'success',status:c.status}):b({result:'error',status:c.status,result:c.responseText})},c.send(e)}}}),app.controller('startUp',function(a,f){f.Meteor=Meteor,FavoritesProps=new Meteor.Collection('favorites'),Meteor.subscribe('favorites'),f.favorites={dataLoaded:!1,props:[]},setTimeout(function(){uiFunctions.buildStickyHeader(),uiFunctions.buildTopBarMobileMenu()},0),f.isFavorite=(b)=>-1!==f.favorites.findIndex((c)=>c.id===b),Meteor.autorun(()=>{if(Meteor.user()){const a=FavoritesProps.find({users:Meteor.user()._id});if(a){let c=[];a.forEach((a)=>{c.push(a.prop)}),f.favorites.props=c,f.favorites.dataLoaded=!0,f.$apply()}}})});
+const app = angular.module('duit', ['ui.router', 'infinite-scroll', 'angular-google-analytics']);
+
+app.config(function($stateProvider, $urlRouterProvider, $provide) {
+  $urlRouterProvider.otherwise('/');
+  $stateProvider.state('home', {
+    url: '/',
+    templateUrl: '/views/home/home.html',
+  });
+  $stateProvider.state('propertySearch', {
+    url: '/propertySearch?args',
+    templateUrl: '/views/properties_listing/properties_listing.html',
+    reloadOnSearch: false,
+  });
+  $stateProvider.state('contactUs', {
+    url: '/contactUs',
+    templateUrl: '/views/contact/contact.html'
+  });
+  $stateProvider.state('property', {
+    url: '/property/:propertyId',
+    templateUrl: '/views/property/property.html'
+  });
+  $stateProvider.state('agents', {
+    url: '/agents',
+    templateUrl: '/views/agents/agents.html'
+  });
+  $stateProvider.state('developments', {
+    url: '/developments',
+    templateUrl: '/views/developments_listing/developments_listing.html'
+  });
+  $stateProvider.state('development', {
+    url: '/development/:devId',
+    templateUrl: '/views/development/development.html'
+  });
+  $stateProvider.state('favorites', {
+    url: '/favorites',
+    templateUrl: '/views/favorites/favorites.html'
+  });
+  $stateProvider.state('login', {
+    url: '/login',
+    templateUrl: '/views/accounts/login.html'
+  });
+  $provide.decorator('$uiViewScroll', function ($delegate) {
+    return function (uiViewElement) {
+      // let top = uiViewElement.getBoundingClientRect().top;
+      window.scrollTo(0, 0);
+      // Or some other custom behaviour...
+    }; 
+  });
+});
+
+app.config(['AnalyticsProvider', function (AnalyticsProvider) {
+   // Add configuration code as desired
+   AnalyticsProvider.setAccount('UA-79529729-2'); //Duit official: UA-79529729-1
+}]).run(['Analytics', function(Analytics) { }]);
+
+/*
+* Tokko Broker API functions.
+*
+* @author: Antonio Aznarez
+* @email: antonio@ha-team.co
+* @copyright: HA 2017
+* @date: 09/06/17
+*/
+
+app.service('tokkoApi', function($http) {
+  const tokkoAuth = {
+    key: 'f26431aec0277d4e7912e2709af35707fb9362e6',
+    lang: 'es_ar'
+  };
+  const httpGetAsync = function (url, callback) {
+    let xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+      if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+        callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", url, true); // true for asynchronous 
+    xmlHttp.send(null);
+  };
+  return {
+    find: function (endpoint, args, callback) {
+      let url = 'https://tokkobroker.com/api/v1/'+endpoint+'/?format=json&';
+      if (typeof args == 'object') {
+        for (let a in args) {
+          url += a + '=' + args[a] + '&'
+        };
+      } else {
+        url += 'id=' + args + '&';
+      };
+      httpGetAsync(url+'key='+tokkoAuth.key+"&lang="+tokkoAuth.lang, function(response) {
+        if (endpoint === 'property/get_search_summary') {
+          callback(JSON.parse(response))
+        } else {
+          callback(JSON.parse(response).objects);
+        }
+      });
+    },
+    findOne: function (endpoint, args, callback) {
+      this.find(endpoint, args, function (response) {
+        callback(response[0]);
+      });
+    },
+    insert: function (endpoint, data, callback) {
+      let http = new XMLHttpRequest(),
+        url = 'https://tokkobroker.com/api/v1/'+endpoint+'/?key='+tokkoAuth.key,
+        content = JSON.stringify(data);
+      http.open("POST", url, true);
+      //Send the proper header information along with the request
+      http.setRequestHeader("Content-type", "application/json");
+      http.onreadystatechange = function() {
+        //Call a function when the state changes.
+        if(http.readyState == 4 && (http.status == 200 || http.status == 201)) {
+          callback({result: 'success', status: http.status})
+        } else {
+          callback({result: 'error', status: http.status, result: http.responseText})
+        }
+      }
+      http.send(content);
+    },
+  }
+});
+
+app.controller('startUp', function($scope, $rootScope, tokkoApi) {
+  $rootScope.Meteor = Meteor;
+  FavoritesProps = new Meteor.Collection('favorites');
+  Meteor.subscribe('favorites');
+  $rootScope.favorites = {dataLoaded: false, props: []};
+  setTimeout(function(){
+    uiFunctions.buildStickyHeader();
+    uiFunctions.buildTopBarMobileMenu();
+  }, 0);
+  $rootScope.isFavorite = propId => {
+    return $rootScope.favorites.props.findIndex(p => p.id === propId) === -1 ? false : true;
+  };
+  Meteor.autorun(() => {
+    if (Meteor.user()) {
+      const favorites = FavoritesProps.find({users: Meteor.user()._id});
+      if (favorites) {
+        let tmp = [];
+        favorites.forEach((f) => {
+          tmp.push(f.prop);
+        })
+        $rootScope.favorites.props = tmp;
+        $rootScope.favorites.dataLoaded = true;
+        $rootScope.$apply();
+      }
+    }
+  });
+})
