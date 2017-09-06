@@ -5,7 +5,7 @@ git pull origin master
 # Require babel minify --> npm install babel-minify -g
 minify scripts/meteor-client.bundle.js -d scripts/
 minify scripts/uiFunctions.js -d scripts/
-minify scripts/tokkoApi.js -d scripts/
+minify index.js -d ./
 # Minify css
 uglifycss css/bootstrap.css --output css/bootstrap.css
 uglifycss css/icons.css --output css/icons.css

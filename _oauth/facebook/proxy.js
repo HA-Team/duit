@@ -5,7 +5,7 @@
     if (window.location.href.indexOf('localhost') === -1) {
       return {
         "meteorEnv": {NODE_ENV: 'production'},
-        "DDP_DEFAULT_CONNECTION_URL": "http://backend.duitpropiedades.com.ar/",
+        "DDP_DEFAULT_CONNECTION_URL": "https://backend.duitpropiedades.com.ar/",
       }
     } else {
       return {
