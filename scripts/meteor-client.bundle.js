@@ -25412,7 +25412,7 @@
                         //
                         toSockjsUrl = function (url) {
                             // 74
-                            return translateUrl(url, "https", "sockjs"); // 75
+                            return translateUrl(url, "http", "sockjs"); // 75
                         }; // 76
                         //
                         toWebsocketUrl = function (url) {
