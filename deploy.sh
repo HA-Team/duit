@@ -15,3 +15,4 @@ uglifycss css/colors/duit.css --output css/colors/duit.css
 git add -u
 git commit -m 'Minification and deploy'
 git push origin master
+now -d
