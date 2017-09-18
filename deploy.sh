@@ -19,6 +19,6 @@ echo 'Commiting changes...'
 git commit -m 'Minification and deploy'
 echo 'Pushing changes...'
 git push origin master
-echo 'Deploying app with meteor now...'
-meteor-now -e MONGO_URL=mongodb://ofqwx:Mas26vision*@ds121464.mlab.com:21464/duit -e ROOT_URL=https://demo.duitpropiedades.com.ar -e NODE_ENV=production
+echo 'Deploying app with now...'
+now -d
 echo 'Deployed, remember to create alias with "now alias [deployed_url] https://demo.duitpropiedades.com.ar"'
