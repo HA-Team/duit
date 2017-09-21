@@ -10,7 +10,7 @@ const getProperties = ($scope, tokkoApi, rargs) => {
         locations: result.objects.locations,
         types: types,
         subTypes: (() => {
-          if ($scope.subTypeSelected.length > 0) {
+          if ($scope.subTypeSelected && $scope.subTypeSelected.length > 0) {
             return [propertiesSubTypes[types[0].id].find(x => x.id === $scope.subTypeSelected[0])]
           } else {
             return types.length === 1 ? propertiesSubTypes[types[0].id] : [];
@@ -20,6 +20,7 @@ const getProperties = ($scope, tokkoApi, rargs) => {
         rooms: result.objects.suite_amount,
       };
       $scope.resultsCount = result.meta.total_count;
+      $scope.$apply();
     });
   }
   tokkoApi.find('property/search', args, function(result){

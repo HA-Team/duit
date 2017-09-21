@@ -27,8 +27,9 @@
     <!-- Angular Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script type="text/javascript" src="/scripts/angular-ui-router.min.js"></script>
-    <script defer type="text/javascript" src="/scripts/meteor-runtime-config.js"></script>
-    <script defer type="text/javascript" src="/scripts/meteor-client.bundle.js"></script>
+    <!-- Uncomment the next 2 lines when backend was deployed on production -->
+    <!-- <script defer type="text/javascript" src="/scripts/meteor-runtime-config.js"></script>
+    <script defer type="text/javascript" src="/scripts/meteor-client.bundle.js"></script> -->
     <script type="text/javascript" src="/scripts/ng-infinite-scroll.min.js"></script>
     <script type="text/javascript" src="/scripts/angular-google-analytics.min.js"></script>
     <script type="text/javascript" src="index.js"></script>
@@ -39,7 +40,8 @@
     <!-- End Custom and third party scripts Handlers -->
 
     <!-- Views scripts -->
-    <script defer type="text/javascript" src="/views/accounts/login.js"></script>
+    <!-- Uncomment when accounts goes to production -->
+    <!-- <script defer type="text/javascript" src="/views/accounts/login.js"></script> -->
     <script defer type="text/javascript" src="/data/propertiesSubTypesFixture.js"></script>
     <script defer type="text/javascript" src="/data/tokkoSearchArgs.js"></script>
     <script defer type="text/javascript" src="/views/common/common.js"></script>
@@ -52,10 +54,12 @@
     <script defer type="text/javascript" src="/views/contact/contact.js"></script>
     <script defer type="text/javascript" src="/views/agents/agents.js"></script>
     <script defer type="text/javascript" src="/data/agents.js"></script>
-    <script defer type="text/javascript" src="/views/favorites/favorites.js"></script>
+    <!-- Uncomment when favorites goes to production -->
+    <!-- <script defer type="text/javascript" src="/views/favorites/favorites.js"></script> -->
     <!-- End views Scripts -->
     <!-- Chatra {literal} -->
-    <script>
+    <!-- Uncomment the above script when you want chatra on production -->
+    <!-- <script>
       window.ChatraSetup = {
         colors: {
           buttonText: '#f0f0f0', /* chat button text color */
@@ -73,7 +77,7 @@
         + '//call.chatra.io/chatra.js';
         if (d.head) d.head.appendChild(s);
       })(document, window, 'Chatra');
-    </script>
+    </script> -->
     <!-- /Chatra {/literal} -->
   </head>
   <body>

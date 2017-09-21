@@ -10,7 +10,7 @@ app.controller('featuredProps', function($scope, tokkoApi) {
   $scope.apiReady = false;
   let data = JSON.parse(_.clone(tokkoSearchArgs.sData));
   data.filters.push(["is_starred_on_web", "=", "true"]);
-  const args = {data: JSON.stringify(data), order: 'desc'}
+  let args = {data: JSON.stringify(data), order: 'desc'}
   tokkoApi.find('property/search', args, function(result){
     let props = [];
     result.forEach((p) => {
@@ -40,7 +40,7 @@ app.controller('featuredProps', function($scope, tokkoApi) {
 
 app.controller('homeSearch', function($rootScope, $scope, $state) {
   $rootScope.activeMenu = 'home';
-  $scope.operationType = 2;
+  $scope.operationType = [2];
   $scope.subTypes = propertiesSubTypes;
   $scope.updateChosen = () => {
     setTimeout(() => {
@@ -50,9 +50,9 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
   $scope.find = () => {
     let data = JSON.parse(_.clone(tokkoSearchArgs.sData));
     data.operation_types = [$scope.operationType[0]];
-    data.property_types = [$scope.propertyType[0]];
-    data.with_custom_tags = parseInt($scope.subTypeSelected.id) == 0 ? [] : [$scope.subTypeSelected.id];
-    const args = {data: JSON.stringify(data), order: 'desc', offset: 0};
+    if ($scope.propertyType) data.property_types = [$scope.propertyType[0]];
+    if ($scope.subTypeSelected) data.with_custom_tags = [$scope.subTypeSelected.id];
+    let args = {data: JSON.stringify(data), order: 'desc', offset: 0};
     $state.go('propertySearch', {args: JSON.stringify(args)});
     // $http.post("/propertySearch/",$httpParamSerializer(args));
     // $location.path("/propertySearch/"+{data: JSON.stringify(data), order: 'desc'});

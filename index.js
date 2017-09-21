@@ -120,9 +120,6 @@ app.service('tokkoApi', function($http) {
 });
 
 app.controller('startUp', function($scope, $rootScope, tokkoApi) {
-  $rootScope.Meteor = Meteor;
-  FavoritesProps = new Meteor.Collection('favorites');
-  Meteor.subscribe('favorites');
   $rootScope.favorites = {dataLoaded: false, props: []};
   setTimeout(function(){
     uiFunctions.buildStickyHeader();
@@ -131,18 +128,22 @@ app.controller('startUp', function($scope, $rootScope, tokkoApi) {
   $rootScope.isFavorite = propId => {
     return $rootScope.favorites.props.findIndex(p => p.id === propId) === -1 ? false : true;
   };
-  Meteor.autorun(() => {
-    if (Meteor.user()) {
-      const favorites = FavoritesProps.find({users: Meteor.user()._id});
-      if (favorites) {
-        let tmp = [];
-        favorites.forEach((f) => {
-          tmp.push(f.prop);
-        })
-        $rootScope.favorites.props = tmp;
-        $rootScope.favorites.dataLoaded = true;
-        $rootScope.$apply();
-      }
-    }
-  });
+  // Uncomment above code when meteor was implemented on production -->
+  // $rootScope.Meteor = Meteor;
+  // FavoritesProps = new Meteor.Collection('favorites');
+  // Meteor.subscribe('favorites');
+  // Meteor.autorun(() => {
+  //   if (Meteor.user()) {
+  //     const favorites = FavoritesProps.find({users: Meteor.user()._id});
+  //     if (favorites) {
+  //       let tmp = [];
+  //       favorites.forEach((f) => {
+  //         tmp.push(f.prop);
+  //       })
+  //       $rootScope.favorites.props = tmp;
+  //       $rootScope.favorites.dataLoaded = true;
+  //       $rootScope.$apply();
+  //     }
+  //   }
+  // });
 })

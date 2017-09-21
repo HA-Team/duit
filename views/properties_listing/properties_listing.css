@@ -54,6 +54,9 @@
   margin-top: 5px;
   margin-bottom: 5px;
 }
+#propsListing .sidebar .widget {
+  bottom: 35px;
+}
 @media (min-width: 991px) {
   #propsListing .sidebar-col {
     position: -webkit-sticky;
