@@ -6,6 +6,8 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
   $scope.filteredResults = [];
   $scope.apiReady = true;
   $scope.ifResults = true;
+  $scope.stopInfiniteScroll = true;
+  $scope.loadingMore = false;
   $scope.goLocation = (url) => {
     $state.go(url);
   }
@@ -67,7 +69,9 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
     }, 0);
   };
   $scope.loadMoreProps = () => {
-    args.offset += 20; 
+    args.offset += 20;
+    $scope.stopInfiniteScroll = true;
+    $scope.loadingMore = true;
     getProperties($scope, tokkoApi, args);
   };
   $scope.addFavorite = ($event, propId) => {

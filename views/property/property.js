@@ -43,7 +43,7 @@ const getSimilar = (scope, tokkoApi) => {
         type: p.operations[0].operation_type,
         currency: p.operations[p.operations.length-1].prices.slice(-1)[0].currency,
         price: p.operations[p.operations.length-1].prices.slice(-1)[0].price,
-        cover_photo: p.photos[0].thumb,
+        cover_photo: p.photos[0] ? p.photos[0].thumb : '/images/no-image.png',
         parkings: p.parking_lot_amount ? p.parking_lot_amount : 0,
         prop: p
       })

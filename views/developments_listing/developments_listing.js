@@ -4,7 +4,7 @@ app.controller('devsListing', function($rootScope, $scope, tokkoApi){
   $scope.resultsCount = 0;
   $scope.apiReady = false;
   $scope.ifResults = true;
-  let args = {order: 'desc'}
+  let args = {order: 'desc', limit: 100}
   tokkoApi.find('development', args, function(result) {
     $scope.results = result;
     $scope.resultsCount = result.length;

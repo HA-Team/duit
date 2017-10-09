@@ -123,7 +123,7 @@
         </div>
       </div>
       <!-- Listings -->
-      <div class="listings-container grid-layout-three" infinite-scroll="loadMoreProps()" infinite-scroll-distance="2" infinite-scroll-immediate-check='false'>
+      <div class="listings-container grid-layout-three" infinite-scroll="loadMoreProps()" infinite-scroll-disabled="stopInfiniteScroll">
         <!-- Listing Item -->
         <div class="listing-item " ng-repeat="p in results">
 
@@ -135,8 +135,9 @@
             </div>
 
             <div class="listing-img-content">
-              <span class="listing-price">{{p.currency}} {{p.price}}</span>
-              <span class="like-icon tooltip" ng-class="isFavorite(p.id) ? 'liked' : ''" ng-click="addFavorite($event, p.id)"></span>
+              <span class="listing-price">{{ p.price | currency:p.currency:0}}</span>
+              <!-- Uncomment when favorites spec is implemented -->
+              <!-- <span class="like-icon tooltip" ng-class="isFavorite(p.id) ? 'liked' : ''" ng-click="addFavorite($event, p.id)"></span> -->
             </div>
 
             <div class="listing-carousel">
@@ -179,6 +180,7 @@
 
       <div class="clearfix"></div>
     </div>
+    <div class='spinner' ng-include="'/views/common/spinner.html'" ng-show="loadingMore"></div>
     <div class="row fullwidth-layout text-center no-results" ng-hide="ifResults">
       <i class="fa fa-5x fa-frown-o"></i>
       <h3>¡Ups! No hay nada aquí. ¡<a href="#!/contactUs">Contactános</a> para ver mas opciones!</h3>

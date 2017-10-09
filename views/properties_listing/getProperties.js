@@ -52,6 +52,8 @@ const getProperties = ($scope, tokkoApi, rargs) => {
     // $scope.filteredResults = $scope.results;
     // console.log($scope.results);
     $scope.apiReady = true;
+    $scope.stopInfiniteScroll = false;
+    $scope.loadingMore = false;
     $scope.$apply();
     uiFunctions.buildCarousel();
     uiFunctions.gridSwitcher();

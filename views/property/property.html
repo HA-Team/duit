@@ -16,7 +16,7 @@
           </span>
         </div>
         <div class="property-pricing">
-          <div>{{p.currency}} {{p.price}}</div>
+          <div>{{ p.price | currency:p.currency:0}}</div>
           <div class="sub-price">ID: {{p.prop.reference_code}}</div>
         </div>
       </div>
@@ -104,7 +104,7 @@
                     <span>{{p.type}}</span>
                   </div>
                   <div class="listing-img-content">
-                    <span class="listing-compact-title">{{p.prop.publication_title}} <i>{{p.currency}} {{p.price}}</i></span>
+                    <span class="listing-compact-title">{{p.prop.publication_title}} <i>{{ p.price | currency:p.currency:0}}</i></span>
                     <ul class="listing-hidden-content">
                       <li>Superficie <span>{{p.prop.roofed_surface}} M2</span></li>
                       <li><i class="fa fa-bed"></i> <span>{{p.prop.room_amount}}</span></li>
@@ -139,7 +139,7 @@
               <span>{{p.type}}</span>
             </div>
             <div class="listing-img-content">
-              <span class="listing-price">{{p.currency}} {{p.price}}</span>
+              <span class="listing-price">{{ p.price | currency:p.currency:0}}</span>
               <span class="like-icon"></span>
             </div>
             <img src="{{p.cover_photo}}" alt="">

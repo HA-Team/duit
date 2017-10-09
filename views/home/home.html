@@ -188,7 +188,7 @@ En Duit estamos para ayudarlo. </p>
               </div>
 
               <div class="listing-img-content">
-                <span class="listing-compact-title">{{p.title}} <i>{{p.currency}} {{p.price}}</i></span>
+                <span class="listing-compact-title">{{p.title}} <i>{{ p.price | currency:p.currency:0}}</i></span>
 
                 <ul class="listing-hidden-content">
                   <li>Superficie <span>{{p.area}} M2</span></li>
