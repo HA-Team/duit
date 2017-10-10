@@ -64,7 +64,7 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
       operation_type: result.operations[0].operation_type,
       currency: result.operations[result.operations.length-1].prices.slice(-1)[0].currency,
       price: result.operations[result.operations.length-1].prices.slice(-1)[0].price,
-      rooms: result.room_amount ? result.room_amount : 0,
+      rooms: result.suite_amount ? result.suite_amount : 0,
       baths: result.bathroom_amount ? result.bathroom_amount : 0,
       cover_photo: result.photos[0].thumb,
       parkings: result.parking_lot_amount ? result.parking_lot_amount : 0,

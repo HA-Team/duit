@@ -21,7 +21,7 @@ app.controller('featuredProps', function($scope, tokkoApi) {
         type: p.operations[0].operation_type,
         currency: p.operations[p.operations.length-1].prices.slice(-1)[0].currency,
         price: p.operations[p.operations.length-1].prices.slice(-1)[0].price,
-        rooms: p.room_amount,
+        rooms: p.suite_amount,
         baths: p.bathroom_amount,
         parkings: p.parking_lot_amount,
         // Not working yet because there is props without front cover photo asigned
