@@ -7,7 +7,6 @@ git pull origin master
 echo 'Minifying css and js files...'
 minify scripts/meteor-client.bundle.js -d scripts/
 minify scripts/uiFunctions.js -d scripts/
-minify scripts/tokkoApi.js -d scripts/
 # Minify css
 uglifycss css/bootstrap.css --output css/bootstrap.css
 uglifycss css/icons.css --output css/icons.css

@@ -84,6 +84,7 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
     $scope.$apply();
     uiFunctions.showMoreButton();
     uiFunctions.buildSlickCarousel();
+    uiFunctions.buildMagnificPopup();
     getFeatured($scope, tokkoApi);
     getSimilar($scope, tokkoApi);
     setTimeout(() => {

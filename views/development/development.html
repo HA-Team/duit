@@ -25,7 +25,7 @@
 </div>
 <!-- Slider -->
 <div class="fullwidth-property-slider margin-bottom-50" ng-show="apiReady">
-  <a ng-repeat="i in d.photos"  data-background-image="{{i.image}}" class="item mfp-gallery"></a>
+  <a ng-repeat="i in d.photos"  data-background-image="{{i.image}}" href="{{i.image}}" class="item mfp-gallery"></a>
 </div>
 <div class="container" ng-show="apiReady">
   <div class="row">
