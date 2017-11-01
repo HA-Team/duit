@@ -79,12 +79,14 @@ const uiFunctions = function() {
         responsive: [{
           breakpoint: 1367,
           settings: {
-            centerPadding: '15%'
+            centerPadding: '15%',
+            initialSlide: 1,
           }
         }, {
           breakpoint: 993,
           settings: {
-            centerPadding: '0'
+            centerPadding: '0',
+            initialSlide: 1,
           }
         }]
       }),
