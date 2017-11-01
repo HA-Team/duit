@@ -121,10 +121,6 @@ app.service('tokkoApi', function($http) {
 
 app.controller('startUp', function($scope, $rootScope, tokkoApi) {
   $rootScope.favorites = {dataLoaded: false, props: []};
-  setTimeout(function(){
-    uiFunctions.buildStickyHeader();
-    uiFunctions.buildTopBarMobileMenu();
-  }, 0);
   $rootScope.isFavorite = propId => {
     return $rootScope.favorites.props.findIndex(p => p.id === propId) === -1 ? false : true;
   };
