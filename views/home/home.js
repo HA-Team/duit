@@ -1,11 +1,4 @@
 app.controller('featuredProps', function($scope, tokkoApi) {
-  setTimeout(function(){
-    uiFunctions.buildParallax();
-    uiFunctions.buildChosen();
-    // uiFunctions.buildFooter();
-    uiFunctions.buildSearchTypeButtons();
-    uiFunctions.buildBackToTop();
-  }, 0);
   $scope.featured = [];
   $scope.apiReady = false;
   let data = JSON.parse(_.clone(tokkoSearchArgs.sData));
@@ -41,12 +34,20 @@ app.controller('featuredProps', function($scope, tokkoApi) {
 app.controller('homeSearch', function($rootScope, $scope, $state) {
   $rootScope.activeMenu = 'home';
   $scope.operationType = [2];
-  $scope.subTypes = propertiesSubTypes;
-  $scope.updateChosen = () => {
+  $scope.subTypes = [];
+  $scope.updateChosen = function() {
+    $scope.subTypes = propertiesSubTypes[$scope.propertyType]
+    console.log($scope.subtypes);
     setTimeout(() => {
       $('.chosen-select-no-single').trigger("chosen:updated");
     }, 0);
   };
+  setTimeout(function(){
+    uiFunctions.buildParallax();
+    uiFunctions.buildChosen();
+    uiFunctions.buildSearchTypeButtons();
+    uiFunctions.buildBackToTop();
+  }, 0);
   $scope.find = () => {
     let data = JSON.parse(_.clone(tokkoSearchArgs.sData));
     data.operation_types = [$scope.operationType[0]];

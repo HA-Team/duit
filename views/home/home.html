@@ -46,7 +46,7 @@
                   <!-- Property Sub type -->
                   <div class="col-md-5">
                     <select data-placeholder="Condición" class="chosen-select-no-single" ng-model="subTypeSelected"
-                    ng-options="st.name for st in subTypes[propertyType] track by st.id" ng-init="subTypeSelected = subTypes[propertyType]">
+                    ng-options="st.name for st in subTypes track by st.id" ng-init="subTypeSelected = subTypes[propertyType]">
                     </select>
                   </div>
 
