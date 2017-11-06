@@ -24,8 +24,74 @@
   </div>
 </div>
 <!-- Slider -->
-<div class="fullwidth-property-slider margin-bottom-50" ng-show="apiReady">
-  <a ng-repeat="i in d.photos"  data-background-image="{{i.image}}" href="{{i.image}}" class="item mfp-gallery"></a>
+<div class="fullwidth-property-slider margin-bottom-50 hidden-on-desktop" ng-show="apiReady">
+  <img ng-repeat="i in d.photos" src="{{i.image}}" class="margin-right-10">
+</div>
+<div class="margin-bottom-50 hidden-on-mobile">
+  <!-- Slider Container -->
+  <div class="property-slider-container">
+    <!-- Agent Widget -->
+      <div class="agent-widget" ng-controller="propContactForm">
+        <div class="agent-title">
+          <div class="agent-photo"><img src="{{d.users_in_charge.picture}}" alt="" /></div>
+          <div class="agent-details">
+            <h4>{{d.users_in_charge.name}}</h4>
+            <span><i class="sl sl-icon-call-in"></i>{{d.users_in_charge.phone}}</span>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <input type="text" placeholder="Tu Email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" ng-model="email">
+        <input type="text" placeholder="Tu Teléfono" ng-model="phone">
+        <textarea ng-model="message"></textarea>
+        <div class="notification success closeable col-md-12" ng-show="success">
+          <p>Mensaje enviado con éxito.</p>
+        </div>
+        <button class="button fullwidth margin-top-5" ng-click="send()">{{submitText}} <i class='fa fa-spinner fa-spin' ng-show="sending"></i></button>
+      </div>
+      <!-- Agent Widget / End -->
+    <!-- Slider -->
+    <div class="property-slider no-arrows">
+      <a  data-background-image="{{d.photos[0].original}}" class="item"></a>
+      <!-- Slider Thumbs -->
+      <ul class="proerty-gallery-thumbs-container" ng-if="d.photos.length <= 4">
+        <li class="property-gallery-thumb" ng-repeat="i in d.photos">
+          <a href="{{i.original}}" class="item mfp-gallery">
+            <img src="{{i.thumb}}" alt="">
+          </a>
+        </li>
+      </ul>
+      <ul class="proerty-gallery-thumbs-container" ng-if="d.photos.length > 4">
+        <li class="property-gallery-thumb">
+          <a href="{{d.photos[0].original}}" class="item mfp-gallery">
+            <img src="{{d.photos[0].thumb}}" alt="">
+          </a>
+        </li>
+        <li class="property-gallery-thumb">
+          <a href="{{d.photos[1].original}}" class="item mfp-gallery">
+            <img src="{{d.photos[1].thumb}}" alt="">
+          </a>
+        </li>
+        <li class="property-gallery-thumb">
+          <a href="{{d.photos[2].original}}" class="item mfp-gallery">
+            <img src="{{d.photos[2].thumb}}" alt="">
+          </a>
+        </li>
+        <li class="property-gallery-thumb more">
+          <a href="{{d.photos[3].original}}" class="item mfp-gallery">
+            <span ><i class="fa fa-plus"></i> {{d.photos.length - 3}}</span>
+          </a>
+        </li>
+        <li class="property-gallery-thumb hidden" ng-repeat="i in d.photos | limitTo: (4 - d.photos.length)">
+          <a href="{{i.original}}" class="item mfp-gallery">
+            <img src="{{i.thumb}}" alt="">
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- Slider / End -->
+
+  </div>
+  <!-- Slider Container / End -->
 </div>
 <div class="container" ng-show="apiReady">
   <div class="row">
@@ -69,11 +135,11 @@
         </div>
         <!-- Widget / End -->
         <!-- Widget -->
-        <div class="widget" ng-controller="propContactForm">
+        <div class="widget hidden-on-desktop" ng-controller="propContactForm">
           <!-- Agent Widget -->
           <div class="agent-widget">
             <div class="agent-title">
-              <div class="agent-photo"><img src="{{d.users_in_charge.picture[0]}}" alt="" /></div>
+              <div class="agent-photo"><img src="{{d.users_in_charge.picture}}" alt="" /></div>
               <div class="agent-details">
                 <h4>{{d.users_in_charge.name}}</h4>
                 <span><i class="sl sl-icon-call-in"></i>{{d.users_in_charge.phone}}</span>

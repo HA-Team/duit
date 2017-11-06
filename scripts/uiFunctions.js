@@ -65,7 +65,7 @@ const uiFunctions = function() {
             slidesToShow: 3
           }
         }]
-      }), 
+      }),
       $('.fullwidth-property-slider').slick({
         dots: true,
         infinite: true,

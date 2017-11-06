@@ -24,8 +24,73 @@
   </div>
 </div>
 <!-- Slider -->
-<div class="fullwidth-property-slider margin-bottom-50" ng-show="apiReady">
+<div class="fullwidth-property-slider margin-bottom-50 hidden-on-desktop" ng-show="apiReady">
   <img ng-repeat="i in p.prop.photos" src="{{i.image}}" class="margin-right-10">
+</div>
+<div class="margin-bottom-50 hidden-on-mobile">
+  <!-- Slider Container -->
+  <div class="property-slider-container">
+    <!-- Agent Widget -->
+      <div class="agent-widget" ng-controller="propContactForm">
+        <div class="agent-title">
+          <div class="agent-photo"><img src="{{p.prop.producer.picture}}" alt="" /></div>
+          <div class="agent-details">
+            <h4>{{p.prop.producer.name}}</h4>
+            <span><i class="sl sl-icon-call-in"></i>{{p.prop.producer.phone}}</span>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <input type="text" placeholder="Tu Email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" ng-model="email">
+        <input type="text" placeholder="Tu Teléfono" ng-model="phone">
+        <textarea ng-model="message"></textarea>
+        <div class="notification success closeable col-md-12" ng-show="success">
+          <p>Mensaje enviado con éxito.</p>
+        </div>
+        <button class="button fullwidth margin-top-5" ng-click="send()">{{submitText}} <i class='fa fa-spinner fa-spin' ng-show="sending"></i></button>
+      </div>
+      <!-- Agent Widget / End -->
+    <!-- Slider -->
+    <div class="property-slider no-arrows">
+      <a  data-background-image="{{p.cover_photo_original}}" class="item"></a>
+      <!-- Slider Thumbs -->
+      <ul class="proerty-gallery-thumbs-container" ng-if="p.prop.photos.length <= 4">
+        <li class="property-gallery-thumb" ng-repeat="i in p.prop.photos">
+          <a href="{{i.original}}" class="item mfp-gallery">
+            <img src="{{i.thumb}}" alt="">
+          </a>
+        </li>
+      </ul>
+      <ul class="proerty-gallery-thumbs-container" ng-if="p.prop.photos.length > 4">
+        <li class="property-gallery-thumb">
+          <a href="{{p.prop.photos[0].original}}" class="item mfp-gallery">
+            <img src="{{p.prop.photos[0].thumb}}" alt="">
+          </a>
+        </li>
+        <li class="property-gallery-thumb">
+          <a href="{{p.prop.photos[1].original}}" class="item mfp-gallery">
+            <img src="{{p.prop.photos[1].thumb}}" alt="">
+          </a>
+        </li>
+        <li class="property-gallery-thumb">
+          <a href="{{p.prop.photos[2].original}}" class="item mfp-gallery">
+            <img src="{{p.prop.photos[2].thumb}}" alt="">
+          </a>
+        </li>
+        <li class="property-gallery-thumb more">
+          <a href="{{p.prop.photos[3].original}}" class="item mfp-gallery">
+            <span ><i class="fa fa-plus"></i> {{p.prop.photos.length - 3}}</span>
+          </a>
+        </li>
+        <li class="property-gallery-thumb hidden" ng-repeat="i in p.prop.photos | limitTo: (4 - p.prop.photos.length)">
+          <a href="{{i.original}}" class="item mfp-gallery">
+            <img src="{{i.thumb}}" alt="">
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!-- Slider / End -->
+    <!-- Slider Container / End -->
+  </div>
 </div>
 <div class="container" ng-show="apiReady">
   <div class="row">
@@ -71,7 +136,7 @@
         <!-- Widget -->
         <div class="widget" ng-controller="propContactForm">
           <!-- Agent Widget -->
-          <div class="agent-widget">
+          <div class="agent-widget hidden-on-desktop">
             <div class="agent-title">
               <div class="agent-photo"><img src="{{p.prop.producer.picture}}" alt="" /></div>
               <div class="agent-details">
