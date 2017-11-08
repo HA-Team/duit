@@ -2749,7 +2749,7 @@ section.fullwidth.border-bottom {
 .agent-title {
     position: relative;
     display: block;
-    margin-bottom: 30px;
+    // margin-bottom: 30px;
 }
 .agent-details {
     margin-left: 92px;
