@@ -14,6 +14,16 @@
           <!-- Row -->
           <div class="row with-forms">
             <div class="col-md-12">
+              <label class="text-primary">Orden</label>
+            </div>
+            <!-- Min Price -->
+            <div class="col-md-12">
+              <select ng-model="orderBy" ng-change="changeFilter({type: 'or'})" ng-options="option.text for option in orderOptions track by option.val" class="chosen-select-no-single"> 
+              </select>
+            </div>
+          </div>
+          <div class="row with-forms">
+            <div class="col-md-12">
               <label class="text-primary">Rango de precio</label>
             </div>
             <!-- Min Price -->
@@ -102,12 +112,9 @@
           <!-- Sort by -->
           <div class="sort-by">
             <label>{{resultsCount}} Propiedades encontradas</label>
-
             <!-- <div class="sort-by-select">
-              <select data-placeholder="Default order" class="chosen-select-no-single" > 
-                <option>Mayor Precio</option>
-                <option>Menor Precio</option>
-                <option>Más Recientes</option>
+              <label>Ordenadas por: </label>
+              <select ng-model="orderBy" ng-change="changeFilter({type: 'or'})" ng-options="option.text for option in orderOptions track by option.val" class="chosen-select-no-single"> 
               </select>
             </div> -->
           </div>

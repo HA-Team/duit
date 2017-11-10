@@ -1,5 +1,5 @@
 const getProperties = ($scope, tokkoApi, rargs) => {
-  let args = {data: rargs.data, order: rargs.order, limit: rargs.limit ? rargs.limit : 20, offset: rargs.offset ? rargs.offset : 0}
+  let args = {data: rargs.data, order: rargs.order, order_by: rargs.order_by, limit: rargs.limit ? rargs.limit : 20, offset: rargs.offset ? rargs.offset : 0}
   if (args.offset == 0) {
     // $('.sidebar-col').toggleClass('busy-sidebar');
     $scope.apiReady = false;

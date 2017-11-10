@@ -53,7 +53,7 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
     data.operation_types = [$scope.operationType[0]];
     if ($scope.propertyType) data.property_types = [$scope.propertyType[0]];
     if ($scope.subTypeSelected) data.with_custom_tags = [$scope.subTypeSelected.id];
-    let args = {data: JSON.stringify(data), order: 'desc', offset: 0};
+    let args = {data: JSON.stringify(data), offset: 0};
     $state.go('propertySearch', {args: JSON.stringify(args)});
     // $http.post("/propertySearch/",$httpParamSerializer(args));
     // $location.path("/propertySearch/"+{data: JSON.stringify(data), order: 'desc'});

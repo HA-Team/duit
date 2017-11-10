@@ -67,7 +67,7 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
       rooms: result.suite_amount ? result.suite_amount : 0,
       baths: result.bathroom_amount ? result.bathroom_amount : 0,
       cover_photo: result.photos[0].thumb,
-      cover_photo_original: result.photos[0].original,
+      cover_photo_original: result.photos[0].image,
       parkings: result.parking_lot_amount ? result.parking_lot_amount : 0,
       prop: result,
     };

@@ -8,6 +8,11 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
   $scope.ifResults = true;
   $scope.stopInfiniteScroll = true;
   $scope.loadingMore = false;
+  $scope.orderOptions = [
+    {val: 'price_asc', text: 'Menor Precio'},
+    {val: 'price_desc', text: 'Mayor Precio'},
+    {val: 'id_asc', text: 'Más Recientes'}
+  ]
   $scope.goLocation = (url) => {
     $state.go(url);
   }
@@ -37,6 +42,8 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
     if ($scope.maxPrice) data.price_to = $scope.maxPrice;
     // if ($scope.subTypeSelected) {data.with_custom_tags = $scope.subTypeSelected;}
     args.data = JSON.stringify(data);
+    args.order_by = $scope.order.order_by ? $scope.order.order_by : 'price';
+    args.order = $scope.order.order ? $scope.order.order : 'asc';
     args.offset = 0;
     getProperties($scope, tokkoApi, args);
     $location.search({args: JSON.stringify(args)});
@@ -58,11 +65,16 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
     if (filter.type === 'r') {
       $scope.rooms = filter.val;
     }
+    if (filter.type === 'or') {
+      $scope.order = {order_by: $scope.orderBy.val.split('_')[0], order: $scope.orderBy.val.split('_')[1]}
+    }
     $scope.find();
   }
   setTimeout(() => {
     uiFunctions.buildChosen();
-  },0)
+    $('.chosen-select-no-single').val('price_asc');
+    $('.chosen-select-no-single').trigger("chosen:updated");
+  },0);
   $scope.updateChosen = () => {
     setTimeout(() => {
       $('.chosen-select-no-single').trigger("chosen:updated");
