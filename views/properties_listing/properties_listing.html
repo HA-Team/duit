@@ -158,7 +158,7 @@
 
             <div class="listing-title">
               <h4><a ui-sref="property({propertyId: p.id})">{{p.title}}</a></h4>
-              <a href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&hl=en&t=v&hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom" class="listing-address popup-gmaps">
+              <a href="https://www.google.com/maps/place/{{p.full_prop.geo_lat}},{{p.full_prop.geo_long}}" target="blank" class="listing-address popup-gmaps">
                 <i class="fa fa-map-marker"></i>
                 {{p.address}}
               </a>

@@ -42,8 +42,8 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
     if ($scope.maxPrice) data.price_to = $scope.maxPrice;
     // if ($scope.subTypeSelected) {data.with_custom_tags = $scope.subTypeSelected;}
     args.data = JSON.stringify(data);
-    args.order_by = $scope.order.order_by ? $scope.order.order_by : 'price';
-    args.order = $scope.order.order ? $scope.order.order : 'asc';
+    args.order_by = $scope.order ? $scope.order.order_by : 'price';
+    args.order = $scope.order ? $scope.order.order : 'asc';
     args.offset = 0;
     getProperties($scope, tokkoApi, args);
     $location.search({args: JSON.stringify(args)});

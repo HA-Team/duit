@@ -33,7 +33,7 @@ const getProperties = ($scope, tokkoApi, rargs) => {
         agent: p.branch ? p.branch.name : '',
         area: p.roofed_surface,
         type: p.operations[0].operation_type,
-        currency: p.operations[p.operations.length-1].prices.slice(-1)[0].currency,
+        currency: p.operations[p.operations.length-1].prices.slice(-1)[0].currency === 'ARS' ? '$' : p.operations[p.operations.length-1].prices.slice(-1)[0].currency,
         price: p.operations[p.operations.length-1].prices.slice(-1)[0].price,
         rooms: p.suite_amount ? p.suite_amount : 0,
         baths: p.bathroom_amount ? p.bathroom_amount : 0,
