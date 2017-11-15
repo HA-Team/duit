@@ -2740,7 +2740,7 @@ section.fullwidth.border-bottom {
 }
 .agent-title .agent-photo img {
     border-radius: 50%;
-    max-width: 72px;
+    max-width: 80px;
 }
 .agent-title .agent-photo {
     float: left;
