@@ -16,7 +16,7 @@
           </span>
         </div>
         <div class="property-pricing">
-          <div>{{ p.price | currency:p.currency:0}}</div>
+          <div ng-hide="p.price <= 1">{{ p.price | currency:p.currency:0}}</div>
           <div class="sub-price">ID: {{p.prop.reference_code}}</div>
         </div>
       </div>
@@ -172,7 +172,7 @@
                     <span>{{p.type}}</span>
                   </div>
                   <div class="listing-img-content">
-                    <span class="listing-compact-title">{{p.prop.publication_title}} <i>{{ p.price | currency:p.currency:0}}</i></span>
+                    <span class="listing-compact-title">{{p.prop.publication_title}} <i ng-hide="p.price <= 1">{{ p.price | currency:p.currency:0}}</i></span>
                     <ul class="listing-hidden-content">
                       <li>Superficie <span>{{p.prop.roofed_surface}} M2</span></li>
                       <li><i class="fa fa-bed"></i> <span>{{p.prop.suite_amount}}</span></li>
@@ -207,7 +207,7 @@
               <span>{{p.type}}</span>
             </div>
             <div class="listing-img-content">
-              <span class="listing-price">{{ p.price | currency:p.currency:0}}</span>
+              <span class="listing-price" ng-hide="p.price <= 1">{{ p.price | currency:p.currency:0}}</span>
               <span class="like-icon"></span>
             </div>
             <img src="{{p.cover_photo}}" alt="">
