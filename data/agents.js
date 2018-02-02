@@ -41,7 +41,7 @@ const agents = [{
 }, {
   name: 'Hugo Miranda',
   position: 'Asesor',
-  phone: '3513102556',
+  phone: '3512462630',
   email: 'hmiranda@duitpropiedades.com.ar',
   facebook: ' ',
   twitter: '',
@@ -61,7 +61,7 @@ const agents = [{
 }, {
   name: 'Teresita Sciortino',
   position: 'Secretaria Administración',
-  phone: '3513102556',
+  phone: '3516840250',
   email: 'teresita@duitpropiedades.com.ar',
   facebook: 's',
   twitter: '',
