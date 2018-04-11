@@ -173,9 +173,9 @@
                     <span>{{p.type}}</span>
                   </div>
                   <div class="listing-img-content">
-                    <span class="listing-compact-title">{{p.prop.publication_title}} <i>{{ p.price | currency:p.currency:0}}</i></span>
+                    <span class="listing-compact-title">{{p.prop.publication_title}} <i ng-show="p.prop.web_price">{{ p.price | currency:p.currency:0}}</i></span>
                     <ul class="listing-hidden-content">
-                      <li>Superficie <span>{{p.prop.roofed_surface}} M2</span></li>
+                      <li>Superficie <span>{{p.area}} M2</span></li>
                       <li><i class="fa fa-bed"></i> <span>{{p.prop.suite_amount}}</span></li>
                       <li><i class="fa fa-bathtub"></i> <span>{{p.prop.bathroom_amount}}</span></li>
                       <li><i class="fa fa-car"></i> <span>{{p.parkings}}</span></li>
@@ -208,7 +208,7 @@
               <span>{{p.type}}</span>
             </div>
             <div class="listing-img-content">
-              <span class="listing-price">{{ p.price | currency:p.currency:0}}</span>
+              <span class="listing-price" ng-show="p.prop.web_price">{{ p.price | currency:p.currency:0}}</span>
               <span class="like-icon"></span>
             </div>
             <img src="{{p.cover_photo}}" alt="">
@@ -223,7 +223,7 @@
               <a ui-sref="property({propertyId: p.id})" class="details button border">Detalles</a>
             </div>
             <ul class="listing-details">
-              <li>{{p.prop.roofed_surface}} M2</li>
+              <li>{{p.area}} M2</li>
               <li><i class="fa fa-bed"></i> <span>{{p.prop.suite_amount}}</span></li>
               <li><i class="fa fa-bathtub"></i> <span>{{p.prop.bathroom_amount}}</span></li>
               <li><i class="fa fa-car"></i> <span>{{p.parkings}}</span></li>

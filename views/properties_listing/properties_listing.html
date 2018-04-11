@@ -142,7 +142,7 @@
             </div>
 
             <div class="listing-img-content">
-              <span class="listing-price" ng-hide="p.price <= 1">{{ p.price | currency:p.currency:0}}</span>
+              <span class="listing-price" ng-show="p.full_prop.web_price">{{ p.price | currency:p.currency:0}}</span>
               <!-- Uncomment when favorites spec is implemented -->
               <!-- <span class="like-icon tooltip" ng-class="isFavorite(p.id) ? 'liked' : ''" ng-click="addFavorite($event, p.id)"></span> -->
             </div>

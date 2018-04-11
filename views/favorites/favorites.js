@@ -11,7 +11,7 @@ app.controller('favorites', function($location, $rootScope, $scope, tokkoApi, $s
           title: p.publication_title,
           address: p.address,
           agent: p.branch ? p.branch.name : '',
-          area: p.roofed_surface,
+          area: result.type.id === 1 ? result.surface : result.roofed_surface,
           type: p.operations[0].operation_type,
           currency: p.operations[p.operations.length-1].prices.slice(-1)[0].currency,
           price: p.operations[p.operations.length-1].prices.slice(-1)[0].price,

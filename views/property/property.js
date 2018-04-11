@@ -14,6 +14,7 @@ const getFeatured = (scope, tokkoApi) => {
         price: p.operations[p.operations.length-1].prices.slice(-1)[0].price,
         cover_photo: p.photos[0].thumb,
         parkings: p.parking_lot_amount ? p.parking_lot_amount : 0,
+        area: p.type.id === 1 ? p.surface : p.roofed_surface,
         prop: p
       })
     });
@@ -45,6 +46,7 @@ const getSimilar = (scope, tokkoApi) => {
         price: p.operations[p.operations.length-1].prices.slice(-1)[0].price,
         cover_photo: p.photos[0] ? p.photos[0].thumb : '/images/no-image.png',
         parkings: p.parking_lot_amount ? p.parking_lot_amount : 0,
+        area: p.type.id === 1 ? p.surface : p.roofed_surface,
         prop: p
       })
     });
@@ -69,6 +71,7 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
       cover_photo: result.photos[0].thumb,
       cover_photo_original: result.photos[0].image,
       parkings: result.parking_lot_amount ? result.parking_lot_amount : 0,
+      area: result.type.id === 1 ? result.surface : result.roofed_surface,
       prop: result,
     };
     let myLatLng = {lat: parseFloat($scope.p.prop.geo_lat), lng: parseFloat($scope.p.prop.geo_long)};

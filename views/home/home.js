@@ -10,7 +10,7 @@ app.controller('featuredProps', function($scope, tokkoApi) {
       props.push({
         id: p.id,
         title: p.publication_title,
-        area: p.roofed_surface,
+        area: p.type.id === 1 ? p.surface : p.roofed_surface,
         type: p.operations[0].operation_type,
         currency: p.operations[p.operations.length-1].prices.slice(-1)[0].currency,
         price: p.operations[p.operations.length-1].prices.slice(-1)[0].price,
@@ -21,6 +21,7 @@ app.controller('featuredProps', function($scope, tokkoApi) {
         //cover_photo: p.photos.map(function(p){if(p.is_front_cover){return p.thumb}})[0],
         // Instead we take the first photo as cover.
         cover_photo: p.photos[0].thumb,
+        prop: p,
       })
     });
     $scope.featured = props;

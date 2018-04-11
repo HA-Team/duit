@@ -38,6 +38,7 @@ const getDevProps = (scope, tokkoApi) => {
         price: p.operations[p.operations.length-1].prices.slice(-1)[0].price,
         cover_photo: p.photos[0].thumb,
         parkings: p.parking_lot_amount ? p.parking_lot_amount : 0,
+        area: p.type.id === 1 ? p.surface : p.roofed_surface,
         prop: p
       })
     });

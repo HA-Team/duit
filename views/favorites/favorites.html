@@ -46,7 +46,7 @@
             </div>
 
             <div class="listing-img-content">
-              <span class="listing-price">{{p.currency}} {{p.price}}</span>
+              <span class="listing-price" ng-show="p.full_prop.web_price">{{p.currency}} {{p.price}}</span>
               <span class="like-icon tooltip" ng-class="isFavorite(p.id) ? 'liked' : ''" ng-click="addFavorite($event, p.id)"></span>
             </div>
 
