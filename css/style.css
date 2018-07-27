@@ -1590,7 +1590,10 @@ input.second-slider-value {
     margin-bottom: 30px;
 }
 .agent-avatar {
-    width: 100%}
+    width: 100%;
+    max-height: 150px;
+    overflow: hidden;
+}
 .agent-avatar img {
     border-radius: 3px 3px 0 0;
     width: 100%;
@@ -1675,6 +1678,7 @@ input.second-slider-value {
 }
 body .agent ul.social-icons {
     margin-left: 33px;
+    min-height: 57px;
 }
 body .agent ul.social-icons li {
     margin: 11px 0 6px 0;
@@ -1965,7 +1969,6 @@ button.fs-map-btn.button {
     display: inline-block;
     padding: .25em .4em;
     font-size: 90%;
-    // font-weight: 700;
     line-height: 1;
     color: #fff;
     text-align: center;
