@@ -1,10 +1,29 @@
 <header id="header-container" class="header-style-2">
 
+  <!-- Mobile Header -->
+  <div id="mobile-header" class="show-for-medium-down" ng-controller="mobile-header">     
+    <div class="d-flex justify-content-between flex-row align-items-center">
+      
+    <!-- Logo -->
+    <div id="logo" class="margin-left-20">
+      <a href="index.html"><img src="/images/logo_cropped.png" alt=""></a>          
+    </div>
+
+    <!-- Hamburger Menu -->  
+    <div id="hamburguer-menu" class="d-flex justify-content-between flex-column align-items-center margin-right-30"
+      ng-class="isHamburgOpen ? ' open' : ''" ng-click="isHamburgOpen = !isHamburgOpen">
+      <div class="hamburguer-menu-item"></div>
+    </div>                   
+  
+    </div>      
+  </div>    
+  <!-- Mobile Header / End -->
+
   <!-- Header -->
-  <div id="header">
+  <div id="header" class="show-for-medium-up">
     <div class="container">
       
-      <!-- Left Side Content -->
+      <!-- Left Side Desktop Content -->
       <div class="left-side">
         
         <!-- Logo -->
@@ -12,14 +31,14 @@
           <a href="index.html"><img src="/images/logo.png" alt=""></a>
 
           <!-- Logo for Sticky Header -->
-          <a href="index.html" class="sticky-logo"><img src="/images/logo_cropped.png" alt=""></a>
+          <a href="index.html" class="sticky-logo"><img src="/images/logo_cropped.png" alt=""></a>          
         </div>
         
       </div>
-      <!-- Left Side Content / End -->
+      <!-- Left Side Desktop Content / End -->      
 
       <!-- Right Side Content / End -->
-      <div class="right-side">
+      <div class="right-side hide-for-medium-down">
         <ul class="header-widget">
           <li>
             <i class="sl sl-icon-call-in"></i>
@@ -50,14 +69,7 @@
       </div>
       <!-- Right Side Content / End -->
 
-    </div>
-
-
-    <!-- Mobile Navigation -->
-    <div class="menu-responsive">
-      <i class="fa fa-reorder menu-trigger"></i>
-    </div>
-
+    </div>    
 
     <!-- Main Navigation -->
     <nav id="navigation" class="style-2" ng-controller="navigation">

@@ -27,4 +27,8 @@ app.controller('headerLogin', function($rootScope, $scope, $state) {
       // window.location.reload();
     });
   }
-})
+});
+
+app.controller('mobile-header', function($scope) {
+  $scope.isHamburgOpen = false;
+});
