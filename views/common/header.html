@@ -1,26 +1,63 @@
 <header id="header-container" class="header-style-2">
 
   <!-- Mobile Header -->
-  <div id="mobile-header" class="show-for-medium-down" ng-controller="mobile-header">     
-    <div class="d-flex justify-content-between flex-row align-items-center">
-      
-    <!-- Logo -->
-    <div id="logo" class="margin-left-20">
-      <a href="index.html"><img src="/images/logo_cropped.png" alt=""></a>          
-    </div>
+  <div id="mobile-header" class="show-for-medium-down" ng-controller="mobile-header" ng-class="{' open' : isHamburgOpen}">    
+    <div class="d-flex flex-column">
 
-    <!-- Hamburger Menu -->  
-    <div id="hamburguer-menu" class="d-flex justify-content-between flex-column align-items-center margin-right-30"
-      ng-class="isHamburgOpen ? ' open' : ''" ng-click="isHamburgOpen = !isHamburgOpen">
-      <div class="hamburguer-menu-item"></div>
-    </div>                   
-  
-    </div>      
-  </div>    
+      <!-- Main Header -->
+      <div class="mobile-main-header d-flex justify-content-between flex-row align-items-center">        
+        
+        <!-- Logo -->
+        <div id="logo" class="margin-left-20">
+          <a href="index.html"><img src="/images/logo_cropped.png" alt=""></a>          
+        </div>
+
+        <!-- Hamburger Menu -->  
+        <div id="hamburguer-menu" class="d-flex justify-content-between flex-column align-items-center margin-right-30"
+          ng-click="toggleMenu()">
+          <div class="hamburguer-menu-item"></div>
+        </div>                
+      </div>
+
+      <!-- Arrow bellow Hamburguer Menu -->
+      <div class="mobile-arrow-header d-flex flex-row-reverse">
+        <div class="mobile-arrow-header-item"></div>
+        <div class="mobile-arrow-header-item"></div>  
+        <div class="mobile-arrow-header-item"></div> 
+        <div class="mobile-arrow-header-item"></div>         
+      </div> 
+
+    </div>     
+    
+    <!-- Mobile Modal Nav -->
+    <div id="mobile-modal-nav" ng-class="{' open: isHamburgOpen}">
+      <div class="mobile-modal-container" >
+        <ul>
+          <li>
+            <i class="fa fa-circle"></i>
+            <a ng-click="setActive('home'); toggleMenu()" ui-sref="home">Home</a>
+          </li>          
+          <li>
+            <i class="fa fa-circle"></i>
+            <a ng-click="setActive('agents'); toggleMenu()" ui-sref="agents">Asesores</a>
+          </li>
+          <li>
+            <i class="fa fa-circle"></i>
+            <a ng-click="setActive('developments'); toggleMenu()" ui-sref="developments">Emprendimientos</a>
+          </li>
+          <li>
+            <i class="fa fa-circle"></i>
+            <a ng-click="setActive('contactUs'); toggleMenu()" ui-sref="contactUs">Contacto</a>
+          </li>
+        </ul>
+      </div>
+      <div class="mobile-modal-background"></div>
+    </div>    
+  </div>      
   <!-- Mobile Header / End -->
 
-  <!-- Header -->
-  <div id="header" class="show-for-medium-up">
+  <!-- Desktop Header -->
+  <div id="header" class="show-for-large-up">
     <div class="container">
       
       <!-- Left Side Desktop Content -->
@@ -92,7 +129,7 @@
     <div class="clearfix"></div>
     <!-- Main Navigation / End -->
   </div>
-  <!-- Header / End -->
+  <!-- Desktop Header / End -->
 
 </header>
 <div class="clearfix"></div>

@@ -31,4 +31,8 @@ app.controller('headerLogin', function($rootScope, $scope, $state) {
 
 app.controller('mobile-header', function($scope) {
   $scope.isHamburgOpen = false;
+  
+  $scope.toggleMenu = function () {
+    $scope.isHamburgOpen = !$scope.isHamburgOpen;
+  }
 });
