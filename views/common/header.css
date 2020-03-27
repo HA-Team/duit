@@ -14,13 +14,18 @@
   position: fixed;
   background-color: transparent;
   width: 100vw;
-  height: 80px;      
+  height: 65px;      
   z-index: 99999;
+  transition: top 0.2s ease-in-out;
+}
+
+#mobile-header #logo {
+  transform: scale(0.9);
 }
 
 #mobile-header .mobile-main-header {
   background-color: var(--red);
-  height: 60px;
+  height: 50px;
   z-index: 15;
 }
 
@@ -79,7 +84,7 @@
 }
 
 #mobile-header .mobile-arrow-header {
-  height: 20px;
+  height: 15px;
   z-index: 10;
 }
 
@@ -89,21 +94,21 @@
 }
 
 #mobile-header .mobile-arrow-header div:first-child {
-  width: 30px;
+  width: 35px;
   background-color: var(--red);        
 }
 
 #mobile-header .mobile-arrow-header div:nth-child(2n) {
   transform-origin: 0% 100%;
-  width: 40px;  
+  width: 30px;  
   background-color: var(--red);        
   transition: transform 0.5s ease-in-out;  
 }
 
 #mobile-header .mobile-arrow-header div:nth-child(3n) {
   transform-origin: 100% 100%;
-  width: 40px;  
-  margin-right: -40px;
+  width: 30px;  
+  margin-right: -30px;
   background-color: var(--red);        
   transition: transform 0.5s ease;  
 }
@@ -141,7 +146,7 @@
 }
 
 #mobile-header.open #mobile-modal-nav .mobile-modal-container {
-  opacity: 1;
+  opacity: 0.9;
   pointer-events: all;
 }
 
@@ -164,17 +169,20 @@
 }
 
 #mobile-modal-nav .mobile-modal-container li .fa {
-  font-size: 2rem;
+  font-size: 1.8rem;
   margin-right: 1rem;
 }
 
 #mobile-modal-nav .mobile-modal-container li  a{
-  font-size: 2rem;  
+  font-size: 1.5rem;  
   color: black;
 }
 
 #mobile-modal-nav .mobile-modal-container li {
   margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 #mobile-modal-nav .mobile-modal-container ul {  

@@ -1,19 +1,19 @@
 <header id="header-container" class="header-style-2">
 
   <!-- Mobile Header -->
-  <div id="mobile-header" class="show-for-medium-down" ng-controller="mobile-header" ng-class="{' open' : isHamburgOpen}">    
+  <div id="mobile-header" class="hidden-on-desktop" ng-controller="mobile-header" ng-class="{' open' : isHamburgOpen}">    
     <div class="d-flex flex-column">
 
       <!-- Main Header -->
-      <div class="mobile-main-header d-flex justify-content-between flex-row align-items-center">        
+      <div class="mobile-main-header d-flex justify-content-between flex-row align-items-start">        
         
         <!-- Logo -->
-        <div id="logo" class="margin-left-20">
+        <div id="logo" class="margin-left-20 margin-top-5">
           <a href="index.html"><img src="/images/logo.png" alt=""></a>          
         </div>
 
         <!-- Hamburger Menu -->  
-        <div id="hamburguer-menu" class="d-flex justify-content-between flex-column align-items-center margin-right-30"
+        <div id="hamburguer-menu" class="d-flex justify-content-between flex-column align-items-center margin-right-30 margin-top-15"
           ng-click="toggleMenu()">
           <div class="hamburguer-menu-item"></div>
         </div>                
@@ -51,13 +51,13 @@
           </li>
         </ul>
       </div>
-      <div class="mobile-modal-background"></div>
+      <div class="mobile-modal-background" ng-click="toggleMenu()"></div>
     </div>    
   </div>      
   <!-- Mobile Header / End -->
 
   <!-- Desktop Header -->
-  <div id="header" class="show-for-large-up">
+  <div id="header" class="hidden-on-mobile">
     <div class="container">
       
       <!-- Left Side Desktop Content -->
@@ -75,7 +75,7 @@
       <!-- Left Side Desktop Content / End -->      
 
       <!-- Right Side Content / End -->
-      <div class="right-side hide-for-medium-down">
+      <div class="right-side hidden-on-mobile">
         <ul class="header-widget">
           <li>
             <i class="sl sl-icon-call-in"></i>
