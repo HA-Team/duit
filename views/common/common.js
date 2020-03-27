@@ -37,6 +37,7 @@ app.controller('mobile-header', function($scope) {
   }
 
   var prevScrollpos = window.pageYOffset;
+  
   window.onscroll = function() {
   var currentScrollPos = window.pageYOffset;
     if (prevScrollpos > currentScrollPos) {
