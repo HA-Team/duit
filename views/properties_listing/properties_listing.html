@@ -196,14 +196,28 @@
   
   <!-- Mobile Content
   ================================================== -->
-  <div id="mobile-props-listing" class="container margin-top-50 hidden-on-desktop" >
-    <!-- <div class="row fullwidth-layout" ng-show="ifResults"> -->
+  <div id="mobile-props-listing" class="container margin-top-50 hidden-on-desktop" >    
 
-    <!-- Mobile Filter Menu -->
-      
-    <!-- Sidebar / End -->
-    <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="apiReady"></div>
-    <div class="" ng-show="apiReady">
+    <!-- Mobile Filter Menu --> 
+    
+    <!-- Mobile Filter Menu End -->
+
+    <!-- Skeleton Loader -->
+    <div class="listings-container grid-layout-three" ng-hide="apiReady">
+      <div ng-repeat="x in [].constructor(10) track by $index">
+        <div class="mobile-list-card-container prop-listing-skeleton">
+          <div class="skeleton-image"></div>
+          <div class="d-flex flex-column">
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line"></div>
+          </div>
+          <div></div>          
+        </div>
+      </div>
+    </div>
+    <!-- Skeleton Loader End -->
+        
+    <div ng-show="apiReady">
 
       <!-- Listings -->
       <div class="listings-container grid-layout-three" infinite-scroll="loadMoreProps()" infinite-scroll-disabled="stopInfiniteScroll">
@@ -211,7 +225,7 @@
         <!-- Listing Item -->
         <div class="" ng-repeat="p in results">
 
-          <div class="mobile-list-card-container d-flex flex-row">
+          <div class="mobile-list-card-container">
             <a href="/#!/property/{{p.id}}">
               <img class="mobile-list-card-img" src="{{p.photos[0].image}}" alt="" >
             </a>
