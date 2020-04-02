@@ -203,7 +203,7 @@
     <!-- Mobile Filter Menu End -->
 
     <!-- Skeleton Loader -->
-    <div class="listings-container grid-layout-three" ng-hide="apiReady">
+    <div class="listings-container grid-layout-three" ng-show="!apiReady">
       <div ng-repeat="x in [].constructor(10) track by $index">
         <div class="mobile-list-card-container prop-listing-skeleton">
           <div class="skeleton-image"></div>
