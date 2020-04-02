@@ -70,3 +70,48 @@
     background: transparent /* optional: just make scrollbar invisible */;
   }
 }
+
+#mobile-props-listing .mobile-list-card-container {
+  height: 16vh;
+  line-height: normal;
+  margin-bottom: 2rem;
+  justify-content: space-between;
+}
+
+#mobile-props-listing .mobile-list-card-img {
+  width: 15vh;
+  height: 16vh;
+  border-radius: 5px;
+  max-width: inherit;
+}
+
+#mobile-props-listing .mobile-list-card-details {
+  color: black; 
+  padding: 0 1rem 0 1rem; 
+  flex-grow: 1;
+}
+
+#mobile-props-listing .mobile-list-card-details p {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color:black;
+}
+
+#mobile-props-listing .mobile-list-card-details span {
+  font-weight: 600;
+}
+
+#mobile-props-listing .mobile-list-card-details > p {
+  font-size: 1.1rem;
+  color: rgb(163, 159, 159);
+  margin-top: 0.5rem;
+}
+
+#mobile-props-listing .mobile-list-card-container i {
+  color: rgb(83, 126, 187);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+
