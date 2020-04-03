@@ -111,7 +111,7 @@
 }
 
 #mobile-props-listing .mobile-list-card-container i {
-  color: rgb(83, 126, 187);
+  color: var(--blue);
   font-weight: bold;
   cursor: pointer;
 }
@@ -160,5 +160,38 @@
     background-position: 32vw;
   }
 }
+
+#mobile-props-listing .mobile-filter-menu-container {
+  position: relative;
+  display: flex;
+  flex-direction: row;    
+  height: 50px;
+  width: 100vw;
+  box-shadow: 0px 8px 5px -6px grey;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#mobile-props-listing .mobile-filter-menu-container .mobile-filter-menu-item {
+  display: flex;
+  flex-direction: row;  
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 50%;    
+  color: var(--blue);
+}
+
+#mobile-props-listing .mobile-filter-menu-item h4 {
+  color: var(--blue);
+  text-align: center;
+}
+
+#mobile-props-listing .vertical-line {
+  border-left: 1px solid lightgray;
+  height: 50%;  
+  margin: auto;
+}
+
 
 

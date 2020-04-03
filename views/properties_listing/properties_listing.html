@@ -196,14 +196,27 @@
   
   <!-- Mobile Content
   ================================================== -->
-  <div id="mobile-props-listing" class="container margin-top-50 hidden-on-desktop" >    
+  <div id="mobile-props-listing" class="container hidden-on-desktop" >    
 
     <!-- Mobile Filter Menu --> 
-    
+    <div class="d-flex flex-row mobile-filter-menu-container">
+      <div class="mobile-filter-menu-item">
+        <div class="margin-right-10">
+          <i class="fa fa-long-arrow-down"></i>
+          <i class="fa fa-long-arrow-up"></i>
+        </div>        
+        <h4>Ordenar</h4>
+      </div> 
+      <div class="vertical-line"></div>     
+      <div class="mobile-filter-menu-item">
+        <i class="fa fa-sliders margin-right-10"></i>
+        <h4>Filtrar</h4>
+      </div>
+    </div>
     <!-- Mobile Filter Menu End -->
 
     <!-- Skeleton Loader -->
-    <div class="listings-container grid-layout-three" ng-show="!apiReady">
+    <div class="margin-top-30 listings-container grid-layout-three" ng-show="!apiReady">
       <div ng-repeat="x in [].constructor(10) track by $index">
         <div class="mobile-list-card-container prop-listing-skeleton">
           <div class="skeleton-image"></div>
@@ -217,7 +230,7 @@
     </div>
     <!-- Skeleton Loader End -->
         
-    <div ng-show="apiReady">
+    <div ng-show="apiReady" class="margin-top-30">
 
       <!-- Listings -->
       <div class="listings-container grid-layout-three" infinite-scroll="loadMoreProps()" infinite-scroll-disabled="stopInfiniteScroll">
@@ -246,7 +259,22 @@
 
       <div class="clearfix"></div>
     </div>
-    <div class='spinner' ng-include="'/views/common/spinner.html'" ng-show="loadingMore"></div>
+
+    <!-- Skeleton Loader -->
+    <div class="listings-container grid-layout-three" ng-show="loadingMore">
+      <div ng-repeat="x in [].constructor(3) track by $index">
+        <div class="mobile-list-card-container prop-listing-skeleton">
+          <div class="skeleton-image"></div>
+          <div class="d-flex flex-column">
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line"></div>
+          </div>
+          <div></div>          
+        </div>
+      </div>
+    </div>
+    <!-- Skeleton Loader End -->  
+      
     <div class="row fullwidth-layout text-center no-results" ng-hide="ifResults">
       <i class="fa fa-5x fa-frown-o"></i>
       <h3>¡Ups! No hay nada aquí. ¡<a href="#!/contactUs">Contactános</a> para ver mas opciones!</h3>

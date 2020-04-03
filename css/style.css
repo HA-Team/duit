@@ -9,6 +9,11 @@
     .container.ng-scope {
     margin-bottom: 55px;
 }
+
+:root {
+    --blue: #537ebb;
+}
+
 pre {
     font-family: "Varela Round", "HelveticaNeue", "Helvetica Neue";
     white-space: pre-wrap;
