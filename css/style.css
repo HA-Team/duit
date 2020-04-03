@@ -12,6 +12,7 @@
 
 :root {
     --blue: #537ebb;
+    --red: #c8001e;
 }
 
 pre {
@@ -22,7 +23,7 @@ pre {
     font-size: 80px;
     margin-left: 48%;
     margin-top: 20px;
-    color: #c8001e;
+    color: var(--red);
 }
 .byha {
     width: 67px;
@@ -1502,7 +1503,7 @@ input.second-slider-value {
 }
 .parallax-content {
     position: relative;
-    z-index: 999;
+    z-index: 10;
     padding: 105px 0;
 }
 #titlebar {
@@ -10021,17 +10022,53 @@ div.layout-style {
 @media only screen and (max-width:1024px) {
     #style-switcher {
     display: none;
+    }
 }
+
+.hide {
+	display: none;
 }
 
 .d-flex {
     display: flex;
 }
 
+.justify-content-between {
+    justify-content: space-between;
+}
+
 .flex-row {
     flex-direction: row;
 }
 
+.flex-row-reverse {
+    flex-direction: row-reverse;
+}
+
 .flex-column {
     flex-direction: column;
+}
+.flex-column-reverse {
+    flex-direction: column-reverse;
+}
+
+.align-items-start {
+    align-items: flex-start;
+}
+.align-items-end {
+    align-items: flex-end;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.align-items-baseline {
+    align-items: baseline;
+}
+
+@media only screen and (max-width: 1024px) {
+    body {
+        margin-top: 50px;
+    }
 }
