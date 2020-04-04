@@ -33,7 +33,10 @@ app.controller('mobile-header', function($scope) {
   $scope.isHamburgOpen = false;
   
   $scope.toggleMenu = function () {
-    $scope.isHamburgOpen = !$scope.isHamburgOpen;
+    $scope.isHamburgOpen = !$scope.isHamburgOpen;     
+
+    document.getElementById("mobile-props-filter-modal").classList.remove("open");
+    document.getElementById("mobile-props-order-modal").classList.remove("open");
   }
 
   var prevScrollpos = window.pageYOffset;

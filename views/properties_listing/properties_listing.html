@@ -199,7 +199,7 @@
   <div id="mobile-props-listing" class="container hidden-on-desktop" >    
 
     <!-- Mobile Filter Menu --> 
-    <div class="d-flex flex-row mobile-filter-menu-container">
+    <div class="d-flex flex-row mobile-filter-menu-container">      
       <div class="mobile-filter-menu-item">
         <div class="margin-right-10 mobile-filter-menu-icon" ng-click="toggleOrderModal()">
           <i class="fa fa-long-arrow-down"></i>
@@ -209,14 +209,15 @@
       </div> 
       <div class="vertical-line"></div>     
       <div class="mobile-filter-menu-item">
-        <i class="fa fa-sliders margin-right-10 mobile-filter-menu-icon"></i>
-        <h4>Filtrar</h4>
+        <i class="fa fa-sliders margin-right-10 mobile-filter-menu-icon" ng-click="toggleFilterModal()"></i>
+        <h4 ng-click="toggleFilterModal()">Filtrar</h4>
       </div>
     </div>
     <!-- Mobile Filter Menu End -->
 
     <!-- Mobile Order Modal -->    
     <div id="mobile-props-order-modal" ng-class="{' open': isOrderOpen}">
+      <div class="arrow-up"></div>
       <div class="mobile-order-modal-container">
         <h4>Ordenar por</h4>
         <ul>
@@ -229,6 +230,93 @@
       <div class="mobile-modal-background" ng-click="toggleOrderModal()"></div>    
     </div>
     <!-- Mobile Order Modal End -->
+
+    <!-- Mobile Filter Modal -->    
+    <div id="mobile-props-filter-modal" ng-class="{' open': isFilterOpen}">
+      <div class="arrow-up"></div>
+      <div class="mobile-filter-modal-container">
+        <h4>Filtrar por</h4>
+        <ul>
+          <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)">    
+            <div class="mobile-filter-item-text">
+              <h5>Rango de Precio</h5>
+              <p>Detalle</p>
+            </div>        
+            <i class="fa fa-angle-down"></i>             
+          </li> 
+          <ul>
+            <li class="mobile-filter-item-detail">
+              <p>Prueba 1</p>
+            </li>
+            <li class="mobile-filter-item-detail">
+              <p>Prueba 1</p>
+            </li>
+          </ul> 
+          <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)">                        
+            <div class="mobile-filter-item-text">
+              <h5>Operación</h5>  
+              <p>Detalle</p>
+            </div>        
+            <i class="fa fa-angle-down"></i>         
+          </li> 
+          <ul>
+            <li class="mobile-filter-item-detail">
+              <p>Prueba 1</p>
+            </li>
+            <li class="mobile-filter-item-detail">
+              <p>Prueba 1</p>
+            </li>
+          </ul> 
+          <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)">            
+            <div class="mobile-filter-item-text">
+              <h5>Tipo</h5>              
+              <p>Detalle</p>
+            </div>        
+            <i class="fa fa-angle-down"></i>                       
+          </li> 
+          <ul>
+            <li class="mobile-filter-item-detail">
+              <p>Prueba 1</p>
+            </li>
+            <li class="mobile-filter-item-detail">
+              <p>Prueba 1</p>
+            </li>
+          </ul> 
+          <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)">            
+            <div class="mobile-filter-item-text">              
+              <h5>Ciudad / Barrio</h5>   
+              <p>Detalle</p>
+            </div>        
+            <i class="fa fa-angle-down"></i>          
+          </li>
+          <ul>
+            <li class="mobile-filter-item-detail">
+              <p>Prueba 1</p>
+            </li>
+            <li class="mobile-filter-item-detail">
+              <p>Prueba 1</p>
+            </li>
+          </ul>  
+          <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)">            
+            <div class="mobile-filter-item-text">              
+              <h5>Dormitorios</h5>  
+              <p>Detalle</p>
+            </div>        
+            <i class="fa fa-angle-down"></i>           
+          </li>  
+          <ul>
+            <li class="mobile-filter-item-detail">
+              <p>Prueba 1</p>
+            </li>
+            <li class="mobile-filter-item-detail">
+              <p>Prueba 1</p>
+            </li>
+          </ul>       
+        </ul>
+      </div>  
+      <div class="mobile-modal-background" ng-click="toggleFilterModal()"></div>    
+    </div>
+    <!-- Mobile Filter Modal End -->
 
     <!-- Skeleton Loader -->
     <div class="margin-top-30 listings-container grid-layout-three" ng-show="!apiReady">

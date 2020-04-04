@@ -9,6 +9,7 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
   $scope.stopInfiniteScroll = true;
   $scope.loadingMore = false;
   $scope.isOrderOpen = false;
+  $scope.isFilterOpen = false;  
   $scope.orderBy = {val: 'price_asc', text: 'Menor Precio'};
   $scope.orderOptions = [
     {val: 'price_asc', text: 'Menor Precio'},
@@ -99,13 +100,23 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
     }
   };  
 
-  $scope.toggleOrderModal = function () {
-    $scope.isOrderOpen = !$scope.isOrderOpen;    
-  }
+  $scope.toggleOrderModal = () => $scope.isOrderOpen = !$scope.isOrderOpen;
 
-  $scope.changeOrder = function (newVal) {
+  $scope.toggleFilterModal = () => $scope.isFilterOpen = !$scope.isFilterOpen;    
+
+  $scope.changeOrder = (newVal) => {
     $scope.orderBy = newVal;
     $scope.isOrderOpen = false;
     $scope.changeFilter({type: 'or'});
+  }
+
+  $scope.toggleActiveItem = (e) => {
+    const item = e.target;
+
+    if (item.classList.contains("active")) {
+      item.classList.remove("active");
+    } else {
+      item.classList.add("active");
+    }
   }
 });
