@@ -201,30 +201,44 @@
     <!-- Mobile Filter Menu --> 
     <div class="d-flex flex-row mobile-filter-menu-container">
       <div class="mobile-filter-menu-item">
-        <div class="margin-right-10">
+        <div class="margin-right-10 mobile-filter-menu-icon" ng-click="toggleOrderModal()">
           <i class="fa fa-long-arrow-down"></i>
           <i class="fa fa-long-arrow-up"></i>
         </div>        
-        <h4>Ordenar</h4>
+        <h4 ng-click="toggleOrderModal()">Ordenar</h4>
       </div> 
       <div class="vertical-line"></div>     
       <div class="mobile-filter-menu-item">
-        <i class="fa fa-sliders margin-right-10"></i>
+        <i class="fa fa-sliders margin-right-10 mobile-filter-menu-icon"></i>
         <h4>Filtrar</h4>
       </div>
     </div>
     <!-- Mobile Filter Menu End -->
+
+    <!-- Mobile Order Modal -->    
+    <div id="mobile-props-order-modal" ng-class="{' open': isOrderOpen}">
+      <div class="mobile-order-modal-container">
+        <h4>Ordenar por</h4>
+        <ul>
+          <li class="mobile-order-modal-item" ng-repeat="option in orderOptions track by option.val" ng-click="changeOrder(option)"
+          ng-class="{' selected': option.val == orderBy.val}">            
+            <div>{{option.text}}</div>            
+          </li>          
+        </ul>
+      </div>  
+      <div class="mobile-modal-background" ng-click="toggleOrderModal()"></div>    
+    </div>
+    <!-- Mobile Order Modal End -->
 
     <!-- Skeleton Loader -->
     <div class="margin-top-30 listings-container grid-layout-three" ng-show="!apiReady">
       <div ng-repeat="x in [].constructor(10) track by $index">
         <div class="mobile-list-card-container prop-listing-skeleton">
           <div class="skeleton-image"></div>
-          <div class="d-flex flex-column">
+          <div class="d-flex flex-column skeleton-lines">
             <div class="skeleton-line"></div>
             <div class="skeleton-line"></div>
-          </div>
-          <div></div>          
+          </div>      
         </div>
       </div>
     </div>
@@ -262,15 +276,12 @@
 
     <!-- Skeleton Loader -->
     <div class="listings-container grid-layout-three" ng-show="loadingMore">
-      <div ng-repeat="x in [].constructor(3) track by $index">
-        <div class="mobile-list-card-container prop-listing-skeleton">
-          <div class="skeleton-image"></div>
-          <div class="d-flex flex-column">
-            <div class="skeleton-line"></div>
-            <div class="skeleton-line"></div>
-          </div>
-          <div></div>          
-        </div>
+      <div class="mobile-list-card-container prop-listing-skeleton">
+        <div class="skeleton-image"></div>
+        <div class="d-flex flex-column skeleton-lines">
+          <div class="skeleton-line"></div>
+          <div class="skeleton-line"></div>
+        </div>        
       </div>
     </div>
     <!-- Skeleton Loader End -->  

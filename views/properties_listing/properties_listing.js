@@ -8,6 +8,8 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
   $scope.ifResults = true;
   $scope.stopInfiniteScroll = true;
   $scope.loadingMore = false;
+  $scope.isOrderOpen = false;
+  $scope.orderBy = {val: 'price_asc', text: 'Menor Precio'};
   $scope.orderOptions = [
     {val: 'price_asc', text: 'Menor Precio'},
     {val: 'price_desc', text: 'Mayor Precio'},
@@ -95,5 +97,15 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
         Meteor.call('insertFavorite', { userId: Meteor.user()._id, prop: propObj})
       });
     }
-  };
+  };  
+
+  $scope.toggleOrderModal = function () {
+    $scope.isOrderOpen = !$scope.isOrderOpen;    
+  }
+
+  $scope.changeOrder = function (newVal) {
+    $scope.orderBy = newVal;
+    $scope.isOrderOpen = false;
+    $scope.changeFilter({type: 'or'});
+  }
 });

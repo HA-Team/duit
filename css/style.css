@@ -10071,4 +10071,8 @@ div.layout-style {
     body {
         margin-top: 50px;
     }
+
+    #propsListing {
+        margin-top: 15px;
+    }
 }
