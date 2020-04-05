@@ -26,7 +26,7 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
     }
   }
   $scope.roomAmtName = (amount) => {
-    return parseInt(amount) > 0 ? amount + " Dormitorios " : "Loft ";
+    return parseInt(amount) > 0 ? (amount == 1 ? `${amount} Dormitorio` : `${amount} Dormitorios`) : "Loft ";
   }
   args = JSON.parse($stateParams.args);
   $scope.operationType = JSON.parse(args.data).operation_types;
@@ -119,4 +119,6 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
       item.classList.add("active");
     }
   }
+
+  $scope.pluralize = (name) => ['a','e','i','o','u'].includes(name.slice(-1)) ? `${name}s` : `${name}es`;
 });

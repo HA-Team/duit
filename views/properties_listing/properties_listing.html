@@ -237,6 +237,7 @@
       <div class="mobile-filter-modal-container">
         <h4>Filtrar por</h4>
         <ul>
+          <!-- Filtro Precio -->
           <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)">    
             <div class="mobile-filter-item-text">
               <h5>Rango de Precio</h5>
@@ -256,15 +257,18 @@
               <input type="text" placeholder="Max." data-unit="USD" ng-model="maxPrice" ng-model-options='{ debounce: 1500 }' ng-change="find()"> 
             </div>
           </div> 
+          <!-- Filtro Precio End -->
+
+          <!-- Filtro Operación -->
           <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)">                        
             <div class="mobile-filter-item-text">
               <h5>Operación</h5>  
-              <p>{{sideBarParams.operations.length == 1 ? 'Solo ' + opName(sideBarParams.operations[0].operation_type) : 'Todos'}}</p>
+              <p>{{sideBarParams.operations.length == 1 ? 'Solo ' + pluralize(opName(sideBarParams.operations[0].operation_type)) : 'Todos'}}</p>
             </div>        
             <i class="fa fa-angle-down"></i>         
           </li> 
           <div class="mobile-filter-detail-container">
-            <div class="operation-filter mobile-filter-item-detail">
+            <div class="mobile-filter-item-detail">
               <h4 class="badge badge-default" ng-if="sideBarParams.operations.length == 1" ng-repeat="o in sideBarParams.operations">
                 {{opName(o.operation_type)}} <span class="badge badge-danger" ng-click="changeFilter({type: 'o', val: [1,2]})"><i class="fa fa-times"></i></span>
               </h4>
@@ -274,42 +278,68 @@
               </h4>
             </div>
           </div> 
+          <!-- Filtro Operación End -->
+
+          <!-- Filtro Tipo -->
           <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)">            
             <div class="mobile-filter-item-text">
               <h5>Tipo</h5>              
-              <p>Detalle</p>
+              <p>{{sideBarParams.types.length == 1 ? 'Solo ' + pluralize(sideBarParams.types[0].type) : 'Todos'}}</p>
             </div>        
             <i class="fa fa-angle-down"></i>                       
           </li> 
-          <ul class="mobile-filter-detail-container">
-            <li class="mobile-filter-item-detail">
-              <p>Prueba 1</p>
-            </li>
-          </ul> 
+          <div class="mobile-filter-detail-container">
+            <div class="mobile-filter-item-detail">
+              <h4 class="badge badge-default" ng-if="sideBarParams.types.length == 1" ng-repeat="t in sideBarParams.types">
+                {{t.type}} <span class="badge badge-danger" ng-click="changeFilter({type: 't', val: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]})"><i class="fa fa-times"></i></span>
+              </h4>
+              <h4 class="badge badge-info" ng-if="sideBarParams.types.length > 1" ng-repeat="t in sideBarParams.types" ng-click="changeFilter({type: 't', val: [t.id]})">
+                {{t.type}} ({{t.count}})</i></span>
+              </h4>
+            </div>
+          </div> 
+          <!-- Filtro Tipo End -->
+
+          <!-- Filtro Ciudad / Barrio -->
           <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)">            
             <div class="mobile-filter-item-text">              
               <h5>Ciudad / Barrio</h5>   
-              <p>Detalle</p>
+              <p>{{sideBarParams.locations.length == 1 ? 'Solo ' + sideBarParams.locations[0].location_name : 'Todos'}}</p>
             </div>        
             <i class="fa fa-angle-down"></i>          
           </li>
-          <ul class="mobile-filter-detail-container">
-            <li class="mobile-filter-item-detail">
-              <p>Prueba 1</p>
-            </li>
-          </ul>  
+          <div class="mobile-filter-detail-container">
+            <div class="mobile-filter-item-detail">
+              <h4 class="badge badge-default" ng-if="sideBarParams.locations.length == 1" ng-repeat="l in sideBarParams.locations">
+                {{l.location_name}}<span class="badge badge-danger" ng-click="changeFilter({type: 'l', val: []})"><i class="fa fa-times"></i></span>
+              </h4>
+              <h4 class="badge badge-info" ng-if="sideBarParams.locations.length > 1" ng-repeat="l in sideBarParams.locations" ng-click="changeFilter({type: 'l', val: [l.location_id]})">
+                {{l.location_name}} ({{l.count}})</i></span>
+              </h4>
+            </div>
+          </div>  
+          <!-- Filtro Ciudad / Barrio End -->
+
+          <!-- Filtro Dormitorios -->
           <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)">            
             <div class="mobile-filter-item-text">              
               <h5>Dormitorios</h5>  
-              <p>Detalle</p>
+              <p>{{sideBarParams.rooms.length == 1 ? 'Solo ' + roomAmtName(sideBarParams.rooms[0].amount) : 'Todos'}}</p>
             </div>        
             <i class="fa fa-angle-down"></i>           
           </li>  
-          <ul class="mobile-filter-detail-container">
-            <li class="mobile-filter-item-detail">
-              <p>Prueba 1</p>
-            </li>
-          </ul>       
+          <div class="mobile-filter-detail-container">
+            <div class="mobile-filter-item-detail">
+              <h4 class="badge badge-default" ng-if="sideBarParams.rooms.length == 1" ng-repeat="r in sideBarParams.rooms">
+                {{roomAmtName(r.amount)}}<span class="badge badge-danger" ng-click="changeFilter({type: 'r', val: []})"><i class="fa fa-times"></i></span>
+              </h4>
+              <h4 class="badge badge-info" ng-if="sideBarParams.rooms.length > 1" ng-repeat="r in sideBarParams.rooms" ng-click="changeFilter({type: 'r', val: ['suite_amount', '=', r.amount.toString()]})">
+                {{roomAmtName(r.amount)}} ({{r.count}})</i></span>
+              </h4>
+          </div>
+          </div>  
+          <!-- Filtro Dormitorios End -->
+
         </ul>
       </div>  
       <div class="mobile-modal-background" ng-click="toggleFilterModal()"></div>    
@@ -349,7 +379,7 @@
               <span class="listing-price" ng-show="p.full_prop.web_price">{{ p.price | currency:p.currency:0}}</span>
               <p>{{p.area | number : 0}} m<sup>2</sup></p>
             </div>    
-            <i class="fa fa-heart-o"></i>        
+            <!-- <i class="fa fa-heart-o"></i> To be implemented -->
           </div>          
           <hr>
         </div>
