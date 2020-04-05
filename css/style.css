@@ -1,7 +1,7 @@
 @charset "UTF-8";
     @import url("bootstrap.css");
     @import url("icons.css");
-    @import url("https:  //fonts.googleapis.com/css?family=Varela+Round");
+    @import url("https://fonts.googleapis.com/css?family=Varela+Round");
     @import url("../views/properties_listing/properties_listing.css");
     @import url("../views/developments_listing/developments_listing.css");
     @import url("../views/accounts/facebook_button.css");

@@ -468,3 +468,9 @@
 #mobile-props-filter-modal .badge-info {
   background-color: lightgray;
 }
+
+#mobile-props-listing .mobile-list-card-details p:first-child {  
+  overflow: hidden;  
+  position: relative;     
+  max-height: 3.6em;   
+}
