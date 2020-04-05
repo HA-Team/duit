@@ -356,7 +356,7 @@
 }
 
 #mobile-props-filter-modal .mobile-filter-item-detail {
-  padding-left: 3rem;
+  padding-left: 0px;
   height: 40px;
   color: var(--blue);
 }
@@ -366,12 +366,13 @@
   margin: 0px;
 }
 
-#mobile-props-filter-modal .mobile-filter-modal-item + ul {    
+#mobile-props-filter-modal .mobile-filter-modal-item + .mobile-filter-detail-container {    
   display: none;
-  background-color: #F4F4F4;    
+  background-color: #F4F4F4; 
+  height: 50px;     
 }
 
-#mobile-props-filter-modal .mobile-filter-modal-item.active + ul {
+#mobile-props-filter-modal .mobile-filter-modal-item.active + .mobile-filter-detail-container {
   display: block;
 }
 
@@ -435,5 +436,48 @@
 #mobile-props-filter-modal .mobile-filter-modal-container ul {
   list-style-type:none;
   padding: 0px;  
+}
+
+#mobile-props-filter-modal .price-filter {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+#mobile-props-filter-modal .price-filter input {
+  width: 40%;
+  margin: 0px;
+  display: inline-flex;
+  height: 30px;
+}
+
+#mobile-props-filter-modal .operation-filter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+}
+
+#mobile-props-filter-modal .operation-filter .badge {
+  margin: 0px;
+}
+
+#mobile-props-filter-modal .operation-filter .badge-default,
+#mobile-props-filter-modal .operation-filter .badge-info {
+  height: 35px;  
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#mobile-props-filter-modal .operation-filter .badge-info {
+  background-color: lightgray;
+}
+
+#mobile-props-filter-modal .operation-filter h4 {
+  width: 40%;
 }
 

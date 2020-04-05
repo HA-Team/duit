@@ -240,33 +240,40 @@
           <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)">    
             <div class="mobile-filter-item-text">
               <h5>Rango de Precio</h5>
-              <p>Detalle</p>
+              <p>
+                {{!maxPrice && minPrice ? 'Más de ' + (minPrice|currency:"$":0) :
+                  !minPrice && maxPrice ? 'Menos de ' + (maxPrice|currency:"$":0) :
+                  maxPrice && minPrice ? 'Entre ' + (minPrice|currency:"$":0) + ' y ' + (maxPrice|currency:"$":0) : 'Todos'}}
+              </p>
             </div>        
             <i class="fa fa-angle-down"></i>             
           </li> 
-          <ul>
-            <li class="mobile-filter-item-detail">
-              <p>Prueba 1</p>
-            </li>
-            <li class="mobile-filter-item-detail">
-              <p>Prueba 1</p>
-            </li>
-          </ul> 
+          <div class="mobile-filter-detail-container">
+            <div class="price-filter mobile-filter-item-detail">            
+              <!-- Min Price -->              
+              <input type="text" placeholder="Min." data-unit="USD" ng-model="minPrice" ng-model-options='{ debounce: 1500 }' ng-change="find()">              
+              <!-- Max Price -->              
+              <input type="text" placeholder="Max." data-unit="USD" ng-model="maxPrice" ng-model-options='{ debounce: 1500 }' ng-change="find()"> 
+            </div>
+          </div> 
           <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)">                        
             <div class="mobile-filter-item-text">
               <h5>Operación</h5>  
-              <p>Detalle</p>
+              <p>{{sideBarParams.operations.length == 1 ? 'Solo ' + opName(sideBarParams.operations[0].operation_type) : 'Todos'}}</p>
             </div>        
             <i class="fa fa-angle-down"></i>         
           </li> 
-          <ul>
-            <li class="mobile-filter-item-detail">
-              <p>Prueba 1</p>
-            </li>
-            <li class="mobile-filter-item-detail">
-              <p>Prueba 1</p>
-            </li>
-          </ul> 
+          <div class="mobile-filter-detail-container">
+            <div class="operation-filter mobile-filter-item-detail">
+              <h4 class="badge badge-default" ng-if="sideBarParams.operations.length == 1" ng-repeat="o in sideBarParams.operations">
+                {{opName(o.operation_type)}} <span class="badge badge-danger" ng-click="changeFilter({type: 'o', val: [1,2]})"><i class="fa fa-times"></i></span>
+              </h4>
+              <h4 class="badge badge-info" ng-if="sideBarParams.operations.length > 1" ng-repeat="o in sideBarParams.operations"
+                  ng-click="changeFilter({type: 'o', val: [o.id]})">
+                {{opName(o.operation_type)}} ({{o.count}})</i></span>
+              </h4>
+            </div>
+          </div> 
           <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)">            
             <div class="mobile-filter-item-text">
               <h5>Tipo</h5>              
@@ -274,10 +281,7 @@
             </div>        
             <i class="fa fa-angle-down"></i>                       
           </li> 
-          <ul>
-            <li class="mobile-filter-item-detail">
-              <p>Prueba 1</p>
-            </li>
+          <ul class="mobile-filter-detail-container">
             <li class="mobile-filter-item-detail">
               <p>Prueba 1</p>
             </li>
@@ -289,10 +293,7 @@
             </div>        
             <i class="fa fa-angle-down"></i>          
           </li>
-          <ul>
-            <li class="mobile-filter-item-detail">
-              <p>Prueba 1</p>
-            </li>
+          <ul class="mobile-filter-detail-container">
             <li class="mobile-filter-item-detail">
               <p>Prueba 1</p>
             </li>
@@ -304,10 +305,7 @@
             </div>        
             <i class="fa fa-angle-down"></i>           
           </li>  
-          <ul>
-            <li class="mobile-filter-item-detail">
-              <p>Prueba 1</p>
-            </li>
+          <ul class="mobile-filter-detail-container">
             <li class="mobile-filter-item-detail">
               <p>Prueba 1</p>
             </li>
