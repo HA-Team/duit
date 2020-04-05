@@ -141,12 +141,12 @@
 }
 
 .prop-listing-skeleton .skeleton-line:first-child {
-  width: 50vw;    
+  width: 60vw;    
 }
 
 .prop-listing-skeleton .skeleton-line:last-child {
-  width: 20vw;    
-  max-width: 100px;
+  width: 30vw;    
+  max-width: 150px;
 }
 
 @keyframes shine-lines {
