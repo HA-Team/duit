@@ -43,7 +43,7 @@
                   {{opName(o.operation_type)}} <span class="badge badge-danger" ng-click="changeFilter({type: 'o', val: [1,2]})"><i class="fa fa-times"></i></span>
                 </h4>
                 <h4 class="badge badge-info" ng-if="sideBarParams.operations.length > 1" ng-repeat="o in sideBarParams.operations"
-                ng-click="changeFilter({type: 'o', val: [o.id]})">
+                ng-click="changeFilter({type: 'o', val: [o.operation_type]})">
                   {{opName(o.operation_type)}} ({{o.count}})</i></span>
                 </h4>
               </div>
@@ -276,7 +276,7 @@
                 {{opName(o.operation_type)}} <span class="badge badge-danger" ng-click="changeFilter({type: 'o', val: [1,2]})"><i class="fa fa-times"></i></span>
               </h4>
               <h4 class="badge badge-info" ng-if="sideBarParams.operations.length > 1" ng-repeat="o in sideBarParams.operations"
-                  ng-click="changeFilter({type: 'o', val: [o.id]})">
+                  ng-click="changeFilter({type: 'o', val: [o.operation_type]})">
                 {{opName(o.operation_type)}} ({{o.count}})</i></span>
               </h4>
             </div>
