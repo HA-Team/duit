@@ -84,10 +84,15 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
     }, 0);
   };
   $scope.loadMoreProps = () => {
+    const areAllPropsDisplayed = !$scope.sideBarParams ? true :
+                                  $scope.sideBarParams.operations.reduce((a, b) => a + b.count, 0) == $scope.results.length;
+    
     args.offset += 20;
     $scope.stopInfiniteScroll = true;
-    $scope.loadingMore = true;
+    $scope.loadingMore = true;  
     getProperties($scope, tokkoApi, args);
+
+    if (areAllPropsDisplayed) $scope.loadingMore = false;    
   };
   $scope.addFavorite = ($event, propId) => {
     $event.preventDefault();
