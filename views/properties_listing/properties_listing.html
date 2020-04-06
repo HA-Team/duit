@@ -300,6 +300,26 @@
           </div> 
           <!-- Filtro Tipo End -->
 
+          <!-- Filtro Condición -->
+          <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)" ng-if="sideBarParams.types.length == 1">            
+            <div class="mobile-filter-item-text">
+              <h5>Condición</h5>              
+              <p>{{sideBarParams.subTypes.length == 1 ? 'Solo ' + sideBarParams.subTypes[0].name : 'Todos'}}</p>
+            </div>        
+            <i class="fa fa-angle-down"></i>                       
+          </li> 
+          <div class="mobile-filter-detail-container" ng-if="sideBarParams.types.length == 1">
+            <div class="mobile-filter-item-detail">
+              <h4 class="badge badge-default" ng-if="sideBarParams.subTypes.length == 1" ng-repeat="st in sideBarParams.subTypes">
+                {{st.name}} <span class="badge badge-danger" ng-click="changeFilter({type: 'st', val: []})"><i class="fa fa-times"></i></span>
+              </h4>
+              <h4 class="badge badge-info" ng-if="sideBarParams.subTypes.length > 1" ng-repeat="st in sideBarParams.subTypes" ng-click="changeFilter({type: 'st', val: [st.id]})">
+                {{st.name}}</i></span>
+              </h4>
+            </div>
+          </div> 
+          <!-- Filtro Condición End -->
+
           <!-- Filtro Ciudad / Barrio -->
           <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)">            
             <div class="mobile-filter-item-text">              
@@ -377,7 +397,12 @@
                 <p>{{p.title}} - {{p.address}}</p>
               </a>
               <span class="listing-price" ng-show="p.full_prop.web_price">{{ p.price | currency:p.currency:0}}</span>
-              <p>{{p.area | number : 0}} m<sup>2</sup></p>
+              <div class="mobile-card-icon-listing">
+                <p>{{p.area | number : 0}} m<sup>2</sup> -</p>
+                <i class="fa fa-bed"></i><p>&nbsp{{p.rooms}}</p>
+                <i class="fa fa-bath"></i><p>&nbsp{{p.baths}}</p>
+                <i class="fa fa-car"></i><p>&nbsp{{p.parkings}}</p>
+              </div>              
             </div>    
             <!-- <i class="fa fa-heart-o"></i> To be implemented -->
           </div>          
