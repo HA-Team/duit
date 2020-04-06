@@ -331,6 +331,18 @@
   color: black;
 }
 
+#mobile-props-filter-modal .mobile-filter-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-right: 2rem;
+}
+
+#mobile-props-filter-modal .mobile-filter-modal-header p {
+  color: var(--blue);
+  cursor: pointer;
+}
+
 #mobile-props-filter-modal .arrow-up {
   opacity: 0;
   position: absolute;

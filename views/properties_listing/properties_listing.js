@@ -35,7 +35,7 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
   $anchorScroll();
   getProperties($scope, tokkoApi, args);
   $scope.find = () => {
-    let data = JSON.parse(_.clone(tokkoSearchArgs.sData));
+    let data = JSON.parse(_.clone(tokkoSearchArgs.sData));    
     data.operation_types = $scope.operationType;
     data.property_types = $scope.propertyType;
     data.with_custom_tags = $scope.subTypeSelected;
@@ -51,7 +51,7 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
     getProperties($scope, tokkoApi, args);
     $location.search({args: JSON.stringify(args)});
   }
-  $scope.changeFilter = (filter) => {
+  $scope.changeFilter = (filter) => {    
     if (filter.type === 'o') {
       $scope.operationType = filter.val;
     }
@@ -126,4 +126,15 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
   }
 
   $scope.pluralize = (name) => ['a','e','i','o','u'].includes(name.slice(-1)) ? `${name}s` : `${name}es`;
+
+  $scope.clearAllFilters = () => {
+    $scope.minPrice = '';
+    $scope.maxPrice = '';
+    $scope.operationType = [...Array(2 + 1).keys()].slice(1);
+    $scope.propertyType = [...Array(25 + 1).keys()].slice(1);
+    $scope.subTypeSelected = [];
+    $scope.location = [];
+    $scope.rooms = [];    
+    $scope.find();
+  }
 });

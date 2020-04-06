@@ -235,7 +235,10 @@
     <div id="mobile-props-filter-modal" ng-class="{' open': isFilterOpen}">
       <div class="arrow-up"></div>
       <div class="mobile-filter-modal-container">
-        <h4>Filtrar por</h4>
+        <div class="mobile-filter-modal-header">
+          <h4>Filtrar por</h4>
+          <p ng-click="clearAllFilters()">Limpiar filtros</p>
+        </div>        
         <ul>
           <!-- Filtro Precio -->
           <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)">    
