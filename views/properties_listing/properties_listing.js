@@ -115,8 +115,15 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
     $scope.changeFilter({type: 'or'});
   }
 
-  $scope.toggleActiveItem = (e) => {
-    const item = e.target;
+  $scope.toggleActiveItem = (e) => { 
+    e.stopPropagation();
+        
+    let item = e.target;
+
+    while (!item.classList.contains("mobile-filter-modal-item"))
+    {
+      item = item.parentElement;
+    }
 
     if (item.classList.contains("active")) {
       item.classList.remove("active");
