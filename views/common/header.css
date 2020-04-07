@@ -19,8 +19,8 @@
   transition: top 0.2s ease-in-out;
 }
 
-#mobile-header #logo {
-  transform: scale(0.9);
+#mobile-header #logo img {
+  transform: none;  
 }
 
 #mobile-header .mobile-main-header {
@@ -45,7 +45,7 @@
   border-radius: 3px;
   box-shadow: 0 2px 5px rgba(255,101,47,.2);
   transition: all .5s ease-in-out;
-  margin: auto;
+  margin-top: 16px;
 }
 
 #hamburguer-menu .hamburguer-menu-item::before,
