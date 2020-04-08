@@ -344,9 +344,8 @@ header.fullwidth .container {
     padding: 70px 0 0 0;
     background-color: #fcfcfc;
     box-shadow: inset 0 20px 50px -20px rgba(0, 0, 0, 0.06);
-}
-#footer.sticky-footer {
     box-shadow: none;
+    position: relative;
 }
 #footer h4 {
     color: #333;
