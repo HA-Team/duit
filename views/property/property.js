@@ -95,6 +95,37 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
       google.maps.event.trigger(map, 'resize');
     }, 0)
   });
+
+  $scope.currentPhotoNumber = 1;
+  $scope.moveSliderLeft = () => {
+    const slider = document.querySelector("#mobile-prop-detail .mobile-property-slider");
+    const scrollWidth = slider.scrollWidth;
+    const scrollLeft = slider.scrollLeft;
+    const screenWidth = window.innerWidth;
+
+    if (scrollLeft == 0) {
+      slider.scrollLeft = scrollWidth - screenWidth;
+      $scope.currentPhotoNumber = $scope.p.prop.photos.length;
+    } else {
+      $scope.currentPhotoNumber -= 1;
+      slider.scrollLeft -= screenWidth;
+    }
+  };
+
+  $scope.moveSliderRight = () => {
+    const slider = document.querySelector("#mobile-prop-detail .mobile-property-slider");
+    const scrollWidth = slider.scrollWidth;
+    const scrollLeft = slider.scrollLeft;
+    const screenWidth = window.innerWidth;
+    
+    if (scrollLeft == scrollWidth - screenWidth) {
+      slider.scrollLeft = 0;
+      $scope.currentPhotoNumber = 1;
+    } else {      
+      $scope.currentPhotoNumber += 1;
+      slider.scrollLeft += screenWidth;
+    }    
+  };
 });
 
 app.controller('propContactForm', function($scope, tokkoApi) {
