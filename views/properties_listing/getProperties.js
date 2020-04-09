@@ -7,7 +7,7 @@ const getProperties = ($scope, tokkoApi, rargs) => {
     tokkoApi.find('property/get_search_summary', args, function(result) {
       let types = result.objects.property_types
       $scope.sideBarParams = {
-        locations: result.objects.locations.sort((a, b) => b.count - a.count),
+        locations: result.objects.locations,
         types: types.sort((a, b) => b.count - a.count),
         subTypes: (() => {
           if ($scope.subTypeSelected && $scope.subTypeSelected.length > 0) {
