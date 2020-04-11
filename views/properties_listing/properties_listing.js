@@ -8,6 +8,9 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
   $scope.ifResults = true;
   $scope.stopInfiniteScroll = true;
   $scope.loadingMore = false;
+  $scope.isOrderOpen = false;
+  $scope.isFilterOpen = false;  
+  $scope.orderBy = {val: 'price_asc', text: 'Menor Precio'};
   $scope.orderOptions = [
     {val: 'price_asc', text: 'Menor Precio'},
     {val: 'price_desc', text: 'Mayor Precio'},
@@ -23,7 +26,7 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
     }
   }
   $scope.roomAmtName = (amount) => {
-    return parseInt(amount) > 0 ? amount + " Dormitorios " : "Loft ";
+    return parseInt(amount) > 0 ? (amount == 1 ? `${amount} Dormitorio` : `${amount} Dormitorios`) : "Loft ";
   }
   args = JSON.parse($stateParams.args);
   $scope.operationType = JSON.parse(args.data).operation_types;
@@ -32,7 +35,7 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
   $anchorScroll();
   getProperties($scope, tokkoApi, args);
   $scope.find = () => {
-    let data = JSON.parse(_.clone(tokkoSearchArgs.sData));
+    let data = JSON.parse(_.clone(tokkoSearchArgs.sData));    
     data.operation_types = $scope.operationType;
     data.property_types = $scope.propertyType;
     data.with_custom_tags = $scope.subTypeSelected;
@@ -48,7 +51,7 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
     getProperties($scope, tokkoApi, args);
     $location.search({args: JSON.stringify(args)});
   }
-  $scope.changeFilter = (filter) => {
+  $scope.changeFilter = (filter) => {    
     if (filter.type === 'o') {
       $scope.operationType = filter.val;
     }
@@ -81,10 +84,15 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
     }, 0);
   };
   $scope.loadMoreProps = () => {
+    const areAllPropsDisplayed = !$scope.sideBarParams ? true :
+                                  $scope.sideBarParams.operations.reduce((a, b) => a + b.count, 0) == $scope.results.length;
+    
     args.offset += 20;
     $scope.stopInfiniteScroll = true;
-    $scope.loadingMore = true;
+    $scope.loadingMore = true;  
     getProperties($scope, tokkoApi, args);
+
+    if (areAllPropsDisplayed) $scope.loadingMore = false;    
   };
   $scope.addFavorite = ($event, propId) => {
     $event.preventDefault();
@@ -95,5 +103,45 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
         Meteor.call('insertFavorite', { userId: Meteor.user()._id, prop: propObj})
       });
     }
-  };
+  };  
+
+  $scope.toggleOrderModal = () => $scope.isOrderOpen = !$scope.isOrderOpen;
+
+  $scope.toggleFilterModal = () => $scope.isFilterOpen = !$scope.isFilterOpen;    
+
+  $scope.changeOrder = (newVal) => {
+    $scope.orderBy = newVal;
+    $scope.isOrderOpen = false;
+    $scope.changeFilter({type: 'or'});
+  }
+
+  $scope.toggleActiveItem = (e) => { 
+    e.stopPropagation();
+        
+    let item = e.target;
+
+    while (!item.classList.contains("mobile-filter-modal-item"))
+    {
+      item = item.parentElement;
+    }
+
+    if (item.classList.contains("active")) {
+      item.classList.remove("active");
+    } else {
+      item.classList.add("active");
+    }
+  }
+
+  $scope.pluralize = (name) => ['a','e','i','o','u'].includes(name.slice(-1)) ? `${name}s` : `${name}es`;
+
+  $scope.clearAllFilters = () => {
+    $scope.minPrice = '';
+    $scope.maxPrice = '';
+    $scope.operationType = [...Array(2 + 1).keys()].slice(1);
+    $scope.propertyType = [...Array(25 + 1).keys()].slice(1);
+    $scope.subTypeSelected = [];
+    $scope.location = [];
+    $scope.rooms = [];    
+    $scope.find();
+  }
 });

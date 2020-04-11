@@ -1,7 +1,7 @@
 @charset "UTF-8";
     @import url("bootstrap.css");
     @import url("icons.css");
-    @import url("https:  //fonts.googleapis.com/css?family=Varela+Round");
+    @import url("https://fonts.googleapis.com/css?family=Varela+Round");
     @import url("../views/properties_listing/properties_listing.css");
     @import url("../views/developments_listing/developments_listing.css");
     @import url("../views/accounts/facebook_button.css");
@@ -11,8 +11,10 @@
 }
 
 :root {
+    --blue: #537ebb;
     --red: #c8001e;
 }
+
 pre {
     font-family: "Varela Round", "HelveticaNeue", "Helvetica Neue";
     white-space: pre-wrap;
@@ -10067,5 +10069,9 @@ div.layout-style {
 @media only screen and (max-width: 1024px) {
     body {
         margin-top: 50px;
+    }
+
+    #propsListing {
+        margin-top: 15px;
     }
 }
