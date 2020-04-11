@@ -183,8 +183,7 @@ const uiFunctions = function() {
       })(), 'ontouchstart' in window && (document.documentElement.className += ' touch'), $('html').hasClass('touch') || $('.parallax').css('background-attachment', 'fixed'), $(window).resize(c), c(), $(window).resize(d), $(window).focus(d), d(), $('html').hasClass('touch') || ($(window).resize(a), $(window).focus(a), $(window).scroll(a), a())
     },
     buildFooter: function() {
-      $.fn.footerReveal = function(b) {
-        $('#footer.sticky-footer').before('<div class="footer-shadow"></div>');
+      $.fn.footerReveal = function(b) {        
         var c = $(this),
           d = c.prev(),
           e = $(window),
