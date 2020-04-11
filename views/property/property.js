@@ -122,6 +122,7 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
     ];
 
     let myLatLng = {lat: parseFloat($scope.p.prop.geo_lat), lng: parseFloat($scope.p.prop.geo_long)};
+
     let map = new google.maps.Map(document.getElementById('propertyMap'), {
       center: myLatLng,
       zoom: 17
@@ -131,6 +132,17 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
       map: map,
       title: 'Duit'
     });
+
+    let mobileMap = new google.maps.Map(document.getElementById('mobile-property-map'), {
+      center: myLatLng,
+      zoom: 17
+    });
+    let mobileMarker = new google.maps.Marker({
+      position: myLatLng,
+      map: mobileMap,
+      title: 'Duit'
+    });
+
     $scope.apiReady = true;
     $scope.$apply();
     uiFunctions.showMoreButton();
@@ -140,6 +152,7 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
     getSimilar($scope, tokkoApi);
     setTimeout(() => {
       google.maps.event.trigger(map, 'resize');
+      google.maps.event.trigger(mobileMap, 'resize');
     }, 0)
   });
   
@@ -185,7 +198,7 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
   };
 
   $scope.toggleDescriptionDetail = () => {
-    const detail = document.querySelector("#mobile-property-description .description-detail");
+    const detail = document.querySelector("#mobile-prop-detail .description-detail");
 
     if (detail.classList.contains("visible")) detail.classList.remove("visible");
     else detail.classList.add("visible");    
