@@ -10,6 +10,9 @@
     .container.ng-scope {
     margin-bottom: 55px;
 }
+:root {
+    --softgrey: #f4f4f4;
+}
 pre {
     font-family: "Varela Round", "HelveticaNeue", "Helvetica Neue";
     white-space: pre-wrap;
@@ -8774,7 +8777,7 @@ h4 span.headline-detail {
     transition: .2s;
 }
 .pbs:hover {
-    background-color: #f4f4f4;
+    background-color: var(--softgrey);
 }
 .sl-icons-demo i {
     width: 25px;

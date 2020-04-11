@@ -1,6 +1,6 @@
 #mobile-property-description hr {
-    width: 90%;
-    margin-top: 0px;
+    width: 95%;
+    margin: 20px auto;    
 }
 
 #mobile-prop-detail .mobile-property-slider {
@@ -195,7 +195,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    background-color: #f4f4f4;
+    background-color: var(--softgrey);
     width: 40px;
     height: 40px;
     margin-bottom: 5px;
@@ -231,7 +231,7 @@
     z-index: 9;
     opacity: 1;
     visibility: visible;
-    transition: all 1s;
+    transition: all 0.5s;
 }
 
 #mobile-property-description .description-detail.visible {
@@ -263,9 +263,59 @@
 }
 
 #mobile-property-description .description-detail-button-container i {
-    transition: all 1s ease;
+    transition: all 0.5s ease;
 }
 
 #mobile-property-description .description-detail.visible + .description-detail-button-container i {
     transform: rotateX(180deg);
+}
+
+#mobile-property-description .mobile-property-general-features {
+    width: 100%;
+    padding: 10px;
+}
+
+#mobile-property-description .mobile-property-general-features ul {
+    list-style: none;
+    width: 90%;
+}
+
+#mobile-property-description .mobile-property-general-features ul li {
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid lightgray;
+    text-indent: 10px;
+}
+
+#mobile-property-description .mobile-property-general-features ul li:nth-child(even) {
+    background-color: var(--softgrey);
+}
+
+#mobile-property-description .mobile-property-general-features ul li:last-child {
+    border-bottom: none;
+}
+
+#mobile-property-description .mobile-property-environments {
+    width: 100%;
+    padding: 10px;
+}
+
+#mobile-property-description .mobile-property-environments ul {
+    list-style: none;
+    width: 90%;
+}
+
+#mobile-property-description .mobile-property-environments ul li {
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid lightgray;
+    text-indent: 10px;
+}
+
+#mobile-property-description .mobile-property-environments ul li:nth-child(even) {
+    background-color: var(--softgrey);
+}
+
+#mobile-property-description .mobile-property-environments ul li:last-child {
+    border-bottom: none;
 }

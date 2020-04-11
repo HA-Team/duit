@@ -314,7 +314,7 @@
       </div>                    
     </div>
 
-    <hr>
+    <hr style="margin-top: 0px;">
 
     <!-- Description -->
     <div class="mobile-property-description">      
@@ -330,16 +330,26 @@
     <hr>
 
     <!-- General Features --> 
-    <div>
+    <div class="mobile-property-general-features">
       <h3 class="desc-headline">Características Generales</h3>
+      <ul>
+        <li>item 1</li>
+        <li>Item 2</li>
+      </ul>
     </div>  
 
-    <!-- Enviroments -->
-    <h3 class="desc-headline">Ambientes</h3>
-    <ul>
-      <li ng-repeat="tag in p.prop.tags">{{tag.name}}</li>
-    </ul>
+    <hr>
+
+    <!-- Environments -->
+    <div class="mobile-property-environments">
+      <h3 class="desc-headline">Ambientes</h3>
+      <ul>
+        <li ng-repeat="tag in p.prop.tags">{{tag.name}}</li>
+      </ul>
+    </div>
     
+    <hr>
+
     <!-- Location -->
     <h3 class="desc-headline no-border" id="location">Ubicación</h3>
     <div id="propertyMap-container">
@@ -365,7 +375,8 @@
         </div>
         <button class="button fullwidth margin-top-5" ng-click="send()">{{submitText}} <i class='fa fa-spinner fa-spin' ng-show="sending"></i></button>
       </div> -->
-    <!-- Agent Widget / End -->                        
+    <!-- Agent Widget / End -->    
+
   </div>              
   <!-- Property Description End -->  
 
