@@ -27,4 +27,24 @@ app.controller('headerLogin', function($rootScope, $scope, $state) {
       // window.location.reload();
     });
   }
-})
+});
+
+app.controller('mobile-header', function($scope) {
+  $scope.isHamburgOpen = false;
+  
+  $scope.toggleMenu = function () {
+    $scope.isHamburgOpen = !$scope.isHamburgOpen;
+  }
+
+  var prevScrollpos = window.pageYOffset;
+  
+  window.onscroll = function() {
+  var currentScrollPos = window.pageYOffset;
+    if (prevScrollpos > currentScrollPos) {
+      document.getElementById("mobile-header").style.top = "0";
+    } else {
+      document.getElementById("mobile-header").style.top = "-65px";
+    }
+    prevScrollpos = currentScrollPos;
+  }
+});
