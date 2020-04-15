@@ -377,6 +377,73 @@
 
 #mobile-prop-detail .skeleton-container {
     display: flex;
+    flex-direction: column;        
+    border-radius: 5px;     
+    transform: scale(0.9);
+}
+
+#mobile-prop-detail .skeleton-image {    
+    height: 40vh;            
+    background-color: var(--softgrey);
+    background-image: linear-gradient(90deg, var(--softgrey) 0px, rgba(229, 229, 229, 0.8) 40px, var(--softgrey) 80px);
+    background-size: 200vw;
+    animation: shine-skeleton 2s infinite ease-out;   
+    margin-bottom: 15px; 
+  }
+  
+  #mobile-prop-detail .skeleton-lines {
+    display: flex;
+    flex-direction: column;     
+    justify-content: center;
+    align-items: center; 
+  }
+  
+  #mobile-prop-detail .skeleton-line {    
+    height: 4rem;
+    width: 100%;       
+    background-color: var(--softgrey);    
+    margin: 15px;
+    background-image: linear-gradient(90deg, var(--softgrey) 0px, rgba(229, 229, 229, 0.8) 40px, var(--softgrey) 80px);
+    background-size: 200vw;
+    animation: shine-skeleton 2s infinite ease-out;  
+  }
+
+  #mobile-prop-detail .skeleton-circles {
+    display: flex;
+    flex-direction: row;      
+    justify-content: space-around;
+    height: 70px;
+    margin-top: 15px;
+  }
+  
+  #mobile-prop-detail .skeleton-circle {    
+    flex: 0 0 70px;    
+    background-color: var(--softgrey);
+    border-radius: 50%;    
+    background-image: linear-gradient(90deg, var(--softgrey) 0px, rgba(229, 229, 229, 0.8) 40px, var(--softgrey) 80px);
+    background-size: 100vw;
+    animation: shine-circles 2s infinite ease-out;  
+  }
+  @keyframes shine-skeleton {
+    0% {
+      background-position: -10px;
+    }
+    50%, 100% {
+      background-position: 100vw;
+    }
+  }
+
+  @keyframes shine-circles {
+    0% {
+      background-position: -100px;
+    }
+    90%, 100% {
+      background-position: 80vw;
+    }
+  }
+
+#mobile-prop-detail .mobile-property-recomended .skeleton-container {
+    display: flex;
     flex-direction: column;
     flex: 0 0 65%;
     max-width: 350px;
@@ -385,17 +452,17 @@
     transform: scale(0.9);
 }
 
-#mobile-prop-detail .skeleton-image {    
+#mobile-prop-detail .mobile-property-recomended .skeleton-image {    
     height: 35vh;    
-    border-radius: 5px; 
+    border-radius: 10px; 
     margin: 20px;
     background-color: var(--softgrey);
     background-image: linear-gradient(90deg, var(--softgrey) 0px, rgba(229, 229, 229, 0.8) 40px, var(--softgrey) 80px);
     background-size: 100vw;
-    animation: shine-image 2s infinite ease-out;    
+    animation: shine-recomended 2s infinite ease-out;    
   }
   
-  #mobile-prop-detail .skeleton-lines {
+  #mobile-prop-detail .mobile-property-recomended .skeleton-lines {
     display: flex;
     flex-direction: column;
     border-bottom-left-radius: 5px;
@@ -403,27 +470,19 @@
     background-color: white;    
   }
   
-  #mobile-prop-detail .skeleton-line {    
+  #mobile-prop-detail .mobile-property-recomended .skeleton-line {    
     height: 3.5rem;
     width: 60vw;   
     max-width: 300px; 
     background-color: var(--softgrey);
-    border-radius: 5px;
+    border-radius: 8px;
     margin: 15px;
     background-image: linear-gradient(90deg, var(--softgrey) 0px, rgba(229, 229, 229, 0.8) 40px, var(--softgrey) 80px);
     background-size: 100vw;
-    animation: shine-lines 2s infinite ease-out;  
+    animation: shine-recomended 2s infinite ease-out;  
   }
   
-  @keyframes shine-lines {
-    0% {
-      background-position: -100px;
-    }
-    60%, 100% {
-      background-position: 80vw;
-    }
-  }
-  @keyframes shine-image {
+  @keyframes shine-recomended {
     0% {
       background-position: -100px;
     }

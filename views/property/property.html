@@ -248,132 +248,145 @@
 <div id="mobile-prop-detail" ng-controller="property" class="hidden-on-desktop">
   
   <!-- Skeleton Loader -->
-  
+  <div class="skeleton-container" ng-show="!apiReady">
+    <div class="skeleton-image"></div>
+    <div class="skeleton-lines">
+      <div class="skeleton-line"></div>
+      <div class="skeleton-line"></div>          
+    </div>
+    <div class="skeleton-circles">
+      <div class="skeleton-circle"></div>
+      <div class="skeleton-circle"></div>
+      <div class="skeleton-circle"></div>
+      <div class="skeleton-circle"></div>
+    </div>
+  </div>
   <!-- Skeleton Loader End -->
-
-  <!-- Detail Options -->
-
-  <!-- Detail Options End -->
-
-  <!-- Slider  -->
-  <section class="mobile-property-gallery-slider mobile-property-slider" ng-show="apiReady">
-    
-    <i class="fa fa-angle-left" ng-click="moveSliderLeft($event.target.parentElement, p.prop.photos.length, 'currentPhotoNumber')"></i>
-    <img ng-repeat="i in p.prop.photos" src="{{i.image}}">
-    <i class="fa fa-angle-right" ng-click="moveSliderRight($event.target.parentElement, p.prop.photos.length, 'currentPhotoNumber')"></i>
-    
-    <div class="mobile-silder-widgets-container">      
-      <div class="mobile-slider-open-gallery">
-        <i class="fa fa-arrows-alt"></i>
-        <p>Galería</p>
-      </div>
-      <div class="mobile-slider-photo-counter">
-        <i class="fa fa-camera"></i>
-        <p>{{currentPhotoNumber}}/{{p.prop.photos.length}}</p>
-      </div>
-    </div>   
-
-  </section>
-  <!-- Slider End -->
-
-  <!-- Galery -->
-
-  <!-- Galery End -->
-
-  <!-- Subtitle -->
-  <section class="mobile-property-subtitle">
-    <div class="mobile-property-subtitle-text">
-      <p><strong>{{p.prop.type.name}} - {{p.area | number:0}}m<sup>2</sup> - {{p.enviroments}} Ambientes</strong></p>
-      <p><strong>{{p.prop.address}}</strong>, {{p.prop.location.name}}, {{p.state}}</p>
-    </div>
-    <img src="{{p.prop.producer.picture}}" alt="" />
-  </section>
-  <!-- Subtitle End -->
   
-  <!-- Type Card -->
-  <section class="mobile-property-type-card">
-    <h4>{{p.operation_type}}</h4>
-    <h4>{{ p.price | currency:p.currency:0}}</h4>
-  </section>
-  <!-- Type Card End -->
-  
-  <!-- Published Days -->
-  <section class="mobile-property-created-at">
-    <i class="fa fa-clock-o"></i>
-    <p>&nbsp;Publicado hace {{getDaysDifference(p.prop.created_at)}} días</p>
-  </section>
-  <!-- Published Days End -->
-  
-  <!-- Property Title -->
-  <h4 class="mobile-property-title">{{p.prop.publication_title}}</h4>
-  
-  <!-- Features Icons -->
-  <section class="mobile-property-features-items">
-    <div class="mobile-property-feature-item" ng-repeat="item in featuresItems" >
-      <div class="feature-item-container"><i class="{{item.icon}}"></i></div>
-      <p><strong>{{item.value}}</strong></p>
-      <p>{{item.name}}</p>
-    </div>                    
-  </section>
-  <!-- Features Icons End -->
+  <div ng-show="apiReady">
+    <!-- Detail Options -->
 
-  <hr style="margin-top: 0px;">
+    <!-- Detail Options End -->
 
-  <!-- Description -->
-  <section class="mobile-property-description">      
-    <h3 class="desc-headline">Descripción</h3>
-    <div class="description-detail">
-      <pre>{{p.prop.description.trim()}}</pre>        
-    </div>
-    <div class="description-detail-button-container" ng-click="toggleDescriptionDetail()">
-      <p><i class="fa fa-angle-down"></i></p>
-    </div>
-  </section>
-  <!-- Description End -->
-
-  <hr>
-
-  <!-- General Features --> 
-  <section class="mobile-property-general-features">
-    <h3 class="desc-headline">Características Generales</h3>
-    <ul>
-      <li ng-repeat="tag in p.prop.tags">{{tag.name}}</li>
-    </ul>
-  </section>  
-  <!-- General Features End --> 
-
-  <hr>
-
-  <!-- Location -->
-  <section class="mobile-property-location">    
-    <h3 class="desc-headline no-border" id="location">Ubicación</h3>
-    <div id="property-map-container">
-      <div id="mobile-property-map"></div>
-      <!-- <a href="#" id="streetView">Street View</a> -->
-    </div> 
-  </section>
-  <!-- Location End -->
-  
-  <!-- Agent Widget -->
-    <!-- <div class="agent-widget" ng-controller="propContactForm">
-      <div class="agent-title">
-        <div class="agent-photo"><img src="{{p.prop.producer.picture}}" alt="" /></div>
-        <div class="agent-details">
-          <h4>{{p.prop.producer.name}}</h4>
-          <span><i class="sl sl-icon-call-in"></i>{{p.prop.producer.phone}}</span>
+    <!-- Slider  -->
+    <section class="mobile-property-gallery-slider mobile-property-slider">
+      
+      <i class="fa fa-angle-left" ng-click="moveSliderLeft($event.target.parentElement, p.prop.photos.length, 'currentPhotoNumber')"></i>
+      <img ng-repeat="i in p.prop.photos" src="{{i.image}}">
+      <i class="fa fa-angle-right" ng-click="moveSliderRight($event.target.parentElement, p.prop.photos.length, 'currentPhotoNumber')"></i>
+      
+      <div class="mobile-silder-widgets-container">      
+        <div class="mobile-slider-open-gallery">
+          <i class="fa fa-arrows-alt"></i>
+          <p>Galería</p>
         </div>
-        <div class="clearfix"></div>
-      </div>
-      <input type="text" placeholder="Tu Email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" ng-model="email">
-      <input type="text" placeholder="Tu Teléfono" ng-model="phone">
-      <textarea ng-model="message"></textarea>
-      <div class="notification success closeable col-md-12" ng-show="success">
-        <p>Mensaje enviado con éxito.</p>
-      </div>
-      <button class="button fullwidth margin-top-5" ng-click="send()">{{submitText}} <i class='fa fa-spinner fa-spin' ng-show="sending"></i></button>
-    </div> -->
-  <!-- Agent Widget / End --> 
+        <div class="mobile-slider-photo-counter">
+          <i class="fa fa-camera"></i>
+          <p>{{currentPhotoNumber}}/{{p.prop.photos.length}}</p>
+        </div>
+      </div>   
 
+    </section>
+    <!-- Slider End -->
+
+    <!-- Galery -->
+
+    <!-- Galery End -->
+
+    <!-- Subtitle -->
+    <section class="mobile-property-subtitle">
+      <div class="mobile-property-subtitle-text">
+        <p><strong>{{p.prop.type.name}} - {{p.area | number:0}}m<sup>2</sup> - {{p.enviroments}} Ambientes</strong></p>
+        <p><strong>{{p.prop.address}}</strong>, {{p.prop.location.name}}, {{p.state}}</p>
+      </div>
+      <img src="{{p.prop.producer.picture}}" alt="" />
+    </section>
+    <!-- Subtitle End -->
+    
+    <!-- Type Card -->
+    <section class="mobile-property-type-card">
+      <h4>{{p.operation_type}}</h4>
+      <h4>{{ p.price | currency:p.currency:0}}</h4>
+    </section>
+    <!-- Type Card End -->
+    
+    <!-- Published Days -->
+    <section class="mobile-property-created-at">
+      <i class="fa fa-clock-o"></i>
+      <p>&nbsp;Publicado hace {{getDaysDifference(p.prop.created_at)}} días</p>
+    </section>
+    <!-- Published Days End -->
+    
+    <!-- Property Title -->
+    <h4 class="mobile-property-title">{{p.prop.publication_title}}</h4>
+    
+    <!-- Features Icons -->
+    <section class="mobile-property-features-items">
+      <div class="mobile-property-feature-item" ng-repeat="item in featuresItems" >
+        <div class="feature-item-container"><i class="{{item.icon}}"></i></div>
+        <p><strong>{{item.value}}</strong></p>
+        <p>{{item.name}}</p>
+      </div>                    
+    </section>
+    <!-- Features Icons End -->
+
+    <hr style="margin-top: 0px;">
+
+    <!-- Description -->
+    <section class="mobile-property-description">      
+      <h3 class="desc-headline">Descripción</h3>
+      <div class="description-detail">
+        <pre>{{p.prop.description.trim()}}</pre>        
+      </div>
+      <div class="description-detail-button-container" ng-click="toggleDescriptionDetail()">
+        <p><i class="fa fa-angle-down"></i></p>
+      </div>
+    </section>
+    <!-- Description End -->
+
+    <hr>
+
+    <!-- General Features --> 
+    <section class="mobile-property-general-features">
+      <h3 class="desc-headline">Características Generales</h3>
+      <ul>
+        <li ng-repeat="tag in p.prop.tags">{{tag.name}}</li>
+      </ul>
+    </section>  
+    <!-- General Features End --> 
+
+    <hr>
+
+    <!-- Location -->
+    <section class="mobile-property-location">    
+      <h3 class="desc-headline no-border" id="location">Ubicación</h3>
+      <div id="property-map-container">
+        <div id="mobile-property-map"></div>
+        <!-- <a href="#" id="streetView">Street View</a> -->
+      </div> 
+    </section>
+    <!-- Location End -->
+    
+    <!-- Agent Widget -->
+      <!-- <div class="agent-widget" ng-controller="propContactForm">
+        <div class="agent-title">
+          <div class="agent-photo"><img src="{{p.prop.producer.picture}}" alt="" /></div>
+          <div class="agent-details">
+            <h4>{{p.prop.producer.name}}</h4>
+            <span><i class="sl sl-icon-call-in"></i>{{p.prop.producer.phone}}</span>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <input type="text" placeholder="Tu Email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" ng-model="email">
+        <input type="text" placeholder="Tu Teléfono" ng-model="phone">
+        <textarea ng-model="message"></textarea>
+        <div class="notification success closeable col-md-12" ng-show="success">
+          <p>Mensaje enviado con éxito.</p>
+        </div>
+        <button class="button fullwidth margin-top-5" ng-click="send()">{{submitText}} <i class='fa fa-spinner fa-spin' ng-show="sending"></i></button>
+      </div> -->
+    <!-- Agent Widget / End --> 
+  </div>
   <!-- Featured Props -->
   <section class="mobile-property-recomended">  
     <h3>Te aconsejamos estas departamentos</h3>    
