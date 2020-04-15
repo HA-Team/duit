@@ -12,8 +12,10 @@
 }
 :root {
     --red: #c8001e;
+    --blue: #537ebb;
     --softgrey: #f4f4f4;
 }
+
 pre {
     font-family: "Varela Round", "HelveticaNeue", "Helvetica Neue";
     white-space: pre-wrap;
@@ -22,7 +24,7 @@ pre {
     font-size: 80px;
     margin-left: 48%;
     margin-top: 20px;
-    color: #c8001e;
+    color: var(--red);
 }
 .byha {
     width: 67px;
@@ -343,9 +345,8 @@ header.fullwidth .container {
     padding: 70px 0 0 0;
     background-color: #fcfcfc;
     box-shadow: inset 0 20px 50px -20px rgba(0, 0, 0, 0.06);
-}
-#footer.sticky-footer {
     box-shadow: none;
+    position: relative;
 }
 #footer h4 {
     color: #333;
@@ -1502,7 +1503,7 @@ input.second-slider-value {
 }
 .parallax-content {
     position: relative;
-    z-index: 999;
+    z-index: 10;
     padding: 105px 0;
 }
 #titlebar {
@@ -10021,5 +10022,57 @@ div.layout-style {
 @media only screen and (max-width:1024px) {
     #style-switcher {
     display: none;
+    }
 }
+
+.hide {
+	display: none;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-row-reverse {
+    flex-direction: row-reverse;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+.flex-column-reverse {
+    flex-direction: column-reverse;
+}
+
+.align-items-start {
+    align-items: flex-start;
+}
+.align-items-end {
+    align-items: flex-end;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.align-items-baseline {
+    align-items: baseline;
+}
+
+@media only screen and (max-width: 1024px) {
+    body {
+        margin-top: 50px;
+    }
+
+    #propsListing {
+        margin-top: 15px;
+    }
 }

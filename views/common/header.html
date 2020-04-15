@@ -1,10 +1,62 @@
 <header id="header-container" class="header-style-2">
 
-  <!-- Header -->
-  <div id="header">
+  <!-- Mobile Header -->
+  <div id="mobile-header" class="hidden-on-desktop" ng-controller="mobile-header" ng-class="{' open' : isHamburgOpen}">    
+    <div class="d-flex flex-column">
+
+      <!-- Main Header -->
+      <div class="mobile-main-header d-flex justify-content-between flex-row align-items-start">        
+        
+        <!-- Logo -->
+        <div id="logo" class="margin-left-20 margin-top-5">
+          <a href="index.html"><img src="/images/duit_id_blanco.png" alt=""></a>          
+        </div>
+
+        <!-- Hamburger Menu -->  
+        <div id="hamburguer-menu" class="d-flex justify-content-between flex-column align-items-center margin-right-30 margin-top-15"
+          ng-click="toggleMenu()">
+          <div class="hamburguer-menu-item"></div>
+        </div>                
+      </div>
+
+      <!-- Arrow bellow Hamburguer Menu -->
+      <div class="mobile-arrow-header d-flex flex-row-reverse">
+        <div class="mobile-arrow-header-item"></div>
+        <div class="mobile-arrow-header-item"></div>  
+        <div class="mobile-arrow-header-item"></div> 
+        <div class="mobile-arrow-header-item"></div>         
+      </div> 
+
+    </div>     
+    
+    <!-- Mobile Modal Nav -->
+    <div id="mobile-modal-nav" ng-class="{' open': isHamburgOpen}">
+      <nav class="mobile-modal-container" >
+        <ul>
+          <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'home'}">            
+            <a ng-click="setActive('home'); toggleMenu()" ui-sref="home">Home</a>
+          </li>          
+          <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'agents'}">            
+            <a ng-click="setActive('agents'); toggleMenu()" ui-sref="agents">Asesores</a>
+          </li>
+          <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'developments'}">            
+            <a ng-click="setActive('developments'); toggleMenu()" ui-sref="developments">Emprendimientos</a>
+          </li>
+          <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'contactUs'}">            
+            <a ng-click="setActive('contactUs'); toggleMenu()" ui-sref="contactUs">Contacto</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="mobile-modal-background" ng-click="toggleMenu()"></div>
+    </div>    
+  </div>      
+  <!-- Mobile Header / End -->
+
+  <!-- Desktop Header -->
+  <div id="header" class="hidden-on-mobile">
     <div class="container">
       
-      <!-- Left Side Content -->
+      <!-- Left Side Desktop Content -->
       <div class="left-side">
         
         <!-- Logo -->
@@ -12,14 +64,14 @@
           <a href="index.html"><img src="/images/logo.png" alt=""></a>
 
           <!-- Logo for Sticky Header -->
-          <a href="index.html" class="sticky-logo"><img src="/images/logo_cropped.png" alt=""></a>
+          <a href="index.html" class="sticky-logo"><img src="/images/logo_cropped.png" alt=""></a>          
         </div>
         
       </div>
-      <!-- Left Side Content / End -->
+      <!-- Left Side Desktop Content / End -->      
 
       <!-- Right Side Content / End -->
-      <div class="right-side">
+      <div class="right-side hidden-on-mobile">
         <ul class="header-widget">
           <li>
             <i class="sl sl-icon-call-in"></i>
@@ -50,14 +102,7 @@
       </div>
       <!-- Right Side Content / End -->
 
-    </div>
-
-
-    <!-- Mobile Navigation -->
-    <div class="menu-responsive">
-      <i class="fa fa-reorder menu-trigger"></i>
-    </div>
-
+    </div>    
 
     <!-- Main Navigation -->
     <nav id="navigation" class="style-2" ng-controller="navigation">
@@ -80,7 +125,7 @@
     <div class="clearfix"></div>
     <!-- Main Navigation / End -->
   </div>
-  <!-- Header / End -->
+  <!-- Desktop Header / End -->
 
 </header>
 <div class="clearfix"></div>

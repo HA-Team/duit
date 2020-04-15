@@ -8,7 +8,7 @@ const getProperties = ($scope, tokkoApi, rargs) => {
       let types = result.objects.property_types
       $scope.sideBarParams = {
         locations: result.objects.locations,
-        types: types,
+        types: types.sort((a, b) => b.count - a.count),
         subTypes: (() => {
           if ($scope.subTypeSelected && $scope.subTypeSelected.length > 0) {
             return [propertiesSubTypes[types[0].id].find(x => x.id === $scope.subTypeSelected[0])]
@@ -16,8 +16,8 @@ const getProperties = ($scope, tokkoApi, rargs) => {
             return types.length === 1 ? propertiesSubTypes[types[0].id] : [];
           }
         })(),
-        operations: result.objects.operation_types,
-        rooms: result.objects.suite_amount,
+        operations: result.objects.operation_types.sort((a, b) => b.count - a.count),
+        rooms: result.objects.suite_amount.sort((a, b) => b.count - a.count),
       };
       $scope.resultsCount = result.meta.total_count;
       $scope.$apply();
