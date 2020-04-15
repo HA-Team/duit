@@ -309,8 +309,8 @@
   
   <!-- Features Icons -->
   <section class="mobile-property-features-items">
-    <div class="mobile-property-feature-item" ng-repeat="item in featuresItems" ng-show="item.value != 0 && item.value != '0m2'">
-      <div class="feature-item-container"><i class="fa fa-camera"></i></div>
+    <div class="mobile-property-feature-item" ng-repeat="item in featuresItems" >
+      <div class="feature-item-container"><i class="{{item.icon}}"></i></div>
       <p><strong>{{item.value}}</strong></p>
       <p>{{item.name}}</p>
     </div>                    
@@ -381,12 +381,24 @@
     <!-- Slider -->
     <div class="mobile-property-slider">
 
-      <div class="mobile-property-recomended-emtpy-item">&nbsp;</div>
+      <div class="mobile-property-recomended-emtpy-item" ng-show="featReady">&nbsp;</div>
       
-      <i class="fa fa-angle-left" ng-click="moveSliderLeft($event.target.parentElement, featured.length, 'currentFeaturedNumber', $event.target.nextElementSibling.offsetWidth)"></i>  
+      <!-- Skeleton Loader -->
+      <div ng-repeat="x in [].constructor(3) track by $index" ng-show="!featReady">
+        <div class="skeleton-container">
+          <div class="skeleton-image"></div>
+          <div class="skeleton-lines">
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line"></div>          
+          </div>
+        </div>
+      </div>
+      <!-- Skeleton Loader End-->
+
+      <i class="fa fa-angle-left" ng-click="moveSliderLeft($event.target.parentElement, featured.length, 'currentFeaturedNumber', $event.target.nextElementSibling.offsetWidth)" ng-show="featReady"></i>  
       
       <!-- Items -->
-      <div class="mobile-property-recomended-item" ng-repeat="item in featured track by $index" ng-class="{'active': $index + 1 == currentFeaturedNumber}">
+      <div class="mobile-property-recomended-item" ng-repeat="item in featured track by $index" ng-class="{'active': $index + 1 == currentFeaturedNumber}" ng-show="featReady">
         <a ui-sref="property({propertyId: item.id})"><img src="{{item.cover_photo}}" alt=""></a>
         <div class="recomended-item-description-container">
           <h4><strong>{{ item.price | currency:item.currency:0}}</strong></h4>
@@ -400,7 +412,7 @@
       </div>
       <!-- Items End -->
 
-      <i class="fa fa-angle-right" ng-click="moveSliderRight($event.target.parentElement, featured.length, 'currentFeaturedNumber', $event.target.previousElementSibling.offsetWidth)"></i>
+      <i class="fa fa-angle-right" ng-click="moveSliderRight($event.target.parentElement, featured.length, 'currentFeaturedNumber', $event.target.previousElementSibling.offsetWidth)" ng-show="featReady"></i>
       
       <div class="mobile-property-recomended-emtpy-item">&nbsp;</div>
     </div>
@@ -415,12 +427,24 @@
     <!-- Slider -->
     <div class="mobile-property-slider">
 
-      <div class="mobile-property-recomended-emtpy-item">&nbsp;</div>
+      <div class="mobile-property-recomended-emtpy-item" ng-show="simReady">&nbsp;</div>
 
-      <i class="fa fa-angle-left" ng-click="moveSliderLeft($event.target.parentElement, similar.length, 'currentSimilarNumber', $event.target.nextElementSibling.offsetWidth)"></i>  
+      <!-- Skeleton Loader -->
+      <div ng-repeat="x in [].constructor(3) track by $index" ng-show="!simReady">
+        <div class="skeleton-container">
+          <div class="skeleton-image"></div>
+          <div class="skeleton-lines">
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line"></div>          
+          </div>
+        </div>
+      </div>
+      <!-- Skeleton Loader End-->
+
+      <i class="fa fa-angle-left" ng-click="moveSliderLeft($event.target.parentElement, similar.length, 'currentSimilarNumber', $event.target.nextElementSibling.offsetWidth)" ng-show="simReady"></i>  
       
       <!-- Items -->      
-      <div class="mobile-property-recomended-item" ng-repeat="item in similar track by $index" ng-class="{'active': $index + 1 == currentSimilarNumber}">
+      <div class="mobile-property-recomended-item" ng-repeat="item in similar track by $index" ng-class="{'active': $index + 1 == currentSimilarNumber}" ng-show="simReady">
         <a ui-sref="property({propertyId: item.id})"><img src="{{item.cover_photo}}" alt=""></a>
         <div class="recomended-item-description-container">
           <h4><strong>{{ item.price | currency:item.currency:0}}</strong></h4>
@@ -434,7 +458,7 @@
       </div>
       <!-- Items End -->
       
-      <i class="fa fa-angle-right" ng-click="moveSliderRight($event.target.parentElement, similar.length, 'currentSimilarNumber', $event.target.previousElementSibling.offsetWidth)"></i>
+      <i class="fa fa-angle-right" ng-click="moveSliderRight($event.target.parentElement, similar.length, 'currentSimilarNumber', $event.target.previousElementSibling.offsetWidth)" ng-show="simReady"></i>
       
       <div class="mobile-property-recomended-emtpy-item">&nbsp;</div>
     </div>
