@@ -14,6 +14,11 @@
 
 #mobile-prop-detail i.fa-angle-left,
 #mobile-prop-detail i.fa-angle-right {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     font-size: 48px;    
     color: lightgrey;
@@ -38,7 +43,7 @@
     height: 60vh;
     width: 100vw;         
     transition: 1s;  
-    margin: 10px 0px;    
+    margin: 20px 0px;    
 }
 
 #mobile-prop-detail .mobile-property-gallery-slider img {
@@ -367,4 +372,5 @@
     background-color: transparent;
     flex: 0 0 17.5%;
     max-width: 175px;
+    height: 35vh;
 }
