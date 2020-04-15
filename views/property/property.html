@@ -246,19 +246,21 @@
 
 <!-- Mobile Property Detail -->
 <div id="mobile-prop-detail" ng-controller="property" class="hidden-on-desktop">
-
-  <div class='spinner' ng-include="'/views/common/spinner.html'" ng-show="!apiReady"></div>
+  
+  <!-- Skeleton Loader -->
+  
+  <!-- Skeleton Loader End -->
 
   <!-- Detail Options -->
 
   <!-- Detail Options End -->
 
   <!-- Slider  -->
-  <section class="mobile-property-slider  hidden-on-desktop" ng-show="apiReady">
+  <section class="mobile-property-gallery-slider mobile-property-slider" ng-show="apiReady">
     
-    <i class="fa fa-angle-left" ng-click="moveSliderLeft()"></i>
+    <i class="fa fa-angle-left" ng-click="moveSliderLeft($event.target.parentElement, p.prop.photos.length, 'currentPhotoNumber')"></i>
     <img ng-repeat="i in p.prop.photos" src="{{i.image}}">
-    <i class="fa fa-angle-right" ng-click="moveSliderRight()"></i>
+    <i class="fa fa-angle-right" ng-click="moveSliderRight($event.target.parentElement, p.prop.photos.length, 'currentPhotoNumber')"></i>
     
     <div class="mobile-silder-widgets-container">      
       <div class="mobile-slider-open-gallery">
@@ -286,19 +288,22 @@
     </div>
     <img src="{{p.prop.producer.picture}}" alt="" />
   </section>
+  <!-- Subtitle End -->
   
   <!-- Type Card -->
   <section class="mobile-property-type-card">
     <h4>{{p.operation_type}}</h4>
     <h4>{{ p.price | currency:p.currency:0}}</h4>
   </section>
+  <!-- Type Card End -->
   
   <!-- Published Days -->
   <section class="mobile-property-created-at">
     <i class="fa fa-clock-o"></i>
     <p>&nbsp;Publicado hace {{getDaysDifference(p.prop.created_at)}} días</p>
   </section>
-
+  <!-- Published Days End -->
+  
   <!-- Property Title -->
   <h4 class="mobile-property-title">{{p.prop.publication_title}}</h4>
   
@@ -310,6 +315,7 @@
       <p>{{item.name}}</p>
     </div>                    
   </section>
+  <!-- Features Icons End -->
 
   <hr style="margin-top: 0px;">
 
@@ -323,6 +329,7 @@
       <p><i class="fa fa-angle-down"></i></p>
     </div>
   </section>
+  <!-- Description End -->
 
   <hr>
 
@@ -330,21 +337,11 @@
   <section class="mobile-property-general-features">
     <h3 class="desc-headline">Características Generales</h3>
     <ul>
-      <li>item 1</li>
-      <li>Item 2</li>
-    </ul>
-  </section>  
-
-  <hr>
-
-  <!-- Environments -->
-  <section class="mobile-property-environments">
-    <h3 class="desc-headline">Ambientes</h3>
-    <ul>
       <li ng-repeat="tag in p.prop.tags">{{tag.name}}</li>
     </ul>
-  </section>
-  
+  </section>  
+  <!-- General Features End --> 
+
   <hr>
 
   <!-- Location -->
@@ -355,6 +352,7 @@
       <!-- <a href="#" id="streetView">Street View</a> -->
     </div> 
   </section>
+  <!-- Location End -->
   
   <!-- Agent Widget -->
     <!-- <div class="agent-widget" ng-controller="propContactForm">
@@ -376,77 +374,69 @@
     </div> -->
   <!-- Agent Widget / End --> 
 
-  <!-- Recomended Props -->
+  <!-- Featured Props -->
   <section class="mobile-property-recomended">  
     <h3>Te aconsejamos estas departamentos</h3>    
     
     <!-- Slider -->
-    <div class="mobile-property-recomended-slider">
+    <div class="mobile-property-slider">
 
+      <div class="mobile-property-recomended-emtpy-item">&nbsp;</div>
+      
+      <i class="fa fa-angle-left" ng-click="moveSliderLeft($event.target.parentElement, featured.length, 'currentFeaturedNumber', $event.target.nextElementSibling.offsetWidth)"></i>  
+      
       <!-- Items -->
-      <div class="mobile-property-recomended-item" ng-repet="item in similar">
-        <a ui-sref="property({propertyId: item.id})"><img src="{{p.cover_photo}}" alt=""></a>
+      <div class="mobile-property-recomended-item" ng-repeat="item in featured track by $index" ng-class="{'active': $index + 1 == currentFeaturedNumber}">
+        <a ui-sref="property({propertyId: item.id})"><img src="{{item.cover_photo}}" alt=""></a>
         <div class="recomended-item-description-container">
-          <h4><strong>{{ p.price | currency:p.currency:0}}</strong></h4>
-          <p>{{p.area |number:0}}m<sup>2</sup>totales</p>
+          <h4><strong>{{ item.price | currency:item.currency:0}}</strong></h4>
+          <p>{{item.area |number:0}}m<sup>2</sup>totales</p>
           <p>
-            {{p.prop.suite_amount > 1 ? p.prop.suite_amount + ' dormitorios' : p.prop.suite_amount + ' dormitorio'}} |
-            {{p.prop.bathroom_amount > 1 ? p.prop.bathroom_amount + ' baños' : p.prop.bathroom_amount + ' baño'}}
+            {{item.prop.suite_amount > 1 ? item.prop.suite_amount + ' dormitorios' : item.prop.suite_amount + ' dormitorio'}} |
+            {{item.prop.bathroom_amount > 1 ? item.prop.bathroom_amount + ' baños' : item.prop.bathroom_amount + ' baño'}}
           </p>          
-          <p>{{p.prop.publication_title}}</p>
+          <p>{{item.prop.publication_title}}</p>
         </div>         
       </div>
+      <!-- Items End -->
 
-      <div class="mobile-property-recomended-item" ng-repet="item in similar">
-        <a ui-sref="property({propertyId: item.id})"><img src="{{p.cover_photo}}" alt=""></a>
-        <div class="recomended-item-description-container">
-          <h4><strong>{{ p.price | currency:p.currency:0}}</strong></h4>
-          <p>{{p.area |number:0}}m<sup>2</sup>totales</p>
-          <p>
-            {{p.prop.suite_amount > 1 ? p.prop.suite_amount + ' dormitorios' : p.prop.suite_amount + ' dormitorio'}} |
-            {{p.prop.bathroom_amount > 1 ? p.prop.bathroom_amount + ' baños' : p.prop.bathroom_amount + ' baño'}}
-          </p>          
-          <p>{{p.prop.publication_title}}</p>
-        </div>         
-      </div>
+      <i class="fa fa-angle-right" ng-click="moveSliderRight($event.target.parentElement, featured.length, 'currentFeaturedNumber', $event.target.previousElementSibling.offsetWidth)"></i>
+      
+      <div class="mobile-property-recomended-emtpy-item">&nbsp;</div>
     </div>
 
   </section>
-  <!-- Recomended Props End -->
+  <!-- Featured Props End -->
 
   <!-- Similar Props -->
   <section class="mobile-property-recomended">  
     <h3>Puede intersarte</h3>    
     
     <!-- Slider -->
-    <div class="mobile-property-recomended-slider">
+    <div class="mobile-property-slider">
 
-      <!-- Items -->
-      <div class="mobile-property-recomended-item" ng-repet="item in similar">
-        <a ui-sref="property({propertyId: item.id})"><img src="{{p.cover_photo}}" alt=""></a>
+      <div class="mobile-property-recomended-emtpy-item">&nbsp;</div>
+
+      <i class="fa fa-angle-left" ng-click="moveSliderLeft($event.target.parentElement, similar.length, 'currentSimilarNumber', $event.target.nextElementSibling.offsetWidth)"></i>  
+      
+      <!-- Items -->      
+      <div class="mobile-property-recomended-item" ng-repeat="item in similar track by $index" ng-class="{'active': $index + 1 == currentSimilarNumber}">
+        <a ui-sref="property({propertyId: item.id})"><img src="{{item.cover_photo}}" alt=""></a>
         <div class="recomended-item-description-container">
-          <h4><strong>{{ p.price | currency:p.currency:0}}</strong></h4>
-          <p>{{p.area |number:0}}m<sup>2</sup>totales</p>
+          <h4><strong>{{ item.price | currency:item.currency:0}}</strong></h4>
+          <p>{{item.area |number:0}}m<sup>2</sup>totales</p>
           <p>
-            {{p.prop.suite_amount > 1 ? p.prop.suite_amount + ' dormitorios' : p.prop.suite_amount + ' dormitorio'}} |
-            {{p.prop.bathroom_amount > 1 ? p.prop.bathroom_amount + ' baños' : p.prop.bathroom_amount + ' baño'}}
+            {{item.prop.suite_amount > 1 ? item.prop.suite_amount + ' dormitorios' : item.prop.suite_amount + ' dormitorio'}} |
+            {{item.prop.bathroom_amount > 1 ? item.prop.bathroom_amount + ' baños' : item.prop.bathroom_amount + ' baño'}}
           </p>          
-          <p>{{p.prop.publication_title}}</p>
+          <p>{{item.prop.publication_title}}</p>
         </div>         
       </div>
-
-      <div class="mobile-property-recomended-item" ng-repet="item in similar">
-        <a ui-sref="property({propertyId: item.id})"><img src="{{p.cover_photo}}" alt=""></a>
-        <div class="recomended-item-description-container">
-          <h4><strong>{{ p.price | currency:p.currency:0}}</strong></h4>
-          <p>{{p.area |number:0}}m<sup>2</sup>totales</p>
-          <p>
-            {{p.prop.suite_amount > 1 ? p.prop.suite_amount + ' dormitorios' : p.prop.suite_amount + ' dormitorio'}} |
-            {{p.prop.bathroom_amount > 1 ? p.prop.bathroom_amount + ' baños' : p.prop.bathroom_amount + ' baño'}}
-          </p>          
-          <p>{{p.prop.publication_title}}</p>
-        </div>         
-      </div>
+      <!-- Items End -->
+      
+      <i class="fa fa-angle-right" ng-click="moveSliderRight($event.target.parentElement, similar.length, 'currentSimilarNumber', $event.target.previousElementSibling.offsetWidth)"></i>
+      
+      <div class="mobile-property-recomended-emtpy-item">&nbsp;</div>
     </div>
 
   </section>

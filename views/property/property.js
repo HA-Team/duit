@@ -59,6 +59,11 @@ const getSimilar = (scope, tokkoApi) => {
 app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) {
   $rootScope.activeMenu = '';
   $scope.apiReady = false;
+
+  $scope.currentPhotoNumber = 1;
+  $scope.currentFeaturedNumber = 1;
+  $scope.currentSimilarNumber = 1;
+  
   const id = $stateParams.propertyId;
   tokkoApi.findOne('property', id, function(result){
     $scope.p =  {
@@ -154,38 +159,30 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
       google.maps.event.trigger(map, 'resize');
       google.maps.event.trigger(mobileMap, 'resize');
     }, 0)
-  });
-  
-  $scope.currentPhotoNumber = 1;
+  });  
 
-  $scope.moveSliderLeft = () => {
-    const slider = document.querySelector("#mobile-prop-detail .mobile-property-slider");
-    const scrollWidth = slider.scrollWidth;
-    const scrollLeft = slider.scrollLeft;
-    const screenWidth = window.innerWidth;
-
-    if (scrollLeft == 0) {
-      slider.scrollLeft = scrollWidth - screenWidth;
-      $scope.currentPhotoNumber = $scope.p.prop.photos.length;
+  $scope.moveSliderLeft = (element, arrLength, index, pxToMove) => {     
+    if (!pxToMove) pxToMove = window.innerWidth;                    
+     
+    if ($scope[index] == 1) {
+      $scope[index] = arrLength;
+      element.scrollLeft = pxToMove * (arrLength - 1);      
     } else {
-      $scope.currentPhotoNumber -= 1;
-      slider.scrollLeft -= screenWidth;
-    }
+      $scope[index] -= 1;  
+      element.scrollLeft -= pxToMove;    
+    }    
   };
 
-  $scope.moveSliderRight = () => {
-    const slider = document.querySelector("#mobile-prop-detail .mobile-property-slider");
-    const scrollWidth = slider.scrollWidth;
-    const scrollLeft = slider.scrollLeft;
-    const screenWidth = window.innerWidth;
+  $scope.moveSliderRight = (element, arrLength, index , pxToMove) => {        
+    if (!pxToMove) pxToMove = window.innerWidth; 
     
-    if (scrollLeft == scrollWidth - screenWidth) {
-      slider.scrollLeft = 0;
-      $scope.currentPhotoNumber = 1;
+    if ($scope[index] == arrLength) {
+      $scope[index] = 1;   
+      element.scrollLeft = 0;   
     } else {      
-      $scope.currentPhotoNumber += 1;
-      slider.scrollLeft += screenWidth;
-    }    
+      $scope[index] += 1;      
+      element.scrollLeft += pxToMove;
+    }      
   };
 
   $scope.getDaysDifference = (date) => {
