@@ -59,6 +59,7 @@ const getSimilar = (scope, tokkoApi) => {
 app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) {
   $rootScope.activeMenu = '';
   $scope.apiReady = false;
+  $scope.isContactModalOpen = false;
 
   $scope.currentPhotoNumber = 1;
   $scope.currentFeaturedNumber = 1;
@@ -199,7 +200,9 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
 
     if (detail.classList.contains("visible")) detail.classList.remove("visible");
     else detail.classList.add("visible");    
-  }
+  };
+
+  $scope.toggleContactModal = () => $scope.isContactModalOpen = !$scope.isContactModalOpen;
 });
 
 app.controller('propContactForm', function($scope, tokkoApi) {

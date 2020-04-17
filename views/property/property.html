@@ -251,14 +251,10 @@
   <div class="skeleton-container" ng-show="!apiReady">
     <div class="skeleton-image"></div>
     <div class="skeleton-lines">
-      <div class="skeleton-line"></div>
-      <div class="skeleton-line"></div>          
+      <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
     </div>
     <div class="skeleton-circles">
-      <div class="skeleton-circle"></div>
-      <div class="skeleton-circle"></div>
-      <div class="skeleton-circle"></div>
-      <div class="skeleton-circle"></div>
+      <div ng-repeat="x in [].constructor(4) track by $index" class="skeleton-circle"></div>     
     </div>
   </div>
   <!-- Skeleton Loader End -->
@@ -294,13 +290,30 @@
     <!-- Galery End -->
 
     <!-- Subtitle -->
-    <section class="mobile-property-subtitle">
+    <section class="mobile-property-subtitle" ng-class="{'open': isContactModalOpen}">
       <div class="mobile-property-subtitle-text">
         <p><strong>{{p.prop.type.name}} - {{p.area | number:0}}m<sup>2</sup> - {{p.enviroments}} Ambientes</strong></p>
         <p><strong>{{p.prop.address}}</strong>, {{p.prop.location.name}}, {{p.state}}</p>
       </div>
-      <img src="{{p.prop.producer.picture}}" alt="" />
-    </section>
+      <div class="mobile-property-contact">
+        <img src="{{p.prop.producer.picture}}" alt="" />
+        <i class="fa fa-whatsapp" ng-click="toggleContactModal()"></i>
+        <i class="fa fa-times" ng-click="toggleContactModal()"></i>
+
+        <!-- Contact Modal -->
+        <div class="mobile-property-contact-modal">
+          <div class="mobile-property-modal-content">
+            <p>{{p.prop.producer.name}}</p>
+            <div class="mobile-property-modal-icons">
+              <i class="fa fa-envelope"></i>
+              <i class="fa fa-whatsapp"></i>
+            </div>
+          </div>          
+          <div class="mobile-property-modal-img-space"></div>
+        </div>
+        <!-- Contact Modal End -->
+      </div>
+    </section>    
     <!-- Subtitle End -->
     
     <!-- Type Card -->
