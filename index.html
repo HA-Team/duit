@@ -31,7 +31,7 @@
     <script src="scripts/lodash.core.min.js"></script>
 
     <!-- Angular Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script type="text/javascript" src="scripts/angular.min.js"></script>
     <script type="text/javascript" src="scripts/angular-ui-router.min.js"></script>
     <!-- Uncomment the next 2 lines when backend was deployed on production -->
     <!-- <script defer type="text/javascript" src="scripts/meteor-runtime-config.js"></script>
@@ -63,27 +63,6 @@
     <!-- Uncomment when favorites goes to production -->
     <!-- <script defer type="text/javascript" src="views/favorites/favorites.js"></script> -->
     <!-- End views Scripts -->
-    <!-- Chatra {literal} -->
-    <script>
-      window.ChatraSetup = {
-        colors: {
-          buttonText: '#f0f0f0', /* chat button text color */
-          buttonBg: '#c8001e'    /* chat button background color */
-        }
-      };
-      (function(d, w, c) {
-        w.ChatraID = 'QqbvaHuNbDqWEK8h9';
-        var s = d.createElement('script');
-        w[c] = w[c] || function() {
-            (w[c].q = w[c].q || []).push(arguments);
-        };
-        s.async = true;
-        s.src = (d.location.protocol === 'https:' ? 'https:': 'http:')
-        + '//call.chatra.io/chatra.js';
-        if (d.head) d.head.appendChild(s);
-      })(document, window, 'Chatra'); 
-    </script>
-    <!-- /Chatra {/literal} -->
   </head>
   <body>
     <!-- Wrapper -->

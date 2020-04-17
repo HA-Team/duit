@@ -4,40 +4,40 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
   $urlRouterProvider.otherwise('/');
   $stateProvider.state('home', {
     url: '/',
-    templateUrl: '/views/home/home.html',
+    templateUrl: 'views/home/home.html',
   });
   $stateProvider.state('propertySearch', {
     url: '/propertySearch?args',
-    templateUrl: '/views/properties_listing/properties_listing.html',
+    templateUrl: 'views/properties_listing/properties_listing.html',
     reloadOnSearch: false,
   });
   $stateProvider.state('contactUs', {
     url: '/contactUs',
-    templateUrl: '/views/contact/contact.html'
+    templateUrl: 'views/contact/contact.html'
   });
   $stateProvider.state('property', {
     url: '/property/:propertyId',
-    templateUrl: '/views/property/property.html'
+    templateUrl: 'views/property/property.html'
   });
   $stateProvider.state('agents', {
     url: '/agents',
-    templateUrl: '/views/agents/agents.html'
+    templateUrl: 'views/agents/agents.html'
   });
   $stateProvider.state('developments', {
     url: '/developments',
-    templateUrl: '/views/developments_listing/developments_listing.html'
+    templateUrl: 'views/developments_listing/developments_listing.html'
   });
   $stateProvider.state('development', {
     url: '/development/:devId',
-    templateUrl: '/views/development/development.html'
+    templateUrl: 'views/development/development.html'
   });
   $stateProvider.state('favorites', {
     url: '/favorites',
-    templateUrl: '/views/favorites/favorites.html'
+    templateUrl: 'views/favorites/favorites.html'
   });
   $stateProvider.state('login', {
     url: '/login',
-    templateUrl: '/views/accounts/login.html'
+    templateUrl: 'views/accounts/login.html'
   });
   $provide.decorator('$uiViewScroll', function ($delegate) {
     return function (uiViewElement) {
