@@ -305,8 +305,8 @@
           <div class="mobile-property-modal-content">
             <p>{{p.prop.producer.name}}</p>
             <div class="mobile-property-modal-icons">
-              <i class="fa fa-envelope"></i>
-              <i class="fa fa-whatsapp"></i>
+              <a href="mailto:{{p.prop.producer.email}}?Subject={{mailSubject}}"><i class="fa fa-envelope"></i></a>
+              <a href="https://wa.me/{{cleanCellPhone}}?texto={{mailSubject}}"><i class="fa fa-whatsapp"></i></a>
             </div>
           </div>          
           <div class="mobile-property-modal-img-space"></div>

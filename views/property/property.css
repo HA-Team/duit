@@ -235,13 +235,13 @@
     align-items: center;
 }
 
-#mobile-prop-detail .mobile-property-modal-icons > * {
+#mobile-prop-detail .mobile-property-modal-icons > a {
     flex: 1 1;
     display: flex;
     justify-content: center;
 }
 
-#mobile-prop-detail .mobile-property-modal-icons i:first-child {
+#mobile-prop-detail .mobile-property-modal-icons a:first-child {
     border-right: 1px solid lightgray;
 }
 
@@ -249,11 +249,6 @@
     margin: 0px;      
     font-size: 12px;  
     font-weight: bold;     
-}
-
-#mobile-prop-detail .mobile-property-subtitle .mobile-property-contact-modal i {
-    opacity: 0;                  
-    transition: all 0.3s ease-in-out;           
 }
 
 #mobile-prop-detail .mobile-property-subtitle .mobile-property-contact-modal i.fa-envelope {
@@ -264,11 +259,6 @@
 #mobile-prop-detail .mobile-property-subtitle .mobile-property-contact-modal i.fa-whatsapp {
     color: #128c7e;
     font-size: 3.5rem;
-}
-
-#mobile-prop-detail .mobile-property-subtitle.open .mobile-property-contact-modal i {
-    opacity: 1;
-    pointer-events: all;         
 }
 
 #mobile-prop-detail .mobile-property-type-card {
