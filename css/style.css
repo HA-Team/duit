@@ -11,8 +11,8 @@
     margin-bottom: 55px;
 }
 :root {
-    --red: #c8001e;
-    --blue: #537ebb;
+    --primary-red: #c8001e;
+    --primary-blue: #537ebb;
     --softgrey: #f4f4f4;
 }
 
@@ -24,7 +24,7 @@ pre {
     font-size: 80px;
     margin-left: 48%;
     margin-top: 20px;
-    color: var(--red);
+    color: var(--primary-red);
 }
 .byha {
     width: 67px;
