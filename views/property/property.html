@@ -290,29 +290,11 @@
     <!-- Galery End -->
 
     <!-- Subtitle -->
-    <section class="mobile-property-subtitle" ng-class="{'open': isContactModalOpen}">
+    <section class="mobile-property-subtitle">
       <div class="mobile-property-subtitle-text">
         <p><strong>{{p.prop.type.name}} - {{p.area | number:0}}m<sup>2</sup> - {{p.enviroments}} Ambientes</strong></p>
         <p><strong>{{p.prop.address}}</strong>, {{p.prop.location.name}}, {{p.state}}</p>
-      </div>
-      <div class="mobile-property-contact">
-        <img src="{{p.prop.producer.picture}}" alt="" />
-        <i class="fa fa-whatsapp" ng-click="toggleContactModal()"></i>
-        <i class="fa fa-times" ng-click="toggleContactModal()"></i>
-
-        <!-- Contact Modal -->
-        <div class="mobile-property-contact-modal">
-          <div class="mobile-property-modal-content">
-            <p>{{p.prop.producer.name}}</p>
-            <div class="mobile-property-modal-icons">
-              <a href="mailto:{{p.prop.producer.email}}?Subject={{mailSubject}}"><i class="fa fa-envelope"></i></a>
-              <a href="https://wa.me/{{cleanCellPhone}}?texto={{mailSubject}}"><i class="fa fa-whatsapp"></i></a>
-            </div>
-          </div>          
-          <div class="mobile-property-modal-img-space"></div>
-        </div>
-        <!-- Contact Modal End -->
-      </div>
+      </div>      
     </section>    
     <!-- Subtitle End -->
     
@@ -380,25 +362,25 @@
     </section>
     <!-- Location End -->
     
-    <!-- Agent Widget -->
-      <!-- <div class="agent-widget" ng-controller="propContactForm">
-        <div class="agent-title">
-          <div class="agent-photo"><img src="{{p.prop.producer.picture}}" alt="" /></div>
-          <div class="agent-details">
-            <h4>{{p.prop.producer.name}}</h4>
-            <span><i class="sl sl-icon-call-in"></i>{{p.prop.producer.phone}}</span>
+    <!-- Contact Modal -->
+    <div class="mobile-property-contact" ng-class="{'open': isContactModalOpen}">
+      <img src="{{p.prop.producer.picture}}" alt="" ng-click="toggleContactModal()"/>
+      <i class="fa fa-whatsapp" ng-click="toggleContactModal()"></i>
+      <i class="fa fa-times" ng-click="toggleContactModal()"></i>
+      
+      <div class="mobile-property-contact-modal">
+        <div class="mobile-property-modal-content">
+          <p>{{p.prop.producer.name}}</p>
+          <div class="mobile-property-modal-icons">
+            <a href="mailto:{{p.prop.producer.email}}?Subject={{mailSubject}}"><i class="fa fa-envelope"></i></a>
+            <a href="https://wa.me/{{cleanCellPhone}}?texto={{mailSubject}}"><i class="fa fa-whatsapp"></i></a>
           </div>
-          <div class="clearfix"></div>
-        </div>
-        <input type="text" placeholder="Tu Email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" ng-model="email">
-        <input type="text" placeholder="Tu Teléfono" ng-model="phone">
-        <textarea ng-model="message"></textarea>
-        <div class="notification success closeable col-md-12" ng-show="success">
-          <p>Mensaje enviado con éxito.</p>
-        </div>
-        <button class="button fullwidth margin-top-5" ng-click="send()">{{submitText}} <i class='fa fa-spinner fa-spin' ng-show="sending"></i></button>
-      </div> -->
-    <!-- Agent Widget / End --> 
+        </div>          
+        <div class="mobile-property-modal-img-space"></div>
+      </div>
+    </div>
+    <!-- Contact Modal End -->
+
   </div>
   <!-- Featured Props -->
   <section class="mobile-property-recomended">  
