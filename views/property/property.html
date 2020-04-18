@@ -265,11 +265,11 @@
     <!-- Detail Options End -->
 
     <!-- Slider  -->
-    <section class="mobile-property-gallery-slider mobile-property-slider">
+    <section id="mobile-property-gallery-slider" class="mobile-property-gallery-slider mobile-property-slider">
       
-      <i class="fa fa-angle-left" ng-click="moveSliderLeft($event.target.parentElement, p.prop.photos.length, 'currentPhotoNumber')"></i>
+      <i class="fa fa-angle-left" ng-click="moveSlider($event.target.parentElement, p.prop.photos.length, 'currentPhotoNumber', 'left')"></i>
       <img ng-repeat="i in p.prop.photos" src="{{i.image}}">
-      <i class="fa fa-angle-right" ng-click="moveSliderRight($event.target.parentElement, p.prop.photos.length, 'currentPhotoNumber')"></i>
+      <i class="fa fa-angle-right" ng-click="moveSlider($event.target.parentElement, p.prop.photos.length, 'currentPhotoNumber', 'right')"></i>
       
       <div class="mobile-silder-widgets-container">      
         <div class="mobile-slider-open-gallery">
@@ -387,7 +387,7 @@
     <h3>Te aconsejamos estos departamentos</h3>    
     
     <!-- Slider -->
-    <div class="mobile-property-slider">
+    <div id="mobile-property-featured-slider" class="mobile-property-slider">
 
       <div class="mobile-property-recomended-emtpy-item" ng-show="featReady">&nbsp;</div>
       
@@ -403,7 +403,7 @@
       </div>
       <!-- Skeleton Loader End-->
 
-      <i class="fa fa-angle-left" ng-click="moveSliderLeft($event.target.parentElement, featured.length, 'currentFeaturedNumber', $event.target.nextElementSibling.offsetWidth)" ng-show="featReady"></i>  
+      <i class="fa fa-angle-left" ng-click="moveSlider($event.target.parentElement, featured.length, 'currentFeaturedNumber', 'left', $event.target.nextElementSibling.offsetWidth)" ng-show="featReady"></i>  
       
       <!-- Items -->
       <div class="mobile-property-recomended-item" ng-repeat="item in featured track by $index" ng-class="{'active': $index + 1 == currentFeaturedNumber}" ng-show="featReady">
@@ -420,7 +420,7 @@
       </div>
       <!-- Items End -->
 
-      <i class="fa fa-angle-right" ng-click="moveSliderRight($event.target.parentElement, featured.length, 'currentFeaturedNumber', $event.target.previousElementSibling.offsetWidth)" ng-show="featReady"></i>
+      <i class="fa fa-angle-right" ng-click="moveSlider($event.target.parentElement, featured.length, 'currentFeaturedNumber', 'right', $event.target.previousElementSibling.offsetWidth)" ng-show="featReady"></i>
       
       <div class="mobile-property-recomended-emtpy-item">&nbsp;</div>
     </div>
@@ -433,7 +433,7 @@
     <h3>Puede intersarte</h3>    
     
     <!-- Slider -->
-    <div class="mobile-property-slider">
+    <div id="mobile-property-similar-slider" class="mobile-property-slider">
 
       <div class="mobile-property-recomended-emtpy-item" ng-show="simReady">&nbsp;</div>
 
@@ -450,7 +450,7 @@
       <!-- Skeleton Loader End-->
 
       <i class="fa fa-angle-left"
-        ng-click="moveSliderLeft($event.target.parentElement, similar.length, 'currentSimilarNumber', $event.target.nextElementSibling.offsetWidth)"
+        ng-click="moveSlider($event.target.parentElement, similar.length, 'currentSimilarNumber', 'left', $event.target.nextElementSibling.offsetWidth)"
         ng-show="simReady && similar.length > 1"></i>  
       
       <!-- Items -->      
@@ -469,7 +469,7 @@
       <!-- Items End -->
       
       <i class="fa fa-angle-right"
-        ng-click="moveSliderRight($event.target.parentElement, similar.length, 'currentSimilarNumber', $event.target.previousElementSibling.offsetWidth)"
+        ng-click="moveSlider($event.target.parentElement, similar.length, 'currentSimilarNumber', 'right', $event.target.previousElementSibling.offsetWidth)"
         ng-show="simReady && similar.length > 1"></i>
       
       <div class="mobile-property-recomended-emtpy-item">&nbsp;</div>

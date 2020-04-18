@@ -56,6 +56,14 @@ const getSimilar = (scope, tokkoApi) => {
   });  
 };
 
+const swipeSlider = function(e, slider, scope, length, currentNumberName, side) {
+  e.stopPropagation();
+  
+  const pxToMove = [...slider.children].find(child => child.classList.contains("mobile-property-recomended-item")).offsetWidth; 
+
+  scope.moveSlider(slider, length, currentNumberName, side, pxToMove);      
+}
+
 app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) {
   $rootScope.activeMenu = '';
   $scope.apiReady = false;
@@ -165,31 +173,48 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
     $scope.mailSubject = mailSubject.replace(/\s/g, '%20'); 
 
     const cellPhone = $scope.p.prop.producer.cellphone ? $scope.p.prop.producer.cellphone : $scope.p.prop.producer.phone;
-    $scope.cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');     
-  });  
-
-  $scope.moveSliderLeft = (element, arrLength, index, pxToMove) => {     
-    if (!pxToMove) pxToMove = window.innerWidth;                    
-     
-    if ($scope[index] == 1) {
-      $scope[index] = arrLength;
-      element.scrollLeft = pxToMove * (arrLength - 1);      
-    } else {
-      $scope[index] -= 1;  
-      element.scrollLeft -= pxToMove;    
-    }    
-  };
-
-  $scope.moveSliderRight = (element, arrLength, index , pxToMove) => {        
-    if (!pxToMove) pxToMove = window.innerWidth; 
+    $scope.cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351'); 
     
-    if ($scope[index] == arrLength) {
-      $scope[index] = 1;   
-      element.scrollLeft = 0;   
-    } else {      
-      $scope[index] += 1;      
-      element.scrollLeft += pxToMove;
-    }      
+    const gallerySlider = document.querySelector("#mobile-property-gallery-slider");
+    gallerySlider.addEventListener('swiped-left', () => $scope.moveSlider(gallerySlider, $scope.p.prop.photos.length, 'currentPhotoNumber', 'right'));
+
+    gallerySlider.addEventListener('swiped-right', () => $scope.moveSlider(gallerySlider, $scope.p.prop.photos.length, 'currentPhotoNumber', 'left'));
+
+    const featuredSlider = document.querySelector("#mobile-property-featured-slider");
+    featuredSlider.addEventListener('swiped-left', function(e) {swipeSlider(e, this, $scope, $scope.featured.length, 'currentFeaturedNumber', 'right') }, {capture: true});
+    
+    featuredSlider.addEventListener('swiped-right', function(e) {swipeSlider(e, this, $scope, $scope.featured.length, 'currentFeaturedNumber', 'left') }, {capture: true});
+
+    const similarSlider = document.querySelector("#mobile-property-similar-slider");
+    similarSlider.addEventListener('swiped-left', function(e) { swipeSlider(e, this, $scope, $scope.similar.length, 'currentSimilarNumber', 'right') }, {capture: true});
+    
+    similarSlider.addEventListener('swiped-right', function(e) { swipeSlider(e, this, $scope, $scope.similar.length, 'currentSimilarNumber', 'left') }, {capture: true});
+  });   
+
+  $scope.moveSlider = (element, arrLength, index, side, pxToMove) => {                     
+    if (!pxToMove) pxToMove = window.innerWidth;                             
+     
+    if (side == 'left') {
+      if ($scope[index] == 1) {
+        $scope[index] = arrLength;
+        element.scrollLeft = pxToMove * (arrLength - 1);      
+      } else {
+        $scope[index] -= 1;  
+        element.scrollLeft = pxToMove * ($scope[index] - 1);    
+      }    
+    }
+
+    if (side == 'right') {
+      if ($scope[index] == arrLength) {
+        $scope[index] = 1;   
+        element.scrollLeft = 0;   
+      } else {      
+        $scope[index] += 1;      
+        element.scrollLeft = pxToMove * ($scope[index] - 1);
+      } 
+    }    
+
+    $rootScope.$apply();
   };
 
   $scope.getDaysDifference = (date) => {

@@ -488,6 +488,7 @@
     background-color: white;
     padding: 10px;
     line-height: normal;
+    height: 160px;
 }
 
 #mobile-prop-detail .mobile-property-recomended-item .recomended-item-description-container p {
