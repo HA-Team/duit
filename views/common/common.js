@@ -33,12 +33,13 @@ app.controller('mobile-header', function($scope) {
   $scope.isHamburgOpen = false;
   
   $scope.toggleMenu = function () {
-    $scope.isHamburgOpen = !$scope.isHamburgOpen;     
-
     const filterModal = document.getElementById("mobile-props-filter-modal");
-    if (filterModal) filterModalclassList.remove("open");
-
     const orderModal = document.getElementById("mobile-props-order-modal");
+    
+    $scope.isHamburgOpen = !$scope.isHamburgOpen;     
+    
+    if (filterModal) filterModal.classList.remove("open");
+    
     if (orderModal) orderModal.classList.remove("open");
   }
 
