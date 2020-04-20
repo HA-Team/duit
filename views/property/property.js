@@ -70,9 +70,11 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
   $scope.isContactModalOpen = false;
   $scope.isGalleryOpen = false;
 
-  $scope.currentPhotoNumber = 1;
-  $scope.currentFeaturedNumber = 1;
-  $scope.currentSimilarNumber = 1;
+  $rootScope.sliderCounters = {
+    currentPhoto: 1,
+    currentFeatured: 1,
+    currentSimilar: 1
+  };
   
   const id = $stateParams.propertyId;
   tokkoApi.findOne('property', id, function(result){
@@ -188,37 +190,46 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
     ]
     
     const gallerySlider = document.querySelector("#mobile-property-gallery-slider .mobile-property-slider");
-    sides.forEach(side => gallerySlider.addEventListener(`swiped-${side.side}`, () => $scope.moveSlider(gallerySlider, $scope.p.prop.photos.length, 'currentPhotoNumber', side.oposite)));         
+    sides.forEach(side => gallerySlider.addEventListener(`swiped-${side.side}`, () => {
+      $scope.moveSlider(gallerySlider, $scope.p.prop.photos.length, 'currentPhoto', side.oposite);
+      $scope.$apply();
+    }));         
 
     const featuredSlider = document.querySelector("#mobile-property-featured-slider");
-    sides.forEach(side => featuredSlider.addEventListener(`swiped-${side.side}`, function(e) {swipeSlider(e, this, $scope, $scope.featured.length, 'currentFeaturedNumber', side.oposite) }, {capture: true}));          
+    sides.forEach(side => featuredSlider.addEventListener(`swiped-${side.side}`, function(e) {
+      swipeSlider(e, this, $scope, $scope.featured.length, 'currentFeatured', side.oposite);
+      $scope.$apply();
+    }, {capture: true}));          
 
     const similarSlider = document.querySelector("#mobile-property-similar-slider");
-    sides.forEach(side => similarSlider.addEventListener(`swiped-${side.side}`, function(e) { swipeSlider(e, this, $scope, $scope.similar.length, 'currentSimilarNumber', side.oposite) }, {capture: true}));            
+    sides.forEach(side => similarSlider.addEventListener(`swiped-${side.side}`, function(e) {
+      swipeSlider(e, this, $scope, $scope.similar.length, 'currentSimilar', side.oposite);
+      $scope.$apply();
+    }, {capture: true}));            
   });   
 
-  $scope.moveSlider = (element, arrLength, index, side, pxToMove) => {                                     
+  $scope.moveSlider = (element, arrLength, index, side, pxToMove) => {                                             
     if (!pxToMove) pxToMove = window.innerWidth;         
      
     if (side == 'left') {
-      if ($scope[index] == 1) {
-        $scope[index] = arrLength;
+      if ($rootScope.sliderCounters[index] == 1) {
+        $rootScope.sliderCounters[index] = arrLength;
         element.scrollLeft = pxToMove * (arrLength - 1);      
       } else {
-        $scope[index] -= 1;  
-        element.scrollLeft = pxToMove * ($scope[index] - 1);    
+        $rootScope.sliderCounters[index] -= 1;  
+        element.scrollLeft = pxToMove * ($rootScope.sliderCounters[index] - 1);    
       }    
     }
 
     if (side == 'right') {
-      if ($scope[index] == arrLength) {
-        $scope[index] = 1;   
+      if ($rootScope.sliderCounters[index] == arrLength) {
+        $rootScope.sliderCounters[index] = 1;   
         element.scrollLeft = 0;   
       } else {      
-        $scope[index] += 1;      
-        element.scrollLeft = pxToMove * ($scope[index] - 1);
+        $rootScope.sliderCounters[index] += 1;      
+        element.scrollLeft = pxToMove * ($rootScope.sliderCounters[index] - 1);
       } 
-    }     
+    }      
   };
 
   $scope.getDaysDifference = (date) => {

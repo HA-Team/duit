@@ -271,11 +271,11 @@
       <div class="slider-arrows-container">
         <i class="fa fa-angle-left"
           data-side="left"
-          ng-click="moveSlider($event.target.offsetParent.nextElementSibling, p.prop.photos.length, 'currentPhotoNumber', $event.target.dataset.side)">
+          ng-click="moveSlider($event.target.offsetParent.nextElementSibling, p.prop.photos.length, 'currentPhoto', $event.target.dataset.side)">
         </i>
         <i class="fa fa-angle-right"
           data-side="right"
-          ng-click="moveSlider($event.target.offsetParent.nextElementSibling, p.prop.photos.length, 'currentPhotoNumber', $event.target.dataset.side)">
+          ng-click="moveSlider($event.target.offsetParent.nextElementSibling, p.prop.photos.length, 'currentPhoto', $event.target.dataset.side)">
         </i>
       </div>
 
@@ -292,7 +292,7 @@
         </div>
         <div class="mobile-slider-photo-counter">
           <i class="fa fa-camera"></i>
-          <p>{{currentPhotoNumber}}/{{p.prop.photos.length}}</p>
+          <p>{{sliderCounters.currentPhoto}}/{{p.prop.photos.length}}</p>
         </div>
       </div>   
 
@@ -406,12 +406,12 @@
     <div class="slider-arrows-container">
       <i class="fa fa-angle-left" 
         data-side="left"
-        ng-click="moveSlider($event.target.offsetParent.nextElementSibling, featured.length, 'currentFeaturedNumber', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.children[4].offsetWidth)"
+        ng-click="moveSlider($event.target.offsetParent.nextElementSibling, featured.length, 'currentFeatured', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.children[4].offsetWidth)"
         ng-show="featReady && featured.length > 1">
       </i>  
       <i class="fa fa-angle-right"
         data-side="right"
-        ng-click="moveSlider($event.target.offsetParent.nextElementSibling, featured.length, 'currentFeaturedNumber', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.children[4].offsetWidth)"
+        ng-click="moveSlider($event.target.offsetParent.nextElementSibling, featured.length, 'currentFeatured', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.children[4].offsetWidth)"
         ng-show="featReady && featured.length > 1">
       </i>
     </div>  
@@ -433,7 +433,7 @@
       <!-- Items -->
       <div class="mobile-property-recomended-emtpy-item" ng-show="featReady">&nbsp;</div>
       
-      <div class="mobile-property-recomended-item" ng-repeat="item in featured track by $index" ng-class="{'active': $index + 1 == currentFeaturedNumber}" ng-show="featReady">
+      <div class="mobile-property-recomended-item" ng-repeat="item in featured track by $index" ng-class="{'active': $index + 1 == sliderCounters.currentFeatured}" ng-show="featReady">
         <a ui-sref="property({propertyId: item.id})"><img src="{{item.cover_photo}}" alt=""></a>
         <div class="recomended-item-description-container">
           <h4><strong>{{ item.price | currency:item.currency:0}}</strong></h4>
@@ -462,12 +462,12 @@
     <div class="slider-arrows-container">
       <i class="fa fa-angle-left"
         data-side="left"
-        ng-click="moveSlider($event.target.offsetParent.nextElementSibling, similar.length, 'currentSimilarNumber', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.offsetWidth)"
+        ng-click="moveSlider($event.target.offsetParent.nextElementSibling, similar.length, 'currentSimilar', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.offsetWidth)"
         ng-show="simReady && similar.length > 1">
       </i> 
       <i class="fa fa-angle-right"
         data-side="right"
-        ng-click="moveSlider($event.target.offsetParent.nextElementSibling, 'currentSimilarNumber', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.offsetWidth)"
+        ng-click="moveSlider($event.target.offsetParent.nextElementSibling, 'currentSimilar', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.offsetWidth)"
         ng-show="simReady && similar.length > 1">
       </i>
     </div>
@@ -489,7 +489,7 @@
       <!-- Items -->     
       <div class="mobile-property-recomended-emtpy-item" ng-show="simReady">&nbsp;</div>
 
-      <div class="mobile-property-recomended-item" ng-repeat="item in similar track by $index" ng-class="{'active': $index + 1 == currentSimilarNumber}" ng-show="simReady">
+      <div class="mobile-property-recomended-item" ng-repeat="item in similar track by $index" ng-class="{'active': $index + 1 == sliderCounters.currentSimilar}" ng-show="simReady">
         <a ui-sref="property({propertyId: item.id})"><img src="{{item.cover_photo}}" alt=""></a>
         <div class="recomended-item-description-container">
           <h4><strong>{{ item.price | currency:item.currency:0}}</strong></h4>
