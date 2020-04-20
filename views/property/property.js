@@ -232,9 +232,17 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
 
   $scope.toggleDescriptionDetail = () => {
     const detail = document.querySelector("#mobile-prop-detail .description-detail");
+    const preElement = detail.querySelector("pre");
+    const maxHeight = `${preElement.offsetHeight + preElement.offsetTop}px`;        
 
-    if (detail.classList.contains("visible")) detail.classList.remove("visible");
-    else detail.classList.add("visible");    
+    if (detail.classList.contains("visible")) {
+      detail.classList.remove("visible");
+      detail.style.maxHeight = '';
+    }
+    else {
+      detail.classList.add("visible");    
+      detail.style.maxHeight = maxHeight;
+    }
   };
 
   $scope.toggleContactModal = () => $scope.isContactModalOpen = !$scope.isContactModalOpen;
@@ -253,7 +261,7 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
     }
     else {
       header.style.display = "block";
-      contact.style.display = "block";      
+      contact.style.display = "flex";      
       body.style.overflow = "visible";
     }
   };

@@ -420,17 +420,13 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 180px;
+    height: 60px;
     display: block;
     background: linear-gradient(rgba(255, 255, 255, 0), #fff 88%);
     z-index: 9;
     opacity: 1;
     visibility: visible;
     transition: all 0.5s;
-}
-
-#mobile-prop-detail .description-detail.visible {
-    max-height: 2000px;
 }
 
 #mobile-prop-detail .description-detail.visible:after {
@@ -536,6 +532,8 @@
     height: 35vh;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    object-fit: cover;
+    padding: 0px;
 }
 
 #mobile-prop-detail .mobile-property-recomended-item .recomended-item-description-container {
