@@ -61,13 +61,14 @@ const swipeSlider = function(e, slider, scope, length, currentNumberName, side) 
   
   const pxToMove = [...slider.children].find(child => child.classList.contains("mobile-property-recomended-item")).offsetWidth; 
 
-  scope.moveSlider(slider, length, currentNumberName, side, pxToMove);      
+  scope.moveSlider(slider, length, currentNumberName, side, pxToMove);
 }
 
-app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) {
+app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) {      
   $rootScope.activeMenu = '';
   $scope.apiReady = false;
   $scope.isContactModalOpen = false;
+  $scope.isGalleryOpen = false;
 
   $scope.currentPhotoNumber = 1;
   $scope.currentFeaturedNumber = 1;
@@ -174,25 +175,30 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
 
     const cellPhone = $scope.p.prop.producer.cellphone ? $scope.p.prop.producer.cellphone : $scope.p.prop.producer.phone;
     $scope.cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351'); 
-    
-    const gallerySlider = document.querySelector("#mobile-property-gallery-slider");
-    gallerySlider.addEventListener('swiped-left', () => $scope.moveSlider(gallerySlider, $scope.p.prop.photos.length, 'currentPhotoNumber', 'right'));
 
-    gallerySlider.addEventListener('swiped-right', () => $scope.moveSlider(gallerySlider, $scope.p.prop.photos.length, 'currentPhotoNumber', 'left'));
+    const sides = [
+      { 
+        side: 'left',
+        oposite: 'right'
+      },
+      { 
+        side: 'right',
+        oposite: 'left'
+      },
+    ]
+    
+    const gallerySlider = document.querySelector("#mobile-property-gallery-slider .mobile-property-slider");
+    sides.forEach(side => gallerySlider.addEventListener(`swiped-${side.side}`, () => $scope.moveSlider(gallerySlider, $scope.p.prop.photos.length, 'currentPhotoNumber', side.oposite)));         
 
     const featuredSlider = document.querySelector("#mobile-property-featured-slider");
-    featuredSlider.addEventListener('swiped-left', function(e) {swipeSlider(e, this, $scope, $scope.featured.length, 'currentFeaturedNumber', 'right') }, {capture: true});
-    
-    featuredSlider.addEventListener('swiped-right', function(e) {swipeSlider(e, this, $scope, $scope.featured.length, 'currentFeaturedNumber', 'left') }, {capture: true});
+    sides.forEach(side => featuredSlider.addEventListener(`swiped-${side.side}`, function(e) {swipeSlider(e, this, $scope, $scope.featured.length, 'currentFeaturedNumber', side.oposite) }, {capture: true}));          
 
     const similarSlider = document.querySelector("#mobile-property-similar-slider");
-    similarSlider.addEventListener('swiped-left', function(e) { swipeSlider(e, this, $scope, $scope.similar.length, 'currentSimilarNumber', 'right') }, {capture: true});
-    
-    similarSlider.addEventListener('swiped-right', function(e) { swipeSlider(e, this, $scope, $scope.similar.length, 'currentSimilarNumber', 'left') }, {capture: true});
+    sides.forEach(side => similarSlider.addEventListener(`swiped-${side.side}`, function(e) { swipeSlider(e, this, $scope, $scope.similar.length, 'currentSimilarNumber', side.oposite) }, {capture: true}));            
   });   
 
-  $scope.moveSlider = (element, arrLength, index, side, pxToMove) => {                     
-    if (!pxToMove) pxToMove = window.innerWidth;                             
+  $scope.moveSlider = (element, arrLength, index, side, pxToMove) => {                                     
+    if (!pxToMove) pxToMove = window.innerWidth;         
      
     if (side == 'left') {
       if ($scope[index] == 1) {
@@ -212,9 +218,7 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
         $scope[index] += 1;      
         element.scrollLeft = pxToMove * ($scope[index] - 1);
       } 
-    }    
-
-    $rootScope.$apply();
+    }     
   };
 
   $scope.getDaysDifference = (date) => {
@@ -234,6 +238,25 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
   };
 
   $scope.toggleContactModal = () => $scope.isContactModalOpen = !$scope.isContactModalOpen;
+
+  $scope.toggleGallery = () => {        
+    const header = document.querySelector("#mobile-header");
+    const contact = document.querySelector("#mobile-prop-detail .mobile-property-contact");
+    const body = document.querySelector("body");
+    
+    $scope.isGalleryOpen = !$scope.isGalleryOpen;
+
+    if ($scope.isGalleryOpen) {
+      header.style.display = "none";
+      contact.style.display = "none";      
+      body.style.overflow = "hidden";
+    }
+    else {
+      header.style.display = "block";
+      contact.style.display = "block";      
+      body.style.overflow = "visible";
+    }
+  };
 });
 
 app.controller('propContactForm', function($scope, tokkoApi) {
