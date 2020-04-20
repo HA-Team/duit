@@ -193,11 +193,12 @@
 }
 
 #mobile-prop-detail .mobile-property-contact {
-    position: fixed;
+    position: sticky;
     right: 3rem;
     bottom: 3rem;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
+    margin-right: 3rem;
     align-items: center;
     z-index: 10;
 }
@@ -221,8 +222,7 @@
     display: flex;
     justify-content: center;
     align-items: center;        
-    position: absolute;
-    margin-left: 10px;
+    position: absolute;    
     margin-top: 15px;
     padding: 1px;
     border-radius: 50%;    
