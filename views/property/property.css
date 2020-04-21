@@ -40,7 +40,7 @@
 
 #mobile-prop-detail .mobile-property-gallery-slider {
     height: 60vh;
-    width: 100vw;             
+    width: 100%;             
     margin: 20px 0px;    
     overflow: hidden;
     display: flex;
@@ -60,7 +60,7 @@
 }
 
 #mobile-prop-detail .mobile-property-slider img {
-    width: 100vw;  
+    width: 100%;  
     height: auto;  
     padding: 5px;
     flex-grow: 0;

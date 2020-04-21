@@ -271,11 +271,11 @@
       <div class="slider-arrows-container">
         <i class="fa fa-angle-left"
           data-side="left"
-          ng-click="moveSlider($event.target.offsetParent.nextElementSibling, p.prop.photos.length, 'currentPhoto', $event.target.dataset.side)">
+          ng-click="moveSlider($event.target.offsetParent.nextElementSibling, p.prop.photos.length, 'currentPhoto', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.children[0].offsetWidth)">
         </i>
         <i class="fa fa-angle-right"
           data-side="right"
-          ng-click="moveSlider($event.target.offsetParent.nextElementSibling, p.prop.photos.length, 'currentPhoto', $event.target.dataset.side)">
+          ng-click="moveSlider($event.target.offsetParent.nextElementSibling, p.prop.photos.length, 'currentPhoto', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.children[0].offsetWidth)">
         </i>
       </div>
 
