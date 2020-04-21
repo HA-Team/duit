@@ -97,42 +97,42 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
 
     $scope.featuresItems = [
       {
-        icon: "",
+        icon: "fas fa-ruler-vertical",
         value: `${parseInt($scope.p.prop.total_surface)}m2`,
         name: "Superficie total"
       },
       {
-        icon: "",
+        icon: "fas fa-ruler-horizontal",
         value: `${parseInt($scope.p.prop.total_surface)}m2`,
         name: "Superficie cubierta"      
       },
       {
-        icon: "",
+        icon: "fas fa-door-open",
         value: $scope.p.enviroments,
-        name: "Ambientes"      
+        name: `Ambiente${$scope.p.enviroments > 1 ? 's' : ''}`
       },
       {
-        icon: "",
+        icon: "fas fa-bath",
         value: $scope.p.baths,
-        name: "Baños"      
+        name: `Baño${$scope.p.baths > 1 ? 's' : ''}`      
       },
       {
-        icon: "",
+        icon: "fas fa-car",
         value: $scope.p.parkings,
-        name: "Cocheras"      
+        name: `Cochera${$scope.p.parkings > 1 ? 's' : ''}`    
       },
       {
-        icon: "",
+        icon: "fas fa-toilet",
         value: $scope.p.toilets,
-        name: "Toilets"      
+        name: `Toilet${$scope.p.toilets > 1 ? 's' : ''}`       
       },
       {
-        icon: "",
+        icon: "far fa-calendar-alt",
         value: $scope.p.prop.age,
         name: "Antiguedad"      
       },
       {
-        icon: "",
+        icon: "fas fa-home",
         value: $scope.p.prop.disposition,
         name: "Disposición"      
       }

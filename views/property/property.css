@@ -411,7 +411,7 @@
     max-height: 240px;
     overflow: hidden;
     position: relative;
-    transition: max-height 1s;
+    transition: max-height 0.7s;
 }
 
 #mobile-prop-detail .description-detail:after {

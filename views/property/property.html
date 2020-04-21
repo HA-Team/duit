@@ -287,7 +287,7 @@
       <!-- Widgets -->
       <div class="mobile-silder-widgets-container">      
         <div class="mobile-slider-open-gallery" ng-click="toggleGallery()">
-          <i class="fa fa-arrows-alt" ng-show="!isGalleryOpen"></i>
+          <i class="fa fa-expand-arrows-alt" ng-show="!isGalleryOpen"></i>
           <p ng-show="!isGalleryOpen">Galería</p>
         </div>
         <div class="mobile-slider-photo-counter">
@@ -332,7 +332,7 @@
     
     <!-- Features Icons -->
     <section class="mobile-property-features-items">
-      <div class="mobile-property-feature-item" ng-repeat="item in featuresItems" >
+      <div class="mobile-property-feature-item" ng-repeat="item in featuresItems" ng-show="item.value != 0 && item.value != '0m2'">
         <div class="feature-item-container"><i class="{{item.icon}}"></i></div>
         <p><strong>{{item.value}}</strong></p>
         <p>{{item.name}}</p>
@@ -380,7 +380,7 @@
     <!-- Contact Modal -->
     <section class="mobile-property-contact" ng-class="{'open': isContactModalOpen}">
       <img src="{{p.prop.producer.picture}}" alt="" ng-click="toggleContactModal()"/>
-      <i class="fa fa-whatsapp" ng-click="toggleContactModal()"></i>
+      <i class="fab fa-whatsapp" ng-click="toggleContactModal()"></i>
       <i class="fa fa-times" ng-click="toggleContactModal()"></i>
       
       <div class="mobile-property-contact-modal">
@@ -388,12 +388,12 @@
           <p>{{p.prop.producer.name}}</p>
           <div class="mobile-property-modal-icons">
             <a href="mailto:{{p.prop.producer.email}}?Subject={{mailSubject}}"><i class="fa fa-envelope"></i></a>
-            <a href="https://wa.me/{{cleanCellPhone}}?texto={{mailSubject}}"><i class="fa fa-whatsapp"></i></a>
+            <a href="https://wa.me/{{cleanCellPhone}}?texto={{mailSubject}}"><i class="fab fa-whatsapp"></i></a>
           </div>
         </div>          
         <div class="mobile-property-modal-img-space"></div>
       </div>
-    </div>
+    </section>
     <!-- Contact Modal End -->
 
   </section>
@@ -462,12 +462,12 @@
     <div class="slider-arrows-container">
       <i class="fa fa-angle-left"
         data-side="left"
-        ng-click="moveSlider($event.target.offsetParent.nextElementSibling, similar.length, 'currentSimilar', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.offsetWidth)"
+        ng-click="moveSlider($event.target.offsetParent.nextElementSibling, similar.length, 'currentSimilar', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.children[4].offsetWidth)"
         ng-show="simReady && similar.length > 1">
       </i> 
       <i class="fa fa-angle-right"
         data-side="right"
-        ng-click="moveSlider($event.target.offsetParent.nextElementSibling, 'currentSimilar', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.offsetWidth)"
+        ng-click="moveSlider($event.target.offsetParent.nextElementSibling, similar.length, 'currentSimilar', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.children[4].offsetWidth)"
         ng-show="simReady && similar.length > 1">
       </i>
     </div>
