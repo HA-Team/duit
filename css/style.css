@@ -6,13 +6,14 @@
     @import url("../views/developments_listing/developments_listing.css");
     @import url("../views/accounts/facebook_button.css");
     @import url("../views/common/header.css");
+    @import url("../views/property/property.css");
     .container.ng-scope {
     margin-bottom: 55px;
 }
-
 :root {
-    --blue: #537ebb;
-    --red: #c8001e;
+    --primary-red: #c8001e;
+    --primary-blue: #537ebb;
+    --softgrey: #f4f4f4;
 }
 
 pre {
@@ -23,7 +24,7 @@ pre {
     font-size: 80px;
     margin-left: 48%;
     margin-top: 20px;
-    color: var(--red);
+    color: var(--primary-red);
 }
 .byha {
     width: 67px;
@@ -103,7 +104,8 @@ ul.top-bar-menu li i {
 }
 .top-bar-dropdown span:after {
     content: "\f0d7";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 14px;
     color: #fff;
     top: 1px;
@@ -397,7 +399,8 @@ ul.footer-links {
     color: #66676b;
 }
 .footer-links li:before {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 20px;
     content: "\f105";
     position: absolute;
@@ -475,7 +478,8 @@ body #backtotop a {
 }
 #backtotop a:after {
     content: "\f106";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     position: relative;
     display: block;
     top: 50%;
@@ -538,7 +542,7 @@ button.widget-button {
 }
 .widget-button .like-icon:before, .widget-button .like-icon:after {
     transition: opacity .3s, transform .43s cubic-bezier(.0, -.41, .19, 2);
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
     position: absolute;
     right: 0;
 }
@@ -625,7 +629,7 @@ button.widget-button {
     visibility: visible;
 }
 #navigation ul li a:after, #navigation ul ul li a:after {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
     opacity: .5;
 }
 #navigation ul li a:after {
@@ -1326,7 +1330,8 @@ h4.search-title {
 }
 .more-search-options-trigger:before {
     content: "\f055";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     padding-right: 7px;
 }
 .more-search-options-trigger.active:before {
@@ -1458,7 +1463,8 @@ input.second-slider-value {
 }
 .checkboxes input[type=checkbox]:checked+label:before {
     content: "\f00c";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 12px;
     color: #fff;
     text-align: center;
@@ -1563,7 +1569,8 @@ input.second-slider-value {
 }
 #breadcrumbs ul li:before {
     content: "\f105";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     color: #a0a0a0;
     font-size: 14px;
     margin-right: 15px;
@@ -2036,7 +2043,8 @@ span.like-icon {
 }
 .like-icon:before, .like-icon:after {
     transition: opacity .3s, transform .4s cubic-bezier(.0, -.41, .19, 2.5);
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     position: absolute;
     right: 0;
 }
@@ -2264,7 +2272,8 @@ ul.listing-details li {
 }
 .details.button.border:after {
     content: "\f105";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 18px;
     position: absolute;
     opacity: 0;
@@ -2495,7 +2504,8 @@ section.fullwidth.border-bottom {
     transform: translateY(-50%);
 }
 .back-to-listings:before {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     content: "\f104";
     font-size: 36px;
     line-height: 58px;
@@ -2748,7 +2758,9 @@ section.fullwidth.border-bottom {
 }
 .agent-title .agent-photo img {
     border-radius: 50%;
-    max-width: 80px;
+    width: 80px;
+    height: 80px;
+    object-fit: cover; 
 }
 .agent-title .agent-photo {
     float: left;
@@ -2833,7 +2845,8 @@ section.fullwidth.border-bottom {
     top: -1px;
     position: relative;
     content: "\f00c";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 12px;
     color: #fff;
     text-align: center;
@@ -3266,7 +3279,8 @@ a.button.preview i {
     -ms-transform: translate(-50%, -115%);
 }
 .tip:after {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     content: "\f128";
     line-height: 19px;
     display: inline-block;
@@ -3275,7 +3289,8 @@ a.button.preview i {
     -moz-transform: translateY(-1px);
 }
 .tip-content:after {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     content: "\f0dd";
     position: absolute;
     bottom: 3px;
@@ -4181,7 +4196,7 @@ body .comment-content p {
     -o-transition: all .2s ease-in-out;
     -ms-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
     border-radius: 3px;
     -webkit-text-stroke: 1px #fff;
 }
@@ -4215,7 +4230,8 @@ body .comment-content p {
 }
 .map-box-icon:before {
     content: "";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     position: relative;
     top: 7px;
     display: block;
@@ -4297,7 +4313,8 @@ to {
     color: #fff;
 }
 .custom-zoom-in:before, .custom-zoom-out:before {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     width: 100%;
     line-height: 34px;
     transition: -webkit-text-stroke .3s;
@@ -4350,7 +4367,8 @@ to {
     color: #fff;
 }
 #prevpoint:before, #nextpoint:after {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     position: relative;
     font-weight: 500;
     margin: 0 0 0 6px;
@@ -4388,7 +4406,8 @@ to {
 }
 #streetView:before {
     content: "\f21d";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 16px;
     top: 1px;
     margin-right: 8px;
@@ -4400,7 +4419,8 @@ to {
 }
 #geoLocation:before {
     content: "\f192";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 16px;
     margin: 0;
     top: 2px;
@@ -4438,15 +4458,19 @@ body .carousel {
     padding: 6px;
     font-size: 12px;
     background: transparent;
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
     font-size: 38px;
     transition: all .2s;
     background-color: transparent;
 }
 .owl-theme .owl-controls .owl-buttons .owl-next:before {
-    content: "\f105"}
+    content: "\f105";
+    font-weight: 900;
+}
 .owl-theme .owl-controls .owl-buttons .owl-prev:after {
-    content: "\f104"}
+    content: "\f104";
+    font-weight: 900;
+}
 .owl-theme .owl-controls .owl-buttons {
     position: absolute;
     top: -60px;
@@ -4956,7 +4980,7 @@ body .carousel {
     position: absolute;
     top: 50%;
     z-index: 990;
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
     display: block;
     width: 50px;
     height: 50px;
@@ -5335,7 +5359,8 @@ button.mfp-close, button.mfp-arrow {
     display: none;
 }
 .mfp-gallery .mfp-close:after, .mfp-gallery .mfp-close:before {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 29px;
     top: 4px;
     left: 50%;
@@ -5356,7 +5381,8 @@ button.mfp-close, button.mfp-arrow {
     transform: rotate(90deg);
 }
 .og-close:after, .og-close:before, .mfp-close:after, .mfp-close:before {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 29px;
     top: 21px;
     left: 50%;
@@ -5443,7 +5469,7 @@ button.mfp-close, button.mfp-arrow {
     color: #fff;
 }
 .mfp-arrow.mfp-arrow-left, .mfp-arrow.mfp-arrow-right {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
     font-size: 29px;
 }
 .mfp-arrow.mfp-arrow-right {
@@ -6261,7 +6287,8 @@ img.mfp-img {
 }
 .chosen-container-single .chosen-single div b:after {
     content: "\f0d7";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 14px;
     margin: 0 14px 0 0;
     top: -1px;
@@ -6270,8 +6297,7 @@ img.mfp-img {
     height: 5px;
     display: inline-block;
     color: silver;
-    float: right;
-    font-weight: normal;
+    float: right;    
 }
 .chosen-container-single .chosen-search {
     position: relative;
@@ -6295,7 +6321,8 @@ img.mfp-img {
 }
 .chosen-container-single .chosen-search:before {
     content: "\f002";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 15px;
     margin: 0 15px 0 0;
     top: 12px;
@@ -6489,7 +6516,8 @@ img.mfp-img {
 }
 .chosen-container-multi .chosen-choices li.search-choice .search-choice-close:before {
     content: "\f00d";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 13px;
     top: 1px;
     position: relative;
@@ -6734,7 +6762,8 @@ a.button.white.border:hover {
     margin-top: 0;
 }
 .list-4 li:before, .list-3 li:before, .list-2 li:before, .list-1 li:before {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     margin: 0;
     position: relative;
     color: #66676b;
@@ -7353,7 +7382,8 @@ body .notification strong {
 }
 .notification.closeable a.close:before {
     content: "\f00d";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     position: absolute;
     right: 25px;
     top: 0;
@@ -8304,7 +8334,8 @@ body .notification strong {
     left: 35px;
     bottom: -10px;
     content: "\f0dd";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 42px;
     color: #fff;
     text-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -8778,7 +8809,7 @@ h4 span.headline-detail {
     transition: .2s;
 }
 .pbs:hover {
-    background-color: #f4f4f4;
+    background-color: var(--softgrey);
 }
 .sl-icons-demo i {
     width: 25px;
@@ -10072,6 +10103,10 @@ div.layout-style {
     }
 
     #propsListing {
+        margin-top: 15px;
+    }
+
+    #mobile-prop-detail {
         margin-top: 15px;
     }
 }

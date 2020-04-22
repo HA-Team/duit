@@ -1,4 +1,5 @@
-<div ng-controller="property">
+<!-- Desktop Property Detail -->
+<div ng-controller="property" class="hidden-on-mobile">
 <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="apiReady"></div>
 <div id="titlebar" class="property-titlebar margin-bottom-0" ng-show="apiReady">
   <div class="container">
@@ -241,3 +242,273 @@
   </div>
 </div>
 </div>
+<!-- Desktop Property Detail End -->
+
+<!-- Mobile Property Detail -->
+<div id="mobile-prop-detail" ng-controller="property" class="hidden-on-desktop">
+  
+  <!-- Skeleton Loader -->
+  <div class="skeleton-container" ng-show="!apiReady">
+    <div class="skeleton-image"></div>
+    <div class="skeleton-lines">
+      <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
+    </div>
+    <div class="skeleton-circles">
+      <div ng-repeat="x in [].constructor(4) track by $index" class="skeleton-circle"></div>     
+    </div>
+  </div>
+  <!-- Skeleton Loader End -->
+  
+  <div ng-show="apiReady">
+    <!-- Detail Options -->
+
+    <!-- Detail Options End -->
+
+    <!-- Gallery Slider  -->
+    <section id="mobile-property-gallery-slider" class="mobile-property-gallery-slider" ng-class="{' open': isGalleryOpen}">
+      
+      <!-- Arrows -->
+      <div class="slider-arrows-container">
+        <i class="fa fa-angle-left"
+          data-side="left"
+          ng-click="moveSlider($event.target.offsetParent.nextElementSibling, p.prop.photos.length, 'currentPhoto', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.children[0].offsetWidth)">
+        </i>
+        <i class="fa fa-angle-right"
+          data-side="right"
+          ng-click="moveSlider($event.target.offsetParent.nextElementSibling, p.prop.photos.length, 'currentPhoto', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.children[0].offsetWidth)">
+        </i>
+      </div>
+
+      <!-- Slider -->
+      <div class="mobile-property-slider">
+        <img ng-repeat="i in p.prop.photos" src="{{i.image}}">
+      </div>      
+      
+      <!-- Widgets -->
+      <div class="mobile-silder-widgets-container">      
+        <div class="mobile-slider-open-gallery" ng-click="toggleGallery()">
+          <i class="fa fa-expand-arrows-alt" ng-show="!isGalleryOpen"></i>
+          <p ng-show="!isGalleryOpen">Galería</p>
+        </div>
+        <div class="mobile-slider-photo-counter">
+          <i class="fa fa-camera"></i>
+          <p>{{sliderCounters.currentPhoto}}/{{p.prop.photos.length}}</p>
+        </div>
+      </div>   
+
+      <!-- Close Gallery -->
+      <i class="fa fa-times" ng-click="toggleGallery()" ng-show="isGalleryOpen"></i>  
+    
+    </section>
+
+    <div class="mobile-modal-background" ng-click="toggleGallery()" ng-class="{' open': isGalleryOpen}"></div>    
+    <!-- Gallery Slider End -->
+
+    <!-- Subtitle -->
+    <section class="mobile-property-subtitle">
+      <div class="mobile-property-subtitle-text">
+        <p><strong>{{p.prop.type.name}} - {{p.area | number:0}}m<sup>2</sup> - {{p.enviroments}} Ambientes</strong></p>
+        <p><strong>{{p.prop.address}}</strong>, {{p.prop.location.name}}, {{p.state}}</p>
+      </div>      
+    </section>    
+    <!-- Subtitle End -->
+    
+    <!-- Type Card -->
+    <section class="mobile-property-type-card">
+      <h4>{{p.operation_type}}</h4>
+      <h4>{{ p.price | currency:p.currency:0}}</h4>
+    </section>
+    <!-- Type Card End -->
+    
+    <!-- Published Days -->
+    <section class="mobile-property-created-at">
+      <i class="fa fa-clock-o"></i>
+      <p>&nbsp;Publicado hace {{getDaysDifference(p.prop.created_at)}} días</p>
+    </section>
+    <!-- Published Days End -->
+    
+    <!-- Property Title -->
+    <h4 class="mobile-property-title">{{p.prop.publication_title}}</h4>
+    
+    <!-- Features Icons -->
+    <section class="mobile-property-features-items">
+      <div class="mobile-property-feature-item" ng-repeat="item in featuresItems" ng-show="item.value != 0 && item.value != '0m2'">
+        <div class="feature-item-container"><i class="{{item.icon}}"></i></div>
+        <p><strong>{{item.value}}</strong></p>
+        <p>{{item.name}}</p>
+      </div>                    
+    </section>
+    <!-- Features Icons End -->
+
+    <hr style="margin-top: 0px;">
+
+    <!-- Description -->
+    <section class="mobile-property-description">      
+      <h3 class="desc-headline">Descripción</h3>
+      <div class="description-detail">
+        <pre>{{p.prop.description.trim()}}</pre>        
+      </div>
+      <div class="description-detail-button-container" ng-click="toggleDescriptionDetail()">
+        <p><i class="fa fa-angle-down"></i></p>
+      </div>
+    </section>
+    <!-- Description End -->
+
+    <hr>
+
+    <!-- General Features --> 
+    <section class="mobile-property-general-features">
+      <h3 class="desc-headline">Características Generales</h3>
+      <ul>
+        <li ng-repeat="tag in p.prop.tags">{{tag.name}}</li>
+      </ul>
+    </section>  
+    <!-- General Features End --> 
+
+    <hr>
+
+    <!-- Location -->
+    <section class="mobile-property-location">    
+      <h3 class="desc-headline no-border" id="location">Ubicación</h3>
+      <div id="property-map-container">
+        <div id="mobile-property-map"></div>
+        <!-- <a href="#" id="streetView">Street View</a> -->
+      </div> 
+    </section>
+    <!-- Location End -->
+    
+    <!-- Contact Modal -->
+    <section class="mobile-property-contact" ng-class="{'open': isContactModalOpen}">
+      <img src="{{p.prop.producer.picture}}" alt="" ng-click="toggleContactModal()"/>
+      <i class="fab fa-whatsapp" ng-click="toggleContactModal()"></i>
+      <i class="fa fa-times" ng-click="toggleContactModal()"></i>
+      
+      <div class="mobile-property-contact-modal">
+        <div class="mobile-property-modal-content">
+          <p>{{p.prop.producer.name}}</p>
+          <div class="mobile-property-modal-icons">
+            <a href="mailto:{{p.prop.producer.email}}?Subject={{mailSubject}}"><i class="fa fa-envelope"></i></a>
+            <a href="https://wa.me/{{cleanCellPhone}}?texto={{mailSubject}}"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>          
+        <div class="mobile-property-modal-img-space"></div>
+      </div>
+    </section>
+    <!-- Contact Modal End -->
+
+  </section>
+
+  <!-- Featured Props -->
+  <section class="mobile-property-recomended margin-top-10">  
+    <h3>Te aconsejamos est{{featured.length == 1 ? 'e' : 'os'}} departamento{{featured.length == 1 ? '' : 's'}}</h3>    
+    
+    <!-- Arrows -->
+    <div class="slider-arrows-container">
+      <i class="fa fa-angle-left" 
+        data-side="left"
+        ng-click="moveSlider($event.target.offsetParent.nextElementSibling, featured.length, 'currentFeatured', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.children[4].offsetWidth)"
+        ng-show="featReady && featured.length > 1">
+      </i>  
+      <i class="fa fa-angle-right"
+        data-side="right"
+        ng-click="moveSlider($event.target.offsetParent.nextElementSibling, featured.length, 'currentFeatured', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.children[4].offsetWidth)"
+        ng-show="featReady && featured.length > 1">
+      </i>
+    </div>  
+
+    <!-- Slider -->
+    <div id="mobile-property-featured-slider" class="mobile-property-slider">
+                
+      <!-- Skeleton Loader -->
+      <div ng-repeat="x in [].constructor(3) track by $index" ng-show="!featReady">
+        <div class="skeleton-container">
+          <div class="skeleton-image"></div>
+          <div class="skeleton-lines">
+            <div class="skeleton-line" ng-repeat="x in [].constructor(2) track by $index" ></div>                
+          </div>
+        </div>
+      </div>
+      <!-- Skeleton Loader End-->      
+      
+      <!-- Items -->
+      <div class="mobile-property-recomended-emtpy-item" ng-show="featReady">&nbsp;</div>
+      
+      <div class="mobile-property-recomended-item" ng-repeat="item in featured track by $index" ng-class="{'active': $index + 1 == sliderCounters.currentFeatured}" ng-show="featReady">
+        <a ui-sref="property({propertyId: item.id})"><img src="{{item.cover_photo}}" alt=""></a>
+        <div class="recomended-item-description-container">
+          <h4><strong>{{ item.price | currency:item.currency:0}}</strong></h4>
+          <p>{{item.area |number:0}}m<sup>2</sup>totales</p>
+          <p>
+            {{item.prop.suite_amount > 1 ? item.prop.suite_amount + ' dormitorios' : item.prop.suite_amount + ' dormitorio'}} |
+            {{item.prop.bathroom_amount > 1 ? item.prop.bathroom_amount + ' baños' : item.prop.bathroom_amount + ' baño'}}
+          </p>          
+          <p>{{item.prop.publication_title}}</p>
+        </div>         
+      </div>
+
+      <div class="mobile-property-recomended-emtpy-item">&nbsp;</div>
+      <!-- Items End -->      
+            
+    </div>
+
+  </section>
+  <!-- Featured Props End -->
+
+  <!-- Similar Props -->
+  <section class="mobile-property-recomended">  
+    <h3>Puede{{similar.lenght > 1 ? 'n' : ''}} intersarte</h3>    
+    
+    <!-- Arrows -->
+    <div class="slider-arrows-container">
+      <i class="fa fa-angle-left"
+        data-side="left"
+        ng-click="moveSlider($event.target.offsetParent.nextElementSibling, similar.length, 'currentSimilar', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.children[4].offsetWidth)"
+        ng-show="simReady && similar.length > 1">
+      </i> 
+      <i class="fa fa-angle-right"
+        data-side="right"
+        ng-click="moveSlider($event.target.offsetParent.nextElementSibling, similar.length, 'currentSimilar', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.children[4].offsetWidth)"
+        ng-show="simReady && similar.length > 1">
+      </i>
+    </div>
+
+    <!-- Slider -->
+    <div id="mobile-property-similar-slider" class="mobile-property-slider">
+            
+      <!-- Skeleton Loader -->
+      <div ng-repeat="x in [].constructor(3) track by $index" ng-show="!simReady">
+        <div class="skeleton-container">
+          <div class="skeleton-image"></div>
+          <div class="skeleton-lines">
+            <div class="skeleton-line" ng-repeat="x in [].constructor(2) track by $index"></div>            
+          </div>
+        </div>
+      </div>
+      <!-- Skeleton Loader End-->       
+      
+      <!-- Items -->     
+      <div class="mobile-property-recomended-emtpy-item" ng-show="simReady">&nbsp;</div>
+
+      <div class="mobile-property-recomended-item" ng-repeat="item in similar track by $index" ng-class="{'active': $index + 1 == sliderCounters.currentSimilar}" ng-show="simReady">
+        <a ui-sref="property({propertyId: item.id})"><img src="{{item.cover_photo}}" alt=""></a>
+        <div class="recomended-item-description-container">
+          <h4><strong>{{ item.price | currency:item.currency:0}}</strong></h4>
+          <p>{{item.area |number:0}}m<sup>2</sup>totales</p>
+          <p>
+            {{item.prop.suite_amount > 1 ? item.prop.suite_amount + ' dormitorios' : item.prop.suite_amount + ' dormitorio'}} |
+            {{item.prop.bathroom_amount > 1 ? item.prop.bathroom_amount + ' baños' : item.prop.bathroom_amount + ' baño'}}
+          </p>          
+          <p>{{item.prop.publication_title}}</p>
+        </div>         
+      </div>
+
+      <div class="mobile-property-recomended-emtpy-item">&nbsp;</div>
+      <!-- Items End -->            
+            
+    </div>
+
+  </section>
+  <!-- Similar Props End -->
+
+</div>  
+<!-- Mobile Property Detail End -->  

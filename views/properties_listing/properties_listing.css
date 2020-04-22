@@ -125,7 +125,7 @@
 }
 
 #mobile-props-listing .mobile-list-card-container i {
-  color: var(--blue);
+  color: var(--primary-blue);
   font-weight: bold;
   cursor: pointer;
 }
@@ -198,7 +198,7 @@
   align-items: center;
   height: 100%;
   width: 50%;    
-  color: var(--blue);
+  color: var(--primary-blue);
 }
 
 #mobile-props-listing .mobile-filter-menu-icon.fa-sliders {
@@ -206,7 +206,7 @@
 }
 
 #mobile-props-listing .mobile-filter-menu-item h4 {
-  color: var(--blue);
+  color: var(--primary-blue);
   text-align: center;
 }
 
@@ -291,7 +291,7 @@
   content: "";
   position: relative;  
   left: -2rem;
-  background-color: var(--blue);
+  background-color: var(--primary-blue);
   width: 1rem;
   height: 100%;  
 }
@@ -339,7 +339,7 @@
 }
 
 #mobile-props-filter-modal .mobile-filter-modal-header p {
-  color: var(--blue);
+  color: var(--primary-blue);
   cursor: pointer;
 }
 
@@ -384,7 +384,7 @@
 
 #mobile-props-filter-modal .mobile-filter-item-detail {
   padding-left: 0px;  
-  color: var(--blue);    
+  color: var(--primary-blue);    
   justify-content: center;
   flex-wrap: wrap;    
 }
@@ -419,7 +419,7 @@
 }
 
 #mobile-props-filter-modal .mobile-filter-item-text p {
-  color: var(--blue);
+  color: var(--primary-blue);
   font-size: 12px;  
   margin: 0px;
   height: 40%;
@@ -429,7 +429,7 @@
 #mobile-props-filter-modal .fa-angle-down {
   transform: scale(1.7);
   margin-right: 2rem;  
-  color: var(--blue);  
+  color: var(--primary-blue);  
 }
 
 #mobile-props-filter-modal .mobile-filter-modal-item.active .fa-angle-down {
