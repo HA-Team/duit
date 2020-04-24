@@ -11,17 +11,6 @@ const agents = [
     pic: '/images/team/agustin-aznarez-profile.jpg'
   },
   {
-    name: 'Martín Paradelo',
-    position: 'Asesor',
-    phone: '(351) 2463606',
-    email: 'mparadelo@duitpropiedades.com.ar',
-    facebook: 'https://www.facebook.com/martin.paradelo.7',
-    twitter: '',
-    linkedin: '',
-    instagram: 'https://www.instagram.com/martinparadelo/',
-    pic: '/images/team/martin-paradelo-profile.jpg'
-  },
-  {
     name: 'Daniel Ganim',
     position: 'Asesor',
     phone: '(351) 5647780',
@@ -64,17 +53,6 @@ const agents = [
     linkedin: 'https://www.linkedin.com/in/severo-sosa-barreneche-590a3b1b/',
     instagram: 'http://www.instagram.com/sapososa/',
     pic: '/images/team/severo-sosa-profile.jpg'
-  },
-  {
-    name: 'Cecilia Aznarez',
-    position: 'Asesora',
-    phone: '(351) 6573901',
-    email: 'cecilia@duitpropiedades.com.ar',
-    facebook: '',
-    twitter: '',
-    linkedin: '',
-    instagram: '',
-    pic: '/images/team/cecilia-aznarez-1-profile.jpg'
   },
   {
     name: 'Carolina Valarolo',
