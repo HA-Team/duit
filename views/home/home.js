@@ -35,24 +35,39 @@ app.controller('featuredProps', function($scope, tokkoApi) {
 app.controller('homeSearch', function($rootScope, $scope, $state) {
   $rootScope.activeMenu = 'home';
   $scope.operationType = [2];
-  $scope.subTypes = [];
-  $scope.updateChosen = function() {
-    $scope.subTypes = propertiesSubTypes[$scope.propertyType]
-    console.log($scope.subtypes);
-    setTimeout(() => {
-      $('.chosen-select-no-single').trigger("chosen:updated");
-    }, 0);
+  $scope.subTypes = [];  
+
+  $scope.subTypeSelected = {
+    id: -1,
+    name:"Condición"
   };
+
+  $scope.propertyType = {
+    id: -1,
+    name: "Tipo de Propiedad"
+  };
+
+  $scope.propertiesTypes = [$scope.propertyType, ...propertiesTypes];    
+
+  $scope.updateChosen = function() {          
+    if ($scope.propertiesTypes.some(type => type.id == -1) && $scope.propertiesTypes[0] != -1) $scope.propertiesTypes.shift();    
+    
+    $scope.subTypes = propertiesSubTypes[$scope.propertyType.id];       
+    
+    $scope.subTypeSelected = $scope.subTypes[0];        
+  };
+
   setTimeout(function(){
     uiFunctions.buildParallax();
     uiFunctions.buildChosen();
     uiFunctions.buildSearchTypeButtons();
     uiFunctions.buildBackToTop();
   }, 0);
+
   $scope.find = () => {
     let data = JSON.parse(_.clone(tokkoSearchArgs.sData));
-    data.operation_types = [$scope.operationType[0]];
-    if ($scope.propertyType) data.property_types = [$scope.propertyType[0]];
+    data.operation_types = [$scope.operationType[0]];    
+    if ($scope.propertyType) data.property_types = [$scope.propertyType.id];
     if ($scope.subTypeSelected) data.with_custom_tags = [$scope.subTypeSelected.id];
     let args = {data: JSON.stringify(data), offset: 0};
     $state.go('propertySearch', {args: JSON.stringify(args)});
