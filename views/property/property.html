@@ -332,7 +332,7 @@
     
     <!-- Features Icons -->
     <section class="mobile-property-features-items">
-      <div class="mobile-property-feature-item" ng-repeat="item in featuresItems" ng-show="item.value != 0 && item.value != '0m2'">
+      <div class="mobile-property-feature-item" ng-repeat="item in featuresItems" ng-show="item.isVisible">
         <div class="feature-item-container"><i class="{{item.icon}}"></i></div>
         <p><strong>{{item.value}}</strong></p>
         <p>{{item.name}}</p>

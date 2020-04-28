@@ -99,42 +99,38 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
       {
         icon: "fas fa-ruler-vertical",
         value: `${parseInt($scope.p.prop.total_surface)}m2`,
-        name: "Superficie total"
-      },
-      {
-        icon: "fas fa-ruler-horizontal",
-        value: `${parseInt($scope.p.prop.total_surface)}m2`,
-        name: "Superficie cubierta"      
+        name: "Superficie total",
+        isVisible: parseInt($scope.p.prop.total_surface) > 0
       },
       {
         icon: "fas fa-door-open",
         value: $scope.p.enviroments,
-        name: `Ambiente${$scope.p.enviroments > 1 ? 's' : ''}`
+        name: `Dormitorio${$scope.p.enviroments > 1 ? 's' : ''}`,
+        isVisible: $scope.p.enviroments > 0
       },
       {
         icon: "fas fa-bath",
         value: $scope.p.baths,
-        name: `Baño${$scope.p.baths > 1 ? 's' : ''}`      
+        name: `Baño${$scope.p.baths > 1 ? 's' : ''}`,
+        isVisible: $scope.p.baths > 0      
       },
       {
         icon: "fas fa-car",
         value: $scope.p.parkings,
-        name: `Cochera${$scope.p.parkings > 1 ? 's' : ''}`    
+        name: `Cochera${$scope.p.parkings > 1 ? 's' : ''}`,
+        isVisible: $scope.p.parkings > 0 
       },
       {
         icon: "fas fa-toilet",
         value: $scope.p.toilets,
-        name: `Toilet${$scope.p.toilets > 1 ? 's' : ''}`       
+        name: `Toilet${$scope.p.toilets > 1 ? 's' : ''}`,
+        isVisible: $scope.p.toilets > 0    
       },
       {
         icon: "far fa-calendar-alt",
         value: $scope.p.prop.age,
-        name: "Antiguedad"      
-      },
-      {
-        icon: "fas fa-home",
-        value: $scope.p.prop.disposition,
-        name: "Disposición"      
+        name: "Antiguedad",
+        isVisible: $scope.p.prop.age > 0      
       }
     ];
 
