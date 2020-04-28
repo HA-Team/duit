@@ -4536,6 +4536,13 @@ body .carousel {
     line-height: 37px;
     padding: 0;
 }
+
+@media (hover: none) and (pointer: coarse) {
+    .listing-carousel.owl-theme .owl-controls .owl-buttons div:hover, .listing-carousel.owl-theme .owl-controls .owl-buttons div {
+        opacity: 1;
+    }
+}
+
 .list-layout .listing-carousel.owl-theme .owl-controls .owl-buttons div:hover, .list-layout .listing-carousel.owl-theme .owl-controls .owl-buttons div {
     font-size: 19px;
     height: 32px;
@@ -4981,6 +4988,7 @@ body .carousel {
     top: 50%;
     z-index: 990;
     font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     display: block;
     width: 50px;
     height: 50px;
