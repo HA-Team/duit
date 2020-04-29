@@ -68,7 +68,9 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
     let data = JSON.parse(_.clone(tokkoSearchArgs.sData));
     data.operation_types = [$scope.operationType[0]];    
     if ($scope.propertyType) data.property_types = [$scope.propertyType.id];
-    if ($scope.subTypeSelected) data.with_custom_tags = [$scope.subTypeSelected.id];
+    if ($scope.subTypeSelected) {
+      data.with_custom_tags = $scope.subTypeSelected.id == 0 ? [] : [$scope.subTypeSelected.id];
+    }
     let args = {data: JSON.stringify(data), offset: 0};
     $state.go('propertySearch', {args: JSON.stringify(args)});
     // $http.post("/propertySearch/",$httpParamSerializer(args));
