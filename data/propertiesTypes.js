@@ -1,29 +1,29 @@
 const propertiesTypes = [
   {
     id: 3,
-    name: 'Casa'
+    name: 'Casas'
   },
   {
     id: 2,
-    name: 'Departamento'
+    name: 'Departamentos'
   },
   {
     id: 7,
-    name: 'Local'
+    name: 'Locales'
   },
   {
     id: 5,
-    name: 'Oficina'
+    name: 'Oficinas'
   },
   {
     id: 1,
-    name: 'Terreno'
+    name: 'Terrenos'
   },
   {
     id: 10,
-    name: 'Cochera'
+    name: 'Cocheras'
   },
   {
     id: 14,
-    name: 'Depósito'
+    name: 'Depósitos'
   }];

@@ -37,6 +37,9 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
   $scope.operationType = [2];
   $scope.subTypes = [];  
 
+  $scope.isPropertyTypeOpen = false;
+  $scope.isSubPropertyTypeOpen = false;
+
   $scope.subTypeSelected = {
     id: -1,
     name:"Condición"
@@ -47,14 +50,45 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
     name: "Tipo de Propiedad"
   };
 
-  $scope.propertiesTypes = [$scope.propertyType, ...propertiesTypes];    
+  $scope.propertiesTypes = propertiesTypes;    
 
-  $scope.updateChosen = function() {          
-    if ($scope.propertiesTypes.some(type => type.id == -1) && $scope.propertiesTypes[0] != -1) $scope.propertiesTypes.shift();    
+  $scope.updateTypeChosen = function(newType) {  
+    $scope.propertyType = newType;
+
+    $scope.isPropertyTypeOpen = false;
+    $scope.isSubPropertyTypeOpen = false;
+
+    if ($scope.propertiesTypes.some(type => type.id == -1) && $scope.propertiesTypes[0] != -1) $scope.propertiesTypes.shift();            
     
-    $scope.subTypes = propertiesSubTypes[$scope.propertyType.id];       
+    $scope.subTypeSelected = propertiesSubTypes[$scope.propertyType.id][0]; 
     
-    $scope.subTypeSelected = $scope.subTypes[0];        
+    $scope.subTypes = propertiesSubTypes[$scope.propertyType.id].filter(type => type.id != $scope.subTypeSelected.id);
+    
+    $scope.propertiesTypes = propertiesTypes.filter(type => type.id != newType.id); 
+  };
+
+  $scope.updateSubTypeChosen = (newType) => {
+    $scope.subTypeSelected = newType;
+
+    $scope.isPropertyTypeOpen = false;
+    $scope.isSubPropertyTypeOpen = false;
+
+    $scope.subTypes = propertiesSubTypes[$scope.propertyType.id].filter(type => type.id != $scope.subTypeSelected.id);
+  };
+
+  $scope.togglePropertyTypeDropdown = () => {    
+    $scope.isSubPropertyTypeOpen = false;
+    $scope.isPropertyTypeOpen = !$scope.isPropertyTypeOpen;
+  };
+
+  $scope.toggleSubPropertyTypeDropdown = () => {
+    $scope.isPropertyTypeOpen = false;
+    if ($scope.propertyType.id != -1 && $scope.subTypes.length > 1) $scope.isSubPropertyTypeOpen = !$scope.isSubPropertyTypeOpen;
+  };
+
+  $scope.closeOpenSelects = () => {
+    $scope.isPropertyTypeOpen = false;
+    $scope.isSubPropertyTypeOpen = false;
   };
 
   setTimeout(function(){
