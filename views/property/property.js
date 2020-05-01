@@ -174,8 +174,6 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
     const cellPhone = $scope.p.prop.producer.cellphone ? $scope.p.prop.producer.cellphone : $scope.p.prop.producer.phone;
     $scope.cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351').toString(); 
 
-    console.log($scope.cleanCellPhone);
-
     const sides = [
       { 
         side: 'left',
