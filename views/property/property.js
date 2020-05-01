@@ -172,7 +172,9 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
     $scope.mailSubject = mailSubject.replace(/\s/g, '%20'); 
 
     const cellPhone = $scope.p.prop.producer.cellphone ? $scope.p.prop.producer.cellphone : $scope.p.prop.producer.phone;
-    $scope.cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351'); 
+    $scope.cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351').toString(); 
+
+    console.log($scope.cleanCellPhone);
 
     const sides = [
       { 
@@ -183,7 +185,7 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
         side: 'right',
         oposite: 'left'
       },
-    ]
+    ];
     
     const gallerySlider = document.querySelector("#mobile-property-gallery-slider .mobile-property-slider");
     sides.forEach(side => gallerySlider.addEventListener(`swiped-${side.side}`, () => {
