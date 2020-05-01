@@ -49,14 +49,26 @@
 }
 
 #mobile-prop-detail .mobile-property-gallery-slider.open {
-    width: 100vw;
-    height: fit-content;
-    position: fixed;
+    width: 100vh;
+    height: 96vw;
     left: 50%;
     top: 50%;
-    transform: translate3d(-50%, -50%, 0);
-    margin: 0px;
-    z-index: 12;    
+    transform: translate3d(-50%, -50%, 0px) rotate(90deg);
+    position: fixed;
+    z-index: 12;
+    transform-origin: center;
+    margin: 0;
+}
+
+@media  (orientation: landscape) {
+    #mobile-prop-detail .mobile-property-gallery-slider.open {
+        transform: rotateZ(0deg);
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 98vh;
+        margin: 1vh 0;
+    }
 }
 
 #mobile-prop-detail .mobile-property-slider img {
