@@ -174,7 +174,9 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
     const cellPhone = $scope.p.prop.producer.cellphone ? $scope.p.prop.producer.cellphone : $scope.p.prop.producer.phone;
     $scope.cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');
     
-    $scope.whatsAppUri = `https://api.whatsapp.com/send?phone=${$scope.cleanCellPhone}&text=${$scope.mailSubject}`;    
+    $scope.whatsAppUri = `https://api.whatsapp.com/send?phone=${$scope.cleanCellPhone}&text=${$scope.mailSubject}`;
+    
+    $scope.$apply();
     
     const sides = [
       { 
