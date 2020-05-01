@@ -62,13 +62,14 @@ const swipeSlider = function(e, slider, scope, length, currentNumberName, side) 
   const pxToMove = [...slider.children].find(child => child.classList.contains("mobile-property-recomended-item")).offsetWidth; 
 
   scope.moveSlider(slider, length, currentNumberName, side, pxToMove);
-}
+};
 
 app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) {      
   $rootScope.activeMenu = '';
   $scope.apiReady = false;
   $scope.isContactModalOpen = false;
   $scope.isGalleryOpen = false;
+  $scope.generalFeaturesToShow = 5;
 
   $rootScope.sliderCounters = {
     currentPhoto: 1,
@@ -256,6 +257,23 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
       detail.style.maxHeight = maxHeight;
     }
   };
+
+  const generalFeaturesList = document.querySelector(".mobile-property-general-features ul"); 
+  const limitedHeight = `${$scope.generalFeaturesToShow * 40}px`;
+  generalFeaturesList.style.maxHeight = limitedHeight;
+
+  $scope.toggleGeneralFeatures = () => {          
+    const maxHeight = `${$scope.p.prop.tags.length * 40}px`;        
+
+    if (generalFeaturesList.classList.contains("open")) {
+      generalFeaturesList.classList.remove("open");
+      generalFeaturesList.style.maxHeight = limitedHeight;
+    }
+    else {
+      generalFeaturesList.classList.add("open");    
+      generalFeaturesList.style.maxHeight = maxHeight;
+    }
+  }
 
   $scope.toggleContactModal = () => $scope.isContactModalOpen = !$scope.isContactModalOpen;
 
