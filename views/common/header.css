@@ -162,13 +162,16 @@
 }
 
 #mobile-header.open #mobile-modal-nav .mobile-modal-background {
-  opacity: 0.5;  
+  opacity: 0.6;  
   pointer-events: all;
 }
 
 #mobile-modal-nav .mobile-modal-container li  a{
   font-size: 1.5rem;  
   color: black;
+  width: 100%;
+  height: 100%;
+  line-height: 45px;
 }
 
 #mobile-modal-nav .mobile-modal-container li {  
