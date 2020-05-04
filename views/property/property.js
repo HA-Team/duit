@@ -62,13 +62,14 @@ const swipeSlider = function(e, slider, scope, length, currentNumberName, side) 
   const pxToMove = [...slider.children].find(child => child.classList.contains("mobile-property-recomended-item")).offsetWidth; 
 
   scope.moveSlider(slider, length, currentNumberName, side, pxToMove);
-}
+};
 
 app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) {      
   $rootScope.activeMenu = '';
   $scope.apiReady = false;
   $scope.isContactModalOpen = false;
   $scope.isGalleryOpen = false;
+  $scope.generalFeaturesToShow = 5;
 
   $rootScope.sliderCounters = {
     currentPhoto: 1,
@@ -168,11 +169,16 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
       google.maps.event.trigger(mobileMap, 'resize');
     }, 0);
 
-    const mailSubject = `Consulta por propiedad %23${$scope.p.id}: ${$scope.p.prop.publication_title}`
-    $scope.mailSubject = mailSubject.replace(/\s/g, '%20'); 
+    const mailSubject = `Consulta por propiedad %23${$scope.p.id}: ${$scope.p.prop.publication_title}`.replace(/\s/g, '%20');    
+    const emailUri = `mailto:${$scope.p.prop.producer.email}?Subject=${mailSubject}`;
+
+    document.querySelector("#emailLink").setAttribute("href", emailUri); 
 
     const cellPhone = $scope.p.prop.producer.cellphone ? $scope.p.prop.producer.cellphone : $scope.p.prop.producer.phone;
-    $scope.cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351'); 
+    const cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');    
+    const whatsAppUri = `https://api.whatsapp.com/send?phone=${cleanCellPhone}&text=${mailSubject}`;      
+
+    document.querySelector("#whatsAppLink").setAttribute("href", whatsAppUri);    
 
     const sides = [
       { 
@@ -183,7 +189,7 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
         side: 'right',
         oposite: 'left'
       },
-    ]
+    ];
     
     const gallerySlider = document.querySelector("#mobile-property-gallery-slider .mobile-property-slider");
     sides.forEach(side => gallerySlider.addEventListener(`swiped-${side.side}`, () => {
@@ -251,6 +257,23 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
       detail.style.maxHeight = maxHeight;
     }
   };
+
+  const generalFeaturesList = document.querySelector(".mobile-property-general-features ul"); 
+  const limitedHeight = `${$scope.generalFeaturesToShow * 40}px`;
+  generalFeaturesList.style.maxHeight = limitedHeight;
+
+  $scope.toggleGeneralFeatures = () => {          
+    const maxHeight = `${$scope.p.prop.tags.length * 40}px`;        
+
+    if (generalFeaturesList.classList.contains("open")) {
+      generalFeaturesList.classList.remove("open");
+      generalFeaturesList.style.maxHeight = limitedHeight;
+    }
+    else {
+      generalFeaturesList.classList.add("open");    
+      generalFeaturesList.style.maxHeight = maxHeight;
+    }
+  }
 
   $scope.toggleContactModal = () => $scope.isContactModalOpen = !$scope.isContactModalOpen;
 

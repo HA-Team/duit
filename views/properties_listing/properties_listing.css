@@ -310,7 +310,7 @@
 }
 
 #mobile-props-order-modal.open .mobile-modal-background {
-  opacity: 0.3;  
+  opacity: 0.6;  
   pointer-events: all;
 }
 
@@ -450,7 +450,7 @@
 }
 
 #mobile-props-filter-modal.open .mobile-modal-background {
-  opacity: 0.3;  
+  opacity: 0.6;  
   pointer-events: all;
 }
 

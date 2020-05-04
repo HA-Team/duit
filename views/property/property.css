@@ -49,14 +49,26 @@
 }
 
 #mobile-prop-detail .mobile-property-gallery-slider.open {
-    width: 100vw;
-    height: fit-content;
-    position: fixed;
+    width: 100vh;
+    height: 96vw;
     left: 50%;
     top: 50%;
-    transform: translate3d(-50%, -50%, 0);
-    margin: 0px;
-    z-index: 12;    
+    transform: translate3d(-50%, -50%, 0px) rotate(90deg);
+    position: fixed;
+    z-index: 12;
+    transform-origin: center;
+    margin: 0;
+}
+
+@media  (orientation: landscape) {
+    #mobile-prop-detail .mobile-property-gallery-slider.open {
+        transform: rotateZ(0deg);
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 98vh;
+        margin: 1vh 0;
+    }
 }
 
 #mobile-prop-detail .mobile-property-slider img {
@@ -470,12 +482,31 @@
 #mobile-prop-detail .mobile-property-general-features ul {
     list-style: none;
     width: 90%;
+    max-height: 200px;
+    overflow: hidden;
+    transition: max-height 0.5s;
 }
 
 #mobile-prop-detail .mobile-property-general-features ul li {
     height: 40px;
     line-height: 40px;    
     text-indent: 10px;
+}
+
+#mobile-prop-detail .mobile-property-general-features p::before {
+    content: "Mostrar más ";
+}
+
+#mobile-prop-detail .mobile-property-general-features ul.open + .description-detail-button-container p::before {
+    content: "Mostrar menos ";
+}
+
+#mobile-prop-detail .mobile-property-general-features i {
+    transition: all 0.5s ease;
+}
+
+#mobile-prop-detail .mobile-property-general-features ul.open + .description-detail-button-container i {
+    transform: rotateX(180deg);
 }
 
 #mobile-prop-detail .mobile-property-general-features ul li:nth-child(even) {

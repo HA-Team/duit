@@ -260,10 +260,7 @@
   <!-- Skeleton Loader End -->
   
   <div ng-show="apiReady">
-    <!-- Detail Options -->
-
-    <!-- Detail Options End -->
-
+    
     <!-- Gallery Slider  -->
     <section id="mobile-property-gallery-slider" class="mobile-property-gallery-slider" ng-class="{' open': isGalleryOpen}">
       
@@ -362,6 +359,9 @@
       <ul>
         <li ng-repeat="tag in p.prop.tags">{{tag.name}}</li>
       </ul>
+      <div class="description-detail-button-container" ng-click="toggleGeneralFeatures()" ng-show="p.prop.tags.length > generalFeaturesToShow">
+        <p><i class="fa fa-angle-down"></i></p>
+      </div>
     </section>  
     <!-- General Features End --> 
 
@@ -387,8 +387,8 @@
         <div class="mobile-property-modal-content">
           <p>{{p.prop.producer.name}}</p>
           <div class="mobile-property-modal-icons">
-            <a href="mailto:{{p.prop.producer.email}}?Subject={{mailSubject}}"><i class="fa fa-envelope"></i></a>
-            <a href="https://wa.me/{{cleanCellPhone}}?texto={{mailSubject}}"><i class="fab fa-whatsapp"></i></a>
+            <a id="emailLink" href=""><i class="fa fa-envelope"></i></a>
+            <a id="whatsAppLink" href=""><i class="fab fa-whatsapp"></i></a>
           </div>
         </div>          
         <div class="mobile-property-modal-img-space"></div>

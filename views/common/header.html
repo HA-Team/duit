@@ -33,17 +33,21 @@
     <div id="mobile-modal-nav" ng-class="{' open': isHamburgOpen}">
       <nav class="mobile-modal-container" >
         <ul>
-          <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'home'}">            
-            <a ng-click="setActive('home'); toggleMenu()" ui-sref="home">Home</a>
+          <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'home'}"
+              ng-click="setActive('home'); toggleMenu();">            
+            <a ui-sref="home">Home</a>
           </li>          
-          <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'agents'}">            
-            <a ng-click="setActive('agents'); toggleMenu()" ui-sref="agents">Asesores</a>
+          <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'agents'}"
+              ng-click="setActive('agents'); toggleMenu();">            
+            <a ui-sref="agents">Asesores</a>
           </li>
-          <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'developments'}">            
-            <a ng-click="setActive('developments'); toggleMenu()" ui-sref="developments">Emprendimientos</a>
+          <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'developments'}"
+              ng-click="setActive('developments'); toggleMenu();">            
+            <a ui-sref="developments">Emprendimientos</a>
           </li>
-          <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'contactUs'}">            
-            <a ng-click="setActive('contactUs'); toggleMenu()" ui-sref="contactUs">Contacto</a>
+          <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'contactUs'}"
+              ng-click="setActive('contactUs'); toggleMenu();">            
+            <a ui-sref="contactUs">Contacto</a>
           </li>
         </ul>
       </nav>
