@@ -40,6 +40,9 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
   $scope.isPropertyTypeOpen = false;
   $scope.isSubPropertyTypeOpen = false;
 
+  $scope.wasFindPropertiesButtonClicked = false;
+  $scope.isPropertyPlaceholderWarningActive = false;  
+
   $scope.subTypeSelected = {
     id: -1,
     name:"Condición"
@@ -57,6 +60,7 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
 
     $scope.isPropertyTypeOpen = false;
     $scope.isSubPropertyTypeOpen = false;
+    $scope.isPropertyPlaceholderWarningActive = false;
 
     if ($scope.propertiesTypes.some(type => type.id == -1) && $scope.propertiesTypes[0] != -1) $scope.propertiesTypes.shift();            
     
@@ -90,6 +94,16 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
     $scope.isPropertyTypeOpen = false;
     $scope.isSubPropertyTypeOpen = false;
   };
+
+  $scope.findProperties = () => {
+    $scope.wasFindPropertiesButtonClicked = true;
+
+    if ($scope.propertyType.id == -1) $scope.isPropertyPlaceholderWarningActive = true;
+    else {
+      $scope.isPropertyPlaceHolderWarningActive = false;
+      $scope.find();
+    }
+  }
 
   setTimeout(function(){
     uiFunctions.buildParallax();
