@@ -32,10 +32,10 @@
 
                   <!-- Property Type -->
                   <div class="col-md-5">
-                    <div class="property-type-dropdown-container">
-                      <a class="property-type" ng-click="togglePropertyTypeDropdown()">{{propertyType.name}}</a>
+                    <div class="property-type-dropdown-container" ng-class="{' warning': isPropertyPlaceholderWarningActive}">
+                      <a class="property-type" ng-click="togglePropertyTypeDropdown()" ng-class="{' open': isPropertyTypeOpen}">{{propertyType.name}} <i class="fas fa-angle-down"></i></a>                      
                       <ul class="col-md-5" ng-class="{' open': isPropertyTypeOpen}">
-                        <li ng-repeat="type in propertiesTypes track by type.id" ng-click="updateTypeChosen(type)">{{type.name}}</li>
+                        <li ng-repeat="type in propertiesTypes track by type.id" ng-click="updateTypeChosen(type)">{{type.name}}</li>                        
                       </ul>
                     </div>
                   </div>
@@ -43,9 +43,9 @@
                   <!-- Property Sub type -->
                   <div class="col-md-5">
                     <div class="property-type-dropdown-container">
-                      <a class="property-type" ng-click="toggleSubPropertyTypeDropdown()">{{subTypeSelected.name}}</a>
+                      <a class="property-type" ng-click="toggleSubPropertyTypeDropdown()" ng-class="{' open': isSubPropertyTypeOpen}">{{subTypeSelected.name}} <i class="fas fa-angle-down" ng-if="subTypes.length > 1"></i></a>                      
                       <ul class="col-md-5" ng-class="{' open': isSubPropertyTypeOpen}">
-                        <li ng-repeat="type in subTypes track by type.id" ng-click="updateSubTypeChosen(type)">{{type.name}}</li>
+                        <li ng-repeat="type in subTypes track by type.id" ng-click="updateSubTypeChosen(type)">{{type.name}}</li>                        
                       </ul>
                     </div>
                   </div>    
@@ -54,7 +54,7 @@
 
                   <!-- Min Price -->
                   <div class="col-md-2">
-                    <button class="button" ng-click="find()" ng-disabled="propertyType.id == -1">Buscar</button>
+                    <button class="button" ng-click="findProperties()">Buscar</button>
                   </div>
 
                 </div>

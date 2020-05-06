@@ -1,10 +1,17 @@
 .property-type-dropdown-container {
     width: 100%;
+    transition: border 0.2s;
+}
+
+.property-type-dropdown-container.warning {
+    box-shadow: 0px 0px 4px 4px var(--primary-red);
 }
 
 a.property-type {
     position: relative;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     overflow: hidden;
     padding: 0 0 0 18px;
     height: 51px;
@@ -20,6 +27,16 @@ a.property-type {
     margin-bottom: 18px;
     z-index: 100;
 } 
+
+a.property-type i {
+    margin-right: 2rem;
+    transition: all 0.2s;
+    font-size: 2rem;
+}
+
+a.property-type.open i {
+    transform: rotateX(180deg);
+}
 
 a.property-type + ul {
     position: absolute;
