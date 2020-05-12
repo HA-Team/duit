@@ -75,5 +75,16 @@ const agents = [
     linkedin: '',
     instagram: '',
     pic: '/images/team/recepcion-profile.jpg'
+  },
+  {
+    name: 'Santiago Pablu',
+    position: 'Asesor',
+    phone: '(351) 5908204',
+    email: 'santiago@duitpropiedades.com.ar',
+    facebook: '',
+    twitter: '',
+    linkedin: '',
+    instagram: '',
+    pic: '/images/team/santiago-pablu-profile.jpg'
   }
 ];
