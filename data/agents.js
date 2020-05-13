@@ -1,7 +1,7 @@
 const agents = [
   {
     name: 'Agustín Aznarez',
-    position: 'Asesor',
+    position: 'Consejero',
     phone: '(351) 3102556',
     email: 'agustin@duitpropiedades.com.ar',
     facebook: 'https://www.facebook.com/agustin.aznarez',
@@ -12,7 +12,7 @@ const agents = [
   },
   {
     name: 'Daniel Ganim',
-    position: 'Asesor',
+    position: 'Consejero',
     phone: '(351) 5647780',
     email: 'danielganim@duitpropiedades.com.ar',
     facebook: ' ',
@@ -23,7 +23,7 @@ const agents = [
   },
   {
     name: 'Fernando Gavier',
-    position: 'Asesor',
+    position: 'Consejero',
     phone: '(0351) 155145491',
     email: 'fgavier@duitpropiedades.com.ar',
     facebook: 'https://www.facebook.com/fngavier',
@@ -34,7 +34,7 @@ const agents = [
   },
   {
     name: 'Hugo Miranda',
-    position: 'Asesor',
+    position: 'Consejero',
     phone: '(351) 2462630',
     email: 'hmiranda@duitpropiedades.com.ar',
     facebook: ' ',
@@ -45,7 +45,7 @@ const agents = [
   },
   {
     name: 'Severo Sosa',
-    position: 'Asesor',
+    position: 'Consejero',
     phone: '(351) 5648467',
     email: 'severo@duitpropiedades.com.ar',
     facebook: 'https://www.facebook.com/sapo.sosa',
@@ -56,7 +56,7 @@ const agents = [
   },
   {
     name: 'Carolina Valarolo',
-    position: 'Asesora',
+    position: 'Consejera',
     phone: '(351) 5513711',
     email: 'carolina@duitpropiedades.com.ar',
     facebook: '',
