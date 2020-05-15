@@ -96,7 +96,7 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
       prop: result,
       videos: result.videos,
       video: result.videos.length ? result.videos[0] : null,
-      video_url: result.videos.length ? result.videos[0].player_url : null,
+      video_url: result.videos.length ? result.videos[0].player_url + "?rel=0&enablejsapi=1" : null,
     };
     
     $scope.featuresItems = [
