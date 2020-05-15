@@ -706,3 +706,14 @@
       background-position: 80vw;
     }
   }
+
+
+/* Desktop styles */
+
+/* Desktop and mobile styles */
+
+.video-player {
+    width: 100%;
+    border: none;
+    height: 60vh;
+  }

@@ -1,7 +1,13 @@
 <!-- Desktop Property Detail -->
 <div ng-controller="property" class="hidden-on-mobile">
 <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="apiReady"></div>
-<div id="titlebar" class="property-titlebar margin-bottom-0" ng-show="apiReady">
+
+  <!-- Video player -->
+  <div class="container" ng-show="p.prop.videos.length">
+    <iframe ng-src="{{p.video_url | trusted}}" class="video-player" allowFullScreen="true"> </iframe>
+  </div>
+
+<div id="titlebar" class="property-titlebar margin-bottom-0" ng-show="apiReady" ng-hide="p.prop.videos.length">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -25,10 +31,10 @@
   </div>
 </div>
 <!-- Slider -->
-<div class="fullwidth-property-slider margin-bottom-50 hidden-on-desktop" ng-show="apiReady">
+<div class="fullwidth-property-slider margin-bottom-50 hidden-on-desktop" ng-show="apiReady" ng-hide="p.prop.videos.length">
   <img ng-repeat="i in p.prop.photos" src="{{i.image}}" class="margin-right-10">
 </div>
-<div class="margin-bottom-50 hidden-on-mobile">
+<div class="margin-bottom-50 hidden-on-mobile" ng-hide="p.prop.videos.length">
   <!-- Slider Container -->
   <div class="property-slider-container">
     <!-- Agent Widget -->
@@ -247,22 +253,27 @@
 <!-- Mobile Property Detail -->
 <div id="mobile-prop-detail" ng-controller="property" class="hidden-on-desktop">
   
-  <!-- Skeleton Loader -->
-  <div class="skeleton-container" ng-show="!apiReady">
+   <!-- Skeleton Loader -->
+   <div class="skeleton-container" ng-show="!apiReady">
     <div class="skeleton-image"></div>
     <div class="skeleton-lines">
-      <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
+      <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>
     </div>
     <div class="skeleton-circles">
-      <div ng-repeat="x in [].constructor(4) track by $index" class="skeleton-circle"></div>     
+      <div ng-repeat="x in [].constructor(4) track by $index" class="skeleton-circle"></div>
     </div>
   </div>
   <!-- Skeleton Loader End -->
   
   <div ng-show="apiReady">
-    
+
+    <!-- Video player -->
+    <div ng-show="p.prop.videos.length">
+      <iframe ng-src="{{p.video_url | trusted}}" class="video-player" allowFullScreen="true"> </iframe>
+    </div>
+
     <!-- Gallery Slider  -->
-    <section id="mobile-property-gallery-slider" class="mobile-property-gallery-slider" ng-class="{' open': isGalleryOpen}">
+    <section id="mobile-property-gallery-slider" class="mobile-property-gallery-slider" ng-class="{' open': isGalleryOpen}" ng-hide="p.prop.videos.length">
       
       <!-- Arrows -->
       <div class="slider-arrows-container">
@@ -298,7 +309,7 @@
     
     </section>
 
-    <div class="mobile-modal-background" ng-click="toggleGallery()" ng-class="{' open': isGalleryOpen}"></div>    
+    <div class="mobile-modal-background" ng-click="toggleGallery()" ng-class="{' open': isGalleryOpen}"></div>
     <!-- Gallery Slider End -->
 
     <!-- Subtitle -->
@@ -424,7 +435,7 @@
         <div class="skeleton-container">
           <div class="skeleton-image"></div>
           <div class="skeleton-lines">
-            <div class="skeleton-line" ng-repeat="x in [].constructor(2) track by $index" ></div>                
+            <div class="skeleton-line" ng-repeat="x in [].constructor(2) track by $index" ></div>
           </div>
         </div>
       </div>
@@ -480,7 +491,7 @@
         <div class="skeleton-container">
           <div class="skeleton-image"></div>
           <div class="skeleton-lines">
-            <div class="skeleton-line" ng-repeat="x in [].constructor(2) track by $index"></div>            
+            <div class="skeleton-line" ng-repeat="x in [].constructor(2) track by $index"></div>
           </div>
         </div>
       </div>

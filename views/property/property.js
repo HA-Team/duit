@@ -59,12 +59,12 @@ const getSimilar = (scope, tokkoApi) => {
 const swipeSlider = function(e, slider, scope, length, currentNumberName, side) {
   e.stopPropagation();
   
-  const pxToMove = [...slider.children].find(child => child.classList.contains("mobile-property-recomended-item")).offsetWidth; 
+  const pxToMove = [...slider.children].find(child => child.classList.contains("mobile-property-recomended-item")).offsetWidth;
 
   scope.moveSlider(slider, length, currentNumberName, side, pxToMove);
 };
 
-app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) {      
+app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) {
   $rootScope.activeMenu = '';
   $scope.apiReady = false;
   $scope.isContactModalOpen = false;
@@ -76,7 +76,7 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
     currentFeatured: 1,
     currentSimilar: 1
   };
-  
+
   const id = $stateParams.propertyId;
   tokkoApi.findOne('property', id, function(result){
     $scope.p =  {
@@ -91,11 +91,14 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
       cover_photo: result.photos[0].thumb,
       cover_photo_original: result.photos[0].image,
       parkings: result.parking_lot_amount ? result.parking_lot_amount : 0,
-      area: result.type.id === 1 ? result.surface : result.roofed_surface,   
+      area: result.type.id === 1 ? result.surface : result.roofed_surface,
       state: result.location.short_location.replace(/\s\|.*/, ""),      
       prop: result,
+      videos: result.videos,
+      video: result.videos.length ? result.videos[0] : null,
+      video_url: result.videos.length ? result.videos[0].player_url : null,
     };
-
+    
     $scope.featuresItems = [
       {
         icon: "fas fa-ruler-vertical",
@@ -160,7 +163,9 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
     $scope.apiReady = true;
     $scope.$apply();
     uiFunctions.showMoreButton();
-    uiFunctions.buildSlickCarousel();
+    if (!$scope.p.video) {
+      uiFunctions.buildSlickCarousel();
+    }
     uiFunctions.buildMagnificPopup();
     getFeatured($scope, tokkoApi);
     getSimilar($scope, tokkoApi);
@@ -169,7 +174,7 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
       google.maps.event.trigger(mobileMap, 'resize');
     }, 0);
 
-    const mailSubject = `Consulta por propiedad %23${$scope.p.id}: ${$scope.p.prop.publication_title}`.replace(/\s/g, '%20');    
+    const mailSubject = `Consulta por propiedad %23${$scope.p.id}: ${$scope.p.prop.publication_title}`.replace(/\s/g, '%20');
     const emailUri = `mailto:${$scope.p.prop.producer.email}?Subject=${mailSubject}`;
 
     document.querySelector("#emailLink").setAttribute("href", emailUri); 
@@ -190,7 +195,8 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
         oposite: 'left'
       },
     ];
-    
+    if ($scope.p.video) return;
+
     const gallerySlider = document.querySelector("#mobile-property-gallery-slider .mobile-property-slider");
     sides.forEach(side => gallerySlider.addEventListener(`swiped-${side.side}`, () => {
       $scope.moveSlider(gallerySlider, $scope.p.prop.photos.length, 'currentPhoto', side.oposite);
@@ -210,25 +216,25 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
     }, {capture: true}));            
   });   
 
-  $scope.moveSlider = (element, arrLength, index, side, pxToMove) => {                                             
-    if (!pxToMove) pxToMove = window.innerWidth;         
+  $scope.moveSlider = (element, arrLength, index, side, pxToMove) => {
+    if (!pxToMove) pxToMove = window.innerWidth;
      
     if (side == 'left') {
       if ($rootScope.sliderCounters[index] == 1) {
         $rootScope.sliderCounters[index] = arrLength;
         element.scrollLeft = pxToMove * (arrLength - 1);      
       } else {
-        $rootScope.sliderCounters[index] -= 1;  
-        element.scrollLeft = pxToMove * ($rootScope.sliderCounters[index] - 1);    
+        $rootScope.sliderCounters[index] -= 1;
+        element.scrollLeft = pxToMove * ($rootScope.sliderCounters[index] - 1);
       }    
     }
 
     if (side == 'right') {
       if ($rootScope.sliderCounters[index] == arrLength) {
-        $rootScope.sliderCounters[index] = 1;   
+        $rootScope.sliderCounters[index] = 1;
         element.scrollLeft = 0;   
       } else {      
-        $rootScope.sliderCounters[index] += 1;      
+        $rootScope.sliderCounters[index] += 1;
         element.scrollLeft = pxToMove * ($rootScope.sliderCounters[index] - 1);
       } 
     }      
@@ -253,7 +259,7 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
       detail.style.maxHeight = '';
     }
     else {
-      detail.classList.add("visible");    
+      detail.classList.add("visible");
       detail.style.maxHeight = maxHeight;
     }
   };
@@ -270,7 +276,7 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
       generalFeaturesList.style.maxHeight = limitedHeight;
     }
     else {
-      generalFeaturesList.classList.add("open");    
+      generalFeaturesList.classList.add("open");
       generalFeaturesList.style.maxHeight = maxHeight;
     }
   }

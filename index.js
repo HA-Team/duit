@@ -143,3 +143,11 @@ app.controller('startUp', function($scope, $rootScope, tokkoApi) {
   //   }
   // });
 })
+
+
+// Filter to white list urls to embbed videos in iframes (required by angular)
+app.filter('trusted', ['$sce', function ($sce) {
+  return function(url) {
+      return $sce.trustAsResourceUrl(url);
+  };
+}]);
