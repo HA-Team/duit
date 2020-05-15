@@ -147,10 +147,75 @@ ul.top-bar-menu li i {
     width: auto;
     transform: translate3d(0, 0, 0);
 }
+.footer-logo-container {
+    display: flex;
+    justify-content: center;
+    flex-grow: 2;
+}
+.footer-dialog {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+.footer-text {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: #f3eed5;
+    font-size: 12px;
+}
+.footer-text span {
+    line-height: 1;
+}
+    
 img.footer-logo {
-    max-height: 43px;
+    max-height: 45px;
     width: auto;
     transform: translate3d(0, 0, 0);
+}
+.footer-shadow {
+  position: relative;
+}
+.footer-shadow:before, .footer-shadow:after {
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width:300px;
+  background: #777;
+  -webkit-box-shadow: 0 15px 10px #777;
+  -moz-box-shadow: 0 15px 10px #777;
+  box-shadow: 0 15px 10px #777;
+  -webkit-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
+  -o-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+}
+.footer-shadow:after {
+  -webkit-transform: rotate(3deg);
+  -moz-transform: rotate(3deg);
+  -o-transform: rotate(3deg);
+  -ms-transform: rotate(3deg);
+  transform: rotate(3deg);
+  right: 10px;
+  left: auto;
+}
+@media only screen and (min-width: 1024px) {
+    #footer {
+        margin: 0 40px 40px 40px;
+        border-radius: 3px;
+    }
+    img.footer-logo {
+        max-height: 95px;
+    }
+    .footer-text span {
+        line-height: 2;
+    }
 }
 #header {
     position: relative;
@@ -344,8 +409,8 @@ header.fullwidth .container {
     transition: .3s;
 }
 #footer {
-    padding: 70px 0 0 0;
-    background-color: #fcfcfc;
+    padding: 30px 0 30px 0;
+    background-color: var(--primary-red);
     box-shadow: inset 0 20px 50px -20px rgba(0, 0, 0, 0.06);
     box-shadow: none;
     position: relative;
@@ -354,16 +419,6 @@ header.fullwidth .container {
     color: #333;
     font-size: 21px;
     margin-bottom: 25px;
-}
-.footer-shadow {
-    width: 100%;
-    display: block;
-    background: #fff;
-    height: 200px;
-    margin-top: -200px;
-    position: relative;
-    z-index: -1;
-    box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.06);
 }
 .text-widget span {
     color: #707070;
@@ -409,6 +464,11 @@ ul.footer-links {
     top: -2px;
     padding: 0 7px 0 0;
     color: #ccc;
+}
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 .copyrights {
     color: #707070;
