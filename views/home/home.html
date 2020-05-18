@@ -67,8 +67,8 @@
               <a ui-sref="contactUs">Contactános</a>
             </div>
           </div>
-          <h3>Te asesoramos</h3>
-          <p>El equipo profesional de Duit te asistirá en todo momento, bridandote todo el asesoramiento necesario para que tomes la decisión mas adecuada.</p>
+          <h3>Te aconsejamos</h3>
+          <p>El equipo profesional de Duit te asistirá en todo momento, bridandote todos los consejos necesarios para que tomes la decisión mas adecuada.</p>
         </div>
       </div>
       <div class="col-md-4 col-sm-6">
@@ -81,7 +81,7 @@
             </div>
           </div>
           <h3>Valuamos tu casa</h3>
-          <p>¿Querés saber cual es el valor de tu propiedad? Nuestro Staff de asesores matriculados CPCPI valuarán profesionalmente tus bienes.</p>
+          <p>¿Querés saber cual es el valor de tu propiedad? Nuestro Staff de consejeros matriculados CPCPI valuarán profesionalmente tus bienes.</p>
         </div>
       </div>
       <div class="col-md-4 col-sm-6">
@@ -102,6 +102,25 @@
   </div>
 </section>
 <!-- Fullwidth Section / End -->
+
+<!-- Assesors Section -->
+
+<section class="home-agents hidden-on-desktop" id="agents" ng-controller="home">
+  <div class="home-agents-title">
+    <img src="/images/consejeros.png" alt="">
+  </div>
+  <div class="home-agent-card" ng-repeat="agent in agents">
+    <img src="{{agent.pic}}" alt="">
+    <p>{{agent.name}}</p>
+    <a href="tel:{{agent.phone}}">{{agent.phone}}</a>
+    <div class="home-agent-card-icons">
+      <a href="mailto:{{agent.email}}"><i class="fa fa-envelope"></i></a>
+      <a href="https://api.whatsapp.com/send?phone={{formatCellPhone(agent.phone)}}"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- Assesors Section End -->
 
 <!-- Parallax -->
 <div id="nosotros" class="parallax margin-bottom-70"

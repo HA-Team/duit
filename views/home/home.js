@@ -30,7 +30,7 @@ app.controller('featuredProps', function($scope, tokkoApi) {
     uiFunctions.buildCarousel();
     $(window).trigger('resize');
   });
-})
+});
 
 app.controller('homeSearch', function($rootScope, $scope, $state) {
   $rootScope.activeMenu = 'home';
@@ -131,5 +131,12 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
     // $http.post("/propertySearch/",$httpParamSerializer(args));
     // $location.path("/propertySearch/"+{data: JSON.stringify(data), order: 'desc'});
   }
+});
+
+app.controller('home', function($scope) {
+  $scope.agents = agents;
+  $scope.agents.forEach(agent => agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351'));  
+
+  $scope.formatCellPhone = (phone) => `549${phone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');
 });
 
