@@ -1,6 +1,6 @@
 .property-type-dropdown-container {
     width: 100%;
-    transition: border 0.2s;
+    transition: box-shadow 0.3s ease-in-out;
 }
 
 .property-type-dropdown-container.warning {
@@ -39,9 +39,9 @@ a.property-type.open i {
 }
 
 a.property-type + ul {
-    position: absolute;
+    position: relative;
     top: -150vh;
-    width: calc(100% - 20px);
+    width: 100%;
     list-style-type: none;
     background-color: #fcfcfc; 
     border-bottom-left-radius: 3px;   
@@ -138,4 +138,59 @@ a.property-type + ul li:hover {
 .home-agents .home-agent-card .home-agent-card-icons a {
     font-size: 20px;
     color: #707070;
+}
+
+.main-search-form button {
+    width: 100%;    
+    min-width: 150px;
+    margin-left: 15px;
+    font-size: 16px;
+}
+
+.main-search-form button .fa-search {
+    padding-left: 5px;
+}
+
+.main-search-form {
+    display: flex !important;    
+    justify-content: center;
+    align-items: center;    
+}
+
+.main-search-form .search-type {
+    display: flex;    
+}
+
+.main-search-form > * {
+    height: 50px;
+    max-width: 250px;
+}
+
+.main-search-form .search-type > * {
+    height: 50px;
+    line-height: 35px;    
+}
+
+@media (max-width:767px) {
+
+    .main-search-form button {
+        margin: 0px !important;
+    }
+
+    .main-search-form {
+        flex-direction: column; 
+    }
+
+    .main-search-form > *{
+        margin-bottom: 15px;
+        max-width: 400px;
+    }
+
+    .main-search-form .search-type > * {
+        margin: 0px;  
+    }
+
+    .main-search-form .search-type > *:first-child {
+        margin-right: 15px;  
+    }
 }

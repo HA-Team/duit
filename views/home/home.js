@@ -98,7 +98,14 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
   $scope.findProperties = () => {
     $scope.wasFindPropertiesButtonClicked = true;
 
-    if ($scope.propertyType.id == -1) $scope.isPropertyPlaceholderWarningActive = true;
+    if ($scope.propertyType.id == -1) {
+      $scope.isPropertyPlaceholderWarningActive = true;
+
+      setTimeout(() => {
+        $scope.isPropertyPlaceholderWarningActive = false;
+        $scope.$apply();
+      }, 2000);
+    }
     else {
       $scope.isPropertyPlaceHolderWarningActive = false;
       $scope.find();
