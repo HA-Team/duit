@@ -30,7 +30,7 @@ app.controller('featuredProps', function($scope, tokkoApi) {
     uiFunctions.buildCarousel();
     $(window).trigger('resize');
   });
-})
+});
 
 app.controller('homeSearch', function($rootScope, $scope, $state) {
   $rootScope.activeMenu = 'home';
@@ -124,5 +124,47 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
     // $http.post("/propertySearch/",$httpParamSerializer(args));
     // $location.path("/propertySearch/"+{data: JSON.stringify(data), order: 'desc'});
   }
+});
+
+app.controller('home', function($scope) {
+  const duitWhatsapp = '5493518172255';
+  const duitPhone = '+5493518172255';
+
+
+  $scope.isContactGlobeOpen = false;
+  $scope.contactGlobeTitle = "Contactame papá!";
+
+  $scope.contactGlobeOpenIcon = {
+    iconClass: 'far fa-comment-dots',
+    color: 'var(--soft-grey)',
+    fontSize: '2.3rem'    
+  };
+
+  $scope.contactGlobeClose = {
+    iconClass: 'fa fa-times',
+    color: 'var(--soft-grey)',
+    fontSize: '3rem' 
+  };
+
+  $scope.contactGlobeActions = [
+    {
+      hRef: `https://api.whatsapp.com/send?phone=${duitWhatsapp}`,
+      iconClass: 'fab fa-whatsapp',
+      color: '#128c7e',
+      fontSize: '3rem'
+    },
+    {
+      hRef: `tel:${duitPhone}`,
+      iconClass: 'fa fa-phone',
+      fontSize: '2.3rem'   
+    },
+    {
+      hRef: '#',
+      iconClass: 'fa fa-envelope',
+      fontSize: '2.5rem'    
+    }
+  ];
+
+  $scope.toggleModal = () => $scope.isContactGlobeOpen = !$scope.isContactGlobeOpen;
 });
 
