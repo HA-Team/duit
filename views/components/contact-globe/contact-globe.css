@@ -46,7 +46,7 @@
     font-size: 3rem;
 }
 
-.contact-globe > i.fa-times {
+.contact-globe > i:last-of-type {
     opacity: 0;
     color: grey;
     visibility: hidden;
