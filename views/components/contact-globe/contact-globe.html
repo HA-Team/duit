@@ -1,0 +1,17 @@
+<section class="contact-globe" ng-class="{' open': isOpen}">
+    <img src="{{mainImg}}" alt="" ng-click="toggleModal()"/>
+    <i class="{{openIcon.iconClass}}" ng-click="toggleModal()" ng-style="getActionStyle(openIcon)"></i>
+    <i class="{{closeIcon.iconClass}}" ng-click="toggleModal()" ng-style="getActionStyle(closeIcon)"></i>
+
+    <div class="contact-globe-modal">
+        <div class="contact-globe-modal-content">
+            <p>{{title}}</p>
+            <div class="contact-globe-modal-icons">
+                <a href="{{item.hRef}}" ng-repeat="item in actions" ng-style="getActionStyle(item)">
+                    <i class="{{item.iconClass}}"></i>
+                </a>                
+            </div>
+        </div>          
+        <div class="contact-globe-img-space"></div>
+    </div>
+</section>
