@@ -140,7 +140,7 @@ app.controller('home', function($scope) {
     fontSize: '2.3rem'    
   };
 
-  $scope.contactGlobeClose = {
+  $scope.contactGlobeCloseIcon = {
     iconClass: 'fa fa-times',
     color: 'var(--soft-grey)',
     fontSize: '3rem' 
