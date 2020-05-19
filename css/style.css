@@ -147,97 +147,27 @@ ul.top-bar-menu li i {
     width: auto;
     transform: translate3d(0, 0, 0);
 }
-.footer-logo-container {
-    display: flex;
-    justify-content: center;
-    flex-grow: 4;
-}
-.footer-dialog {
-    display: flex;
-    justify-content: center;
-    flex-grow: 3;
-}
 .footer-text {
-    flex-grow: 2;
     display: flex;
-    justify-content: center;
     flex-direction: column;
-    
-}
-.footer-text {
     margin-left: 10px;
     margin-right: 10px;
 }
-.footer-text > span {
-    line-height: 10px;
+.footer-text > * {
+    line-height: 13px;
     font-family: "Varela Round";
     color: #f3eed5;
-    font-size: 8px;
-}
-.footer-text > a {
-    line-height: 10px;
-    font-family: "Varela Round";
-    color: #f3eed5;
-    font-size: 8px;
+    font-size: 11px;
 }
 img.footer-logo {
-    max-height: 60px;
+    max-height: 55px;
     width: auto;
-    transform: translate3d(0, 0, 0);
 }
-img.footer-dialog {
+img.by-ha {
     margin: 20px;
-    max-height: 45px;
+    margin-bottom: 4px;
+    max-height: 25px;
     width: auto;
-    transform: translate3d(0, 0, 0);
-}
-.footer-shadow {
-  position: relative;
-}
-.footer-shadow:before, .footer-shadow:after {
-  z-index: -1;
-  position: absolute;
-  content: "";
-  bottom: 15px;
-  left: 10px;
-  width: 50%;
-  top: 80%;
-  max-width:300px;
-  background: #777;
-  -webkit-box-shadow: 0 15px 10px #777;
-  -moz-box-shadow: 0 15px 10px #777;
-  box-shadow: 0 15px 10px #777;
-  -webkit-transform: rotate(-3deg);
-  -moz-transform: rotate(-3deg);
-  -o-transform: rotate(-3deg);
-  -ms-transform: rotate(-3deg);
-  transform: rotate(-3deg);
-}
-.footer-shadow:after {
-  -webkit-transform: rotate(3deg);
-  -moz-transform: rotate(3deg);
-  -o-transform: rotate(3deg);
-  -ms-transform: rotate(3deg);
-  transform: rotate(3deg);
-  right: 10px;
-  left: auto;
-}
-@media only screen and (min-width: 1024px) {
-    #footer {
-        margin: 0 30px 30px 30px;
-        border-radius: 3px;
-    }
-    img.footer-logo {
-        max-height: 95px;
-    }
-    .footer-text > span {
-        line-height: 24px;
-        font-size: 12px;
-    }
-    .footer-text > a {
-        line-height: 24px;
-        font-size: 12px;
-    }
 }
 #header {
     position: relative;
@@ -430,17 +360,12 @@ header.fullwidth .container {
     transform: translate(0, 0) scale(1);
     transition: .3s;
 }
-#footer {
+footer {
     padding: 30px 10px 30px 10px;
     background-color: var(--primary-red);
-    box-shadow: inset 0 20px 50px -20px rgba(0, 0, 0, 0.06);
-    box-shadow: none;
-    position: relative;
-}
-#footer h4 {
-    color: #333;
-    font-size: 21px;
-    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 .text-widget span {
     color: #707070;
@@ -486,11 +411,6 @@ ul.footer-links {
     top: -2px;
     padding: 0 7px 0 0;
     color: #ccc;
-}
-.footer-container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
 }
 .copyrights {
     color: #707070;
