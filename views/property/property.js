@@ -243,6 +243,21 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
     return diffDays;
   };
 
+  $scope.toggleDescriptionDetailDesktop = () => {
+    const showMore = document.querySelector(".show-more");
+    const preElement = showMore.querySelector("pre");
+    const maxHeight = `${preElement.offsetHeight + preElement.offsetTop}px`;
+
+    if (showMore.classList.contains("visible")) {
+      showMore.classList.remove("visible");
+      showMore.style.maxHeight = '';
+    }
+    else {
+      showMore.classList.add("visible");
+      showMore.style.maxHeight = maxHeight;
+    }
+  };
+
   $scope.toggleDescriptionDetail = () => {
     const detail = document.querySelector("#mobile-prop-detail .description-detail");
     const preElement = detail.querySelector("pre");
