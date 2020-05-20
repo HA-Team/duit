@@ -206,19 +206,17 @@ En Duit estamos para ayudarlo. </p>
 
 <!-- Contact -->
 <section id="home-contact" class="hidden-on-desktop">
-  <h5>Qué necesitás?</h5>
+  <h3>Dejanos tu consulta</h3>
 
   <form ng-controller="contactForm" id="contactform" autocomplete="on">
-    <p>Completá tus datos de contacto</p>
-
     <div class="contact-form-group">
       <input class="form-control" name="name" placeholder=" " type="text" ng-model="name" required="required" />
-      <label class="input-placeholder" for="name">Nombre</label>
+      <label class="input-placeholder" for="name">Nombre *</label>
     </div>
 
     <div class="contact-form-group">
       <input class="form-control" name="email" placeholder=" " type="email" ng-model="email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" required="required" />
-      <label class="input-placeholder" for="email">Email</label>
+      <label class="input-placeholder" for="email">Email *</label>
     </div>
 
     <div class="contact-form-group">
@@ -228,7 +226,7 @@ En Duit estamos para ayudarlo. </p>
 
     <div class="contact-form-group">
       <textarea class="form-control" name="message" placeholder=" " cols="40" rows="3" ng-model="message" spellcheck="true" required="required"></textarea>
-      <label class="input-placeholder textarea-placeholder" for="message">Mensaje</label>
+      <label class="input-placeholder textarea-placeholder" for="message">Mensaje *</label>
     </div>
 
     <button class="button" ng-click="send()">Contactar<i class='fa fa-spinner fa-spin' ng-show="sending"></i></button>
