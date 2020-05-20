@@ -132,12 +132,12 @@ app.controller('home', function($scope) {
 
 
   $scope.isContactGlobeOpen = false;
-  $scope.contactGlobeTitle = "Contactame papá!";
+  $scope.contactGlobeTitle = "Te asesoramos!";
 
   $scope.contactGlobeOpenIcon = {
-    iconClass: 'far fa-comment-dots',
-    color: 'var(--soft-grey)',
-    fontSize: '2.3rem'    
+    iconClass: 'fab fa-whatsapp',
+      color: '#128c7e',
+      fontSize: '3rem'   
   };
 
   $scope.contactGlobeCloseIcon = {
