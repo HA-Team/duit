@@ -1078,13 +1078,7 @@ body .search-container button:before {
     font-size: 36px;
 }
 .main-search-form {
-    width: 660px;
-    display: block;
-    margin: 0 auto;
-    position: relative;
-    // margin-top: 35px;
     margin-top: 20px;
-    text-align: center;
 }
 .main-search-box {
     // background-color: #fff;
@@ -9547,13 +9541,6 @@ a.grid-three {
 }
 #navigation.style-1:before {
     display: none;
-}
-.main-search-form {
-    width: 100%;
-    display: block;
-    margin: 0 auto;
-    position: relative;
-    margin-top: 35px;
 }
 .search-container {
     padding: 120px 0;
