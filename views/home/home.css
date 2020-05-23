@@ -91,6 +91,7 @@ a.property-type + ul li:hover {
     align-items: center;    
     flex-wrap: wrap;
     background-color: #f7f7f7;
+    padding-bottom: 50px;
 }
 
 .home-agents .home-agents-title {
