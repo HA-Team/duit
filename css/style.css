@@ -2364,8 +2364,7 @@ section.fullwidth {
     width: 100%;
     display: block;
     position: relative;
-    padding: 90px 0;
-    // margin: 50px 0;
+    padding: 50px 0;    
     background-color: #f7f7f7;
 }
 section.fullwidth.border-top {
@@ -8771,8 +8770,7 @@ h4.headline {
     width: auto;
     border-radius: 3px;
 }
-section.fullwidth .headline-box {
-    position: absolute;
+section.fullwidth .headline-box {    
     transform: translate3d(-50%, -50%, 0);
     top: 0;
     margin: 0 auto;
