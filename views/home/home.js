@@ -98,7 +98,14 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
   $scope.findProperties = () => {
     $scope.wasFindPropertiesButtonClicked = true;
 
-    if ($scope.propertyType.id == -1) $scope.isPropertyPlaceholderWarningActive = true;
+    if ($scope.propertyType.id == -1) {
+      $scope.isPropertyPlaceholderWarningActive = true;
+
+      setTimeout(() => {
+        $scope.isPropertyPlaceholderWarningActive = false;
+        $scope.$apply();
+      }, 2000);
+    }
     else {
       $scope.isPropertyPlaceHolderWarningActive = false;
       $scope.find();
@@ -127,6 +134,7 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
 });
 
 app.controller('home', function($scope) {
+<<<<<<< HEAD
   const duitWhatsapp = '5493518172255';
   const duitPhone = '+5493518172255';
 
@@ -166,5 +174,11 @@ app.controller('home', function($scope) {
   ];
 
   $scope.toggleModal = () => $scope.isContactGlobeOpen = !$scope.isContactGlobeOpen;
+=======
+  $scope.agents = agents;
+  $scope.agents.forEach(agent => agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351'));  
+
+  $scope.formatCellPhone = (phone) => `549${phone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');
+>>>>>>> develop
 });
 

@@ -150,10 +150,27 @@ ul.top-bar-menu li i {
     width: auto;
     transform: translate3d(0, 0, 0);
 }
+.footer-text {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.footer-text > * {
+    line-height: 13px;
+    font-family: "Varela Round";
+    color: #f3eed5;
+    font-size: 11px;
+}
 img.footer-logo {
-    max-height: 43px;
+    max-height: 55px;
     width: auto;
-    transform: translate3d(0, 0, 0);
+}
+img.by-ha {
+    margin: 20px;
+    margin-bottom: 4px;
+    max-height: 25px;
+    width: auto;
 }
 #header {
     position: relative;
@@ -346,27 +363,12 @@ header.fullwidth .container {
     transform: translate(0, 0) scale(1);
     transition: .3s;
 }
-#footer {
-    padding: 70px 0 0 0;
-    background-color: #fcfcfc;
-    box-shadow: inset 0 20px 50px -20px rgba(0, 0, 0, 0.06);
-    box-shadow: none;
-    position: relative;
-}
-#footer h4 {
-    color: #333;
-    font-size: 21px;
-    margin-bottom: 25px;
-}
-.footer-shadow {
-    width: 100%;
-    display: block;
-    background: #fff;
-    height: 200px;
-    margin-top: -200px;
-    position: relative;
-    z-index: -1;
-    box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.06);
+footer {
+    padding: 30px 10px 30px 10px;
+    background-color: var(--primary-red);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 .text-widget span {
     color: #707070;
@@ -1079,13 +1081,7 @@ body .search-container button:before {
     font-size: 36px;
 }
 .main-search-form {
-    width: 660px;
-    display: block;
-    margin: 0 auto;
-    position: relative;
-    // margin-top: 35px;
     margin-top: 20px;
-    text-align: center;
 }
 .main-search-box {
     // background-color: #fff;
@@ -9548,13 +9544,6 @@ a.grid-three {
 }
 #navigation.style-1:before {
     display: none;
-}
-.main-search-form {
-    width: 100%;
-    display: block;
-    margin: 0 auto;
-    position: relative;
-    margin-top: 35px;
 }
 .search-container {
     padding: 120px 0;
