@@ -134,10 +134,8 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
 });
 
 app.controller('home', function($scope) {
-<<<<<<< HEAD
   const duitWhatsapp = '5493518172255';
   const duitPhone = '+5493518172255';
-
 
   $scope.isContactGlobeOpen = false;
   $scope.contactGlobeTitle = "Te asesoramos!";
@@ -173,12 +171,11 @@ app.controller('home', function($scope) {
     }
   ];
 
-  $scope.toggleModal = () => $scope.isContactGlobeOpen = !$scope.isContactGlobeOpen;
-=======
+  $scope.toggleContactModal = () => $scope.isContactGlobeOpen = !$scope.isContactGlobeOpen;
+
   $scope.agents = agents;
   $scope.agents.forEach(agent => agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351'));  
 
   $scope.formatCellPhone = (phone) => `549${phone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');
->>>>>>> develop
 });
 

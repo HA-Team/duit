@@ -227,11 +227,6 @@
     border-right: 1px solid lightgray;
 }
 
-#mobile-prop-detail .contact-globe {
-    position: sticky;
-    margin-right: 3rem;
-}
-
 #mobile-prop-detail .mobile-property-type-card {
     display: flex;
     flex-direction: row;
