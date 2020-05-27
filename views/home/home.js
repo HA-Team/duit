@@ -138,5 +138,42 @@ app.controller('home', function($scope) {
   $scope.agents.forEach(agent => agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351'));  
 
   $scope.formatCellPhone = (phone) => `549${phone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');
-});
 
+  $scope.services = [
+    {
+      iconClass: "fas fa-building",
+      linkTo: "contactUs",
+      linkTitle: "Contactános",
+      mainTitle: "Te aconsejamos",
+      description: "El equipo profesional de Duit te asistirá en todo momento, bridandote todos los consejos necesarios para que tomes la decisión mas adecuada."
+    },
+    {
+      iconClass: "far fa-building",
+      linkTo: "developments",
+      linkTitle: "Mas info",
+      mainTitle: "Alquiler",
+      description: "Seleccionamos los mejores emprendimientos y las mejores empresas desarrollistas del mercado para ponerlos a tu alcance."
+    },
+    {
+      iconClass: "far fa-building",
+      linkTo: "developments",
+      linkTitle: "Mas info",
+      mainTitle: "Venta",
+      description: "Seleccionamos los mejores emprendimientos y las mejores empresas desarrollistas del mercado para ponerlos a tu alcance."
+    },    
+    {
+      iconClass: "far fa-building",
+      linkTo: "developments",
+      linkTitle: "Mas info",
+      mainTitle: "Administración",
+      description: "Seleccionamos los mejores emprendimientos y las mejores empresas desarrollistas del mercado para ponerlos a tu alcance."
+    },
+    {
+      iconClass: "fas fa-home",
+      linkTo: "contactUs",
+      linkTitle: "Contactános",
+      mainTitle: "Valuamos tu casa",
+      description: "¿Querés saber cual es el valor de tu propiedad? Nuestro Staff de consejeros matriculados CPCPI valuarán profesionalmente tus bienes."
+    }        
+  ];
+});

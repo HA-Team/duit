@@ -50,89 +50,63 @@
 <!-- Content
 ================================================== -->
 <!-- Services Section -->
-<section id="home-services" class="hidden-on-desktop">
-  
-  <div class="home-services-container ">
+<section id="home-services" class="hidden-on-desktop"> 
+
+  <div class="home-services-container">
     <h3>Servicios</h3>
     <div class="home-services-imgs">
-      <img ng-repeat="x in [].constructor(5) track by $index" src="/images/services/service-{{$index < 10 ? '0' + ($index + 1) : ($index + 1)}}.png" alt="">
+      <div ng-repeat="x in [].constructor(5) track by $index">
+        <a href="#"><img src="/images/services/service-{{$index + 1}}.png" alt=""></a>
+      </div>
     </div>
   </div>
+
 </section>
 <!-- Services Section End -->
 
 <!-- Assesors Section -->
-
 <section class="home-agents hidden-on-desktop" id="agents" ng-controller="home">
+
   <div class="home-agents-title">
     <img src="/images/consejeros.png" alt="">
   </div>
+
   <div class="home-agent-card" ng-repeat="agent in agents">
     <img src="{{agent.pic}}" alt="">
     <p>{{agent.name}}</p>
     <a href="tel:{{agent.phone}}">{{agent.phone}}</a>
+
     <div class="home-agent-card-icons">
       <a href="mailto:{{agent.email}}"><i class="fa fa-envelope"></i></a>
       <a href="https://api.whatsapp.com/send?phone={{formatCellPhone(agent.phone)}}"><i class="fab fa-whatsapp"></i></a>
     </div>
   </div>
-</section>
 
+</section>
 <!-- Assesors Section End -->
 
-<!-- Fullwidth Section -->
-<section class="fullwidth margin-top-0" data-background-color="#f7f7f7">
+<!-- Services Description Section -->
+<section class="fullwidth margin-top-0" data-background-color="#f7f7f7" ng-controller="home">
 
   <!-- Box Headline -->
   <h3 class="headline-box">¿Qué necesitás?</h3>
-  
-  <!-- Content -->
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 col-sm-6">
-        <!-- Icon Box -->
-        <div class="icon-box-1">
-          <div class="icon-container">
-            <i class="fas fa-building"></i>
-            <div class="icon-links">
-              <a ui-sref="contactUs">Contactános</a>
-            </div>
-          </div>
-          <h3>Te aconsejamos</h3>
-          <p>El equipo profesional de Duit te asistirá en todo momento, bridandote todos los consejos necesarios para que tomes la decisión mas adecuada.</p>
+    
+  <!-- Icon Boxes -->
+  <div class="icon-boxes-container">
+    <div class="icon-box-1" ng-repeat="service in services">
+      <div class="icon-container">
+        <i class="{{service.iconClass}}"></i>
+        <div class="icon-links">
+          <a ui-sref="{{service.linkTo}}">{{service.linkTitle}}</a>
         </div>
       </div>
-      <div class="col-md-4 col-sm-6">
-        <!-- Icon Box -->
-        <div class="icon-box-1">
-          <div class="icon-container">
-            <i class="fas fa-home"></i>
-            <div class="icon-links">
-              <a ui-sref="contactUs">Contactános</a>
-            </div>
-          </div>
-          <h3>Valuamos tu casa</h3>
-          <p>¿Querés saber cual es el valor de tu propiedad? Nuestro Staff de consejeros matriculados CPCPI valuarán profesionalmente tus bienes.</p>
-        </div>
-      </div>
-      <div class="col-md-4 col-sm-6">
-        <!-- Icon Box -->
-        <div class="icon-box-1">
-          <div class="icon-container">
-            <i class="far fa-building"></i>
-            <div class="icon-links">
-              <a ui-sref="developments">Mas info</a>
-            </div>
-          </div>
-          <h3>Emprendimientos</h3>
-          <p>Seleccionamos los mejores emprendimientos y las mejores empresas desarrollistas del mercado para ponerlos a tu alcance.</p>
-        </div>
-      </div>
-
-    </div>
+      <h3>{{service.mainTitle}}</h3>
+      <p>{{service.description}}</p>
+    </div>     
   </div>
+ 
 </section>
-<!-- Fullwidth Section / End -->
+<!-- Services Description Section End -->
 
 <!-- Parallax -->
 <div id="nosotros" class="parallax margin-bottom-70"
@@ -168,7 +142,7 @@ En Duit estamos para ayudarlo. </p>
 <!-- Parallax / End -->
 
 <!-- Featured -->
-<div class="container" ng-controller='featuredProps'>
+<div id="footer" class="container" ng-controller='featuredProps'>
   <div class="row">
   
     <div class="col-md-12">
