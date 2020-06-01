@@ -1,0 +1,35 @@
+.av-units-table {
+  text-align: center;
+}
+
+.av-units-table thead {
+  background: #e0e0e0;
+}
+
+.av-units-table th:first-child{
+  border-radius: 5px 0 0 0;
+}
+
+.av-units-table th:last-child{
+  border-radius: 0 5px 0 0;
+}
+
+.av-units-table th {
+  text-align: center;
+  line-height: 20px;
+  padding: 5px;
+  color: black;
+}
+
+.av-units-table td {
+  border-top: 1px solid #e0e0e0;
+}
+
+.av-units-title {
+  border-radius: 10px 10px 0px 0px;
+  margin: 30px 5px 5px 5px;
+  color: white;
+  background: var(--primary-red);
+  padding: 20px 200px 20px 20px;
+  width: fit-content;
+}

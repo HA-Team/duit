@@ -39,6 +39,9 @@ const getDevProps = (scope, tokkoApi) => {
         cover_photo: p.photos[0].thumb,
         parkings: p.parking_lot_amount ? p.parking_lot_amount : 0,
         area: p.type.id === 1 ? p.surface : p.roofed_surface,
+        sell: p.operations.filter(p => p.operation_type == "Venta")[0]?.prices.slice(-1)[0],
+        rent: p.operations.filter(p => p.operation_type == "Alquiler")[0]?.prices.slice(-1)[0],
+        parkings_av: p.parking_lot_amount > 0 ? "Si" : "No",
         prop: p
       })
     });
