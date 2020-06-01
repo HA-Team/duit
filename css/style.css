@@ -8,6 +8,7 @@
     @import url("../views/common/header.css");
     @import url("../views/property/property.css");
     @import url("../views/home/home.css");
+    @import url("../views/components/skeletons/listing/skeleton-listing.css");
     .container.ng-scope {
     margin-bottom: 55px;
 }
