@@ -1,6 +1,5 @@
 <!-- Made with: index.html and index-2.html-->
-<!-- Banner
-================================================== -->
+<!-- Banner -->
 <div ui-router-styles  class="parallax" data-background="images/home-parallax.jpg" data-color="#36383e" data-color-opacity="0.75" data-img-width="2500" data-img-height="1600">
   <div class="parallax-content">
 
@@ -19,49 +18,19 @@
               <div class="search-type">
                 <label class="active"><input class="first-tab operationType" ng-model="operationType" name="tab" checked="checked" type="radio" value="2">Alquiler</label>
                 <label><input class="operationType" ng-model="operationType" name="tab" type="radio" value="1">Venta</label>
-                <!-- <label><input name="tab" type="radio">Emprendimientos</label> -->
-                <div class="search-type-arrow"></div>
               </div>
 
+              <!-- Property Type -->
+              <div class="property-type-dropdown-container" ng-class="{' warning': isPropertyPlaceholderWarningActive}">
+                <a class="property-type" ng-click="togglePropertyTypeDropdown()" ng-class="{' open': isPropertyTypeOpen}">{{propertyType.name}} <i class="fas fa-angle-down"></i></a>                      
+                <ul class="col-md-5" ng-class="{' open': isPropertyTypeOpen}">
+                  <li ng-repeat="type in propertiesTypes track by type.id" ng-click="updateTypeChosen(type)">{{type.name}}</li>                        
+                </ul>
+              </div>
               
-              <!-- Box -->
-              <div class="main-search-box">
-
-                <!-- Row -->
-                <div class="row with-forms">
-
-                  <!-- Property Type -->
-                  <div class="col-md-5">
-                    <div class="property-type-dropdown-container" ng-class="{' warning': isPropertyPlaceholderWarningActive}">
-                      <a class="property-type" ng-click="togglePropertyTypeDropdown()" ng-class="{' open': isPropertyTypeOpen}">{{propertyType.name}} <i class="fas fa-angle-down"></i></a>                      
-                      <ul class="col-md-5" ng-class="{' open': isPropertyTypeOpen}">
-                        <li ng-repeat="type in propertiesTypes track by type.id" ng-click="updateTypeChosen(type)">{{type.name}}</li>                        
-                      </ul>
-                    </div>
-                  </div>
-
-                  <!-- Property Sub type -->
-                  <div class="col-md-5">
-                    <div class="property-type-dropdown-container">
-                      <a class="property-type" ng-click="toggleSubPropertyTypeDropdown()" ng-class="{' open': isSubPropertyTypeOpen}">{{subTypeSelected.name}} <i class="fas fa-angle-down" ng-if="subTypes.length > 1"></i></a>                      
-                      <ul class="col-md-5" ng-class="{' open': isSubPropertyTypeOpen}">
-                        <li ng-repeat="type in subTypes track by type.id" ng-click="updateSubTypeChosen(type)">{{type.name}}</li>                        
-                      </ul>
-                    </div>
-                  </div>    
-                  
-                  <div class="property-selects-background" ng-click="closeOpenSelects()" ng-show="isSubPropertyTypeOpen || isPropertyTypeOpen"></div>
-
-                  <!-- Min Price -->
-                  <div class="col-md-2">
-                    <button class="button" ng-click="findProperties()">Buscar</button>
-                  </div>
-
-                </div>
-                <!-- Row / End -->
-
-              </div>
-              <!-- Box / End -->
+              <div class="property-selects-background" ng-click="closeOpenSelects()" ng-show="isSubPropertyTypeOpen || isPropertyTypeOpen"></div>
+              
+              <button class="button" ng-click="findProperties()">Buscar <i class="fas fa-search"></i></button>
 
             </form>
             <!-- Main Search -->
@@ -77,8 +46,7 @@
 </div>
 
     
-<!-- Content
-================================================== -->
+<!-- Content -->
 <!-- Fullwidth Section -->
 <section class="fullwidth margin-top-0" data-background-color="#f7f7f7">
 
@@ -211,4 +179,51 @@ Se trata de identidad, de valores, de una forma de hacer las cosas, y aconsejar,
 
   </div>
 </div>
-<!-- Featured / End 
+<!-- Featured / End -->
+
+<!-- Contact Globe  -->
+<ng-container ng-controller='home' ng-cloak>
+  <contact-globe is-open="isContactGlobeOpen" main-img="'images/whatsapp-duit.png'" show-main-img-box-shadow="false"
+    title="contactGlobeTitle" actions="contactGlobeActions" toggle-modal="toggleContactModal()">
+  </contact-globe>
+</ng-container>
+<!-- Contact Globe End -->
+
+<!-- Contact -->
+<section id="home-contact" class="hidden-on-desktop">
+  <h3>Dejanos tu consulta</h3>
+
+  <form ng-controller="contactForm" id="contactform" autocomplete="on">
+    <div class="contact-form-group">
+      <input class="form-control" name="name" placeholder=" " type="text" ng-model="name" required="required" />
+      <label class="input-placeholder" for="name">Nombre *</label>
+    </div>
+
+    <div class="contact-form-group">
+      <input class="form-control" name="email" placeholder=" " type="email" ng-model="email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" required="required" />
+      <label class="input-placeholder" for="email">Email *</label>
+    </div>
+
+    <div class="contact-form-group">
+      <input class="form-control" name="subject" placeholder=" " type="text" ng-model="phone" />
+      <label class="input-placeholder" for="subject">Teléfono</label>
+    </div>
+
+    <div class="contact-form-group">
+      <textarea class="form-control" name="message" placeholder=" " cols="40" rows="3" ng-model="message" spellcheck="true" required="required"></textarea>
+      <label class="input-placeholder textarea-placeholder" for="message">Mensaje *</label>
+    </div>
+
+    <button class="button" ng-click="send()">Contactar<i class='fa fa-spinner fa-spin' ng-show="sending"></i></button>
+
+    <div class="notification success closeable" ng-show="success">
+      <p>Tu consulta fue enviada con éxito.</p>
+    </div>
+
+    <div class="notification success closeable" ng-show="error">
+      <p>Ha ocurrido un error al intentar enviar tu consulta. Perdon por las molestias.</p>
+    </div>
+
+  </form>
+</section>
+<!-- Contact End -->

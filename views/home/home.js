@@ -20,7 +20,7 @@ app.controller('featuredProps', function($scope, tokkoApi) {
         // Not working yet because there is props without front cover photo asigned
         //cover_photo: p.photos.map(function(p){if(p.is_front_cover){return p.thumb}})[0],
         // Instead we take the first photo as cover.
-        cover_photo: p.photos[0].thumb,
+        cover_photo: p.photos[0].image,
         prop: p,
       })
     });
@@ -30,7 +30,7 @@ app.controller('featuredProps', function($scope, tokkoApi) {
     uiFunctions.buildCarousel();
     $(window).trigger('resize');
   });
-})
+});
 
 app.controller('homeSearch', function($rootScope, $scope, $state) {
   $rootScope.activeMenu = 'home';
@@ -98,7 +98,14 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
   $scope.findProperties = () => {
     $scope.wasFindPropertiesButtonClicked = true;
 
-    if ($scope.propertyType.id == -1) $scope.isPropertyPlaceholderWarningActive = true;
+    if ($scope.propertyType.id == -1) {
+      $scope.isPropertyPlaceholderWarningActive = true;
+
+      setTimeout(() => {
+        $scope.isPropertyPlaceholderWarningActive = false;
+        $scope.$apply();
+      }, 2000);
+    }
     else {
       $scope.isPropertyPlaceHolderWarningActive = false;
       $scope.find();
@@ -124,5 +131,51 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
     // $http.post("/propertySearch/",$httpParamSerializer(args));
     // $location.path("/propertySearch/"+{data: JSON.stringify(data), order: 'desc'});
   }
+});
+
+app.controller('home', function($scope) {
+  const duitWhatsapp = '5493518172255';
+  const duitPhone = '+5493518172255';
+
+  $scope.isContactGlobeOpen = false;
+  $scope.contactGlobeTitle = "Te asesoramos!";
+
+  $scope.contactGlobeOpenIcon = {
+    iconClass: 'fab fa-whatsapp',
+      color: '#128c7e',
+      fontSize: '3rem'   
+  };
+
+  $scope.contactGlobeCloseIcon = {
+    iconClass: 'fa fa-times',
+    color: 'var(--soft-grey)',
+    fontSize: '3rem' 
+  };
+
+  $scope.contactGlobeActions = [
+    {
+      hRef: `tel:${duitPhone}`,
+      iconClass: 'fa fa-phone',
+      fontSize: '2.3rem'
+    },
+    {
+      hRef: '#',
+      iconClass: 'fa fa-envelope',
+      fontSize: '2.5rem'
+    },
+    {
+      hRef: `https://api.whatsapp.com/send?phone=${duitWhatsapp}`,
+      iconClass: 'fab fa-whatsapp',
+      color: '#128c7e',
+      fontSize: '3rem'
+    },
+  ];
+
+  $scope.toggleContactModal = () => $scope.isContactGlobeOpen = !$scope.isContactGlobeOpen;
+
+  $scope.agents = agents;
+  $scope.agents.forEach(agent => agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351'));  
+
+  $scope.formatCellPhone = (phone) => `549${phone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');
 });
 
