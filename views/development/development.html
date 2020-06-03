@@ -262,7 +262,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="p in devProps">
+          <tr ng-repeat="p in devProps" ui-sref="property({propertyId: p.id})">
             <td>{{ p.prop.fake_address }}</td>
             <td>{{ p.prop.room_amount }}</td>
             <td>{{ p.prop.suite_amount }}</td>

@@ -23,6 +23,11 @@
 
 .av-units-table td {
   border-top: 1px solid #e0e0e0;
+  cursor: pointer;
+}
+
+.av-units-table tr:hover {
+  background: #e0e0e0;
 }
 
 .av-units-title {
