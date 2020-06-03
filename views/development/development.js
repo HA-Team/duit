@@ -36,7 +36,7 @@ const getDevProps = (scope, tokkoApi) => {
         type: p.operations[0].operation_type,
         currency: p.operations[p.operations.length-1].prices.slice(-1)[0].currency,
         price: p.operations[p.operations.length-1].prices.slice(-1)[0].price,
-        cover_photo: p.photos[0].thumb,
+        cover_photo: p.photos[0].image,
         parkings: p.parking_lot_amount ? p.parking_lot_amount : 0,
         area: p.type.id === 1 ? p.surface : p.roofed_surface,
         sell: p.operations.filter(p => p.operation_type == "Venta")[0]?.prices.slice(-1)[0],

@@ -12,7 +12,7 @@ const getFeatured = (scope, tokkoApi) => {
         type: p.operations[0].operation_type,
         currency: p.operations[p.operations.length-1].prices.slice(-1)[0].currency,
         price: p.operations[p.operations.length-1].prices.slice(-1)[0].price,
-        cover_photo: p.photos[0].thumb,
+        cover_photo: p.photos[0].image,
         parkings: p.parking_lot_amount ? p.parking_lot_amount : 0,
         area: p.type.id === 1 ? p.surface : p.roofed_surface,
         prop: p
@@ -44,7 +44,7 @@ const getSimilar = (scope, tokkoApi) => {
         type: p.operations[0].operation_type,
         currency: p.operations[p.operations.length-1].prices.slice(-1)[0].currency,
         price: p.operations[p.operations.length-1].prices.slice(-1)[0].price,
-        cover_photo: p.photos[0] ? p.photos[0].thumb : '/images/no-image.png',
+        cover_photo: p.photos[0] ? p.photos[0].image : '/images/no-image.png',
         parkings: p.parking_lot_amount ? p.parking_lot_amount : 0,
         area: p.type.id === 1 ? p.surface : p.roofed_surface,
         prop: p
@@ -169,16 +169,18 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
       google.maps.event.trigger(mobileMap, 'resize');
     }, 0);
 
-    const mailSubject = `Consulta por propiedad %23${$scope.p.id}: ${$scope.p.prop.publication_title}`.replace(/\s/g, '%20');    
-    const emailUri = `mailto:${$scope.p.prop.producer.email}?Subject=${mailSubject}`;
-
-    document.querySelector("#emailLink").setAttribute("href", emailUri); 
+    const querySubject = `Consulta por propiedad %23${$scope.p.id}: ${$scope.p.prop.publication_title}`.replace(/\s/g, '%20');    
 
     const cellPhone = $scope.p.prop.producer.cellphone ? $scope.p.prop.producer.cellphone : $scope.p.prop.producer.phone;
     const cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');    
-    const whatsAppUri = `https://api.whatsapp.com/send?phone=${cleanCellPhone}&text=${mailSubject}`;      
+    const whatsAppUri = `https://api.whatsapp.com/send?phone=${cleanCellPhone}&text=${querySubject}`;  
 
-    document.querySelector("#whatsAppLink").setAttribute("href", whatsAppUri);    
+    const emailUri = `mailto:${$scope.p.prop.producer.email}?Subject=${querySubject}`;        
+    
+    document.querySelectorAll("#mobile-prop-detail .contact-globe-modal-icons a").forEach(item => {
+      if (item.children[0].classList.contains('fa-whatsapp')) item.setAttribute("href", whatsAppUri);            
+      if (item.children[0].classList.contains('fa-envelope')) item.setAttribute("href", emailUri);
+    });      
 
     const sides = [
       { 
@@ -243,6 +245,21 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
     return diffDays;
   };
 
+  $scope.toggleDescriptionDetailDesktop = () => {
+    const showMore = document.querySelector(".show-more");
+    const preElement = showMore.querySelector("pre");
+    const maxHeight = `${preElement.offsetHeight + preElement.offsetTop}px`;
+
+    if (showMore.classList.contains("visible")) {
+      showMore.classList.remove("visible");
+      showMore.style.maxHeight = '';
+    }
+    else {
+      showMore.classList.add("visible");
+      showMore.style.maxHeight = maxHeight;
+    }
+  };
+
   $scope.toggleDescriptionDetail = () => {
     const detail = document.querySelector("#mobile-prop-detail .description-detail");
     const preElement = detail.querySelector("pre");
@@ -295,6 +312,31 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
       body.style.overflow = "visible";
     }
   };
+
+  $scope.contactGlobeOpenIcon = {
+    iconClass: 'fab fa-whatsapp',
+    color: 'var(--whatsapp-green)',
+    fontSize: '3rem'    
+  };
+
+  $scope.contactGlobeCloseIcon = {
+    iconClass: 'fa fa-times',
+    color: 'var(--soft-grey)',
+    fontSize: '3rem' 
+  };
+
+  $scope.contactGlobeActions = [
+    {
+      hRef: '#',
+      iconClass: 'fab fa-whatsapp',
+      color: 'var(--whatsapp-green)',      
+    },
+    {
+      hRef: '#',
+      iconClass: 'fa fa-envelope', 
+      fontSize: '2.7rem'       
+    }
+  ];
 });
 
 app.controller('propContactForm', function($scope, tokkoApi) {

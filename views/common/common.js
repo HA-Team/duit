@@ -10,9 +10,8 @@ app.controller('navigation', function($scope, $rootScope, $state){
     uiFunctions.buildTopBarMobileMenu();
   }, 0);
   $scope.setActive = function(state) {
-    $rootScope.activeMenu = state
-    // console.log($state.getCurrentPath()[1].state.name)
-  }
+    $rootScope.activeMenu = state;
+  };
 });
 
 app.controller('headerLogin', function($rootScope, $scope, $state) {
@@ -24,7 +23,6 @@ app.controller('headerLogin', function($rootScope, $scope, $state) {
       $rootScope.favorites.props = [];
       $rootScope.$apply();
       $state.go('home');
-      // window.location.reload();
     });
   }
 });

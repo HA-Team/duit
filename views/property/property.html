@@ -120,7 +120,7 @@
         <h3 class="desc-headline">Descripción</h3>
         <div class="show-more">
           <pre>{{p.prop.description}}</pre>
-          <a href="#" class="show-more-button">Mostrar Más <i class="fa fa-angle-down"></i></a>
+          <a href="#" class="show-more-button" ng-click="toggleDescriptionDetailDesktop()">Mostrar Más <i class="fa fa-angle-down"></i></a>
         </div>
       </div>
     </div>
@@ -378,22 +378,9 @@
     <!-- Location End -->
     
     <!-- Contact Modal -->
-    <section class="mobile-property-contact" ng-class="{'open': isContactModalOpen}">
-      <img src="{{p.prop.producer.picture}}" alt="" ng-click="toggleContactModal()"/>
-      <i class="fab fa-whatsapp" ng-click="toggleContactModal()"></i>
-      <i class="fa fa-times" ng-click="toggleContactModal()"></i>
-      
-      <div class="mobile-property-contact-modal">
-        <div class="mobile-property-modal-content">
-          <p>{{p.prop.producer.name}}</p>
-          <div class="mobile-property-modal-icons">
-            <a id="emailLink" href=""><i class="fa fa-envelope"></i></a>
-            <a id="whatsAppLink" href=""><i class="fab fa-whatsapp"></i></a>
-          </div>
-        </div>          
-        <div class="mobile-property-modal-img-space"></div>
-      </div>
-    </section>
+    <contact-globe is-open="isContactModalOpen" main-img="p.prop.producer.picture" open-icon="contactGlobeOpenIcon" 
+      close-icon="contactGlobeCloseIcon" title="p.prop.producer.name" actions="contactGlobeActions" toggle-modal="toggleContactModal()">
+    </contact-globe>
     <!-- Contact Modal End -->
 
   </section>
@@ -511,4 +498,4 @@
   <!-- Similar Props End -->
 
 </div>  
-<!-- Mobile Property Detail End -->  
+<!-- Mobile Property Detail End -->
