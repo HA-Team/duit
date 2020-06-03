@@ -154,21 +154,21 @@ app.controller('home', function($scope) {
 
   $scope.contactGlobeActions = [
     {
+      hRef: `tel:${duitPhone}`,
+      iconClass: 'fa fa-phone',
+      fontSize: '2.3rem'
+    },
+    {
+      hRef: '#',
+      iconClass: 'fa fa-envelope',
+      fontSize: '2.5rem'
+    },
+    {
       hRef: `https://api.whatsapp.com/send?phone=${duitWhatsapp}`,
       iconClass: 'fab fa-whatsapp',
       color: '#128c7e',
       fontSize: '3rem'
     },
-    {
-      hRef: `tel:${duitPhone}`,
-      iconClass: 'fa fa-phone',
-      fontSize: '2.3rem'   
-    },
-    {
-      hRef: '#',
-      iconClass: 'fa fa-envelope',
-      fontSize: '2.5rem'    
-    }
   ];
 
   $scope.toggleContactModal = () => $scope.isContactGlobeOpen = !$scope.isContactGlobeOpen;
