@@ -8,13 +8,16 @@
     @import url("../views/common/header.css");
     @import url("../views/property/property.css");
     @import url("../views/home/home.css");
+    @import url("../views//components/contact-globe/contact-globe.css");
     .container.ng-scope {
     margin-bottom: 55px;
 }
 :root {
     --primary-red: #c8001e;
+    --soft-red: #de576b;
     --primary-blue: #537ebb;
     --softgrey: #f4f4f4;
+    --whatsapp-green: #128c7e;
 }
 
 pre {

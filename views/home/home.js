@@ -134,6 +134,45 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
 });
 
 app.controller('home', function($scope) {
+  const duitWhatsapp = '5493518172255';
+  const duitPhone = '+5493518172255';
+
+  $scope.isContactGlobeOpen = false;
+  $scope.contactGlobeTitle = "Te asesoramos!";
+
+  $scope.contactGlobeOpenIcon = {
+    iconClass: 'fab fa-whatsapp',
+      color: '#128c7e',
+      fontSize: '3rem'   
+  };
+
+  $scope.contactGlobeCloseIcon = {
+    iconClass: 'fa fa-times',
+    color: 'var(--soft-grey)',
+    fontSize: '3rem' 
+  };
+
+  $scope.contactGlobeActions = [
+    {
+      hRef: `tel:${duitPhone}`,
+      iconClass: 'fa fa-phone',
+      fontSize: '2.3rem'
+    },
+    {
+      hRef: '#',
+      iconClass: 'fa fa-envelope',
+      fontSize: '2.5rem'
+    },
+    {
+      hRef: `https://api.whatsapp.com/send?phone=${duitWhatsapp}`,
+      iconClass: 'fab fa-whatsapp',
+      color: '#128c7e',
+      fontSize: '3rem'
+    },
+  ];
+
+  $scope.toggleContactModal = () => $scope.isContactGlobeOpen = !$scope.isContactGlobeOpen;
+
   $scope.agents = agents;
   $scope.agents.forEach(agent => agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351'));  
 

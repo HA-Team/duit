@@ -1,6 +1,5 @@
 <!-- Made with: index.html and index-2.html-->
-<!-- Banner
-================================================== -->
+<!-- Banner -->
 <div ui-router-styles  class="parallax" data-background="images/home-parallax.jpg" data-color="#36383e" data-color-opacity="0.75" data-img-width="2500" data-img-height="1600">
   <div class="parallax-content">
 
@@ -47,8 +46,7 @@
 </div>
 
     
-<!-- Content
-================================================== -->
+<!-- Content -->
 <!-- Fullwidth Section -->
 <section class="fullwidth margin-top-0" data-background-color="#f7f7f7">
 
@@ -102,25 +100,6 @@
   </div>
 </section>
 <!-- Fullwidth Section / End -->
-
-<!-- Assesors Section -->
-
-<section class="home-agents hidden-on-desktop" id="agents" ng-controller="home">
-  <div class="home-agents-title">
-    <img src="/images/consejeros.png" alt="">
-  </div>
-  <div class="home-agent-card" ng-repeat="agent in agents">
-    <img src="{{agent.pic}}" alt="">
-    <p>{{agent.name}}</p>
-    <a href="tel:{{agent.phone}}">{{agent.phone}}</a>
-    <div class="home-agent-card-icons">
-      <a href="mailto:{{agent.email}}"><i class="fa fa-envelope"></i></a>
-      <a href="https://api.whatsapp.com/send?phone={{formatCellPhone(agent.phone)}}"><i class="fab fa-whatsapp"></i></a>
-    </div>
-  </div>
-</section>
-
-<!-- Assesors Section End -->
 
 <!-- Parallax -->
 <div id="nosotros" class="parallax margin-bottom-70"
@@ -204,6 +183,14 @@ En Duit estamos para ayudarlo. </p>
 </div>
 <!-- Featured / End -->
 
+<!-- Contact Globe  -->
+<ng-container ng-controller='home' ng-cloak>
+  <contact-globe is-open="isContactGlobeOpen" main-img="'images/whatsapp-duit.png'" show-main-img-box-shadow="false"
+    title="contactGlobeTitle" actions="contactGlobeActions" toggle-modal="toggleContactModal()">
+  </contact-globe>
+</ng-container>
+<!-- Contact Globe End -->
+
 <!-- Contact -->
 <section id="home-contact" class="hidden-on-desktop">
   <h3>Dejanos tu consulta</h3>
@@ -242,4 +229,3 @@ En Duit estamos para ayudarlo. </p>
   </form>
 </section>
 <!-- Contact End -->
-

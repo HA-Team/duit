@@ -169,16 +169,18 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
       google.maps.event.trigger(mobileMap, 'resize');
     }, 0);
 
-    const mailSubject = `Consulta por propiedad %23${$scope.p.id}: ${$scope.p.prop.publication_title}`.replace(/\s/g, '%20');    
-    const emailUri = `mailto:${$scope.p.prop.producer.email}?Subject=${mailSubject}`;
-
-    document.querySelector("#emailLink").setAttribute("href", emailUri); 
+    const querySubject = `Consulta por propiedad %23${$scope.p.id}: ${$scope.p.prop.publication_title}`.replace(/\s/g, '%20');    
 
     const cellPhone = $scope.p.prop.producer.cellphone ? $scope.p.prop.producer.cellphone : $scope.p.prop.producer.phone;
     const cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');    
-    const whatsAppUri = `https://api.whatsapp.com/send?phone=${cleanCellPhone}&text=${mailSubject}`;      
+    const whatsAppUri = `https://api.whatsapp.com/send?phone=${cleanCellPhone}&text=${querySubject}`;  
 
-    document.querySelector("#whatsAppLink").setAttribute("href", whatsAppUri);    
+    const emailUri = `mailto:${$scope.p.prop.producer.email}?Subject=${querySubject}`;        
+    
+    document.querySelectorAll("#mobile-prop-detail .contact-globe-modal-icons a").forEach(item => {
+      if (item.children[0].classList.contains('fa-whatsapp')) item.setAttribute("href", whatsAppUri);            
+      if (item.children[0].classList.contains('fa-envelope')) item.setAttribute("href", emailUri);
+    });      
 
     const sides = [
       { 
@@ -310,6 +312,31 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams) 
       body.style.overflow = "visible";
     }
   };
+
+  $scope.contactGlobeOpenIcon = {
+    iconClass: 'fab fa-whatsapp',
+    color: 'var(--whatsapp-green)',
+    fontSize: '3rem'    
+  };
+
+  $scope.contactGlobeCloseIcon = {
+    iconClass: 'fa fa-times',
+    color: 'var(--soft-grey)',
+    fontSize: '3rem' 
+  };
+
+  $scope.contactGlobeActions = [
+    {
+      hRef: '#',
+      iconClass: 'fab fa-whatsapp',
+      color: 'var(--whatsapp-green)',      
+    },
+    {
+      hRef: '#',
+      iconClass: 'fa fa-envelope', 
+      fontSize: '2.7rem'       
+    }
+  ];
 });
 
 app.controller('propContactForm', function($scope, tokkoApi) {
