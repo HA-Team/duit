@@ -240,5 +240,40 @@
       <!-- Similar Listings Container / End -->
     </div>
   </div>
-</div>
+  <!-- Units Listing -->
+  <div class="row hidden-on-mobile">
+    <div class="col-md-12">
+      <!-- Similar Listings Container -->
+      <h3 class="av-units-title" ng-hide="!devPropsReady">Unidades disponibles</h3>
+      <!-- Layout Switcher -->
+      <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="devPropsReady"></div>
+        <!-- Listing Item -->
+      <table class="av-units-table" id="headers" width="100%" ng-hide="!devPropsReady">
+        <thead>
+          <tr>
+            <th>Dirección</th>
+            <th>Ambientes</th>
+            <th>Dormitorios</th>
+            <th>Superficie</br>Cubierta</th>
+            <th>Superficie</br>Total</th>
+            <th>Cochera</th>
+            <th>Venta</th>
+            <th>Alquiler</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="p in devProps" ui-sref="property({propertyId: p.id})">
+            <td>{{ p.prop.fake_address }}</td>
+            <td>{{ p.prop.room_amount }}</td>
+            <td>{{ p.prop.suite_amount }}</td>
+            <td>{{ p.prop.roofed_surface }} m²</td>
+            <td>{{ p.area }} m²</td>
+            <td>{{ p.parkings_av }}</td>
+            <td>{{ p.sell ? (p.sell.price | currency:p.sell.currency:0) : "-" }}</td>
+            <td>{{ p.rent ? (p.rent.prices.price | currency:p.rent.currency:0) : "-" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

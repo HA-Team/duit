@@ -8,10 +8,13 @@
     @import url("../views/common/header.css");
     @import url("../views/property/property.css");
     @import url("../views/home/home.css");
+    @import url("../views/development/development.css");
     @import url("../views//components/contact-globe/contact-globe.css");
-    .container.ng-scope {
+
+.container.ng-scope {
     margin-bottom: 55px;
 }
+
 :root {
     --primary-red: #c8001e;
     --soft-red: #de576b;
