@@ -20,7 +20,7 @@ app.controller('featuredProps', function($scope, tokkoApi) {
         // Not working yet because there is props without front cover photo asigned
         //cover_photo: p.photos.map(function(p){if(p.is_front_cover){return p.thumb}})[0],
         // Instead we take the first photo as cover.
-        cover_photo: p.photos[0].thumb,
+        cover_photo: p.photos[0].image,
         prop: p,
       })
     });
