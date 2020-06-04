@@ -133,7 +133,7 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
   }
 });
 
-app.controller('home', function($scope, $location, $anchorScroll) {
+app.controller('home', function($scope, $location, $anchorScroll, anchorSmoothScroll) {
   const duitWhatsapp = '5493518172255';
   const duitPhone = '+5493518172255';
 
@@ -249,6 +249,8 @@ app.controller('home', function($scope, $location, $anchorScroll) {
     
     if ($location.hash() !== newHash) {
       $location.hash(id);
+
+      anchorSmoothScroll.scrollTo(id);
     }
 
     else $anchorScroll();
