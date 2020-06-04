@@ -1,6 +1,6 @@
 <!-- Made with: index.html and index-2.html-->
 <!-- Banner -->
-<div id="searchBar" ui-router-styles  class="parallax" data-background="images/home-parallax.jpg" data-color="#36383e"
+<div id="home-search-bar" ui-router-styles  class="parallax" data-background="images/home-parallax.jpg" data-color="#36383e"
   data-color-opacity="0.75" data-img-width="2500" data-img-height="1600">
   <div class="parallax-content">
 
@@ -62,7 +62,7 @@
 <!-- Services Section End -->
 
 <!-- Assesors Section -->
-<section id="consejeros" class="home-agents hidden-on-desktop" id="agents" ng-controller="home">
+<section id="home-assesors" class="home-agents hidden-on-desktop" id="agents" ng-controller="home">
 
   <div class="home-agents-title">
     <img src="/images/consejeros.png" alt="">
@@ -83,18 +83,18 @@
 <!-- Assesors Section End -->
 
 <!-- Services Description Section -->
-<section class="fullwidth margin-top-0" data-background-color="#f7f7f7" ng-controller="home">
+<section id ="home-services-description" class="fullwidth margin-top-0" data-background-color="#f7f7f7" ng-controller="home">
 
   <!-- Box Headline -->
   <h3 class="headline-box">¿Qué necesitás?</h3>
     
   <!-- Icon Boxes -->
   <div class="icon-boxes-container">
-    <div class="icon-box-1" ng-repeat="service in services">
+    <div class="icon-box-1" ng-repeat="service in services" id="{{service.anchorName}}">
       <div class="icon-container">
         <i class="{{service.iconClass}}"></i>
         <div class="icon-links">
-          <a ui-sref="{{service.linkTo}}">{{service.linkTitle}}</a>
+          <a ng-click="goToSection(service.goTo)">{{service.linkTitle}}</a>
         </div>
       </div>
       <h3>{{service.mainTitle}}</h3>
@@ -106,7 +106,7 @@
 <!-- Services Description Section End -->
 
 <!-- Parallax -->
-<div id="nosotros" class="parallax margin-bottom-70"
+<div id="home-us" class="parallax margin-bottom-70"
   data-background="/images/team/team-4.jpg"
   data-color="#36383e"
   data-color-opacity="0.7"
@@ -137,7 +137,7 @@ Se trata de identidad, de valores, de una forma de hacer las cosas, y aconsejar,
 <!-- Parallax / End -->
 
 <!-- Featured -->
-<div id="footer" class="container" ng-controller='featuredProps'>
+<div class="container" ng-controller='featuredProps'>
   <div class="row">
   
     <div class="col-md-12">
