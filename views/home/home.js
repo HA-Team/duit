@@ -133,7 +133,7 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
   }
 });
 
-app.controller('home', function($scope) {
+app.controller('home', function($scope, $location, $anchorScroll) {
   $scope.agents = agents;
   $scope.agents.forEach(agent => agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351'));  
 
@@ -176,4 +176,40 @@ app.controller('home', function($scope) {
       description: "¿Querés saber cual es el valor de tu propiedad? Nuestro Staff de consejeros matriculados CPCPI valuarán profesionalmente tus bienes."
     }        
   ];
+
+  $scope.servicesLinks = [
+    {
+      imgSrc: "/images/services/service-1.png",
+      goTo: "consejeros" 
+    },
+    {
+      imgSrc: "/images/services/service-2.png",
+      goTo: "searchBar" 
+    },
+    {
+      imgSrc: "/images/services/service-3.png",
+      goTo: "searchBar" 
+    },
+    {
+      imgSrc: "/images/services/service-4.png",
+      goTo: "contacto" 
+    },
+    {
+      imgSrc: "/images/services/service-5.png",
+      goTo: "contacto" 
+    }
+  ]
+
+  $scope.goToSection = (id) => { 
+    var newHash = id;    
+    
+    if ($location.hash() !== newHash) {
+      $location.hash(id);
+    }
+
+    else $anchorScroll();
+  };
+
+  
+
 });

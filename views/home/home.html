@@ -1,7 +1,8 @@
 <!-- Made with: index.html and index-2.html-->
 <!-- Banner
 ================================================== -->
-<div ui-router-styles  class="parallax" data-background="images/home-parallax.jpg" data-color="#36383e" data-color-opacity="0.75" data-img-width="2500" data-img-height="1600">
+<div id="searchBar" ui-router-styles  class="parallax" data-background="images/home-parallax.jpg" data-color="#36383e"
+  data-color-opacity="0.75" data-img-width="2500" data-img-height="1600">
   <div class="parallax-content">
 
     <div class="container">
@@ -50,13 +51,13 @@
 <!-- Content
 ================================================== -->
 <!-- Services Section -->
-<section id="home-services" class="hidden-on-desktop"> 
+<section id="home-services" class="hidden-on-desktop" ng-controller="home"> 
 
   <div class="home-services-container">
     <h3>Servicios</h3>
     <div class="home-services-imgs">
-      <div ng-repeat="x in [].constructor(5) track by $index">
-        <a href="#"><img src="/images/services/service-{{$index + 1}}.png" alt=""></a>
+      <div ng-repeat="service in servicesLinks">
+        <a ng-click="goToSection(service.goTo)"><img src="{{service.imgSrc}}"></a>
       </div>
     </div>
   </div>
@@ -65,7 +66,7 @@
 <!-- Services Section End -->
 
 <!-- Assesors Section -->
-<section class="home-agents hidden-on-desktop" id="agents" ng-controller="home">
+<section id="consejeros" class="home-agents hidden-on-desktop" id="agents" ng-controller="home">
 
   <div class="home-agents-title">
     <img src="/images/consejeros.png" alt="">
