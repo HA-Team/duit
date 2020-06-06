@@ -328,3 +328,26 @@ a.property-type + ul li:hover {
   max-width: 80%;
   max-height: 80%;
 }
+
+#home-services-description .icon-box-1 .icon-container img {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  transition: all .2s ease-in;
+  display: inline-block;
+}
+
+#home-services-description .icon-box-1:hover .icon-container img {
+  opacity: 0;
+  transform: translate3d(0, 0, 0) scale(1.16);
+}
+
+#home-services-description .icon-box-1.alternative:hover .icon-container img {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+#home-services-description .icon-box-1 .icon-container .icon-links a {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+}
