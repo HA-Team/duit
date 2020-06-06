@@ -368,7 +368,7 @@
     <!-- Mobile Filter Modal End -->
 
     <!-- Skeleton Loader -->
-    <skeleton-listing rows="'10'" lines="'2'"></skeleton-listing>
+    <skeleton-listing rows="10" lines="2" show-me="!apiReady"></skeleton-listing>
     <!-- Skeleton Loader End -->
         
     <div ng-show="apiReady" class="margin-top-30">
@@ -407,7 +407,7 @@
     </div>
 
     <!-- Skeleton Loader -->
-    <skeleton-listing rows="'10'" lines="'2'"></skeleton-listing>
+    <skeleton-listing rows="3" lines="2" show-me="loadingMore"></skeleton-listing>
     <!-- Skeleton Loader End -->  
       
     <div class="row fullwidth-layout text-center no-results" ng-hide="ifResults">

@@ -1,9 +1,9 @@
-<section class="margin-top-30 listings-container grid-layout-three">
-    <div ng-repeat="row in [].constructor(10) track by $index">
+<section class="margin-top-30 listings-container grid-layout-three" ng-if="showMe">
+    <div ng-repeat="row in rowsToShow track by $index">
         <div class="skeleton-listing-container">
             <div class="skeleton-image"></div>
             <div class="d-flex flex-column skeleton-lines">
-                <div ng-repeat="line in [].constructor(2) track by $index" class="skeleton-line"></div>                
+                <div ng-repeat="line in linesToShow track by $index" class="skeleton-line"></div>                
             </div>      
         </div>
     </div>
