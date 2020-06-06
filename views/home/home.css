@@ -322,6 +322,7 @@ a.property-type + ul li:hover {
   height: 100px;
   width: 100px;
   margin-bottom: 0;
+  cursor: pointer;
 }
 
 #home-services-description .icon-container img {

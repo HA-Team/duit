@@ -255,7 +255,7 @@ app.controller('home', function($scope, $location, $anchorScroll, anchorSmoothSc
     if ($location.hash() !== newHash) {
       $location.hash(id);
 
-      anchorSmoothScroll.scrollTo(id);
+      anchorSmoothScroll.scrollTo(id, 1000);
     }
 
     else $anchorScroll();
