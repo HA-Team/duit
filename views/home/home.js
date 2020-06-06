@@ -180,6 +180,7 @@ app.controller('home', function($scope, $location, $anchorScroll, anchorSmoothSc
 
   $scope.services = [
     {
+      imgSrc: "/images/services/iso-service-1.png",
       anchorName: "home-services-description-assesors",
       iconClass: "fas fa-building",
       goTo: "home-contact",
@@ -188,6 +189,7 @@ app.controller('home', function($scope, $location, $anchorScroll, anchorSmoothSc
       description: "El equipo profesional de Duit te asistirá en todo momento, bridandote todos los consejos necesarios para que tomes la decisión mas adecuada."
     },
     {
+      imgSrc: "/images/services/iso-service-2.png",
       anchorName: "home-services-description-rent",
       iconClass: "far fa-building",
       goTo: "home-search-bar",
@@ -196,6 +198,7 @@ app.controller('home', function($scope, $location, $anchorScroll, anchorSmoothSc
       description: "Seleccionamos los mejores emprendimientos y las mejores empresas desarrollistas del mercado para ponerlos a tu alcance."
     },
     {
+      imgSrc: "/images/services/iso-service-3.png",
       anchorName: "home-services-description-sell",
       iconClass: "far fa-building",
       goTo: "home-search-bar",
@@ -204,6 +207,7 @@ app.controller('home', function($scope, $location, $anchorScroll, anchorSmoothSc
       description: "Seleccionamos los mejores emprendimientos y las mejores empresas desarrollistas del mercado para ponerlos a tu alcance."
     },    
     {
+      imgSrc: "/images/services/iso-service-4.png",
       anchorName: "home-services-description-admin",
       iconClass: "far fa-building",
       goTo: "home-contact",
@@ -212,6 +216,7 @@ app.controller('home', function($scope, $location, $anchorScroll, anchorSmoothSc
       description: "Seleccionamos los mejores emprendimientos y las mejores empresas desarrollistas del mercado para ponerlos a tu alcance."
     },
     {
+      imgSrc: "/images/services/iso-service-5.png",
       anchorName: "home-services-description-quotation",
       iconClass: "fas fa-home",
       goTo: "home-contact",

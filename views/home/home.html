@@ -92,7 +92,7 @@
   <div class="icon-boxes-container">
     <div class="icon-box-1" ng-repeat="service in services" id="{{service.anchorName}}">
       <div class="icon-container">
-        <i class="{{service.iconClass}}"></i>
+        <img src="{{service.imgSrc}}">
         <div class="icon-links">
           <a ng-click="goToSection(service.goTo)">{{service.linkTitle}}</a>
         </div>
