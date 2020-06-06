@@ -44,7 +44,6 @@
 
   </div>
 </div>
-
     
 <!-- Content -->
 <!-- Fullwidth Section -->
@@ -100,6 +99,23 @@
   </div>
 </section>
 <!-- Fullwidth Section / End -->
+
+<!-- Assesors Section -->
+<section class="home-agents hidden-on-desktop" id="agents" ng-controller="home">
+  <div class="home-agents-title">
+    <img src="/images/consejeros.png" alt="">
+  </div>
+  <div class="home-agent-card" ng-repeat="agent in agents">
+    <img src="{{agent.pic}}" alt="">
+    <p>{{agent.name}}</p>
+    <a href="tel:{{agent.phone}}">{{agent.phone}}</a>
+    <div class="home-agent-card-icons">
+      <a href="mailto:{{agent.email}}"><i class="fa fa-envelope"></i></a>
+      <a href="https://api.whatsapp.com/send?phone={{formatCellPhone(agent.phone)}}"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </div>
+</section>
+<!-- Assesors Section End -->
 
 <!-- Parallax -->
 <div id="nosotros" class="parallax margin-bottom-70"
