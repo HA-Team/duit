@@ -14,7 +14,7 @@ a.property-type {
   justify-content: space-between;
   overflow: hidden;
   padding: 0 0 0 18px;
-  height: 51px;
+  height: 35px;
   line-height: 51px;
   border: 1px solid #e0e0e0;
   background-color: #fcfcfc;
@@ -26,6 +26,7 @@ a.property-type {
   cursor: pointer;
   margin-bottom: 18px;
   z-index: 100;
+  border-radius: 10px;
 }
 
 a.property-type i {
@@ -139,15 +140,19 @@ a.property-type + ul li:hover {
   color: #707070;
 }
 
-.main-search-form button {
+.main-search-container .main-search-form button {
   width: 100%;
   min-width: 150px;
   margin-left: 15px;
   font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
 }
 
 .main-search-form button .fa-search {
-  padding-left: 5px;
+  padding-left: 5px;  
 }
 
 .main-search-form {
@@ -161,13 +166,14 @@ a.property-type + ul li:hover {
 }
 
 .main-search-form > * {
-  height: 50px;
+  height: 35px;
   max-width: 250px;
 }
 
 .main-search-form .search-type > * {
-  height: 50px;
-  line-height: 35px;
+  height: 35px;
+  line-height: normal;
+  border-radius: 10px;
 }
 
 @media (max-width: 767px) {
