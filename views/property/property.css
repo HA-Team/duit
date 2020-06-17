@@ -420,13 +420,13 @@
 }
 
 #mobile-prop-detail .mobile-property-recomended {
-    width: calc(100% - 20px);
-    margin: 0px 10px;
+    width: 100vw;    
     background-color: var(--softgrey);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    padding-bottom: 35px;
 }
 
 #mobile-prop-detail .mobile-property-recomended > h3 {
