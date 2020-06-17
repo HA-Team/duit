@@ -85,12 +85,13 @@ a.property-type + ul li:hover {
 }
 
 .home-agents {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  background-color: #f7f7f7;
+    width: 100%;    
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    flex-wrap: wrap;
+    background-color: #f7f7f7;
+    padding-bottom: 50px;
 }
 
 .home-agents .home-agents-title {
@@ -248,4 +249,106 @@ a.property-type + ul li:hover {
   width: 100%;
   max-width: 300px;
   margin: 0;
+}
+
+#home-services {
+    background-color: #f7f7f7;
+    width: 100%;
+    padding: 15px 0;
+    height: 450px;
+}
+
+@media (min-width:437px) {
+    #home-services {
+        height: 320px;
+    }
+}
+
+@media (min-width:698px) {
+    #home-services {
+        height: 190px;
+    }
+}
+
+#home-services .home-services-container {
+    background-color: var(--primary-red);
+    position: absolute;
+    margin-top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 30px);
+    border-radius: 3px;    
+}
+
+#home-services h3 {
+    color: white;    
+}
+
+#home-services .home-services-imgs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+
+#home-services .home-services-imgs img {    
+    width: 130px;
+    height: 130px;          
+}
+
+#home-services-description .icon-boxes-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    justify-content: space-around;
+    align-items: center;
+    margin: auto;
+}
+
+#home-services-description .icon-boxes-container .icon-box-1 {
+    flex: 1 1 300px;
+    max-width: 300px;
+}
+
+#home-services-description .icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  width: 100px;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+#home-services-description .icon-container img {
+  max-width: 80%;
+  max-height: 80%;
+}
+
+#home-services-description .icon-box-1 .icon-container img {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  transition: all .2s ease-in;
+  display: inline-block;
+}
+
+#home-services-description .icon-box-1:hover .icon-container img {
+  opacity: 0;
+  transform: translate3d(0, 0, 0) scale(1.16);
+}
+
+#home-services-description .icon-box-1.alternative:hover .icon-container img {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+#home-services-description .icon-box-1 .icon-container .icon-links a {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
 }

@@ -1,6 +1,7 @@
 <!-- Made with: index.html and index-2.html-->
 <!-- Banner -->
-<div ui-router-styles  class="parallax" data-background="images/home-parallax.jpg" data-color="#36383e" data-color-opacity="0.75" data-img-width="2500" data-img-height="1600">
+<div id="home-search-bar" ui-router-styles  class="parallax" data-background="images/home-parallax.jpg" data-color="#36383e"
+  data-color-opacity="0.75" data-img-width="2500" data-img-height="1600">
   <div class="parallax-content">
 
     <div class="container">
@@ -45,60 +46,64 @@
   </div>
 </div>
     
-<!-- Content -->
-<!-- Fullwidth Section -->
-<section class="fullwidth margin-top-0" data-background-color="#f7f7f7">
+<!-- Services Section -->
+<section id="home-services" class="hidden-on-desktop" ng-controller="home"> 
+
+  <div class="home-services-container">
+    <h3>Servicios</h3>
+    <div class="home-services-imgs">
+      <div ng-repeat="service in servicesLinks">
+        <a ng-click="goToSection(service.goTo)"><img src="{{service.imgSrc}}"></a>
+      </div>
+    </div>
+  </div>
+
+</section>
+<!-- Services Section End -->
+
+<!-- Assesors Section -->
+<section id="home-assesors" class="home-agents hidden-on-desktop" id="agents" ng-controller="home">
+
+  <div class="home-agents-title">
+    <img src="/images/consejeros.png" alt="">
+  </div>
+
+  <div class="home-agent-card" ng-repeat="agent in agents">
+    <img src="{{agent.pic}}" alt="">
+    <p>{{agent.name}}</p>
+    <a href="tel:{{agent.phone}}">{{agent.phone}}</a>
+
+    <div class="home-agent-card-icons">
+      <a href="mailto:{{agent.email}}"><i class="fa fa-envelope"></i></a>
+      <a href="https://api.whatsapp.com/send?phone={{formatCellPhone(agent.phone)}}"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </div>
+
+</section>
+<!-- Assesors Section End -->
+
+<!-- Services Description Section -->
+<section id ="home-services-description" class="fullwidth margin-top-0" data-background-color="#f7f7f7" ng-controller="home">
 
   <!-- Box Headline -->
   <h3 class="headline-box">¿Qué necesitás?</h3>
-  
-  <!-- Content -->
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 col-sm-6">
-        <!-- Icon Box -->
-        <div class="icon-box-1">
-          <div class="icon-container">
-            <i class="fas fa-building"></i>
-            <div class="icon-links">
-              <a ui-sref="contactUs">Contactános</a>
-            </div>
-          </div>
-          <h3>Te aconsejamos</h3>
-          <p>El equipo de Duit te asistirá en todo momento, bridándote el asesoramiento y los consejos necesarios para que tomes la decisión más adecuada.</p>
+    
+  <!-- Icon Boxes -->
+  <div class="icon-boxes-container">
+    <div class="icon-box-1" ng-repeat="service in services" id="{{service.anchorName}}">
+      <div class="icon-container">
+        <img src="{{service.imgSrc}}">
+        <div class="icon-links">
+          <a ng-click="goToSection(service.goTo)">{{service.linkTitle}}</a>
         </div>
       </div>
-      <div class="col-md-4 col-sm-6">
-        <!-- Icon Box -->
-        <div class="icon-box-1">
-          <div class="icon-container">
-            <i class="fas fa-home"></i>
-            <div class="icon-links">
-              <a ui-sref="contactUs">Contactános</a>
-            </div>
-          </div>
-          <h3>Valuamos tu casa</h3>
-          <p>¿Querés saber cuál es el valor de tu propiedad? Nuestro Staff de asesores matriculados CPCPI valuarán profesionalmente tus bienes.</p>
-        </div>
-      </div>
-      <div class="col-md-4 col-sm-6">
-        <!-- Icon Box -->
-        <div class="icon-box-1">
-          <div class="icon-container">
-            <i class="far fa-building"></i>
-            <div class="icon-links">
-              <a ui-sref="developments">Mas info</a>
-            </div>
-          </div>
-          <h3>Emprendimientos</h3>
-          <p>Seleccionamos los mejores emprendimientos y las mejores empresas desarrollistas del mercado para ponerlos a tu alcance.</p>
-        </div>
-      </div>
-
-    </div>
+      <h3>{{service.mainTitle}}</h3>
+      <p>{{service.description}}</p>
+    </div>     
   </div>
+ 
 </section>
-<!-- Fullwidth Section / End -->
+<!-- Services Description Section End -->
 
 <!-- Assesors Section -->
 <section class="home-agents hidden-on-desktop" id="agents" ng-controller="home">
@@ -118,7 +123,7 @@
 <!-- Assesors Section End -->
 
 <!-- Parallax -->
-<div id="nosotros" class="parallax margin-bottom-70"
+<div id="home-us" class="parallax margin-bottom-70"
   data-background="/images/team/team-4.jpg"
   data-color="#36383e"
   data-color-opacity="0.7"
@@ -197,14 +202,6 @@ Se trata de identidad, de valores, de una forma de hacer las cosas, y aconsejar,
 </div>
 <!-- Featured / End -->
 
-<!-- Contact Globe  -->
-<ng-container ng-controller='home' ng-cloak>
-  <contact-globe is-open="isContactGlobeOpen" main-img="'images/whatsapp-duit.png'" show-main-img-box-shadow="false"
-    title="contactGlobeTitle" actions="contactGlobeActions" toggle-modal="toggleContactModal()">
-  </contact-globe>
-</ng-container>
-<!-- Contact Globe End -->
-
 <!-- Contact -->
 <section id="home-contact" class="hidden-on-desktop">
   <h3>Dejanos tu consulta</h3>
@@ -243,3 +240,11 @@ Se trata de identidad, de valores, de una forma de hacer las cosas, y aconsejar,
   </form>
 </section>
 <!-- Contact End -->
+
+<!-- Contact Globe  -->
+<ng-container ng-controller='home' ng-cloak>
+  <contact-globe is-open="isContactGlobeOpen" main-img="'images/whatsapp-duit.png'" show-main-img-box-shadow="false"
+    title="contactGlobeTitle" actions="contactGlobeActions" toggle-modal="toggleContactModal()">
+  </contact-globe>
+</ng-container>
+<!-- Contact Globe End -->
