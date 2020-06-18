@@ -9,13 +9,19 @@
     @import url("../views/property/property.css");
     @import url("../views/home/home.css");
     @import url("../views/components/skeletons/listing/skeleton-listing.css");
-    .container.ng-scope {
+    @import url("../views/development/development.css");
+    @import url("../views//components/contact-globe/contact-globe.css");
+
+.container.ng-scope {
     margin-bottom: 55px;
 }
+
 :root {
     --primary-red: #c8001e;
+    --soft-red: #de576b;
     --primary-blue: #537ebb;
     --softgrey: #f4f4f4;
+    --whatsapp-green: #128c7e;
 }
 
 pre {
@@ -2365,8 +2371,7 @@ section.fullwidth {
     width: 100%;
     display: block;
     position: relative;
-    padding: 90px 0;
-    // margin: 50px 0;
+    padding: 90px 0;    
     background-color: #f7f7f7;
 }
 section.fullwidth.border-top {
@@ -10105,4 +10110,8 @@ div.layout-style {
     #mobile-prop-detail {
         margin-top: 15px;
     }
+}
+
+html {
+    scroll-behavior: smooth;
 }
