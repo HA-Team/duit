@@ -8,6 +8,7 @@
     @import url("../views/common/header.css");
     @import url("../views/property/property.css");
     @import url("../views/home/home.css");
+    @import url("../views/components/skeletons/listing/skeleton-listing.css");
     @import url("../views/development/development.css");
     @import url("../views//components/contact-globe/contact-globe.css");
 
