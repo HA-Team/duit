@@ -136,24 +136,26 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, 
 
     sides.forEach(side => {
       const gallerySlider = document.querySelector("#mobile-property-gallery-slider .mobile-property-slider");
-      const gallerySliderArrow = document.querySelector(`#mobile-property-gallery-slider .fa-angle-${side.side}`);
+      const gallerySliderArrow = document.querySelector(`#mobile-property-gallery-slider .fa-angle-${side.side}`);      
       const featuredSlider = document.querySelector("#mobile-property-featured-slider");
       const featuredSliderArrow = document.querySelector(`.mobile-property-recomended .fa-angle-${side.side}`);
 
-      const setCounterLabel = () => {
+      const setGalleryCounterLabel = () => {
         const counterLabel = document.querySelector("#mobile-property-gallery-slider .mobile-slider-photo-counter p");
         counterLabel.innerHTML = `${$scope.currentPhoto}/${$scope.p.prop.photos.length}`;
       };
 
       gallerySliderArrow.addEventListener("click", () => {        
-        $scope.moveSlider(gallerySlider, 'currentPhoto', $scope.p.prop.photos.length, side.side);
-        setCounterLabel();
+        $scope.moveSlider(gallerySlider, 'currentPhoto', $scope.p.prop.photos.length, side.side, gallerySlider.children[0].offsetWidth);
+        setGalleryCounterLabel();
       });
       
-      gallerySlider.addEventListener(`swiped-${side.side}`, () => {
-        $scope.moveSlider(gallerySlider, 'currentPhoto', $scope.p.prop.photos.length, side.oposite);
-        setCounterLabel();
-      });
+      gallerySlider.addEventListener(`swiped-${side.side}`, (e) => {
+        e.preventDefault()
+
+        $scope.moveSlider(gallerySlider, 'currentPhoto', $scope.p.prop.photos.length, side.oposite, gallerySlider.children[0].offsetWidth);
+        setGalleryCounterLabel();
+      }, {capture: true});
 
       featuredSliderArrow.addEventListener("click", (e) => { 
         e.stopPropagation();
