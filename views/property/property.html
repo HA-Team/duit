@@ -248,7 +248,7 @@
 <div id="mobile-prop-detail" ng-controller="property" class="hidden-on-desktop">
   
   <!-- Skeleton Loader -->
-  <div class="skeleton-container" ng-show="!apiReady">
+  <section class="skeleton-container" ng-show="!apiReady">
     <div class="skeleton-image"></div>
     <div class="skeleton-lines">
       <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
@@ -256,7 +256,7 @@
     <div class="skeleton-circles">
       <div ng-repeat="x in [].constructor(4) track by $index" class="skeleton-circle"></div>     
     </div>
-  </div>
+  </section>
   <!-- Skeleton Loader End -->
   
   <div ng-show="apiReady">
@@ -377,55 +377,55 @@
     </contact-globe>
     <!-- Contact Modal End -->
 
-  </section>
+    <!-- Featured Props -->
+    <section class="mobile-property-recomended margin-top-10">  
+      <h3>Te aconsejamos est{{featured.length == 1 ? 'a' : 'as'}} propiedad{{featured.length == 1 ? '' : 'es'}}</h3>    
+      
+      <!-- Arrows -->
+      <div class="slider-arrows-container">
+        <i class="fa fa-angle-left" ng-show="featReady && featured.length > 1"></i>  
+        <i class="fa fa-angle-right" ng-show="featReady && featured.length > 1"></i>
+      </div>  
 
-  <!-- Featured Props -->
-  <section class="mobile-property-recomended margin-top-10">  
-    <h3>Te aconsejamos est{{featured.length == 1 ? 'a' : 'as'}} propiedad{{featured.length == 1 ? '' : 'es'}}</h3>    
-    
-    <!-- Arrows -->
-    <div class="slider-arrows-container">
-      <i class="fa fa-angle-left" ng-show="featReady && featured.length > 1"></i>  
-      <i class="fa fa-angle-right" ng-show="featReady && featured.length > 1"></i>
-    </div>  
-
-    <!-- Slider -->
-    <div id="mobile-property-featured-slider" class="mobile-property-slider">
-                
-      <!-- Skeleton Loader -->
-      <div ng-repeat="x in [].constructor(3) track by $index" ng-show="!featReady">
-        <div class="skeleton-container">
-          <div class="skeleton-image"></div>
-          <div class="skeleton-lines">
-            <div class="skeleton-line" ng-repeat="x in [].constructor(2) track by $index" ></div>                
+      <!-- Slider -->
+      <div id="mobile-property-featured-slider" class="mobile-property-slider">
+                  
+        <!-- Skeleton Loader -->
+        <div ng-repeat="x in [].constructor(3) track by $index" ng-show="!featReady">
+          <div class="skeleton-container">
+            <div class="skeleton-image"></div>
+            <div class="skeleton-lines">
+              <div class="skeleton-line" ng-repeat="x in [].constructor(2) track by $index" ></div>                
+            </div>
           </div>
         </div>
-      </div>
-      <!-- Skeleton Loader End-->      
-      
-      <!-- Items -->
-      <div class="mobile-property-recomended-emtpy-item" ng-show="featReady">&nbsp;</div>
-      
-      <div class="mobile-property-recomended-item" ng-repeat="item in featured track by $index" ng-class="{'active': $index + 1 == currentFeatured}" ng-show="featReady">
-        <a ui-sref="property({propertyId: item.id})"><img src="{{item.cover_photo}}" alt=""></a>
-        <div class="recomended-item-description-container">
-          <h4><strong>{{ item.price | currency:item.currency:0}}</strong></h4>
-          <p>{{item.area |number:0}}m<sup>2</sup>totales</p>
-          <p>
-            {{item.prop.suite_amount > 1 ? item.prop.suite_amount + ' dormitorios' : item.prop.suite_amount + ' dormitorio'}} |
-            {{item.prop.bathroom_amount > 1 ? item.prop.bathroom_amount + ' baños' : item.prop.bathroom_amount + ' baño'}}
-          </p>          
-          <p>{{item.prop.publication_title}}</p>
-        </div>         
+        <!-- Skeleton Loader End-->      
+        
+        <!-- Items -->
+        <div class="mobile-property-recomended-emtpy-item" ng-show="featReady">&nbsp;</div>
+        
+        <div class="mobile-property-recomended-item" ng-repeat="item in featured track by $index" ng-class="{'active': $index + 1 == currentFeatured}" ng-show="featReady">
+          <a ui-sref="property({propertyId: item.id})"><img src="{{item.cover_photo}}" alt=""></a>
+          <div class="recomended-item-description-container">
+            <h4><strong>{{ item.price | currency:item.currency:0}}</strong></h4>
+            <p>{{item.area |number:0}}m<sup>2</sup>totales</p>
+            <p>
+              {{item.prop.suite_amount > 1 ? item.prop.suite_amount + ' dormitorios' : item.prop.suite_amount + ' dormitorio'}} |
+              {{item.prop.bathroom_amount > 1 ? item.prop.bathroom_amount + ' baños' : item.prop.bathroom_amount + ' baño'}}
+            </p>          
+            <p>{{item.prop.publication_title}}</p>
+          </div>         
+        </div>
+
+        <div class="mobile-property-recomended-emtpy-item">&nbsp;</div>
+        <!-- Items End -->      
+              
       </div>
 
-      <div class="mobile-property-recomended-emtpy-item">&nbsp;</div>
-      <!-- Items End -->      
-            
-    </div>
-
-  </section>
-  <!-- Featured Props End -->
+    </section>
+    <!-- Featured Props End -->
+  
+  </div>
 
 </div>  
 <!-- Mobile Property Detail End -->
