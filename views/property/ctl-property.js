@@ -1,25 +1,16 @@
-const swipeSlider = function(e, slider, scope, length, currentNumberName, side) {
-  e.stopPropagation();
+app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties, sliderMoves, timeUtils) {   
+  $scope.timeUtils = timeUtils;
   
-  const pxToMove = [...slider.children].find(child => child.classList.contains("mobile-property-recomended-item")).offsetWidth; 
-
-  scope.moveSlider(slider, length, currentNumberName, side, pxToMove);
-};
-
-app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties) {      
   $rootScope.activeMenu = '';
   $scope.apiReady = false;
   $scope.isContactModalOpen = false;
   $scope.isGalleryOpen = false;
   $scope.generalFeaturesToShow = 5;
-
-  $rootScope.sliderCounters = {
-    currentPhoto: 1,
-    currentFeatured: 1,
-    currentSimilar: 1
-  };
+  $scope.currentPhoto = 1;
+  $scope.currentFeatured = 1;
   
   const id = $stateParams.propertyId;
+
   tokkoApi.findOne('property', id, function(result){
     $scope.p =  {
       id: result.id,
@@ -101,11 +92,14 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, 
 
     $scope.apiReady = true;
     $scope.$apply();
+
     uiFunctions.showMoreButton();
     uiFunctions.buildSlickCarousel();
     uiFunctions.buildMagnificPopup();
+
     getFeaturedProperties.getFeatured($scope, tokkoApi);
     getFeaturedProperties.getSimilar($scope, tokkoApi);
+    
     setTimeout(() => {
       google.maps.event.trigger(map, 'resize');
       google.maps.event.trigger(mobileMap, 'resize');
@@ -122,70 +116,62 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, 
     document.querySelectorAll("#mobile-prop-detail .contact-globe-modal-icons a").forEach(item => {
       if (item.children[0].classList.contains('fa-whatsapp')) item.setAttribute("href", whatsAppUri);            
       if (item.children[0].classList.contains('fa-envelope')) item.setAttribute("href", emailUri);
-    });      
+    });  
+
+    $scope.moveSlider = (element, index, arrLength, side, pxToMove) => { 
+      $scope[index] = sliderMoves.moveSlider(element, $scope[index], arrLength, side, pxToMove);
+      $scope.$apply();
+    };
 
     const sides = [
-      { 
+      {
         side: 'left',
         oposite: 'right'
       },
-      { 
+      {
         side: 'right',
         oposite: 'left'
-      },
+      }
     ];
-    
-    const gallerySlider = document.querySelector("#mobile-property-gallery-slider .mobile-property-slider");
-    sides.forEach(side => gallerySlider.addEventListener(`swiped-${side.side}`, () => {
-      $scope.moveSlider(gallerySlider, $scope.p.prop.photos.length, 'currentPhoto', side.oposite);
-      $scope.$apply();
-    }));         
 
-    const featuredSlider = document.querySelector("#mobile-property-featured-slider");
-    sides.forEach(side => featuredSlider.addEventListener(`swiped-${side.side}`, function(e) {
-      swipeSlider(e, this, $scope, $scope.featured.length, 'currentFeatured', side.oposite);
-      $scope.$apply();
-    }, {capture: true}));          
+    sides.forEach(side => {
+      const gallerySlider = document.querySelector("#mobile-property-gallery-slider .mobile-property-slider");
+      const gallerySliderArrow = document.querySelector(`#mobile-property-gallery-slider .fa-angle-${side.side}`);
+      const featuredSlider = document.querySelector("#mobile-property-featured-slider");
+      const featuredSliderArrow = document.querySelector(`.mobile-property-recomended .fa-angle-${side.side}`);
 
-    const similarSlider = document.querySelector("#mobile-property-similar-slider");
-    sides.forEach(side => similarSlider.addEventListener(`swiped-${side.side}`, function(e) {
-      swipeSlider(e, this, $scope, $scope.similar.length, 'currentSimilar', side.oposite);
-      $scope.$apply();
-    }, {capture: true}));            
-  });   
+      const setCounterLabel = () => {
+        const counterLabel = document.querySelector("#mobile-property-gallery-slider .mobile-slider-photo-counter p");
+        counterLabel.innerHTML = `${$scope.currentPhoto}/${$scope.p.prop.photos.length}`;
+      };
 
-  $scope.moveSlider = (element, arrLength, index, side, pxToMove) => {                                             
-    if (!pxToMove) pxToMove = window.innerWidth;         
-     
-    if (side == 'left') {
-      if ($rootScope.sliderCounters[index] == 1) {
-        $rootScope.sliderCounters[index] = arrLength;
-        element.scrollLeft = pxToMove * (arrLength - 1);      
-      } else {
-        $rootScope.sliderCounters[index] -= 1;  
-        element.scrollLeft = pxToMove * ($rootScope.sliderCounters[index] - 1);    
-      }    
-    }
+      gallerySliderArrow.addEventListener("click", () => {        
+        $scope.moveSlider(gallerySlider, 'currentPhoto', $scope.p.prop.photos.length, side.side);
+        setCounterLabel();
+      });
+      
+      gallerySlider.addEventListener(`swiped-${side.side}`, () => {
+        $scope.moveSlider(gallerySlider, 'currentPhoto', $scope.p.prop.photos.length, side.oposite);
+        setCounterLabel();
+      });
 
-    if (side == 'right') {
-      if ($rootScope.sliderCounters[index] == arrLength) {
-        $rootScope.sliderCounters[index] = 1;   
-        element.scrollLeft = 0;   
-      } else {      
-        $rootScope.sliderCounters[index] += 1;      
-        element.scrollLeft = pxToMove * ($rootScope.sliderCounters[index] - 1);
-      } 
-    }      
-  };
+      featuredSliderArrow.addEventListener("click", (e) => { 
+        e.stopPropagation();
+        
+        const pxToMove = [...featuredSlider.children].find(child => child.classList.contains("mobile-property-recomended-item")).offsetWidth;
 
-  $scope.getDaysDifference = (date) => {
-    const today = Date.now();    
-    const newDate = new Date(date);
-    const diffTime = Math.abs(newDate - today);
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));   
-  
-    return diffDays;
-  };
+        $scope.moveSlider(featuredSlider, 'currentFeatured', $scope.featured.length, side.side, pxToMove);
+      }, {capture: true});
+      
+      featuredSlider.addEventListener(`swiped-${side.side}`, (e) => {
+        e.stopPropagation();
+        
+        const pxToMove = [...featuredSlider.children].find(child => child.classList.contains("mobile-property-recomended-item")).offsetWidth; 
+        
+        $scope.moveSlider(featuredSlider, 'currentFeatured', $scope.featured.length, side.oposite, pxToMove);    
+      }, {capture: true});
+    });    
+  });     
 
   $scope.toggleDescriptionDetailDesktop = () => {
     const showMore = document.querySelector(".show-more");
@@ -278,46 +264,5 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, 
       iconClass: 'fa fa-envelope', 
       fontSize: '2.7rem'       
     }
-  ];
-});
-
-app.controller('propContactForm', function($scope, tokkoApi) {
-  $scope.submitText = 'Enviar';
-  $scope.sending = false;
-  $scope.success = false;
-  $scope.error = false;
-  $scope.send = function () {
-    if ($scope.name || $scope.email) {
-      $scope.submitText = 'Enviando';
-      $scope.sending = true;
-      const data = {
-        email: $scope.email,
-        phone: $scope.phone,
-        text: $scope.message,
-        properties: [$scope.p.id],
-      };
-      tokkoApi.insert('webcontact', data, function (response) {
-        if (response.result=='success') {
-          $scope.sending = false;
-          $scope.submitText = 'Enviar';
-          $scope.success = true;
-          $scope.email = '';
-          $scope.phone = '';
-          $scope.message = '';
-          setTimeout(function(){
-            $scope.success = false;
-            $scope.$apply()
-          },3000);
-          $scope.$apply();
-        } else {
-          $scope.error = true;
-          $scope.$apply();
-          setTimeout(function(){
-            $scope.error = false;
-            $scope.$apply()
-          },3000);
-        }
-      });
-    }
-  };
+  ];  
 });
