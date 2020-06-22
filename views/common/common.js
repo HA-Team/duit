@@ -48,7 +48,7 @@ app.controller('mobile-header', function($scope) {
     if (prevScrollpos > currentScrollPos) {
       document.getElementById("mobile-header").style.top = "0";
     } else {
-      document.getElementById("mobile-header").style.top = "-65px";
+      document.getElementById("mobile-header").style.top = "-75px";
     }
     prevScrollpos = currentScrollPos;
   }
