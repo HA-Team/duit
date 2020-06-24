@@ -248,6 +248,7 @@ a.property-type + ul li:hover {
   width: 100%;
   max-width: 300px;
   margin: 0;
+  border-radius: 10px;
 }
 
 #home-services {
