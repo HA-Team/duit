@@ -303,6 +303,7 @@ a.property-type + ul li:hover {
 
 #home-services h3 {
     color: white;    
+    font-size: 16px;  
 }
 
 #home-services .home-services-imgs {
@@ -313,9 +314,16 @@ a.property-type + ul li:hover {
     width: 100%;
 }
 
+#home-services .home-services-img-container {
+  min-width: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #home-services .home-services-imgs img {    
-    width: 130px;
-    height: 130px;          
+    width: 100px;
+    height: 100px;          
 }
 
 #home-services-description .icon-boxes-container {
