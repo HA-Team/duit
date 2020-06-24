@@ -1,10 +1,13 @@
 app.service('getFeaturedProperties', function() {
     this.getFeatured = (scope, tokkoApi) => {
         scope.featured = [];
+        scope.featuredPropertiesMapped = [];
         scope.featReady = false;
+        
         let data = tokkoSearchArgs.data;
         data.filters.push(["is_starred_on_web", "=", "true"]);
-        const args = {data: JSON.stringify(data), order: 'desc'}
+        const args = {data: JSON.stringify(data), order: 'desc'};
+
         tokkoApi.find('property/search', args, function(result) {
             let props = [];
             result.forEach((p) => {
@@ -21,7 +24,22 @@ app.service('getFeaturedProperties', function() {
             });
 
             scope.featured = props;
-            scope.featReady = true;
+            
+            scope.featuredPropertiesMapped = props.map(property => {
+                return {
+                    id: property.id,
+                    photo: property.cover_photo,
+                    title: property.prop.publication_title,
+                    price: property.price,
+                    currency: property.currency,
+                    area: property.area,
+                    suitAmount: property.prop.suite_amount,
+                    bathroomAmount: property.prop.suite_amount       
+                }
+            });                       
+            
+            scope.featReady = true;         
+            
             scope.$apply();
             uiFunctions.buildCarousel();
         });  

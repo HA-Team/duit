@@ -27,6 +27,17 @@ app.controller('featuredProps', function($scope, tokkoApi) {
     });
 
     $scope.featured = props;
+    
+    $scope.featuredGalleryMap = $scope.featured.map(item => {
+      return {
+        id: item.id,
+        photo: item.cover_photo,
+        price: item.price,
+        currency: item.currency,
+        subTitle: item.prop.location.short_location         
+      }
+    });  
+
     $scope.featuredPropsReady = true;
     $scope.$apply();
     uiFunctions.buildCarousel();
