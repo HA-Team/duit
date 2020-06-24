@@ -1,5 +1,5 @@
 app.service('pageMoveUtils', function($location, $anchorScroll) {
-    const scrollTo = (id, duration) => {
+    this.scrollTo = (id, duration) => {
         var target = document.querySelector(id);
         var targetPosition = target.getBoundingClientRect().top;
         var startPosition = window.pageYOffset;
@@ -30,7 +30,8 @@ app.service('pageMoveUtils', function($location, $anchorScroll) {
         if ($location.hash() !== newHash) {
           $location.hash(id);    
           scrollTo(id, 1000);
-        }
+        }        
+
         else $anchorScroll();
     };
 });
