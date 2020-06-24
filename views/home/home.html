@@ -93,6 +93,18 @@
       <img src="/images/consejeros.png" alt="">
     </div>
 
+    <div class="home-agents-description">
+      <p style="white-space: pre-line">    
+        En Duit contamos con más de 10 años de experiencia en el mercado inmobiliario, somos personas con un mismo sueño, con una misma forma de ver la vida, de superarnos, de dar lo mejor.
+        
+        Comprendemos la importancia y trascendencia que tiene en la vida de las personas, la compra o alquiler de una vivienda, local comercial o cualquier otro tipo de transacción inmobiliaria.
+
+        Generamos vínculos a largo plazo, y trabajamos enfocados en lograr que el beneficio sea para todos.
+
+        Se trata de identidad, de valores, de una forma de hacer las cosas, y aconsejar, es la única que nos representa.        
+      </p>
+    </div>
+
     <div class="home-agent-card" ng-repeat="agent in agents">
       <img src="{{agent.pic}}" alt="">
       <p>{{agent.name}}</p>
@@ -108,7 +120,7 @@
   <!-- Assesors Section End -->
 
   <!-- Us Section -->
-  <section id="home-us" class="parallax margin-bottom-70"
+  <section id="home-us" class="parallax margin-bottom-70 hidden-on-mobile"
     data-background="/images/team/team-4.jpg"
     data-color="#36383e"
     data-color-opacity="0.7"

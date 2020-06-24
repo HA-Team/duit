@@ -26,30 +26,3 @@ app.controller('headerLogin', function($rootScope, $scope, $state) {
     });
   }
 });
-
-app.controller('mobile-header', function($scope) {
-  $scope.isHamburgOpen = false;
-  
-  $scope.toggleMenu = function () {
-    const filterModal = document.getElementById("mobile-props-filter-modal");
-    const orderModal = document.getElementById("mobile-props-order-modal");
-    
-    $scope.isHamburgOpen = !$scope.isHamburgOpen;     
-    
-    if (filterModal) filterModal.classList.remove("open");
-    
-    if (orderModal) orderModal.classList.remove("open");
-  }
-
-  var prevScrollpos = window.pageYOffset;
-  
-  window.onscroll = function() {
-  var currentScrollPos = window.pageYOffset;
-    if (prevScrollpos > currentScrollPos) {
-      document.getElementById("mobile-header").style.top = "0";
-    } else {
-      document.getElementById("mobile-header").style.top = "-75px";
-    }
-    prevScrollpos = currentScrollPos;
-  }
-});

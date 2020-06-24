@@ -1,4 +1,4 @@
-app.controller('home', function($scope, $location, $anchorScroll, anchorSmoothScroll) {
+app.controller('home', function($scope, pageMoveUtils) {
   const duitWhatsapp = '5493518172255';
   const duitPhone = '+5493518172255';
 
@@ -68,15 +68,5 @@ app.controller('home', function($scope, $location, $anchorScroll, anchorSmoothSc
     }
   ];
 
-  $scope.goToSection = (id) => { 
-    var newHash = id;    
-    
-    if ($location.hash() !== newHash) {
-      $location.hash(id);
-
-      anchorSmoothScroll.scrollTo(id, 1000);
-    }
-
-    else $anchorScroll();
-  };
+  $scope.goToSection = (id) => pageMoveUtils.goToSection(id); 
 });

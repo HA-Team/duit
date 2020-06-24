@@ -119,16 +119,10 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
         
     let item = e.target;
 
-    while (!item.classList.contains("mobile-filter-modal-item"))
-    {
-      item = item.parentElement;
-    }
+    while (!item.classList.contains("mobile-filter-modal-item")) item = item.parentElement;
 
-    if (item.classList.contains("active")) {
-      item.classList.remove("active");
-    } else {
-      item.classList.add("active");
-    }
+    if (item.classList.contains("active")) item.classList.remove("active");
+    else item.classList.add("active");
   }
 
   $scope.pluralize = (name) => ['a','e','i','o','u'].includes(name.slice(-1)) ? `${name}s` : `${name}es`;

@@ -38,8 +38,8 @@
             <a ui-sref="home">Home</a>
           </li>          
           <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'agents'}"
-              ng-click="setActive('agents'); toggleMenu();">            
-            <a ui-sref="agents">Consejeros</a>
+              ng-click="setActive('agents'); toggleMenu(); goToSection('home-assesors');">            
+            <a>Consejeros</a>
           </li>
           <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'developments'}"
               ng-click="setActive('developments'); toggleMenu();">            

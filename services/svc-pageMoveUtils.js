@@ -1,5 +1,5 @@
-app.service('anchorSmoothScroll', function() {
-    this.scrollTo = (id, duration) => {
+app.service('pageMoveUtils', function($location, $anchorScroll) {
+    const scrollTo = (id, duration) => {
         var target = document.querySelector(id);
         var targetPosition = target.getBoundingClientRect().top;
         var startPosition = window.pageYOffset;
@@ -22,5 +22,15 @@ app.service('anchorSmoothScroll', function() {
         }
 
         requestAnimationFrame(animation);
-    }
+    };
+
+    this.goToSection = (id) => { 
+        var newHash = id;    
+        
+        if ($location.hash() !== newHash) {
+          $location.hash(id);    
+          scrollTo(id, 1000);
+        }
+        else $anchorScroll();
+    };
 });

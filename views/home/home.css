@@ -109,7 +109,12 @@ a.property-type + ul li:hover {
 .home-agents .home-agents-title {
   flex: 1 1 100%;
   text-align: center;
-  margin: 20px 0px;
+  margin-top: 20px;
+}
+
+.home-agents .home-agents-description {
+  padding: 0 25px;
+  margin-bottom: 20px;
 }
 
 .home-agents .home-agents-title img {
