@@ -1,0 +1,35 @@
+<section class="gallery-properties-generic" ng-class="{' open': isGalleryOpen}">
+      
+  <!-- Arrows -->
+  <div class="slider-arrows-container" ng-show="items.length > 1">
+    <i class="fa fa-angle-left"></i>
+    <i class="fa fa-angle-right"></i>
+  </div>
+
+  <!-- Slider -->
+  <div class="gallery-properties-generic-slider">
+    <img ng-repeat="item in items" src="{{item.photo}}">
+  </div>      
+  
+  <!-- Widgets -->
+  <div class="silder-widgets-container" ng-show="showWidgets"> 
+
+    <div class="slider-open-gallery" ng-click="toggleGallery()">
+      <i class="fa fa-expand-arrows-alt" ng-show="!isGalleryOpen"></i>
+      <p ng-show="!isGalleryOpen">Galería</p>
+    </div>
+
+    <div class="slider-photo-counter">
+      <i class="fa fa-camera"></i>
+      <p>{{currentIndex}}/{{items.length}}</p>
+    </div>
+    
+  </div>  
+  <!-- Widgets End --> 
+
+  <!-- Close Gallery Button -->
+  <i class="fa fa-times" ng-click="toggleGallery()" ng-show="isGalleryOpen"></i>  
+  
+</section>
+
+<div class="gallery-properties-generic-modal-background" ng-click="toggleGallery()" ng-class="{' open': isGalleryOpen}"></div> 

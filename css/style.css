@@ -1,16 +1,20 @@
 @charset "UTF-8";
-    @import url("bootstrap.css");
-    @import url("icons.css");
-    @import url("https://fonts.googleapis.com/css?family=Varela+Round");
-    @import url("../views/properties_listing/properties_listing.css");
-    @import url("../views/developments_listing/developments_listing.css");
-    @import url("../views/accounts/facebook_button.css");
-    @import url("../views/common/header.css");
-    @import url("../views/property/property.css");
-    @import url("../views/home/home.css");
-    @import url("../views/components/skeletons/listing/skeleton-listing.css");
-    @import url("../views/development/development.css");
-    @import url("../views//components/contact-globe/contact-globe.css");
+@import url("bootstrap.css");
+@import url("icons.css");
+@import url("https://fonts.googleapis.com/css?family=Varela+Round");
+@import url("../views/properties_listing/properties_listing.css");
+@import url("../views/developments_listing/developments_listing.css");
+@import url("../views/accounts/facebook_button.css");
+@import url("../views/common/header.css");
+@import url("../views/property/property.css");
+@import url("../views/home/home.css");
+@import url("../views/development/development.css");
+
+/* Components */
+@import url("../views/components/skeletons/listing/skeleton-listing.css");
+@import url("../views/components/contact-globe/contact-globe.css");
+@import url("../views/components/galleries/properties-generic/gallery-properties-generic.css");
+@import url("../views/components/galleries/properties-cards/gallery-properties-cards.css");
 
 .container.ng-scope {
     margin-bottom: 55px;
@@ -10104,11 +10108,11 @@ div.layout-style {
     }
 
     #propsListing {
-        margin-top: 15px;
+        margin-top: 20px;
     }
 
     #mobile-prop-detail {
-        margin-top: 15px;
+        margin-top: 20px;
     }
 }
 

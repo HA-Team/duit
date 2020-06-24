@@ -6,8 +6,6 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, 
   $scope.isContactModalOpen = false;
   $scope.isGalleryOpen = false;
   $scope.generalFeaturesToShow = 5;
-  $scope.currentPhoto = 1;
-  $scope.currentFeatured = 1;
   
   const id = $stateParams.propertyId;
 
@@ -28,6 +26,12 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, 
       state: result.location.short_location.replace(/\s\|.*/, ""),      
       prop: result,
     };
+
+    $scope.propertyPhotosMapped = $scope.p.prop.photos.map(photo => {
+      return {
+        photo: photo.image
+      }
+    })
 
     $scope.featuresItems = [
       {
@@ -98,7 +102,7 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, 
     uiFunctions.buildMagnificPopup();
 
     getFeaturedProperties.getFeatured($scope, tokkoApi);
-    getFeaturedProperties.getSimilar($scope, tokkoApi);
+    getFeaturedProperties.getSimilar($scope, tokkoApi);    
     
     setTimeout(() => {
       google.maps.event.trigger(map, 'resize');
@@ -108,71 +112,12 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, 
     const querySubject = `Consulta por propiedad %23${$scope.p.id}: ${$scope.p.prop.publication_title}`.replace(/\s/g, '%20');    
 
     const cellPhone = $scope.p.prop.producer.cellphone ? $scope.p.prop.producer.cellphone : $scope.p.prop.producer.phone;
-    const cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');    
+    const cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351'); 
     const whatsAppUri = `https://api.whatsapp.com/send?phone=${cleanCellPhone}&text=${querySubject}`;  
-
-    const emailUri = `mailto:${$scope.p.prop.producer.email}?Subject=${querySubject}`;        
+    document.querySelector("#mobile-prop-detail .contact-globe-modal-icons .fa-whatsapp").parentElement.setAttribute("href", whatsAppUri);            
     
-    document.querySelectorAll("#mobile-prop-detail .contact-globe-modal-icons a").forEach(item => {
-      if (item.children[0].classList.contains('fa-whatsapp')) item.setAttribute("href", whatsAppUri);            
-      if (item.children[0].classList.contains('fa-envelope')) item.setAttribute("href", emailUri);
-    });  
-
-    $scope.moveSlider = (element, index, arrLength, side, pxToMove) => { 
-      $scope[index] = sliderMoves.moveSlider(element, $scope[index], arrLength, side, pxToMove);
-      $scope.$apply();
-    };
-
-    const sides = [
-      {
-        side: 'left',
-        oposite: 'right'
-      },
-      {
-        side: 'right',
-        oposite: 'left'
-      }
-    ];
-
-    sides.forEach(side => {
-      const gallerySlider = document.querySelector("#mobile-property-gallery-slider .mobile-property-slider");
-      const gallerySliderArrow = document.querySelector(`#mobile-property-gallery-slider .fa-angle-${side.side}`);      
-      const featuredSlider = document.querySelector("#mobile-property-featured-slider");
-      const featuredSliderArrow = document.querySelector(`.mobile-property-recomended .fa-angle-${side.side}`);
-
-      const setGalleryCounterLabel = () => {
-        const counterLabel = document.querySelector("#mobile-property-gallery-slider .mobile-slider-photo-counter p");
-        counterLabel.innerHTML = `${$scope.currentPhoto}/${$scope.p.prop.photos.length}`;
-      };
-
-      gallerySliderArrow.addEventListener("click", () => {        
-        $scope.moveSlider(gallerySlider, 'currentPhoto', $scope.p.prop.photos.length, side.side, gallerySlider.children[0].offsetWidth);
-        setGalleryCounterLabel();
-      });
-      
-      gallerySlider.addEventListener(`swiped-${side.side}`, (e) => {
-        e.preventDefault()
-
-        $scope.moveSlider(gallerySlider, 'currentPhoto', $scope.p.prop.photos.length, side.oposite, gallerySlider.children[0].offsetWidth);
-        setGalleryCounterLabel();
-      }, {capture: true});
-
-      featuredSliderArrow.addEventListener("click", (e) => { 
-        e.stopPropagation();
-        
-        const pxToMove = [...featuredSlider.children].find(child => child.classList.contains("mobile-property-recomended-item")).offsetWidth;
-
-        $scope.moveSlider(featuredSlider, 'currentFeatured', $scope.featured.length, side.side, pxToMove);
-      }, {capture: true});
-      
-      featuredSlider.addEventListener(`swiped-${side.side}`, (e) => {
-        e.stopPropagation();
-        
-        const pxToMove = [...featuredSlider.children].find(child => child.classList.contains("mobile-property-recomended-item")).offsetWidth; 
-        
-        $scope.moveSlider(featuredSlider, 'currentFeatured', $scope.featured.length, side.oposite, pxToMove);    
-      }, {capture: true});
-    });    
+    const emailUri = `mailto:${$scope.p.prop.producer.email}?Subject=${querySubject}`;        
+    document.querySelector("#mobile-prop-detail .contact-globe-modal-icons .fa-envelope").parentElement.setAttribute("href", emailUri);
   });     
 
   $scope.toggleDescriptionDetailDesktop = () => {
@@ -223,25 +168,6 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, 
   }
 
   $scope.toggleContactModal = () => $scope.isContactModalOpen = !$scope.isContactModalOpen;
-
-  $scope.toggleGallery = () => {        
-    const header = document.querySelector("#mobile-header");
-    const contact = document.querySelector("#mobile-prop-detail .mobile-property-contact");
-    const body = document.querySelector("body");
-    
-    $scope.isGalleryOpen = !$scope.isGalleryOpen;
-
-    if ($scope.isGalleryOpen) {
-      header.style.display = "none";
-      contact.style.display = "none";      
-      body.style.overflow = "hidden";
-    }
-    else {
-      header.style.display = "block";
-      contact.style.display = "flex";      
-      body.style.overflow = "visible";
-    }
-  };
 
   $scope.contactGlobeOpenIcon = {
     iconClass: 'fab fa-whatsapp',
