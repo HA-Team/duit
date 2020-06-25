@@ -1,18 +1,27 @@
-<section class="gallery-properties-generic" ng-class="{' open': isGalleryOpen}">
+<section class="gallery-properties-generic" ng-class="{' open': isGalleryOpen}" ng-style="getSectionStyle()">
       
+  <!-- Skeleton -->
+  <div class="skeleton-container" ng-show="!showGallery">
+    <div class="skeleton-image"></div>
+    <div class="skeleton-lines">
+      <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
+    </div>
+  </div>
+  <!-- Skeleton End -->
+
   <!-- Arrows -->
-  <div class="slider-arrows-container" ng-show="items.length > 1">
-    <i class="fa fa-angle-left"></i>
-    <i class="fa fa-angle-right"></i>
+  <div class="slider-arrows-container" ng-show="items.length > 1 && showGallery">
+    <i class="fa fa-angle-left" ng-click="moveSlider('left')"></i>
+    <i class="fa fa-angle-right" ng-click="moveSlider('right')"></i>
   </div>
 
   <!-- Slider -->
-  <div class="gallery-properties-generic-slider">
+  <div class="gallery-properties-generic-slider" ng-show="showGallery">
     <img ng-repeat="item in items" src="{{item.photo}}">
   </div>      
   
   <!-- Widgets -->
-  <div class="silder-widgets-container" ng-show="showWidgets"> 
+  <div class="silder-widgets-container" ng-show="showWidgets && showGallery"> 
 
     <div class="slider-open-gallery" ng-click="toggleGallery()">
       <i class="fa fa-expand-arrows-alt" ng-show="!isGalleryOpen"></i>

@@ -350,7 +350,7 @@ a.property-type + ul li:hover {
   background-color: #f7f7f7;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 #home-featured .home-featured-container {
@@ -358,8 +358,7 @@ a.property-type + ul li:hover {
   margin-top: -50px;
   width: calc(100% - 30px);
   border-radius: 10px;
-  background-color: white;  
-  height: 700px;
+  background-color: white;    
 }
 
 #home-featured .home-featured-title {
@@ -387,6 +386,10 @@ a.property-type + ul li:hover {
   font-size: 15px;
   color: white;
   margin: 0;
+}
+
+#home-featured .home-featured-section {
+  padding: 0 10px;
 }
 
 #home-featured .home-featured-section > h5 {

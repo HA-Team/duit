@@ -4,17 +4,27 @@ app.directive('galleryPropertiesGeneric', function() {
         scope: {  
             showGallery: '=',
             items: '=',
-            showWidgets: '='                     
+            showWidgets: '=',
+            galleryHeight: '=',
+            id: '='
         },
         templateUrl: '/views/components/galleries/properties-generic/gallery-properties-generic.html',
-        controller: ['$scope', 'sliderMoves', function ($scope, sliderMoves) {                          
+        controller: ['$scope', 'sliderMoves', '$element', function ($scope, sliderMoves, $element) {  
+            const gallerySlider = $element.find(".gallery-properties-generic-slider")[0];
+            const photoCounter = $element.find(".slider-photo-counter p")[0];
+                                    
             $scope.isGalleryOpen = false;            
             $scope.currentIndex = 1;
+            
+            $scope.moveSlider = (side) => { 
+                $scope.currentIndex = sliderMoves.moveSlider(gallerySlider, $scope.currentIndex,
+                                                             $scope.items.length, side,
+                                                             gallerySlider.querySelector("img").offsetWidth);
+                setGalleryCounterLabel();
+            };        
 
-            const moveSlider = (element, index, arrLength, side, pxToMove) => { 
-                $scope.currentIndex = sliderMoves.moveSlider(element, index, arrLength, side, pxToMove);
-            };
-          
+            const setGalleryCounterLabel = () => photoCounter.innerHTML = `${$scope.currentIndex}/${$scope.items.length}`;        
+
             const sides = [
                 {
                     rotated: 'up',
@@ -26,40 +36,19 @@ app.directive('galleryPropertiesGeneric', function() {
                     side: 'right',
                     oposite: 'left'
                 }
-            ];
+            ];            
           
-            sides.forEach(side => {                
-                const gallerySlider = document.querySelector(".gallery-properties-generic-slider");
-                const gallerySliderArrow = document.querySelector(`.gallery-properties-generic .fa-angle-${side.side}`);      
-            
-                const setGalleryCounterLabel = () => {
-                    const counterLabel = document.querySelector(".gallery-properties-generic .slider-photo-counter p");
-                    counterLabel.innerHTML = `${$scope.currentIndex}/${$scope.items.length}`;
-                };
-            
-                gallerySliderArrow.addEventListener("click", () => {        
-                    moveSlider(gallerySlider, $scope.currentIndex, $scope.items.length, side.side, gallerySlider.querySelector("img").offsetWidth);
-                    setGalleryCounterLabel();
-                });
-                
+            sides.forEach(side => {                                
                 gallerySlider.addEventListener(`swiped-${side.side}`, (e) => {
                     e.preventDefault();
                     const isLandscape = window.innerHeight < window.innerWidth;
-                    
-                    if (isLandscape || !$scope.isGalleryOpen) {
-                        moveSlider(gallerySlider, $scope.currentIndex, $scope.items.length, side.oposite, gallerySlider.querySelector("img").offsetWidth);
-                        setGalleryCounterLabel();
-                    }
+                    if (isLandscape || !$scope.isGalleryOpen) $scope.moveSlider(side.oposite);
                 }, {capture: true});
 
                 gallerySlider.addEventListener(`swiped-${side.rotated}`, (e) => {
                     e.preventDefault();
                     const isLandscape = window.innerHeight < window.innerWidth;
-                    
-                    if (!isLandscape && $scope.isGalleryOpen) {
-                        moveSlider(gallerySlider, $scope.currentIndex, $scope.items.length, side.oposite, gallerySlider.querySelector("img").offsetWidth);
-                        setGalleryCounterLabel();
-                    }
+                    if (!isLandscape && $scope.isGalleryOpen) $scope.moveSlider(side.oposite);
                 }, {capture: true});
             });
             
@@ -77,6 +66,14 @@ app.directive('galleryPropertiesGeneric', function() {
                   header.style.display = "block";                    
                   body.style.overflow = "visible";
                 }
+            };
+
+            $scope.getSectionStyle = () => {
+                const styles = {};
+
+                styles.height = $scope.galleryHeight ?? '';                
+
+                return styles;
             };
         }]            
     }

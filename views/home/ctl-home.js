@@ -68,5 +68,10 @@ app.controller('home', function($scope, pageMoveUtils) {
     }
   ];
 
-  $scope.goToSection = (id) => pageMoveUtils.goToSection(id); 
+  $scope.goToSection = (id) => pageMoveUtils.goToSection(id);
+  
+  const featuredSection = document.getElementById('home-featured');
+  const numberOfFeaturedSections = [...featuredSection.querySelectorAll(".home-featured-section")].length;
+  
+  featuredSection.style.height = `calc(${numberOfFeaturedSections * 50}vh + ${numberOfFeaturedSections * 40}px`;  
 });
