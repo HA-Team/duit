@@ -1,4 +1,4 @@
-app.controller('mobile-header', function($scope, pageMoveUtils) {
+app.controller('mobile-header', function($scope, pageMoveUtils, $location) {
     $scope.isHamburgOpen = false;
     
     $scope.toggleMenu = function () {
@@ -22,5 +22,11 @@ app.controller('mobile-header', function($scope, pageMoveUtils) {
       prevScrollpos = currentScrollPos;
     };
 
-    $scope.goToSection = (id) => pageMoveUtils.goToSection(id);
+    $scope.goToSection = (goHome, id) => {
+      if (!$location.url('') && goHome) {
+        $location.url = '';
+        setTimeout(() => pageMoveUtils.goToSection(id), 50);
+      }
+      else pageMoveUtils.goToSection(id)
+    }
   });

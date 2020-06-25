@@ -42,8 +42,142 @@
   </section>
   <!-- Searcher Section End-->
 
-  <!-- Featured Section -->
-  <section id="home-featured" ng-controller='featuredProps'>
+  <!-- Fullwidth Section -->
+  <section class="fullwidth margin-top-0 hidden-on-mobile" data-background-color="#f7f7f7">
+
+    <!-- Box Headline -->
+    <h3 class="headline-box">¿Qué necesitás?</h3>
+    
+    <!-- Content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-6">
+          <!-- Icon Box -->
+          <div class="icon-box-1">
+            <div class="icon-container">
+              <i class="fas fa-building"></i>
+              <div class="icon-links">
+                <a ui-sref="contactUs">Contactános</a>
+              </div>
+            </div>
+            <h3>Te asesoramos</h3>
+            <p>El equipo profesional de Duit te asistirá en todo momento, bridandote todo el asesoramiento necesario para que tomes la decisión mas adecuada.</p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <!-- Icon Box -->
+          <div class="icon-box-1">
+            <div class="icon-container">
+              <i class="fas fa-home"></i>
+              <div class="icon-links">
+                <a ui-sref="contactUs">Contactános</a>
+              </div>
+            </div>
+            <h3>Valuamos tu casa</h3>
+            <p>¿Querés saber cual es el valor de tu propiedad? Nuestro Staff de asesores matriculados CPCPI valuarán profesionalmente tus bienes.</p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <!-- Icon Box -->
+          <div class="icon-box-1">
+            <div class="icon-container">
+              <i class="far fa-building"></i>
+              <div class="icon-links">
+                <a ui-sref="developments">Mas info</a>
+              </div>
+            </div>
+            <h3>Emprendimientos</h3>
+            <p>Seleccionamos los mejores emprendimientos y las mejores empresas desarrollistas del mercado para ponerlos a tu alcance.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- Fullwidth Section / End -->
+
+  <!-- Us Section -->
+  <section id="home-us" class="parallax margin-bottom-70 hidden-on-mobile"
+    data-background="/images/team/team-4.jpg"
+    data-color="#36383e"
+    data-color-opacity="0.7"
+    data-img-width="900"
+    data-img-height="505"
+    data-z-index="1">
+
+    <!-- Infobox -->
+    <div class="text-content white-font">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-6 col-sm-8">
+            <h2>Nosotros.</h2>
+            <p>En Duit contamos con más de 10 años de experiencia en el mercado inmobiliario, somos personas con un mismo sueño, con una misma forma de ver la vida, de superarnos, de dar lo mejor.
+  Comprendemos la importancia y trascendencia que tiene en la vida de las personas, la compra o alquiler de una vivienda, local comercial o cualquier otro tipo de transacción inmobiliaria. 
+  Generamos vínculos a largo plazo, y trabajamos enfocados en lograr que el beneficio sea para todos. 
+  Se trata de identidad, de valores, de una forma de hacer las cosas, y aconsejar, es la única que nos representa. </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Infobox / End -->
+
+  </section>
+  <!-- Us Section End -->
+
+  <!-- Desktop Featured -->
+  <section class="container hidden-on-mobile" ng-controller='featuredProps'>
+    <div class="row">
+    
+      <div class="col-md-12">
+        <h3 class="headline margin-bottom-25">Destacados</h3>
+      </div>
+      <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="featuredPropsReady"></div>
+      <!-- Carousel -->
+      <div class="col-md-12" ng-show="featuredPropsReady">
+        <div class="carousel">
+          
+          <!-- Listing Item -->
+          <div class="carousel-item" ng-repeat="p in featured">
+            <div class="listing-item compact">
+
+              <a ui-sref="property({propertyId: p.id})" class="listing-img-container">
+
+                <div class="listing-badges">
+                  <span class="featured">Destacado</span>
+                  <span>{{p.type}}</span>
+                </div>
+
+                <div class="listing-img-content">
+                  <span class="listing-compact-title">{{p.title}} <i ng-show="p.prop.web_price">{{ p.price | currency:p.currency:0}}</i></span>
+
+                  <ul class="listing-hidden-content">
+                    <li>Superficie <span>{{p.area}} M2</span></li>
+                    <li><i class="fa fa-bed"></i> <span>{{p.rooms}}</span></li>
+                    <li><i class="fa fa-bath"></i> <span>{{p.baths}}</span></li>
+                    <li><i class="fa fa-car"></i> <span>{{p.parkings}}</span></li>
+                  </ul>
+                </div>
+
+                <img src="{{p.cover_photo}}" alt="">
+              </a>
+
+            </div>
+          </div>
+          <!-- Listing Item / End -->
+
+        </div>
+      </div>
+      <!-- Carousel / End -->
+
+    </div>
+  </section>
+  <!-- Desktop Featured / End -->  
+
+  <!-- Mobile Featured Section -->
+  <section id="home-featured" class="hidden-on-desktop" ng-controller='featuredProps'>
     
     <div class="home-featured-container">
 
@@ -68,7 +202,7 @@
     </div>
     
   </section>
-  <!-- Featured Section End -->
+  <!-- Mobile Featured Section End -->
       
   <!-- Services Section -->
   <section id="home-services" class="hidden-on-desktop"> 
@@ -117,38 +251,7 @@
     </div>
 
   </section>
-  <!-- Assesors Section End -->
-
-  <!-- Us Section -->
-  <section id="home-us" class="parallax margin-bottom-70 hidden-on-mobile"
-    data-background="/images/team/team-4.jpg"
-    data-color="#36383e"
-    data-color-opacity="0.7"
-    data-img-width="900"
-    data-img-height="505"
-    data-z-index="1">
-
-    <!-- Infobox -->
-    <div class="text-content white-font">
-      <div class="container">
-
-        <div class="row">
-          <div class="col-lg-6 col-sm-8">
-            <h2>Nosotros.</h2>
-            <p>En Duit contamos con más de 10 años de experiencia en el mercado inmobiliario, somos personas con un mismo sueño, con una misma forma de ver la vida, de superarnos, de dar lo mejor.
-  Comprendemos la importancia y trascendencia que tiene en la vida de las personas, la compra o alquiler de una vivienda, local comercial o cualquier otro tipo de transacción inmobiliaria. 
-  Generamos vínculos a largo plazo, y trabajamos enfocados en lograr que el beneficio sea para todos. 
-  Se trata de identidad, de valores, de una forma de hacer las cosas, y aconsejar, es la única que nos representa. </p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Infobox / End -->
-
-  </section>
-  <!-- Us Section End -->
+  <!-- Assesors Section End -->    
 
   <!-- Contact Section -->
   <section id="home-contact" class="hidden-on-desktop">

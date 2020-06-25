@@ -8,7 +8,7 @@
       <div class="mobile-main-header d-flex justify-content-between flex-row align-items-start">        
         
         <!-- Logo -->
-        <div id="logo" class="margin-left-20 margin-top-5">
+        <div id="logo">
           <a href="index.html"><img src="/images/duit_id_blanco.png" alt=""></a>          
         </div>
 
@@ -38,7 +38,7 @@
             <a ui-sref="home">Home</a>
           </li>          
           <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'agents'}"
-              ng-click="setActive('agents'); toggleMenu(); goToSection('home-assesors');">            
+              ng-click="setActive('agents'); toggleMenu(); goToSection(true, 'home-assesors');">            
             <a>Consejeros</a>
           </li>
           <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'developments'}"
@@ -46,8 +46,8 @@
             <a ui-sref="developments">Emprendimientos</a>
           </li>
           <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'contactUs'}"
-              ng-click="setActive('contactUs'); toggleMenu();">            
-            <a ui-sref="contactUs">Contacto</a>
+              ng-click="setActive('contactUs'); toggleMenu(); goToSection(true, 'home-contact');">            
+            <a>Contacto</a>
           </li>
         </ul>
       </nav>

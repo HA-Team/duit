@@ -21,7 +21,7 @@
 }
 
 :root {
-    --primary-red: #c8001e;
+    --primary-red: #e02e21;
     --soft-red: #de576b;
     --primary-blue: #537ebb;
     --softgrey: #f4f4f4;
@@ -2757,7 +2757,7 @@ section.fullwidth.border-bottom {
     margin-bottom: 30px;
 }
 .agent-widget h4 {
-    color: #c8001e;
+    color: var(--primary-red);
     margin: 0 0 6px 0;
 }
 .agent-title .agent-photo img {
