@@ -62,27 +62,9 @@ app.config(['AnalyticsProvider', function (AnalyticsProvider) {
 * @date: 09/06/17
 */
 
-app.controller('startUp', function($scope, $rootScope, tokkoApi) {
+app.controller('startUp', function($rootScope) {
   $rootScope.favorites = {dataLoaded: false, props: []};
   $rootScope.isFavorite = propId => {
     return $rootScope.favorites.props.findIndex(p => p.id === propId) === -1 ? false : true;
   };
-  // Uncomment above code when meteor was implemented on production -->
-  // $rootScope.Meteor = Meteor;
-  // FavoritesProps = new Meteor.Collection('favorites');
-  // Meteor.subscribe('favorites');
-  // Meteor.autorun(() => {
-  //   if (Meteor.user()) {
-  //     const favorites = FavoritesProps.find({users: Meteor.user()._id});
-  //     if (favorites) {
-  //       let tmp = [];
-  //       favorites.forEach((f) => {
-  //         tmp.push(f.prop);
-  //       })
-  //       $rootScope.favorites.props = tmp;
-  //       $rootScope.favorites.dataLoaded = true;
-  //       $rootScope.$apply();
-  //     }
-  //   }
-  // });
-})
+});

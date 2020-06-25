@@ -1,10 +1,10 @@
 <div ng-controller="devsListing" id="devsListing">
-<!-- Content
-================================================== -->
-<div class="container margin-top-50" >
-  <!-- <div class="row fullwidth-layout" ng-show="ifResults"> -->
+
+  <!-- Content -->
+  <div class="container margin-top-50" >
 
     <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="apiReady"></div>
+
     <div class="col-md-12" ng-show="apiReady">
 
       <!-- Sorting / Layout Switcher -->
@@ -14,14 +14,6 @@
           <!-- Sort by -->
           <div class="sort-by">
             <label>{{resultsCount}} Emprendimientos encontrados</label>
-
-            <!-- <div class="sort-by-select">
-              <select data-placeholder="Default order" class="chosen-select-no-single" > 
-                <option>Mayor Precio</option>
-                <option>Menor Precio</option>
-                <option>Más Recientes</option>
-              </select>
-            </div> -->
           </div>
         </div>
 
@@ -33,69 +25,51 @@
             <a href="#" class="list"><i class="fa fa-th-list"></i></a>
           </div>
         </div>
+
       </div>
+      <!-- Sorting / Layout Switcher End -->
+
+
       <!-- Listings -->
       <div class="listings-container grid-layout-three" infinite-scroll="loadMoreProps()" infinite-scroll-distance="2" infinite-scroll-immediate-check='false'>
+        
         <!-- Listing Item -->
         <div class="listing-item " ng-repeat="d in results">
 
           <a class="listing-img-container" href="/#!/development/{{d.id}}">
 
-            <!-- <div class="listing-badges"> -->
-              <!-- <span class="featured">Featured</span> -->
-              <!-- <span>{{d.type}}</span> -->
-            <!-- </div> -->
-
-            <!-- <div class="listing-img-content"> -->
-              <!-- <span class="listing-price">{{d.currency}} {{d.price}}</span> -->
-              <!-- <span class="like-icon tooltip"></span>
-            </div> -->
-
             <div class="listing-carousel">
               <div ng-repeat="photo in d.photos"><img src="{{photo.image}}" alt="" ></div>
-              <!-- <div><img src="images/listing-01b.jpg" alt=""></div>
-              <div><img src="images/listing-01c.jpg" alt=""></div> -->
             </div>
           </a>
           
           <div class="listing-content">
 
             <div class="listing-title">
-              <h4><a ui-sref="development({devId: d.id})">{{d.name}}</a></h4>
-              <!-- <a href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&hl=en&t=v&hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom" class="listing-address popup-gmaps"> -->
-                <i class="fa fa-map-marker"></i>
-                {{d.location.name}}
-              </a>
-
+              <h4><a ui-sref="development({devId: d.id})">{{d.name}}</a></h4>              
+              <i class="fa fa-map-marker"></i>
+              {{d.location.name}}
               <a ui-sref="property({propertyId: d.id})" class="details button border">Detalles</a>
             </div>
-
-            <!-- <ul class="listing-details">
-              <li>{{d.area}} M2</li>
-              <li><i class="fa fa-bed"></i> {{d.rooms}}</li>
-              <li><i class="fa fa-bath"></i> {{d.baths}}</li>
-              <li><i class="fa fa-car"></i> {{d.parkings}}</li>
-            </ul> -->
-
-            <!-- <div class="listing-footer"> -->
-              <!-- <a href="#"><i class="fa fa-user"></i> {{d.agent}}</a> -->
-              <!-- <span><i class="fa fa-calendar-o"></i> 1 day ago</span> -->
-            <!-- </div> -->
 
           </div>
 
         </div>
         <!-- Listing Item / End -->
+
       </div>
       <!-- Listings Container / End -->
 
       <div class="clearfix"></div>
+      
     </div>
+
     <div class="row fullwidth-layout text-center no-results" ng-hide="ifResults">
       <i class="fa fa-5x fa-frown-o"></i>
       <h3>¡Ups! No hay nada aquí. ¡<a href="#!/contactUs">Contactános</a> para ver mas opciones!</h3>
     </div> 
+    
   </div>
-  
-</div>
+  <!-- Content End -->
+
 </div>

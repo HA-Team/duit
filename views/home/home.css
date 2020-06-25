@@ -290,6 +290,7 @@ a.property-type + ul li:hover {
 #home-services .home-services-imgs img {    
     width: 100px;
     height: 100px;          
+    cursor: pointer;
 }
 
 #home-services-description .icon-boxes-container {
