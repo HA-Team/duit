@@ -1,9 +1,12 @@
 app.service('navigation', function($rootScope, $location, $anchorScroll) {
-    this.goToSection = (id, page) => {
-        if (page) this.setActive(page); 
-        if ($location.hash() !== id) $location.hash(id);          
+    this.goToSection = (page, section) => {
+        if (page) this.setActive(page, section); 
+        if ($location.hash() !== section) $location.hash(section);          
         $anchorScroll();
     };
 
-    this.setActive = (state) => $rootScope.activeMenu = state;
+    this.setActive = (page, section) => {
+        $rootScope.activeMenu = page;
+        $rootScope.activeSection = section ?? '';
+    };
 });

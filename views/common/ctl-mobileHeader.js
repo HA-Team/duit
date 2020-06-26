@@ -43,10 +43,10 @@ app.controller('mobile-header', function($rootScope, $scope, navigation, $state)
       
       if ($rootScope.activeMenu != page) {        
         $state.go(page, {args: JSON.stringify(args)});          
-        setTimeout(() => navigation.goToSection(section, page), 100);            
+        setTimeout(() => navigation.goToSection(page, section), 100);            
       }
       else {        
-        navigation.goToSection(section);        
+        navigation.goToSection(page, section);        
       }      
     };
 
@@ -54,12 +54,14 @@ app.controller('mobile-header', function($rootScope, $scope, navigation, $state)
       {
         title: 'Alquiler',
         page: 'propertySearch',
-        args: getOperationArgs(operationTypes.alquiler)       
+        args: getOperationArgs(operationTypes.alquiler),
+        section: ''       
       },
       {
         title: 'Venta',
         page: 'propertySearch',
-        args: getOperationArgs(operationTypes.venta)
+        args: getOperationArgs(operationTypes.venta),
+        section: ''
       },
       {
         title: 'Tasación',

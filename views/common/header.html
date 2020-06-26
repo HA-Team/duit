@@ -21,10 +21,7 @@
 
       <!-- Arrow bellow Hamburguer Menu -->
       <div class="mobile-arrow-header d-flex flex-row-reverse">
-        <div class="mobile-arrow-header-item"></div>
-        <div class="mobile-arrow-header-item"></div>  
-        <div class="mobile-arrow-header-item"></div> 
-        <div class="mobile-arrow-header-item"></div>         
+        <div ng-repeat="x in [].constructor(4) track by $index" class="mobile-arrow-header-item"></div>    
       </div> 
 
     </div>     
@@ -33,7 +30,7 @@
     <div id="mobile-modal-nav" ng-class="{' open': isHamburgOpen}">
       <nav class="mobile-modal-container" >
         <ul>
-          <li ng-repeat="section in sections" class="mobile-menu-item" ng-class="{'current' : activeMenu === section.page}"
+          <li ng-repeat="section in sections" class="mobile-menu-item" ng-class="{'current' : activeMenu == section.page && activeSection == section.section}"
               ng-click="goToSection(section.page, section.section, section.args)">            
             <a>{{section.title}}</a>
           </li>          
