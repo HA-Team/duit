@@ -9,6 +9,7 @@
 @import url("../views/property/property.css");
 @import url("../views/home/home.css");
 @import url("../views/development/development.css");
+@import url("../views//common/footer.css");
 
 /* Components */
 @import url("../views/components/skeletons/listing/skeleton-listing.css");
@@ -157,28 +158,6 @@ ul.top-bar-menu li i {
     max-height: 54px;
     width: auto;
     transform: translate3d(0, 0, 0);
-}
-.footer-text {
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-.footer-text > * {
-    line-height: 13px;
-    font-family: "Varela Round";
-    color: #f3eed5;
-    font-size: 11px;
-}
-img.footer-logo {
-    max-height: 55px;
-    width: auto;
-}
-img.by-ha {
-    margin: 20px;
-    margin-bottom: 4px;
-    max-height: 25px;
-    width: auto;
 }
 #header {
     position: relative;
@@ -371,57 +350,12 @@ header.fullwidth .container {
     transform: translate(0, 0) scale(1);
     transition: .3s;
 }
-footer {
-    padding: 30px 10px 30px 10px;
-    background-color: var(--primary-red);
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
 .text-widget span {
     color: #707070;
 }
 .text-widget span.address {
     display: block;
     margin-bottom: 10px;
-}
-ul.footer-links {
-    margin: 0 0 15px 0;
-    padding: 0;
-    width: 50%;
-    box-sizing: border-box;
-    display: inline-block;
-    float: left;
-}
-.footer-links li {
-    position: relative;
-    list-style: none;
-}
-.footer-links li a {
-    padding: 0 0 9px 16px;
-    display: inline-block;
-    -webkit-transition: all .2s ease-in-out;
-    -moz-transition: all .2s ease-in-out;
-    -o-transition: all .2s ease-in-out;
-    -ms-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
-    color: #707070;
-    line-height: 21px;
-}
-.footer-links li a:hover {
-    padding-left: 22px;
-    color: #66676b;
-}
-.footer-links li:before {
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 20px;
-    content: "\f105";
-    position: absolute;
-    left: 0;
-    top: -2px;
-    padding: 0 7px 0 0;
-    color: #ccc;
 }
 .copyrights {
     color: #707070;
@@ -430,41 +364,10 @@ ul.footer-links {
     text-align: center;
     padding: 40px 0;
     display: inline-block;
-    width: 100%}
-#footer.alt .copyrights {
-    margin-top: 0;
-    border: 0;
-    padding: 25px;
+    width: 100%
 }
 .copyrights a {
     color: #707070;
-}
-#footer.dark {
-    background: #222;
-    color: #aaa;
-}
-#footer.dark a, #footer.dark h4, #footer.dark a:hover {
-    color: #fff;
-}
-#footer.dark .text-widget, #footer.dark .text-widget span, #footer.dark .footer-links li a {
-    color: #aaa;
-}
-#footer.dark .footer-links li a:hover {
-    color: #fff;
-}
-#footer.dark .footer-links li:before {
-    color: #666;
-}
-#footer.dark .copyrights {
-    color: #aaa;
-    border-top: 1px solid rgba(255, 255, 255, 0.09);
-}
-#footer .social-icons li a {
-    opacity: .8;
-    transition: opacity .35s;
-}
-#footer .social-icons li a:hover {
-    opacity: 1;
 }
 #backtotop {
     position: fixed;
@@ -8206,11 +8109,11 @@ body .notification strong {
     content: '\f31b'}
 .icon-instagram:before {
     content: '\f31f'}
-.agent ul.social-icons, #footer ul.social-icons, #top-bar ul.social-icons {
+.agent ul.social-icons, #top-bar ul.social-icons {
     margin: 0;
     padding: 0;
 }
-.agent .social-icons li a, #footer .social-icons li a, #top-bar .social-icons li a {
+.agent .social-icons li a, #top-bar .social-icons li a {
     width: 45px;
     height: 45px;
     display: inline-block;
@@ -8221,13 +8124,13 @@ body .notification strong {
     transform: scale(1);
     margin-right: 0;
 }
-.agent .social-icons li, #footer .social-icons li, #top-bar .social-icons li {
+.agent .social-icons li, #top-bar .social-icons li {
     border-radius: 0;
     transform: scale(1);
     -webkit-transform: scale(1);
     -webkit-filter: blur(radius);
 }
-.agent .social-icons li a i, .agent .social-icons li a:before, #footer .social-icons li a i, #footer .social-icons li a:before, #top-bar .social-icons li a i, #top-bar .social-icons li a:before {
+.agent .social-icons li a i, .agent .social-icons li a:before, #top-bar .social-icons li a i, #top-bar .social-icons li a:before {
     transform: scale(1.1) translateY(calc(-50% - 2px));
     -moz-transform: scale(1.1) translateY(calc(-50% - 1px));
     -ms-transform: scale(1.1) translateY(-50%);
@@ -8236,13 +8139,13 @@ body .notification strong {
     margin: 0;
     text-align: center;
     margin-top: 55%}
-.agent .social-icons li a.twitter i, .agent .social-icons li a.twitter:before, #footer .social-icons li a.twitter i, #footer .social-icons li a.twitter:before, #top-bar .social-icons li a.twitter i, #top-bar .social-icons li a.twitter:before {
+.agent .social-icons li a.twitter i, .agent .social-icons li a.twitter:before i, #top-bar .social-icons li a.twitter i, #top-bar .social-icons li a.twitter:before {
     transform: scale(1.1) translateY(calc(-50% - 1px));
 }
 #top-bar .social-icons {
     float: right;
 }
-.agent .social-icons li, #footer .social-icons li, #top-bar .social-icons li {
+.agent .social-icons li, #top-bar .social-icons li {
     margin: 0;
     padding: 0;
     float: left;
@@ -8262,33 +8165,33 @@ body .notification strong {
 #top-bar .social-icons li a:hover i {
     color: #66676b;
 }
-.agent .social-icons li a, #footer .social-icons li a {
+.agent .social-icons li a {
     width: 38px;
     height: 40px;
     background-color: transparent;
 }
-.agent .social-icons, #footer .social-icons {
+.agent .social-icons {
     position: relative;
     left: -13px;
 }
-.agent .social-icons li, #footer .social-icons li {
+.agent .social-icons li {
     margin: 0;
     padding: 0;
     float: left;
     line-height: 0;
 }
-.agent .social-icons li a:before, .agent .social-icons li a i, #footer .social-icons li a:before, #footer .social-icons li a i {
+.agent .social-icons li a:before, .agent .social-icons li a i {
     font-size: 15px;
     color: #a0a0a0;
 }
-.agent .social-icons li .twitter:before, .agent .social-icons li .twitter i:before, .agent .social-icons li .vimeo:before, .agent .social-icons li .vimeo i:before, #footer .social-icons li .twitter:before, #footer .social-icons li .twitter i:before, #footer .social-icons li .vimeo:before, #footer .social-icons li .vimeo i:before {
+.agent .social-icons li .twitter:before, .agent .social-icons li .twitter i:before, .agent .social-icons li .vimeo:before, .agent .social-icons li .vimeo i:before {
     font-size: 13px;
 }
-.agent .social-icons li a:hover, #footer .social-icons li a:hover {
+.agent .social-icons li a:hover {
     background: transparent !important;
     border-color: transparent;
 }
-.agent .social-icons li a:hover i, #footer .social-icons li a:hover i {
+.agent .social-icons li a:hover i {
     color: #66676b;
 }
 .info-box {
