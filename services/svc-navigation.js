@@ -1,5 +1,6 @@
 app.service('navigation', function($rootScope, $location, $anchorScroll) {
-    this.goToSection = (id) => { 
+    this.goToSection = (id, page) => {
+        if (page) this.setActive(page); 
         if ($location.hash() !== id) $location.hash(id);          
         $anchorScroll();
     };
