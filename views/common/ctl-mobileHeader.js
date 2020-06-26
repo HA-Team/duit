@@ -39,7 +39,8 @@ app.controller('mobile-header', function($rootScope, $scope, navigation, $state)
     }
 
     $scope.goToSection = (page, section, args) => {  
-      $scope.toggleMenu();      
+      $scope.toggleMenu();
+      navigation.setActive(page);
       
       if ($rootScope.activeMenu != page) {        
         $state.go(page, {args: JSON.stringify(args)});  
@@ -49,8 +50,6 @@ app.controller('mobile-header', function($rootScope, $scope, navigation, $state)
       else {
         navigation.goToSection(section);        
       }
-
-      navigation.setActive(page);
     };
 
     $scope.sections = [
