@@ -9,7 +9,7 @@
         
         <!-- Logo -->
         <div id="logo">
-          <a href="index.html"><img src="/images/duit_id_blanco.png" alt=""></a>          
+          <a ui-sref="home"><img src="/images/duit_id_blanco.png" alt=""></a>          
         </div>
 
         <!-- Hamburger Menu -->  
@@ -30,25 +30,13 @@
     </div>     
     
     <!-- Mobile Modal Nav -->
-    <div id="mobile-modal-nav" ng-class="{' open': isHamburgOpen}" ng-controller="navigation">
+    <div id="mobile-modal-nav" ng-class="{' open': isHamburgOpen}">
       <nav class="mobile-modal-container" >
         <ul>
-          <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'home'}"
-              ng-click="setActive('home'); toggleMenu();">            
-            <a ui-sref="home">Home</a>
+          <li ng-repeat="section in sections" class="mobile-menu-item" ng-class="{'current' : activeMenu === section.page}"
+              ng-click="goToSection(section.page, section.section, section.args)">            
+            <a>{{section.title}}</a>
           </li>          
-          <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'agents'}"
-              ng-click="setActive('agents'); toggleMenu(); goToSection(true, 'home-assesors');">            
-            <a>Consejeros</a>
-          </li>
-          <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'developments'}"
-              ng-click="setActive('developments'); toggleMenu();">            
-            <a ui-sref="developments">Emprendimientos</a>
-          </li>
-          <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'contactUs'}"
-              ng-click="setActive('contactUs'); toggleMenu(); goToSection(true, 'home-contact');">            
-            <a>Contacto</a>
-          </li>
         </ul>
       </nav>
       <div class="mobile-modal-background" ng-click="toggleMenu()"></div>

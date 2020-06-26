@@ -1,5 +1,10 @@
-app.controller('mobile-header', function($scope, pageMoveUtils, $location) {
+app.controller('mobile-header', function($rootScope, $scope, navigation, $state) {
     $scope.isHamburgOpen = false;
+
+    const operationTypes = {
+      venta: 1,
+      alquiler: 2
+    };
     
     $scope.toggleMenu = function () {
       const filterModal = document.getElementById("mobile-props-filter-modal");
@@ -21,12 +26,78 @@ app.controller('mobile-header', function($scope, pageMoveUtils, $location) {
       
       prevScrollpos = currentScrollPos;
     };
-
-    $scope.goToSection = (goHome, id) => {
-      if (!$location.url('') && goHome) {
-        $location.url = '';
-        setTimeout(() => pageMoveUtils.goToSection(id), 50);
-      }
-      else pageMoveUtils.goToSection(id)
+    
+    const getOperationArgs = (opType) => {
+      let data = JSON.parse(_.clone(tokkoSearchArgs.sData));      
+      
+      data.operation_types = [opType];
+      data.with_custom_tags = [];
+      
+      let args = {data: JSON.stringify(data), offset: 0};
+      
+      return args;
     }
+
+    $scope.goToSection = (page, section, args) => {  
+      $scope.toggleMenu();      
+      
+      if ($rootScope.activeMenu != page) {        
+        $state.go(page, {args: JSON.stringify(args)});  
+
+        setTimeout(() => navigation.goToSection(section), 50);            
+      }
+      else {
+        navigation.goToSection(section);        
+      }
+
+      navigation.setActive(page);
+    };
+
+    $scope.sections = [
+      {
+        title: 'Alquiler',
+        page: 'propertySearch',
+        args: getOperationArgs(operationTypes.alquiler)       
+      },
+      {
+        title: 'Venta',
+        page: 'propertySearch',
+        args: getOperationArgs(operationTypes.venta)
+      },
+      {
+        title: 'Tasación',
+        page: 'home',
+        section: 'home-contact'   
+      },
+      {
+        title: 'Adminstración',
+        page: 'home',
+        section: 'home-contact'
+      },
+      {
+        title: 'Emprendimientos',
+        page: 'developments',
+        section: ''
+      },
+      {
+        title: 'Consejeros',
+        page: 'home',
+        section: 'home-assesors'
+      },
+      {
+        title: 'Duit 360',
+        page: 'home',
+        section: ''
+      },
+      {
+        title: 'Propiedades Destacadas',
+        page: 'home',
+        section: ''
+      },
+      {
+        title: 'Contacto',
+        page: 'home',
+        section: 'home-contact'
+      }
+    ];
   });

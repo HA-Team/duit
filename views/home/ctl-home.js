@@ -1,4 +1,4 @@
-app.controller('home', function($scope, pageMoveUtils) {
+app.controller('home', function($scope, navigation) {
   const duitWhatsapp = '5493518172255';
   const duitPhone = '+5493518172255';
 
@@ -68,7 +68,7 @@ app.controller('home', function($scope, pageMoveUtils) {
     }
   ];
 
-  $scope.goToSection = (id) => pageMoveUtils.goToSection(id);
+  $scope.goToSection = (id) => navigation.goToSection(id);
   
   const featuredSection = document.getElementById('home-featured');
   const numberOfFeaturedSections = [...featuredSection.querySelectorAll(".home-featured-section")].length;

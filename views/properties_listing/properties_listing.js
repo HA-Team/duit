@@ -15,7 +15,8 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
     {val: 'price_asc', text: 'Menor Precio'},
     {val: 'price_desc', text: 'Mayor Precio'},
     {val: 'id_asc', text: 'Más Recientes'}
-  ]
+  ];
+
   $scope.goLocation = (url) => {
     $state.go(url);
   }
@@ -43,7 +44,6 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
     data.filters = [$scope.rooms];
     if ($scope.minPrice) data.price_from = $scope.minPrice;
     if ($scope.maxPrice) data.price_to = $scope.maxPrice;
-    // if ($scope.subTypeSelected) {data.with_custom_tags = $scope.subTypeSelected;}
     args.data = JSON.stringify(data);
     args.order_by = $scope.order ? $scope.order.order_by : 'price';
     args.order = $scope.order ? $scope.order.order : 'asc';
