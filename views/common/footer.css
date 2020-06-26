@@ -27,7 +27,6 @@ footer .footer-logos-container div {
 }
 
 footer .footer-copy {
-    background-color: #e04242;
     border-radius: 10px;
     max-width: 1000px;
     padding-bottom: 20px;
@@ -45,7 +44,6 @@ footer .footer-copy p {
 }
 
 footer .footer-text { 
-    background-color: #e04242;
     border-radius: 10px;   
     display: flex;
     align-items: center;
