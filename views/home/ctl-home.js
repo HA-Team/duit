@@ -1,7 +1,8 @@
-app.controller('home', function($scope, navigation) {
+app.controller('home', function($rootScope, $scope, navigation, utils) {
   const duitWhatsapp = '5493518172255';
   const duitPhone = '+5493518172255';
-
+  
+  setTimeout(() => $rootScope.activeMenu = 'home', 100);
   $scope.isContactGlobeOpen = false;
   $scope.contactGlobeTitle = "Te asesoramos!";
 
@@ -73,5 +74,28 @@ app.controller('home', function($scope, navigation) {
   const featuredSection = document.getElementById('home-featured');
   const numberOfFeaturedSections = [...featuredSection.querySelectorAll(".home-featured-section")].length;
   
-  featuredSection.style.height = `calc(${numberOfFeaturedSections * 50}vh + ${numberOfFeaturedSections * 40}px`;  
+  featuredSection.style.height = `calc(${numberOfFeaturedSections * 50}vh + ${numberOfFeaturedSections * 40}px`;
+      
+  function onScroll() {
+    const duitFeatured = document.querySelector("#home-featured");
+    const services = document.querySelector("#home-services");
+    const assesors = document.querySelector("#home-assesors");
+    const contact = document.querySelector("#home-contact");
+
+    const scrollY = window.scrollY;
+    
+    switch (true) {
+      case scrollY > contact.offsetTop - 100: $rootScope.activeSection = 'home-contact'; break;  
+      case scrollY > assesors.offsetTop - 100: $rootScope.activeSection = 'home-assesors'; break;
+      case scrollY > services.offsetTop - 100: $rootScope.activeSection = 'home-services'; break;
+      case scrollY > duitFeatured.offsetTop - 100: $rootScope.activeSection = 'home-featured-anchor'; break;
+      default: $rootScope.activeSection = ''; break;
+    }    
+  
+    $scope.$apply();
+  };
+
+  var debouncedOnScroll = utils.debounce(onScroll, 50);
+
+  window.addEventListener('scroll', debouncedOnScroll);
 });

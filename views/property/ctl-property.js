@@ -1,5 +1,5 @@
-app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties, sliderMoves, timeUtils) {   
-  $scope.timeUtils = timeUtils;
+app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties, sliderMoves, utils) {   
+  $scope.utils = utils;
   
   $rootScope.activeMenu = '';
   $scope.apiReady = false;
