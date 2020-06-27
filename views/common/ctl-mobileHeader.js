@@ -52,26 +52,21 @@ app.controller('mobile-header', function($rootScope, $scope, navigation, $state)
 
     $scope.sections = [
       {
+        title: 'Home',
+        page: 'home',
+        section: ''
+      },
+      {
         title: 'Alquiler',
         page: 'propertySearch',
         args: getOperationArgs(operationTypes.alquiler),
-        section: ''       
+        section: 'properties-rent'       
       },
       {
         title: 'Venta',
         page: 'propertySearch',
         args: getOperationArgs(operationTypes.venta),
-        section: ''
-      },
-      {
-        title: 'Tasación',
-        page: 'home',
-        section: 'home-contact'   
-      },
-      {
-        title: 'Adminstración',
-        page: 'home',
-        section: 'home-contact'
+        section: 'properties-sell'
       },
       {
         title: 'Emprendimientos',
@@ -79,19 +74,19 @@ app.controller('mobile-header', function($rootScope, $scope, navigation, $state)
         section: ''
       },
       {
+        title: 'Duit Destacadas 360º',
+        page: 'home',
+        section: 'home-featured-anchor'
+      },
+      {
+        title: 'Servicios',
+        page: 'home',
+        section: 'home-services'
+      },
+      {
         title: 'Consejeros',
         page: 'home',
         section: 'home-assesors'
-      },
-      {
-        title: 'Duit 360',
-        page: 'home',
-        section: ''
-      },
-      {
-        title: 'Propiedades Destacadas',
-        page: 'home',
-        section: ''
       },
       {
         title: 'Contacto',

@@ -68,7 +68,7 @@ app.controller('home', function($scope, navigation) {
     }
   ];
 
-  $scope.goToSection = (id) => navigation.goToSection(id);
+  $scope.goToSection = (page, section) => navigation.goToSection(page, section);
   
   const featuredSection = document.getElementById('home-featured');
   const numberOfFeaturedSections = [...featuredSection.querySelectorAll(".home-featured-section")].length;
