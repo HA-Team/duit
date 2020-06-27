@@ -95,7 +95,9 @@ app.controller('home', function($rootScope, $scope, navigation, utils) {
     $scope.$apply();
   };
 
-  var debouncedOnScroll = utils.debounce(onScroll, 50);
+  var debouncedOnScroll = utils.debounce(onScroll, 50)
 
-  window.addEventListener('scroll', debouncedOnScroll);
+  window.addEventListener('scroll', debouncedOnScroll);  
+
+  $scope.$on('$destroy', () => window.removeEventListener('scroll', debouncedOnScroll));
 });
