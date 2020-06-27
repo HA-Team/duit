@@ -1,6 +1,6 @@
 app.controller('home', function($rootScope, $scope, navigation, utils) {
-  const duitWhatsapp = '5493518172255';
-  const duitPhone = '+5493518172255';
+  const duitWhatsapp = '5493512463530';
+  const duitPhone = '+5493512463530';
   
   setTimeout(() => $rootScope.activeMenu = 'home', 100);
   $scope.isContactGlobeOpen = false;
@@ -25,7 +25,7 @@ app.controller('home', function($rootScope, $scope, navigation, utils) {
       fontSize: '2.3rem'
     },
     {
-      hRef: '#',
+      hRef: 'mailto:contacto@duitpropiedades.com.ar',
       iconClass: 'fa fa-envelope',
       fontSize: '2.5rem'
     },
