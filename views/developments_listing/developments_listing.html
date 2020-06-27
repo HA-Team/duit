@@ -1,4 +1,4 @@
-<div ng-controller="devsListing" id="devsListing">
+<div ng-controller="devsListing" id="devsListing" class="hidden-on-mobile">
 
   <!-- Content -->
   <div class="container margin-top-50" >
@@ -71,5 +71,49 @@
     
   </div>
   <!-- Content End -->
+
+</div>
+
+<div ng-controller="devsListing" id="mobile-dev-listing" class="hidden-on-desktop">
+  
+  <!-- Skeleton Loader -->
+  <skeleton-listing rows="3" lines="2" show-me="!apiReady"></skeleton-listing>
+
+  <div ng-show="apiReady">
+
+    <h4 class="dev-listing-found-title">{{resultsCount}} Emprendimientos encontrados</h4>
+
+    <!-- Listing -->
+    <div class="listings-container grid-layout-three" infinite-scroll="loadMoreProps()" infinite-scroll-distance="2" infinite-scroll-immediate-check='false'>
+      
+      <!-- Listing Item -->
+      <div class="listing-item margin-10" ng-repeat="develop in resultsMapped">
+
+        <gallery-single-property item="develop" show-widgets="false" show-gallery="true" gallery-height="'40vh'" show-skeleton="false"></gallery-single-property>
+        
+        <div class="listing-content">
+
+          <div class="listing-title">
+            <h4><a ui-sref="development({devId: develop.id})">{{develop.name}}</a></h4>              
+            <i class="fa fa-map-marker"></i>
+            {{develop.location.name}}
+          </div>
+
+        </div>
+
+      </div>
+      <!-- Listing Item End -->
+
+    </div>
+    <!-- Listings Container End -->
+
+    <div class="clearfix"></div>
+    
+  </div>
+
+  <div class="row fullwidth-layout text-center no-results" ng-hide="ifResults">
+    <i class="fa fa-5x fa-frown-o"></i>
+    <h3>¡Ups! No hay nada aquí. ¡<a href="#!/contactUs">Contactános</a> para ver mas opciones!</h3>
+  </div> 
 
 </div>

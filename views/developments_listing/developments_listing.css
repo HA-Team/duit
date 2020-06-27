@@ -1,3 +1,24 @@
 #devsListing a {
   cursor: pointer;
 }
+
+#mobile-dev-listing .listings-container {
+  padding: 15px;
+}
+
+#mobile-dev-listing .listing-item {
+  padding: 0px 10px;
+}
+
+#mobile-dev-listing .listing-title {
+  padding: 0px 30px 15px 30px;
+}
+
+#mobile-dev-listing .dev-listing-found-title {
+  color: var(--primary-red);
+  font-weight: 700;
+  font-size: 16px;
+  padding-top: 15px;
+  margin: 0;
+  text-align: center;
+}
