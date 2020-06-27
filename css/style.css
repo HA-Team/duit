@@ -14,8 +14,9 @@
 /* Components */
 @import url("../views/components/skeletons/listing/skeleton-listing.css");
 @import url("../views/components/contact-globe/contact-globe.css");
-@import url("../views/components/galleries/properties-generic/gallery-properties-generic.css");
+@import url("../views/components/galleries/single-property/gallery-single-property.css");
 @import url("../views/components/galleries/properties-cards/gallery-properties-cards.css");
+@import url("../views/components/galleries/multiple-properties/gallery-multiple-properties.css");
 
 .container.ng-scope {
     margin-bottom: 55px;

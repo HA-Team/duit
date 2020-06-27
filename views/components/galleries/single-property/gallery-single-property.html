@@ -1,7 +1,7 @@
-<section class="gallery-properties-generic" ng-class="{' open': isGalleryOpen}" ng-style="getSectionStyle()">
+<section class="gallery-single-property" ng-class="{' open': isGalleryOpen}" ng-style="getSectionStyle()">
       
   <!-- Skeleton -->
-  <div class="skeleton-container" ng-show="!showGallery">
+  <div class="skeleton-container" ng-show="!showGallery && showSkeleton">
     <div class="skeleton-image"></div>
     <div class="skeleton-lines">
       <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
@@ -10,15 +10,17 @@
   <!-- Skeleton End -->
 
   <!-- Arrows -->
-  <div class="slider-arrows-container" ng-show="items.length > 1 && showGallery">
+  <div class="slider-arrows-container" ng-show="item.photos.length > 1 && showGallery">
     <i class="fa fa-angle-left" ng-click="moveSlider('left')"></i>
     <i class="fa fa-angle-right" ng-click="moveSlider('right')"></i>
   </div>
 
-  <!-- Slider -->
-  <div class="gallery-properties-generic-slider" ng-show="showGallery">
-    <img ng-repeat="item in items" src="{{item.photo}}">
-  </div>      
+  <!-- Slider Single Property -->
+  <a href="{{item.hRef}}">
+    <div class="gallery-single-property-slider" ng-show="showGallery">
+      <img ng-repeat="photo in item.photos" src="{{photo.image}}">
+    </div>
+  </a>
   
   <!-- Widgets -->
   <div class="silder-widgets-container" ng-show="showWidgets && showGallery"> 
@@ -30,7 +32,7 @@
 
     <div class="slider-photo-counter">
       <i class="fa fa-camera"></i>
-      <p>{{currentIndex}}/{{items.length}}</p>
+      <p>{{currentIndex}}/{{item.photos.length}}</p>
     </div>
     
   </div>  
@@ -41,4 +43,4 @@
   
 </section>
 
-<div class="gallery-properties-generic-modal-background" ng-click="toggleGallery()" ng-class="{' open': isGalleryOpen}"></div> 
+<div class="gallery-single-property-modal-background" ng-click="toggleGallery()" ng-class="{' open': isGalleryOpen}"></div> 

@@ -1,4 +1,4 @@
-.gallery-properties-generic .skeleton-container {
+.gallery-multiple-properties .skeleton-container {
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -7,7 +7,7 @@
     transform: scale(0.9);
 }
 
-.gallery-properties-generic .skeleton-image {    
+.gallery-multiple-properties .skeleton-image {    
     height: 35vh;    
     border-radius: 10px;   
     background-color: var(--softgrey);
@@ -16,7 +16,7 @@
     animation: shine-recomended 2s infinite ease-out;    
 }
 
-.gallery-properties-generic .skeleton-lines {
+.gallery-multiple-properties .skeleton-lines {
     display: flex;
     flex-direction: column;
     border-bottom-left-radius: 5px;
@@ -25,7 +25,7 @@
     align-items: center;
 }
 
-.gallery-properties-generic .skeleton-line {    
+.gallery-multiple-properties .skeleton-line {    
     height: 3.5rem;
     width: 100%;     
     background-color: var(--softgrey);
@@ -46,7 +46,7 @@
     }   
 }
 
-.gallery-properties-generic-slider {
+.gallery-multiple-properties-slider {
     width: 100%;
     position: relative;
     display: flex;
@@ -57,7 +57,7 @@
     scroll-behavior: smooth;
 }
 
-.gallery-properties-generic .slider-arrows-container {
+.gallery-multiple-properties .slider-arrows-container {
     position: absolute;
     display: flex;
     justify-content: space-between;
@@ -65,23 +65,21 @@
     align-self: center;
 }
 
-.gallery-properties-generic .slider-arrows-container > i {
-    width: 50px;
-    height: 50px;
+.gallery-multiple-properties .slider-arrows-container > i {
+    width: 40px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;    
-    font-size: 48px;    
-    color: lightgray;
+    font-size: 40px;    
+    color: white;
     cursor: pointer;
     z-index: 2;
+    background-color: rgba(0,0,0,0.25);
+    border-radius: 50%;    
 }
 
-.gallery-properties-generic .slider-arrows-container > i:hover {
-    color: white;
-}
-
-.gallery-properties-generic {
+.gallery-multiple-properties {
     height: 60vh;
     width: 100%;             
     margin: 10px 0px;    
@@ -91,7 +89,7 @@
     justify-content: center;
 }
 
-.gallery-properties-generic.open {
+.gallery-multiple-properties.open {
     width: 100vh;
     height: 96vw;
     left: 50%;
@@ -104,7 +102,7 @@
 }
 
 @media  (orientation: landscape) {
-    .gallery-properties-generic.open {
+    .gallery-multiple-properties.open {
         transform: rotateZ(0deg);
         top: 0;
         left: 0;
@@ -114,7 +112,7 @@
     }
 }
 
-.gallery-properties-generic-slider img {
+.gallery-multiple-properties-slider img {
     width: 100%;  
     height: auto;  
     padding: 5px;
@@ -122,7 +120,7 @@
     flex-shrink: 0;    
 }
 
-.gallery-properties-generic .silder-widgets-container {
+.gallery-multiple-properties .silder-widgets-container {
     position: absolute;
     width: 100%;
     align-self: flex-end;
@@ -132,7 +130,7 @@
     padding-bottom: 15px;
 }
 
-.gallery-properties-generic .slider-photo-counter {
+.gallery-multiple-properties .slider-photo-counter {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -146,7 +144,7 @@
     margin-right: 20px;
 }
 
-.gallery-properties-generic .slider-photo-counter * {
+.gallery-multiple-properties .slider-photo-counter * {
     position: relative;
     opacity: 1;
     margin: 0px;
@@ -154,7 +152,7 @@
     font-size: 12px;
 }
 
-.gallery-properties-generic .slider-open-gallery {
+.gallery-multiple-properties .slider-open-gallery {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -168,19 +166,19 @@
     cursor: pointer;
 }
 
-.gallery-properties-generic .slider-open-gallery * {
+.gallery-multiple-properties .slider-open-gallery * {
     position: relative;    
     margin: 0px;
     color: var(--primary-blue);
     font-size: 14px;
 }
 
-.gallery-properties-generic.open .slider-open-gallery {
+.gallery-multiple-properties.open .slider-open-gallery {
     background-color: transparent;
     box-shadow: none;
 }
 
-.gallery-properties-generic .fa-times {
+.gallery-multiple-properties .fa-times {
     transform: scale(1.5);
     width: 20px;
     height: 20px;
@@ -197,7 +195,7 @@
     -webkit-text-stroke: 1px grey;
 }
 
-.gallery-properties-generic-modal-background {
+.gallery-multiple-properties-modal-background {
     position: fixed;
     top: 0px;
     left: 0px;
@@ -209,7 +207,7 @@
     pointer-events: none;
 }
 
-.gallery-properties-generic-modal-background.open {
+.gallery-multiple-properties-modal-background.open {
     opacity: 0.6;  
     pointer-events: all;
 }

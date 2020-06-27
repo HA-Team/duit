@@ -27,11 +27,9 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, 
       prop: result,
     };
 
-    $scope.propertyPhotosMapped = $scope.p.prop.photos.map(photo => {
-      return {
-        photo: photo.image
-      }
-    })
+    $scope.propertyMapped = {
+      photos: result.photos
+    };    
 
     $scope.featuresItems = [
       {
@@ -165,7 +163,7 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, 
       generalFeaturesList.classList.add("open");    
       generalFeaturesList.style.maxHeight = maxHeight;
     }
-  }
+  };
 
   $scope.toggleContactModal = () => $scope.isContactModalOpen = !$scope.isContactModalOpen;
 

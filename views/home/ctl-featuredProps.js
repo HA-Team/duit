@@ -31,7 +31,7 @@ app.controller('featuredProps', function($scope, tokkoApi) {
     $scope.featuredGalleryMap = $scope.featured.map(item => {
       return {
         id: item.id,
-        photo: item.cover_photo,
+        coverPhoto: item.cover_photo,
         price: item.price,
         currency: item.currency,
         subTitle: item.prop.location.short_location         

@@ -1,29 +1,29 @@
-app.directive('galleryPropertiesGeneric', function() {
+app.directive('gallerySingleProperty', function() {
     return {
         restrict: 'E',
         scope: {  
             showGallery: '=',
-            items: '=',
+            showSkeleton: '=',
+            item: '=',
             showWidgets: '=',
-            galleryHeight: '=',
-            id: '='
+            galleryHeight: '='
         },
-        templateUrl: '/views/components/galleries/properties-generic/gallery-properties-generic.html',
+        templateUrl: '/views/components/galleries/single-property/gallery-single-property.html',
         controller: ['$scope', 'sliderMoves', '$element', function ($scope, sliderMoves, $element) {  
-            const gallerySlider = $element.find(".gallery-properties-generic-slider")[0];
+            const gallerySlider = $element.find(".gallery-single-property-slider")[0];
             const photoCounter = $element.find(".slider-photo-counter p")[0];
-                                    
+            
             $scope.isGalleryOpen = false;            
-            $scope.currentIndex = 1;
+            $scope.currentIndex = 1;            
             
             $scope.moveSlider = (side) => { 
                 $scope.currentIndex = sliderMoves.moveSlider(gallerySlider, $scope.currentIndex,
-                                                             $scope.items.length, side,
+                                                             $scope.item.photos.length, side,
                                                              gallerySlider.querySelector("img").offsetWidth);
                 setGalleryCounterLabel();
             };        
 
-            const setGalleryCounterLabel = () => photoCounter.innerHTML = `${$scope.currentIndex}/${$scope.items.length}`;        
+            const setGalleryCounterLabel = () => photoCounter.innerHTML = `${$scope.currentIndex}/${$scope.item.photos.length}`;        
 
             const sides = [
                 {
