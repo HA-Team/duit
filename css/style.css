@@ -10007,16 +10007,8 @@ div.layout-style {
 }
 
 @media only screen and (max-width: 1024px) {
-    body {
-        margin-top: 50px;
-    }
-
-    #propsListing {
-        margin-top: 20px;
-    }
-
-    #mobile-prop-detail {
-        margin-top: 20px;
+    #wrapper {
+        margin-top: 65px;
     }
 }
 

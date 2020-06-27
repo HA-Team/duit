@@ -401,7 +401,12 @@ a.property-type + ul li:hover {
 }
 
 #home-search-bar {
+  margin-top: -50px;
   height: 400px;
+}
+
+#home-contact-globe .contact-globe {
+  margin-bottom: 20px;
 }
 
 @media (max-width: 767px) {
