@@ -77,18 +77,18 @@ app.controller('home', function($rootScope, $scope, navigation, utils) {
   featuredSection.style.height = `calc(${numberOfFeaturedSections * 50}vh + ${numberOfFeaturedSections * 40}px`;
       
   function onScroll() {
-    const duitFeatured = document.querySelector("#home-featured");
-    const services = document.querySelector("#home-services");
-    const assesors = document.querySelector("#home-assesors");
-    const contact = document.querySelector("#home-contact");
+    const duitFeaturedTop = document.querySelector("#home-featured").offsetTop ?? 0;
+    const servicesTop = document.querySelector("#home-services").offsetTop ?? 0;
+    const assesorsTop = document.querySelector("#home-assesors").offsetTop ?? 0;
+    const contactTop = document.querySelector("#home-contact").offsetTop ?? 0;
 
     const scrollY = window.scrollY;
     
     switch (true) {
-      case scrollY > contact.offsetTop - 100: $rootScope.activeSection = 'home-contact'; break;  
-      case scrollY > assesors.offsetTop - 100: $rootScope.activeSection = 'home-assesors'; break;
-      case scrollY > services.offsetTop - 100: $rootScope.activeSection = 'home-services'; break;
-      case scrollY > duitFeatured.offsetTop - 100: $rootScope.activeSection = 'home-featured-anchor'; break;
+      case scrollY > contactTop - 100: $rootScope.activeSection = 'home-contact'; break;  
+      case scrollY > assesorsTop - 100: $rootScope.activeSection = 'home-assesors'; break;
+      case scrollY > servicesTop - 100: $rootScope.activeSection = 'home-services'; break;
+      case scrollY > duitFeaturedTop - 100: $rootScope.activeSection = 'home-featured-anchor'; break;
       default: $rootScope.activeSection = ''; break;
     }    
   
