@@ -27,8 +27,6 @@ app.controller('featuredProps', function($scope, tokkoApi) {
     });
 
     $scope.featured = props;
-    console.log(props);
-    
     
     const propsWith360 = props.filter(prop => prop.prop.videos.some(video => video.provider_id == 6));
     
