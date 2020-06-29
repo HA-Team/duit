@@ -53,7 +53,7 @@
     flex-direction: row;
     flex-wrap: nowrap;
     overflow: hidden;  
-    align-items: center; 
+    align-items: flex-start;
     scroll-behavior: smooth;
 }
 
@@ -61,8 +61,10 @@
     position: absolute;
     display: flex;
     justify-content: space-between;
-    width: 90%;
+    width: 100%;
+    padding: 0 25px;
     align-self: center;
+    top: 25vh;
 }
 
 .gallery-multiple-properties .slider-arrows-container > i {
@@ -80,12 +82,12 @@
 }
 
 .gallery-multiple-properties {
-    height: 60vh;
+    height: 55vh;
     width: 100%;             
     margin: 10px 0px;    
     overflow: hidden;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 }
 
@@ -112,12 +114,47 @@
     }
 }
 
-.gallery-multiple-properties-slider img {
-    width: 100%;  
-    height: auto;  
-    padding: 5px;
+.gallery-multiple-properties-slider a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;    
+    width: 100%;
     flex-grow: 0;
-    flex-shrink: 0;    
+    flex-shrink: 0;
+}
+
+.gallery-multiple-properties-slider a img {
+    width: 100%;
+    height: 40vh;
+    padding: 5px;
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.gallery-multiple-properties .slider-info-card {
+    width: calc(100% - 10px);
+    height: 15vh;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.gallery-multiple-properties .slider-info-card p {
+    margin: 0;
+    line-height: normal;
+    font-size: 15px;
+    color: black;
+}
+
+.gallery-multiple-properties .slider-info-card p.info-card-price {
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .gallery-multiple-properties .silder-widgets-container {

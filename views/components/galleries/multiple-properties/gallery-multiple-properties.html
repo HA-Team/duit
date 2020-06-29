@@ -1,4 +1,4 @@
-<section class="gallery-multiple-properties" ng-class="{' open': isGalleryOpen}" ng-style="getSectionStyle()">
+<section class="gallery-multiple-properties" ng-class="{' open': isGalleryOpen}">
       
     <!-- Skeleton -->
     <div class="skeleton-container" ng-show="!showGallery && showSkeleton">
@@ -17,7 +17,15 @@
   
     <!-- Slider Single Property -->
     <div class="gallery-multiple-properties-slider" ng-show="showGallery">
-      <img ng-repeat="item in items" src="{{item.coverPhoto}}">
+      <a ng-repeat="item in items" href="/#!/property/{{item.id}}">
+        <img src="{{item.coverPhoto}}">
+        <!-- Info Card -->
+        <div class="slider-info-card" ng-show="showInfoCard && showGallery">
+          <p class="info-card-title">{{item.title}}</p>
+          <p class="info-card-price">{{item.price | currency:item.currency:0}}</p>
+        </div>
+        <!-- Info Card End-->
+      </a>
     </div>
     
     <!-- Widgets -->

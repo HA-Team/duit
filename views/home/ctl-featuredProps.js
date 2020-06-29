@@ -27,16 +27,20 @@ app.controller('featuredProps', function($scope, tokkoApi) {
     });
 
     $scope.featured = props;
+    console.log(props);
     
-    $scope.featuredGalleryMap = $scope.featured.map(item => {
+    
+    const propsWith360 = props.filter(prop => prop.prop.videos.some(video => video.provider_id == 6));
+    
+    $scope.featuredGalleryMap = propsWith360.map(item => {
       return {
         id: item.id,
         coverPhoto: item.cover_photo,
         price: item.price,
         currency: item.currency,
-        subTitle: item.prop.location.short_location         
+        title: item.title
       }
-    });  
+    });
 
     $scope.featuredPropsReady = true;
     $scope.$apply();

@@ -72,9 +72,6 @@ app.controller('home', function($rootScope, $scope, navigation, utils) {
   $scope.goToSection = (page, section) => navigation.goToSection(page, section);
   
   const featuredSection = document.getElementById('home-featured');
-  const numberOfFeaturedSections = [...featuredSection.querySelectorAll(".home-featured-section")].length;
-  
-  featuredSection.style.height = `calc(${numberOfFeaturedSections * 50}vh + ${numberOfFeaturedSections * 40}px`;
       
   function onScroll() {
     const duitFeaturedTop = document.querySelector("#home-featured").offsetTop ?? 0;

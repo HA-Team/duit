@@ -4,14 +4,14 @@ app.directive('galleryMultipleProperties', function() {
         scope: {  
             showGallery: '=',
             showSkeleton: '=',
+            showInfoCard: '=',
             items: '=',
-            showWidgets: '=',
-            galleryHeight: '='
+            showWidgets: '='
         },
         templateUrl: '/views/components/galleries/multiple-properties/gallery-multiple-properties.html',
         controller: ['$scope', 'sliderMoves', '$element', function ($scope, sliderMoves, $element) {  
             const gallerySlider = $element.find(".gallery-multiple-properties-slider")[0];
-            const photoCounter = $element.find(".slider-photo-counter p")[0];            
+            const photoCounter = $element.find(".slider-photo-counter p")[0];
             
             $scope.isGalleryOpen = false;            
             $scope.currentIndex = 1;            
@@ -66,14 +66,6 @@ app.directive('galleryMultipleProperties', function() {
                   header.style.display = "block";                    
                   body.style.overflow = "visible";
                 }
-            };
-
-            $scope.getSectionStyle = () => {
-                const styles = {};
-
-                styles.height = $scope.galleryHeight ?? '';                
-
-                return styles;
             };
         }]            
     }
