@@ -1,4 +1,4 @@
-app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties, sliderMoves, utils) {   
+app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties, utils) {   
   $scope.utils = utils;
   
   $rootScope.activeMenu = '';
@@ -96,12 +96,17 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, 
     $scope.$apply();
 
     uiFunctions.showMoreButton();
-    uiFunctions.buildSlickCarousel();
     uiFunctions.buildMagnificPopup();
 
-    getFeaturedProperties.getFeatured($scope, tokkoApi);
     getFeaturedProperties.getSimilar($scope, tokkoApi);    
     
+    if (window.innerWidth > 1024) {
+      getFeaturedProperties.getFeatured($scope, tokkoApi);
+      uiFunctions.buildSlickCarousel();
+    } else {
+      getFeaturedProperties.getFeaturedMobile($scope, tokkoApi);
+    }
+
     setTimeout(() => {
       google.maps.event.trigger(map, 'resize');
       google.maps.event.trigger(mobileMap, 'resize');
