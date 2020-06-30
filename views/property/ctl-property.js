@@ -96,16 +96,11 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, 
     $scope.$apply();
 
     uiFunctions.showMoreButton();
+    uiFunctions.buildSlickCarousel();
     uiFunctions.buildMagnificPopup();
 
     getFeaturedProperties.getSimilar($scope, tokkoApi);    
-    
-    if (window.innerWidth > 1024) {
-      getFeaturedProperties.getFeatured($scope, tokkoApi);
-      uiFunctions.buildSlickCarousel();
-    } else {
-      getFeaturedProperties.getFeaturedMobile($scope, tokkoApi);
-    }
+    getFeaturedProperties.getFeatured($scope, tokkoApi);
 
     setTimeout(() => {
       google.maps.event.trigger(map, 'resize');
