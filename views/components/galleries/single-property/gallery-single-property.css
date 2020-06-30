@@ -112,12 +112,17 @@
     }
 }
 
-.gallery-single-property-slider img {
+.gallery-single-property-slider img,
+.gallery-single-property-slider iframe {
     width: 100%;  
     height: auto;  
     padding: 5px;
     flex-grow: 0;
     flex-shrink: 0;    
+}
+
+.gallery-single-property-slider iframe {
+    height: calc(100vw / 1.4); 
 }
 
 .gallery-single-property .silder-widgets-container {

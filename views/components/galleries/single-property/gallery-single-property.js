@@ -13,17 +13,17 @@ app.directive('gallerySingleProperty', function() {
             const gallerySlider = $element.find(".gallery-single-property-slider")[0];
             const photoCounter = $element.find(".slider-photo-counter p")[0];
             
-            $scope.isGalleryOpen = false;            
-            $scope.currentIndex = 1;            
+            $scope.isGalleryOpen = false;
+            $scope.currentIndex = 1;
             
             $scope.moveSlider = (side) => { 
                 $scope.currentIndex = sliderMoves.moveSlider(gallerySlider, $scope.currentIndex,
-                                                             $scope.item.photos.length, side,
+                                                             $scope.item.photos.length + $scope.item.videos.length, side,
                                                              gallerySlider.querySelector("img").offsetWidth);
                 setGalleryCounterLabel();
             };        
 
-            const setGalleryCounterLabel = () => photoCounter.innerHTML = `${$scope.currentIndex}/${$scope.item.photos.length}`;        
+            const setGalleryCounterLabel = () => photoCounter.innerHTML = `${$scope.currentIndex}/${$scope.item.photos.length + $scope.item.videos.length}`;        
 
             const sides = [
                 {

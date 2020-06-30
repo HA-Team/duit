@@ -25,11 +25,15 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, 
       area: result.type.id === 1 ? result.surface : result.roofed_surface,   
       state: result.location.short_location.replace(/\s\|.*/, ""),      
       prop: result,
+      videos: result.videos,
+      hasDuit360: result.videos.some(video => video.provider_id == 6),
+      video_url: result.videos.length ? result.videos[0].player_url + "?rel=0&enablejsapi=1" : null
     };
 
     $scope.propertyMapped = {
-      photos: result.photos
-    };    
+      photos: result.photos,
+      videos: result.videos
+    };
 
     $scope.featuresItems = [
       {

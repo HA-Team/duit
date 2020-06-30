@@ -242,8 +242,13 @@
   
   <div ng-show="apiReady">
     
+    <!-- Video player -->
+    <div ng-show="p.hasDuit360">
+      <iframe ng-src="{{p.video_url | trusted}}" class="video-player" allowFullScreen="true"> </iframe>
+    </div>
+
     <!-- Gallery Slider  -->
-    <gallery-single-property item="propertyMapped" show-widgets="true" show-gallery="apiReady" show-skeleton="false"></gallery-single-property>   
+    <gallery-single-property ng-show="!p.hasDuit360" item="propertyMapped" show-widgets="true" show-gallery="apiReady" show-skeleton="false"></gallery-single-property>   
     <!-- Gallery Slider End -->
 
     <!-- Subtitle -->

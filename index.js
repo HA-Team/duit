@@ -68,3 +68,10 @@ app.controller('startUp', function($rootScope) {
     return $rootScope.favorites.props.findIndex(p => p.id === propId) === -1 ? false : true;
   };
 });
+
+// Filter to white list urls to embbed videos in iframes (required by angular)
+app.filter('trusted', ['$sce', function ($sce) {
+  return function(url) {
+      return $sce.trustAsResourceUrl(url);
+  };
+}]); 

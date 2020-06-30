@@ -335,3 +335,9 @@
         background-position: 80vw;
     }
 }
+
+.video-player {
+    width: 100%;
+    border: none;
+    height: 60vh;
+}
