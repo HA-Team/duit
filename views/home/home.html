@@ -1,250 +1,297 @@
-<!-- Made with: index.html and index-2.html-->
-<!-- Banner -->
-<div id="home-search-bar" ui-router-styles  class="parallax" data-background="images/home-parallax.jpg" data-color="#36383e"
-  data-color-opacity="0.75" data-img-width="2500" data-img-height="1600">
-  <div class="parallax-content">
+<div ng-controller="home">
 
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
+  <!-- Searcher Section -->
+  <section id="home-search-bar" ui-router-styles  class="parallax" data-background="images/home-parallax.jpg" data-color="#36383e"
+    data-color-opacity="0.75" data-img-width="2500" data-img-height="1600" ng-controller="homeSearch">
 
-          <!-- Main Search Container -->
-          <div class="main-search-container">
-            <h2>¿Qué estás buscando?</h2>
-            
-            <!-- Main Search -->
-            <form class="main-search-form" ng-controller="homeSearch">
-              
-              <!-- Type -->
-              <div class="search-type">
-                <label class="active"><input class="first-tab operationType" ng-model="operationType" name="tab" checked="checked" type="radio" value="2">Alquiler</label>
-                <label><input class="operationType" ng-model="operationType" name="tab" type="radio" value="1">Venta</label>
-              </div>
+    <div class="parallax-content">
 
-              <!-- Property Type -->
-              <div class="property-type-dropdown-container" ng-class="{' warning': isPropertyPlaceholderWarningActive}">
-                <a class="property-type" ng-click="togglePropertyTypeDropdown()" ng-class="{' open': isPropertyTypeOpen}">{{propertyType.name}} <i class="fas fa-angle-down"></i></a>                      
-                <ul class="col-md-5" ng-class="{' open': isPropertyTypeOpen}">
-                  <li ng-repeat="type in propertiesTypes track by type.id" ng-click="updateTypeChosen(type)">{{type.name}}</li>                        
-                </ul>
-              </div>
-              
-              <div class="property-selects-background" ng-click="closeOpenSelects()" ng-show="isSubPropertyTypeOpen || isPropertyTypeOpen"></div>
-              
-              <button class="button" ng-click="findProperties()">Buscar <i class="fas fa-search"></i></button>
-
-            </form>
-            <!-- Main Search -->
-
-          </div>
-          <!-- Main Search Container / End -->
-
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-    
-<!-- Services Section -->
-<section id="home-services" class="hidden-on-desktop" ng-controller="home"> 
-
-  <div class="home-services-container">
-    <h3>Servicios</h3>
-    <div class="home-services-imgs">
-      <div ng-repeat="service in servicesLinks">
-        <a ng-click="goToSection(service.goTo)"><img src="{{service.imgSrc}}"></a>
-      </div>
-    </div>
-  </div>
-
-</section>
-<!-- Services Section End -->
-
-<!-- Assesors Section -->
-<section id="home-assesors" class="home-agents hidden-on-desktop" id="agents" ng-controller="home">
-
-  <div class="home-agents-title">
-    <img src="/images/consejeros.png" alt="">
-  </div>
-
-  <div class="home-agent-card" ng-repeat="agent in agents">
-    <img src="{{agent.pic}}" alt="">
-    <p>{{agent.name}}</p>
-    <a href="tel:{{agent.phone}}">{{agent.phone}}</a>
-
-    <div class="home-agent-card-icons">
-      <a href="mailto:{{agent.email}}"><i class="fa fa-envelope"></i></a>
-      <a href="https://api.whatsapp.com/send?phone={{formatCellPhone(agent.phone)}}"><i class="fab fa-whatsapp"></i></a>
-    </div>
-  </div>
-
-</section>
-<!-- Assesors Section End -->
-
-<!-- Services Description Section -->
-<section id ="home-services-description" class="fullwidth margin-top-0" data-background-color="#f7f7f7" ng-controller="home">
-
-  <!-- Box Headline -->
-  <h3 class="headline-box">¿Qué necesitás?</h3>
-    
-  <!-- Icon Boxes -->
-  <div class="icon-boxes-container">
-    <div class="icon-box-1" ng-repeat="service in services" id="{{service.anchorName}}">
-      <div class="icon-container">
-        <img src="{{service.imgSrc}}">
-        <div class="icon-links">
-          <a ng-click="goToSection(service.goTo)">{{service.linkTitle}}</a>
-        </div>
-      </div>
-      <h3>{{service.mainTitle}}</h3>
-      <p>{{service.description}}</p>
-    </div>     
-  </div>
- 
-</section>
-<!-- Services Description Section End -->
-
-<!-- Assesors Section -->
-<section class="home-agents hidden-on-desktop" id="agents" ng-controller="home">
-  <div class="home-agents-title">
-    <img src="/images/consejeros.png" alt="">
-  </div>
-  <div class="home-agent-card" ng-repeat="agent in agents">
-    <img src="{{agent.pic}}" alt="">
-    <p>{{agent.name}}</p>
-    <a href="tel:{{agent.phone}}">{{agent.phone}}</a>
-    <div class="home-agent-card-icons">
-      <a href="mailto:{{agent.email}}"><i class="fa fa-envelope"></i></a>
-      <a href="https://api.whatsapp.com/send?phone={{formatCellPhone(agent.phone)}}"><i class="fab fa-whatsapp"></i></a>
-    </div>
-  </div>
-</section>
-<!-- Assesors Section End -->
-
-<!-- Parallax -->
-<div id="home-us" class="parallax margin-bottom-70"
-  data-background="/images/team/team-4.jpg"
-  data-color="#36383e"
-  data-color-opacity="0.7"
-  data-img-width="900"
-  data-img-height="505"
-  data-z-index="1">
-
-  <!-- Infobox -->
-  <div class="text-content white-font">
-    <div class="container">
-
-      <div class="row">
-        <div class="col-lg-6 col-sm-8">
-          <h2>Nosotros.</h2>
-          <p>En Duit contamos con más de 10 años de experiencia en el mercado inmobiliario, somos personas con un mismo sueño, con una misma forma de ver la vida, de superarnos, de dar lo mejor.
-Comprendemos la importancia y trascendencia que tiene en la vida de las personas, la compra o alquiler de una vivienda, local comercial o cualquier otro tipo de transacción inmobiliaria. 
-Generamos vínculos a largo plazo, y trabajamos enfocados en lograr que el beneficio sea para todos. 
-Se trata de identidad, de valores, de una forma de hacer las cosas, y aconsejar, es la única que nos representa. </p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Infobox / End -->
-
-</div>
-<!-- Parallax / End -->
-
-<!-- Featured -->
-<div class="container" ng-controller='featuredProps'>
-  <div class="row">
-  
-    <div class="col-md-12">
-      <h3 class="headline margin-bottom-25">Destacados</h3>
-    </div>
-    <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="apiReady"></div>
-    <!-- Carousel -->
-    <div class="col-md-12" ng-show="apiReady">
-      <div class="carousel">
+      <!-- Main Search Container -->
+      <div class="main-search-container">
+        <h2>Encontrá el <strong>lugar</strong>, construí tu <strong>historia</strong>.</h2>
         
-        <!-- Listing Item -->
-        <div class="carousel-item" ng-repeat="p in featured">
-          <div class="listing-item compact">
+        <!-- Main Search -->
+        <form class="main-search-form">
+          
+          <!-- Type -->
+          <div class="search-type">
+            <label class="active"><input class="first-tab operationType" ng-model="operationType" name="tab" checked="checked" type="radio" value="2">Alquiler</label>
+            <label><input class="operationType" ng-model="operationType" name="tab" type="radio" value="1">Venta</label>
+          </div>
 
-            <a ui-sref="property({propertyId: p.id})" class="listing-img-container">
+          <!-- Property Type -->
+          <div class="property-type-dropdown-container" ng-class="{' warning': isPropertyPlaceholderWarningActive}">
+            <a class="property-type" ng-click="togglePropertyTypeDropdown()" ng-class="{' open': isPropertyTypeOpen}">{{propertyType.name}} <i class="fas fa-angle-down"></i></a>                      
+            <ul class="col-md-5" ng-class="{' open': isPropertyTypeOpen}">
+              <li ng-repeat="type in propertiesTypes track by type.id" ng-click="updateTypeChosen(type)">{{type.name}}</li>                        
+            </ul>
+          </div>
+          
+          <div class="property-selects-background" ng-click="closeOpenSelects()" ng-show="isSubPropertyTypeOpen || isPropertyTypeOpen"></div>
+          
+          <button class="button" ng-click="findProperties()">Buscar <i class="fas fa-search"></i></button>
 
-              <div class="listing-badges">
-                <span class="featured">Destacado</span>
-                <span>{{p.type}}</span>
+        </form>
+        <!-- Main Search -->
+
+      </div>
+      <!-- Main Search Container / End -->
+
+    </div>
+
+  </section>
+  <!-- Searcher Section End-->
+
+  <!-- Fullwidth Section -->
+  <section class="fullwidth margin-top-0 hidden-on-mobile" data-background-color="#f7f7f7">
+
+    <!-- Box Headline -->
+    <h3 class="headline-box">¿Qué necesitás?</h3>
+    
+    <!-- Content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-6">
+          <!-- Icon Box -->
+          <div class="icon-box-1">
+            <div class="icon-container">
+              <i class="fas fa-building"></i>
+              <div class="icon-links">
+                <a ui-sref="contactUs">Contactános</a>
               </div>
-
-              <div class="listing-img-content">
-                <span class="listing-compact-title">{{p.title}} <i ng-show="p.prop.web_price">{{ p.price | currency:p.currency:0}}</i></span>
-
-                <ul class="listing-hidden-content">
-                  <li>Superficie <span>{{p.area}} M2</span></li>
-                  <li><i class="fa fa-bed"></i> <span>{{p.rooms}}</span></li>
-                  <li><i class="fa fa-bath"></i> <span>{{p.baths}}</span></li>
-                  <li><i class="fa fa-car"></i> <span>{{p.parkings}}</span></li>
-                </ul>
-              </div>
-
-              <img src="{{p.cover_photo}}" alt="">
-            </a>
-
+            </div>
+            <h3>Te asesoramos</h3>
+            <p>El equipo profesional de Duit te asistirá en todo momento, bridandote todo el asesoramiento necesario para que tomes la decisión mas adecuada.</p>
           </div>
         </div>
-        <!-- Listing Item / End -->
+        <div class="col-md-4 col-sm-6">
+          <!-- Icon Box -->
+          <div class="icon-box-1">
+            <div class="icon-container">
+              <i class="fas fa-home"></i>
+              <div class="icon-links">
+                <a ui-sref="contactUs">Contactános</a>
+              </div>
+            </div>
+            <h3>Valuamos tu casa</h3>
+            <p>¿Querés saber cual es el valor de tu propiedad? Nuestro Staff de asesores matriculados CPCPI valuarán profesionalmente tus bienes.</p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <!-- Icon Box -->
+          <div class="icon-box-1">
+            <div class="icon-container">
+              <i class="far fa-building"></i>
+              <div class="icon-links">
+                <a ui-sref="developments">Mas info</a>
+              </div>
+            </div>
+            <h3>Emprendimientos</h3>
+            <p>Seleccionamos los mejores emprendimientos y las mejores empresas desarrollistas del mercado para ponerlos a tu alcance.</p>
+          </div>
+        </div>
 
       </div>
     </div>
-    <!-- Carousel / End -->
+  </section>
+  <!-- Fullwidth Section / End -->
 
-  </div>
+  <!-- Us Section -->
+  <section id="home-us" class="parallax margin-bottom-70 hidden-on-mobile"
+    data-background="/images/team/team-4.jpg"
+    data-color="#36383e"
+    data-color-opacity="0.7"
+    data-img-width="900"
+    data-img-height="505"
+    data-z-index="1">
+
+    <!-- Infobox -->
+    <div class="text-content white-font">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-6 col-sm-8">
+            <h2>Nosotros.</h2>
+            <p>En Duit contamos con más de 10 años de experiencia en el mercado inmobiliario, somos personas con un mismo sueño, con una misma forma de ver la vida, de superarnos, de dar lo mejor.
+  Comprendemos la importancia y trascendencia que tiene en la vida de las personas, la compra o alquiler de una vivienda, local comercial o cualquier otro tipo de transacción inmobiliaria. 
+  Generamos vínculos a largo plazo, y trabajamos enfocados en lograr que el beneficio sea para todos. 
+  Se trata de identidad, de valores, de una forma de hacer las cosas, y aconsejar, es la única que nos representa. </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Infobox / End -->
+
+  </section>
+  <!-- Us Section End -->
+
+  <!-- Desktop Featured -->
+  <section class="container hidden-on-mobile" ng-controller='featuredProps'>
+    <div class="row">
+    
+      <div class="col-md-12">
+        <h3 class="headline margin-bottom-25">Destacados</h3>
+      </div>
+      <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="featuredPropsReady"></div>
+      <!-- Carousel -->
+      <div class="col-md-12" ng-show="featuredPropsReady">
+        <div class="carousel">
+          
+          <!-- Listing Item -->
+          <div class="carousel-item" ng-repeat="p in featured">
+            <div class="listing-item compact">
+
+              <a ui-sref="property({propertyId: p.id})" class="listing-img-container">
+
+                <div class="listing-badges">
+                  <span class="featured">Destacado</span>
+                  <span>{{p.type}}</span>
+                </div>
+
+                <div class="listing-img-content">
+                  <span class="listing-compact-title">{{p.title}} <i ng-show="p.prop.web_price">{{ p.price | currency:p.currency:0}}</i></span>
+
+                  <ul class="listing-hidden-content">
+                    <li>Superficie <span>{{p.area}} M2</span></li>
+                    <li><i class="fa fa-bed"></i> <span>{{p.rooms}}</span></li>
+                    <li><i class="fa fa-bath"></i> <span>{{p.baths}}</span></li>
+                    <li><i class="fa fa-car"></i> <span>{{p.parkings}}</span></li>
+                  </ul>
+                </div>
+
+                <img src="{{p.cover_photo}}" alt="">
+              </a>
+
+            </div>
+          </div>
+          <!-- Listing Item / End -->
+
+        </div>
+      </div>
+      <!-- Carousel / End -->
+
+    </div>
+  </section>
+  <!-- Desktop Featured / End -->  
+
+  <!-- Mobile Featured Section -->
+  <section id="home-featured" class="hidden-on-desktop" ng-controller='featuredProps'>
+    
+    <div class="home-featured-container">
+
+      <div class="home-featured-title" id="home-featured-anchor">
+        <p>¿Qué Necesitas?</p>
+      </div>
+
+      <!-- 360 -->
+      <div class="home-featured-section">
+        <h5>Duit Destacadas 360º</h5>      
+        <gallery-multiple-properties items="featuredGalleryMap" show-widgets="false" show-gallery="featuredPropsReady"
+            show-skeleton="true" show-info-card="true"></gallery-properties-generic>
+      </div>
+      <!-- Featured End -->
+
+    </div>
+    
+  </section>
+  <!-- Mobile Featured Section End -->
+      
+  <!-- Services Section -->
+  <section id="home-services" class="hidden-on-desktop"> 
+
+    <div class="home-services-container">
+      <h3>Servicios</h3>
+
+      <div class="home-services-imgs">
+        <div ng-repeat="service in services" class="home-services-img-container">
+          <a ng-click="goToSection('', service.goTo); service.action()"><img src="{{service.imgSrc}}"></a>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <!-- Services Section End -->
+
+  <!-- Assesors Section -->
+  <section id="home-assesors" class="home-agents hidden-on-desktop" id="agents">
+
+    <div class="home-agents-title">
+      <img src="/images/consejeros.png" alt="">
+    </div>
+
+    <div class="home-agents-description">
+      <p>
+        En Duit contamos con más de 10 años de experiencia en el mercado inmobiliario, somos personas con un mismo sueño, con una misma forma de ver la vida, de superarnos, de dar lo mejor.
+        <br><br>
+        Comprendemos la importancia y trascendencia que tiene en la vida de las personas, la compra o alquiler de una vivienda, local comercial o cualquier otro tipo de transacción inmobiliaria
+        <br><br>
+        Generamos vínculos a largo plazo, y trabajamos enfocados en lograr que el beneficio sea para todos.
+        <br><br>
+        Se trata de identidad, de valores, de una forma de hacer las cosas, y aconsejar, es la única que nos representa.
+      </p>
+    </div>
+
+    <div class="home-agent-card" ng-repeat="agent in agents">
+      <img src="{{agent.pic}}" alt="">
+      <p>{{agent.name}}</p>
+      <a href="tel:{{agent.phone}}">{{agent.phone}}</a>
+
+      <div class="home-agent-card-icons">
+        <a href="mailto:{{agent.email}}"><i class="fa fa-envelope"></i></a>
+        <a href="https://api.whatsapp.com/send?phone={{formatCellPhone(agent.phone)}}"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+
+  </section>
+  <!-- Assesors Section End -->    
+
+  <!-- Contact Section -->
+  <section id="home-contact" class="hidden-on-desktop">
+    <h3>Dejanos tu consulta</h3>
+
+    <form ng-controller="contactForm" id="contactform" autocomplete="on">
+      <div class="contact-form-group">
+        <input class="form-control" name="name" placeholder=" " type="text" ng-model="name" required="required" />
+        <label class="input-placeholder" for="name">Nombre *</label>
+      </div>
+
+      <div class="contact-form-group">
+        <input class="form-control" name="email" placeholder=" " type="email" ng-model="email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" required="required" />
+        <label class="input-placeholder" for="email">Email *</label>
+      </div>
+
+      <div class="contact-form-group">
+        <input class="form-control" name="subject" placeholder=" " type="text" ng-model="phone" />
+        <label class="input-placeholder" for="subject">Teléfono</label>
+      </div>
+
+      <div class="contact-form-group">
+        <textarea class="form-control" name="message" placeholder=" " cols="40" rows="3" ng-model="message" spellcheck="true" required="required"></textarea>
+        <label class="input-placeholder textarea-placeholder" for="message">Mensaje *</label>
+      </div>
+
+      <button class="button" ng-click="send()">Contactar<i class='fa fa-spinner fa-spin' ng-show="sending"></i></button>
+
+      <div class="notification success closeable" ng-show="success">
+        <p>Tu consulta fue enviada con éxito.</p>
+      </div>
+
+      <div class="notification success closeable" ng-show="error">
+        <p>Ha ocurrido un error al intentar enviar tu consulta. Perdon por las molestias.</p>
+      </div>
+
+    </form>
+  </section>
+  <!-- Contact Section End -->
+
+  <!-- Flying Contact Globe  -->
+  <ng-container id="home-contact-globe" ng-cloak class="hidden-on-desktop">
+    <contact-globe is-open="isContactGlobeOpen" main-img="'images/whatsapp-duit.png'" show-main-img-box-shadow="false"
+      title="contactGlobeTitle" actions="contactGlobeActions" toggle-modal="toggleContactModal()">
+    </contact-globe>
+  </ng-container>
+  <!-- Flying Contact Globe End -->
+  
 </div>
-<!-- Featured / End -->
-
-<!-- Contact -->
-<section id="home-contact" class="hidden-on-desktop">
-  <h3>Dejanos tu consulta</h3>
-
-  <form ng-controller="contactForm" id="contactform" autocomplete="on">
-    <div class="contact-form-group">
-      <input class="form-control" name="name" placeholder=" " type="text" ng-model="name" required="required" />
-      <label class="input-placeholder" for="name">Nombre *</label>
-    </div>
-
-    <div class="contact-form-group">
-      <input class="form-control" name="email" placeholder=" " type="email" ng-model="email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" required="required" />
-      <label class="input-placeholder" for="email">Email *</label>
-    </div>
-
-    <div class="contact-form-group">
-      <input class="form-control" name="subject" placeholder=" " type="text" ng-model="phone" />
-      <label class="input-placeholder" for="subject">Teléfono</label>
-    </div>
-
-    <div class="contact-form-group">
-      <textarea class="form-control" name="message" placeholder=" " cols="40" rows="3" ng-model="message" spellcheck="true" required="required"></textarea>
-      <label class="input-placeholder textarea-placeholder" for="message">Mensaje *</label>
-    </div>
-
-    <button class="button" ng-click="send()">Contactar<i class='fa fa-spinner fa-spin' ng-show="sending"></i></button>
-
-    <div class="notification success closeable" ng-show="success">
-      <p>Tu consulta fue enviada con éxito.</p>
-    </div>
-
-    <div class="notification success closeable" ng-show="error">
-      <p>Ha ocurrido un error al intentar enviar tu consulta. Perdon por las molestias.</p>
-    </div>
-
-  </form>
-</section>
-<!-- Contact End -->
-
-<!-- Contact Globe  -->
-<ng-container ng-controller='home' ng-cloak>
-  <contact-globe is-open="isContactGlobeOpen" main-img="'images/whatsapp-duit.png'" show-main-img-box-shadow="false"
-    title="contactGlobeTitle" actions="contactGlobeActions" toggle-modal="toggleContactModal()">
-  </contact-globe>
-</ng-container>
-<!-- Contact Globe End -->

@@ -15,7 +15,8 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
     {val: 'price_asc', text: 'Menor Precio'},
     {val: 'price_desc', text: 'Mayor Precio'},
     {val: 'id_asc', text: 'Más Recientes'}
-  ]
+  ];
+
   $scope.goLocation = (url) => {
     $state.go(url);
   }
@@ -43,7 +44,6 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
     data.filters = [$scope.rooms];
     if ($scope.minPrice) data.price_from = $scope.minPrice;
     if ($scope.maxPrice) data.price_to = $scope.maxPrice;
-    // if ($scope.subTypeSelected) {data.with_custom_tags = $scope.subTypeSelected;}
     args.data = JSON.stringify(data);
     args.order_by = $scope.order ? $scope.order.order_by : 'price';
     args.order = $scope.order ? $scope.order.order : 'asc';
@@ -84,8 +84,7 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
     }, 0);
   };
   $scope.loadMoreProps = () => {
-    const areAllPropsDisplayed = !$scope.sideBarParams ? true :
-                                  $scope.sideBarParams.operations.reduce((a, b) => a + b.count, 0) == $scope.results.length;
+    const areAllPropsDisplayed = !$scope.sideBarParams || !$scope.sideBarParams.operations ? true : $scope.sideBarParams.operations.reduce((a, b) => a + b.count, 0) == $scope.results.length;
     
     args.offset += 20;
     $scope.stopInfiniteScroll = true;
@@ -120,16 +119,10 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
         
     let item = e.target;
 
-    while (!item.classList.contains("mobile-filter-modal-item"))
-    {
-      item = item.parentElement;
-    }
+    while (!item.classList.contains("mobile-filter-modal-item")) item = item.parentElement;
 
-    if (item.classList.contains("active")) {
-      item.classList.remove("active");
-    } else {
-      item.classList.add("active");
-    }
+    if (item.classList.contains("active")) item.classList.remove("active");
+    else item.classList.add("active");
   }
 
   $scope.pluralize = (name) => ['a','e','i','o','u'].includes(name.slice(-1)) ? `${name}s` : `${name}es`;

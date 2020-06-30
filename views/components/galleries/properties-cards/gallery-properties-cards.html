@@ -1,0 +1,45 @@
+<section class="gallery-properties-cards">   
+  
+  <!-- Arrows -->
+  <div class="slider-arrows-container" ng-show="items.length > 1">
+    <i class="fa fa-angle-left" ng-click="moveSlider('left')"></i>
+    <i class="fa fa-angle-right" ng-click="moveSlider('right')"></i>
+  </div>
+
+  <!-- Slider -->
+  <div class="gallery-properties-cards-slider">      
+          
+    <!-- Skeleton Loader -->
+    <div ng-repeat="x in [].constructor(3) track by $index" ng-show="!showPhotos">
+      <div class="skeleton-container">
+        <div class="skeleton-image"></div>
+        <div class="skeleton-lines">
+          <div class="skeleton-line" ng-repeat="x in [].constructor(2) track by $index" ></div>                
+        </div>
+      </div>
+    </div>
+    <!-- Skeleton Loader End-->      
+
+    <!-- Items -->
+    <div class="gallery-properties-cards-emtpy-item" ng-show="showPhotos">&nbsp;</div>
+
+    <div class="gallery-properties-cards-item" ng-repeat="item in items track by $index" ng-class="{'active': $index + 1 == currentIndex}" ng-show="showPhotos">
+      <a ui-sref="property({propertyId: item.id})"><img src="{{item.photo}}" alt=""></a>
+      <div class="gallery-properties-cards-item-description-container">
+        <h4><strong>{{ item.price | currency:item.currency:0}}</strong></h4>
+        <p>{{item.area |number:0}}m<sup>2</sup>totales</p>
+        <p>
+          {{item.suitAmount > 1 ? item.suitAmount + ' dormitorios' : item.suitAmount + ' dormitorio'}} |
+          {{item.bathroomAmount > 1 ? item.bathroomAmount + ' baños' : item.bathroomAmount + ' baño'}}
+        </p>          
+        <p>{{item.title}}</p>
+      </div>         
+    </div>
+
+    <div class="gallery-properties-cards-emtpy-item" ng-show="showPhotos">&nbsp;</div>
+    <!-- Items End -->
+  
+  </div> 
+  <!-- Slider End --> 
+
+</section>

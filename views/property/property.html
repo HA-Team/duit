@@ -31,25 +31,6 @@
 <div class="margin-bottom-50 hidden-on-mobile">
   <!-- Slider Container -->
   <div class="property-slider-container">
-    <!-- Agent Widget -->
-      <!-- <div class="agent-widget" ng-controller="propContactForm">
-        <div class="agent-title">
-          <div class="agent-photo"><img src="{{p.prop.producer.picture}}" alt="" /></div>
-          <div class="agent-details">
-            <h4>{{p.prop.producer.name}}</h4>
-            <span><i class="sl sl-icon-call-in"></i>{{p.prop.producer.phone}}</span>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-        <input type="text" placeholder="Tu Email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" ng-model="email">
-        <input type="text" placeholder="Tu Teléfono" ng-model="phone">
-        <textarea ng-model="message"></textarea>
-        <div class="notification success closeable col-md-12" ng-show="success">
-          <p>Mensaje enviado con éxito.</p>
-        </div>
-        <button class="button fullwidth margin-top-5" ng-click="send()">{{submitText}} <i class='fa fa-spinner fa-spin' ng-show="sending"></i></button>
-      </div> -->
-      <!-- Agent Widget / End -->
     <!-- Slider -->
     <div class="property-slider no-arrows">
       <a  data-background-image="{{p.cover_photo_original}}" class="item"></a>
@@ -248,7 +229,7 @@
 <div id="mobile-prop-detail" ng-controller="property" class="hidden-on-desktop">
   
   <!-- Skeleton Loader -->
-  <div class="skeleton-container" ng-show="!apiReady">
+  <section class="skeleton-container" ng-show="!apiReady">
     <div class="skeleton-image"></div>
     <div class="skeleton-lines">
       <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
@@ -256,49 +237,13 @@
     <div class="skeleton-circles">
       <div ng-repeat="x in [].constructor(4) track by $index" class="skeleton-circle"></div>     
     </div>
-  </div>
+  </section>
   <!-- Skeleton Loader End -->
   
   <div ng-show="apiReady">
     
     <!-- Gallery Slider  -->
-    <section id="mobile-property-gallery-slider" class="mobile-property-gallery-slider" ng-class="{' open': isGalleryOpen}">
-      
-      <!-- Arrows -->
-      <div class="slider-arrows-container">
-        <i class="fa fa-angle-left"
-          data-side="left"
-          ng-click="moveSlider($event.target.offsetParent.nextElementSibling, p.prop.photos.length, 'currentPhoto', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.children[0].offsetWidth)">
-        </i>
-        <i class="fa fa-angle-right"
-          data-side="right"
-          ng-click="moveSlider($event.target.offsetParent.nextElementSibling, p.prop.photos.length, 'currentPhoto', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.children[0].offsetWidth)">
-        </i>
-      </div>
-
-      <!-- Slider -->
-      <div class="mobile-property-slider">
-        <img ng-repeat="i in p.prop.photos" src="{{i.image}}">
-      </div>      
-      
-      <!-- Widgets -->
-      <div class="mobile-silder-widgets-container">      
-        <div class="mobile-slider-open-gallery" ng-click="toggleGallery()">
-          <i class="fa fa-expand-arrows-alt" ng-show="!isGalleryOpen"></i>
-          <p ng-show="!isGalleryOpen">Galería</p>
-        </div>
-        <div class="mobile-slider-photo-counter">
-          <i class="fa fa-camera"></i>
-          <p>{{sliderCounters.currentPhoto}}/{{p.prop.photos.length}}</p>
-        </div>
-      </div>   
-
-      <!-- Close Gallery -->
-      <i class="fa fa-times" ng-click="toggleGallery()" ng-show="isGalleryOpen"></i>  
-    
-    </section>
-
-    <div class="mobile-modal-background" ng-click="toggleGallery()" ng-class="{' open': isGalleryOpen}"></div>    
+    <gallery-single-property item="propertyMapped" show-widgets="true" show-gallery="apiReady" show-skeleton="false"></gallery-single-property>   
     <!-- Gallery Slider End -->
 
     <!-- Subtitle -->
@@ -320,7 +265,7 @@
     <!-- Published Days -->
     <section class="mobile-property-created-at">
       <i class="fa fa-clock-o"></i>
-      <p>&nbsp;Publicado hace {{getDaysDifference(p.prop.created_at)}} días</p>
+      <p>&nbsp;Publicado hace {{utils.getDaysDifference(p.prop.created_at)}} días</p>
     </section>
     <!-- Published Days End -->
     
@@ -383,119 +328,15 @@
     </contact-globe>
     <!-- Contact Modal End -->
 
-  </section>
-
-  <!-- Featured Props -->
-  <section class="mobile-property-recomended margin-top-10">  
-    <h3>Te aconsejamos est{{featured.length == 1 ? 'e' : 'os'}} departamento{{featured.length == 1 ? '' : 's'}}</h3>    
-    
-    <!-- Arrows -->
-    <div class="slider-arrows-container">
-      <i class="fa fa-angle-left" 
-        data-side="left"
-        ng-click="moveSlider($event.target.offsetParent.nextElementSibling, featured.length, 'currentFeatured', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.children[4].offsetWidth)"
-        ng-show="featReady && featured.length > 1">
-      </i>  
-      <i class="fa fa-angle-right"
-        data-side="right"
-        ng-click="moveSlider($event.target.offsetParent.nextElementSibling, featured.length, 'currentFeatured', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.children[4].offsetWidth)"
-        ng-show="featReady && featured.length > 1">
-      </i>
-    </div>  
-
-    <!-- Slider -->
-    <div id="mobile-property-featured-slider" class="mobile-property-slider">
-                
-      <!-- Skeleton Loader -->
-      <div ng-repeat="x in [].constructor(3) track by $index" ng-show="!featReady">
-        <div class="skeleton-container">
-          <div class="skeleton-image"></div>
-          <div class="skeleton-lines">
-            <div class="skeleton-line" ng-repeat="x in [].constructor(2) track by $index" ></div>                
-          </div>
-        </div>
-      </div>
-      <!-- Skeleton Loader End-->      
+    <!-- Featured Props -->
+    <section class="mobile-property-featured">  
+      <h3>Te aconsejamos est{{featured.length == 1 ? 'a' : 'as'}} propiedad{{featured.length == 1 ? '' : 'es'}}</h3>    
       
-      <!-- Items -->
-      <div class="mobile-property-recomended-emtpy-item" ng-show="featReady">&nbsp;</div>
-      
-      <div class="mobile-property-recomended-item" ng-repeat="item in featured track by $index" ng-class="{'active': $index + 1 == sliderCounters.currentFeatured}" ng-show="featReady">
-        <a ui-sref="property({propertyId: item.id})"><img src="{{item.cover_photo}}" alt=""></a>
-        <div class="recomended-item-description-container">
-          <h4><strong>{{ item.price | currency:item.currency:0}}</strong></h4>
-          <p>{{item.area |number:0}}m<sup>2</sup>totales</p>
-          <p>
-            {{item.prop.suite_amount > 1 ? item.prop.suite_amount + ' dormitorios' : item.prop.suite_amount + ' dormitorio'}} |
-            {{item.prop.bathroom_amount > 1 ? item.prop.bathroom_amount + ' baños' : item.prop.bathroom_amount + ' baño'}}
-          </p>          
-          <p>{{item.prop.publication_title}}</p>
-        </div>         
-      </div>
-
-      <div class="mobile-property-recomended-emtpy-item">&nbsp;</div>
-      <!-- Items End -->      
-            
-    </div>
-
-  </section>
-  <!-- Featured Props End -->
-
-  <!-- Similar Props -->
-  <section class="mobile-property-recomended">  
-    <h3>Puede{{similar.lenght > 1 ? 'n' : ''}} intersarte</h3>    
-    
-    <!-- Arrows -->
-    <div class="slider-arrows-container">
-      <i class="fa fa-angle-left"
-        data-side="left"
-        ng-click="moveSlider($event.target.offsetParent.nextElementSibling, similar.length, 'currentSimilar', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.children[4].offsetWidth)"
-        ng-show="simReady && similar.length > 1">
-      </i> 
-      <i class="fa fa-angle-right"
-        data-side="right"
-        ng-click="moveSlider($event.target.offsetParent.nextElementSibling, similar.length, 'currentSimilar', $event.target.dataset.side, $event.target.offsetParent.nextElementSibling.children[4].offsetWidth)"
-        ng-show="simReady && similar.length > 1">
-      </i>
-    </div>
-
-    <!-- Slider -->
-    <div id="mobile-property-similar-slider" class="mobile-property-slider">
-            
-      <!-- Skeleton Loader -->
-      <div ng-repeat="x in [].constructor(3) track by $index" ng-show="!simReady">
-        <div class="skeleton-container">
-          <div class="skeleton-image"></div>
-          <div class="skeleton-lines">
-            <div class="skeleton-line" ng-repeat="x in [].constructor(2) track by $index"></div>            
-          </div>
-        </div>
-      </div>
-      <!-- Skeleton Loader End-->       
-      
-      <!-- Items -->     
-      <div class="mobile-property-recomended-emtpy-item" ng-show="simReady">&nbsp;</div>
-
-      <div class="mobile-property-recomended-item" ng-repeat="item in similar track by $index" ng-class="{'active': $index + 1 == sliderCounters.currentSimilar}" ng-show="simReady">
-        <a ui-sref="property({propertyId: item.id})"><img src="{{item.cover_photo}}" alt=""></a>
-        <div class="recomended-item-description-container">
-          <h4><strong>{{ item.price | currency:item.currency:0}}</strong></h4>
-          <p>{{item.area |number:0}}m<sup>2</sup>totales</p>
-          <p>
-            {{item.prop.suite_amount > 1 ? item.prop.suite_amount + ' dormitorios' : item.prop.suite_amount + ' dormitorio'}} |
-            {{item.prop.bathroom_amount > 1 ? item.prop.bathroom_amount + ' baños' : item.prop.bathroom_amount + ' baño'}}
-          </p>          
-          <p>{{item.prop.publication_title}}</p>
-        </div>         
-      </div>
-
-      <div class="mobile-property-recomended-emtpy-item">&nbsp;</div>
-      <!-- Items End -->            
-            
-    </div>
-
-  </section>
-  <!-- Similar Props End -->
+      <gallery-properties-cards items="featuredPropertiesMapped" show-photos="featReadyMobile"></gallery-properties-cards>
+    </section>
+    <!-- Featured Props End -->
+  
+  </div>
 
 </div>  
 <!-- Mobile Property Detail End -->

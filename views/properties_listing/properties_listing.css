@@ -1,6 +1,6 @@
 #propsListing fieldset {
   border: none;
-  border-top: 1px solid #c8001e;
+  border-top: 1px solid var(--primary-red);
 }
 #propsListing legend {
   text-align: center;

@@ -8,8 +8,8 @@
       <div class="mobile-main-header d-flex justify-content-between flex-row align-items-start">        
         
         <!-- Logo -->
-        <div id="logo" class="margin-left-20 margin-top-5">
-          <a href="index.html"><img src="/images/duit_id_blanco.png" alt=""></a>          
+        <div id="logo">
+          <a ui-sref="home"><img src="/images/duit_id_blanco.png" alt=""></a>          
         </div>
 
         <!-- Hamburger Menu -->  
@@ -21,10 +21,7 @@
 
       <!-- Arrow bellow Hamburguer Menu -->
       <div class="mobile-arrow-header d-flex flex-row-reverse">
-        <div class="mobile-arrow-header-item"></div>
-        <div class="mobile-arrow-header-item"></div>  
-        <div class="mobile-arrow-header-item"></div> 
-        <div class="mobile-arrow-header-item"></div>         
+        <div ng-repeat="x in [].constructor(4) track by $index" class="mobile-arrow-header-item"></div>    
       </div> 
 
     </div>     
@@ -33,22 +30,10 @@
     <div id="mobile-modal-nav" ng-class="{' open': isHamburgOpen}">
       <nav class="mobile-modal-container" >
         <ul>
-          <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'home'}"
-              ng-click="setActive('home'); toggleMenu();">            
-            <a ui-sref="home">Home</a>
+          <li ng-repeat="section in sections" class="mobile-menu-item" ng-class="{'current' : activeMenu == section.page && activeSection == section.section}"
+              ng-click="goToSection(section.page, section.section, section.args)">            
+            <a>{{section.title}}</a>
           </li>          
-          <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'agents'}"
-              ng-click="setActive('agents'); toggleMenu();">            
-            <a ui-sref="agents">Consejeros</a>
-          </li>
-          <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'developments'}"
-              ng-click="setActive('developments'); toggleMenu();">            
-            <a ui-sref="developments">Emprendimientos</a>
-          </li>
-          <li class="mobile-menu-item" ng-class="{'current' : activeMenu === 'contactUs'}"
-              ng-click="setActive('contactUs'); toggleMenu();">            
-            <a ui-sref="contactUs">Contacto</a>
-          </li>
         </ul>
       </nav>
       <div class="mobile-modal-background" ng-click="toggleMenu()"></div>
@@ -92,16 +77,6 @@
               <span class="data">San Luis 145, 1° Oficina H</span>
             </div>
           </li>
-
-          <!-- Uncomment when accounts was deployed on production -->
-          <!-- <li ng-controller="headerLogin">
-            <a ng-if="!loggedIn()" ui-sref="login" class="sign-in"><i class="fa fa-user"></i> Ingresar / Registrarse </a>
-            <a ng-if="loggedIn()" class="sign-in"><i class="fa fa-user"></i> {{Meteor.user().username}}<br />
-              <a ng-if="loggedIn()" href="" ng-click="logOut()" class="right">Salir</a>
-            </a>
-          </li> -->
-
-          <!-- <li class="with-btn"><a href="submit-property.html" class="button border">Submit Property</a></li> -->
         </ul>
       </div>
       <!-- Right Side Content / End -->
@@ -112,13 +87,17 @@
     <nav id="navigation" class="style-2" ng-controller="navigation">
       <div class="container">
           <ul id="responsive">
-            <li><a ng-click="setActive('home')" ng-class="{'current' : activeMenu === 'home'}" ui-sref="home">Home</a></li>
-            <!-- <li><a href="#nosotros" >Nosotros</a></li> -->
-            <li><a ng-click="setActive('agents')" ng-class="{'current' : activeMenu === 'agents'}" ui-sref="agents" >Consejeros</a>
+            <li>
+              <a ng-click="setActive('home')" ng-class="{'current' : activeMenu === 'home'}" ui-sref="home">Home</a>
             </li>
-            <li><a ng-click="setActive('developments')" ng-class="{'current' : activeMenu === 'developments'}" ui-sref="developments">Emprendimientos</a>
+            <li>
+              <a ng-click="setActive('agents')" ng-class="{'current' : activeMenu === 'agents'}" ui-sref="agents" >Consejeros</a>
             </li>
-            <li><a ng-click="setActive('contactUs')" ng-class="{'current' : activeMenu === 'contactUs'}" ui-sref="contactUs">Contacto</a>
+            <li>
+              <a ng-click="setActive('developments')" ng-class="{'current' : activeMenu === 'developments'}" ui-sref="developments">Emprendimientos</a>
+            </li>
+            <li>
+              <a ng-click="setActive('contactUs')" ng-class="{'current' : activeMenu === 'contactUs'}" ui-sref="contactUs">Contacto</a>
             </li>
             <li class="fav-link pull-right" ng-if="favorites.props.length > 0">
               <a ui-sref="favorites">{{favorites.props.length}} <i class="fa fa-star fa-lg"></i></a>

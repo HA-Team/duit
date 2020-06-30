@@ -1,10 +1,12 @@
 .property-type-dropdown-container {
   width: 100%;
   transition: box-shadow 0.3s ease-in-out;
+  border-radius: 10px;
 }
 
 .property-type-dropdown-container.warning {
   box-shadow: 0px 0px 4px 4px var(--primary-red);
+  border-radius: 10px;
 }
 
 a.property-type {
@@ -14,7 +16,7 @@ a.property-type {
   justify-content: space-between;
   overflow: hidden;
   padding: 0 0 0 18px;
-  height: 51px;
+  height: 35px;
   line-height: 51px;
   border: 1px solid #e0e0e0;
   background-color: #fcfcfc;
@@ -26,6 +28,12 @@ a.property-type {
   cursor: pointer;
   margin-bottom: 18px;
   z-index: 100;
+  border-radius: 10px;
+}
+
+a.property-type.open {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 
 a.property-type i {
@@ -44,8 +52,8 @@ a.property-type + ul {
   width: 100%;
   list-style-type: none;
   background-color: #fcfcfc;
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
   height: 0px;
   overflow: hidden;
   margin-top: -21px;
@@ -58,16 +66,20 @@ a.property-type + ul.open {
   top: inherit;
   height: fit-content;
   height: -moz-max-content;
-  padding: 10px;
+  padding: 0px;
 }
 
 a.property-type + ul li {
   list-style-type: none;
   line-height: 20px;
-  padding: 10px 10px 10px 25px;
-  border-radius: 3px;
+  padding: 7px 10px 7px 25px;  
   transition: all 0.2s ease-in-out;
   cursor: pointer;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+a.property-type + ul li:last-child {
+  border-bottom: none;
 }
 
 a.property-type + ul li:hover {
@@ -97,7 +109,12 @@ a.property-type + ul li:hover {
 .home-agents .home-agents-title {
   flex: 1 1 100%;
   text-align: center;
-  margin: 20px 0px;
+  margin-top: 20px;
+}
+
+.home-agents .home-agents-description {
+  padding: 0 25px;
+  margin-bottom: 20px;
 }
 
 .home-agents .home-agents-title img {
@@ -140,15 +157,19 @@ a.property-type + ul li:hover {
   color: #707070;
 }
 
-.main-search-form button {
+.main-search-container .main-search-form button {
   width: 100%;
   min-width: 150px;
   margin-left: 15px;
   font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
 }
 
 .main-search-form button .fa-search {
-  padding-left: 5px;
+  padding-left: 5px;  
 }
 
 .main-search-form {
@@ -162,36 +183,14 @@ a.property-type + ul li:hover {
 }
 
 .main-search-form > * {
-  height: 50px;
+  height: 35px;
   max-width: 250px;
 }
 
 .main-search-form .search-type > * {
-  height: 50px;
-  line-height: 35px;
-}
-
-@media (max-width: 767px) {
-  .main-search-form button {
-    margin: 0px !important;
-  }
-
-  .main-search-form {
-    flex-direction: column;
-  }
-
-  .main-search-form > * {
-    margin-bottom: 15px;
-    max-width: 400px;
-  }
-
-  .main-search-form .search-type > * {
-    margin: 0px;
-  }
-
-  .main-search-form .search-type > *:first-child {
-    margin-right: 15px;
-  }
+  height: 35px;
+  line-height: normal;
+  border-radius: 10px;
 }
 
 #home-contact {
@@ -249,43 +248,28 @@ a.property-type + ul li:hover {
   width: 100%;
   max-width: 300px;
   margin: 0;
+  border-radius: 10px;
 }
 
 #home-services {
     background-color: #f7f7f7;
     width: 100%;
-    padding: 15px 0;
-    height: 450px;
-}
-
-@media (min-width:437px) {
-    #home-services {
-        height: 320px;
-    }
-}
-
-@media (min-width:698px) {
-    #home-services {
-        height: 190px;
-    }
 }
 
 #home-services .home-services-container {
     background-color: var(--primary-red);
-    position: absolute;
-    margin-top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: calc(100% - 30px);
-    border-radius: 3px;    
+    border-radius: 10px;  
+    margin: auto;
 }
 
 #home-services h3 {
     color: white;    
+    font-size: 16px;  
 }
 
 #home-services .home-services-imgs {
@@ -296,9 +280,17 @@ a.property-type + ul li:hover {
     width: 100%;
 }
 
+#home-services .home-services-img-container {
+  min-width: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #home-services .home-services-imgs img {    
-    width: 130px;
-    height: 130px;          
+    width: 100px;
+    height: 100px;          
+    cursor: pointer;
 }
 
 #home-services-description .icon-boxes-container {
@@ -351,4 +343,111 @@ a.property-type + ul li:hover {
   margin: 0;
   padding: 0;
   font-size: 14px;
+}
+
+#home-featured {
+  height: 60vh;
+  background-color: #f7f7f7;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#home-featured .home-featured-container {
+  position: absolute;
+  margin-top: -50px;
+  width: calc(100% - 30px);
+  border-radius: 10px;
+  background-color: white;    
+}
+
+#home-featured .home-featured-title {
+  position: absolute;
+  top: -53px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;  
+  background: rgb(0, 0, 0, 0.4);
+  width: 50%;
+  padding: 0px 15px;  
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+} 
+
+#home-featured .home-featured-title p {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 15px;
+  color: white;
+  margin: 0;
+}
+
+#home-featured .home-featured-section {
+  padding: 0 10px;
+}
+
+#home-featured .home-featured-section > h5 {
+  color: var(--primary-red);
+  font-weight: 700;
+  font-size: 16px;
+  padding: 15px 0 0 15px;
+  margin: 0;
+}
+
+#home-search-bar {
+  margin-top: -50px;
+  height: 400px;
+}
+
+#home-contact-globe .contact-globe {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 767px) {
+  .main-search-form button {
+    margin: 0px !important;
+  }
+
+  .main-search-form {
+    flex-direction: column;    
+  }
+
+  .main-search-container {
+    padding: 0px 15px;
+  }
+
+  .main-search-form > * {
+    margin-bottom: 15px;
+    max-width: 400px;
+  }
+
+  .main-search-form .search-type > * {
+    margin: 0px;
+  }
+
+  .main-search-form .search-type > *:first-child {
+    margin-right: 15px;
+  }  
+
+  #home-search-bar {
+    height: 450px;
+  }
+}
+
+@media (min-width:437px) {
+  #home-services {
+      height: 320px;
+  }
+}
+
+@media (min-width:698px) {
+  #home-services {
+      height: 190px;
+  }
 }

@@ -3,14 +3,17 @@ app.controller('footer', function($scope) {
   $(window).trigger('load')
 });
 
-app.controller('navigation', function($scope, $rootScope, $state){
-  $rootScope.activeMenu = 'home';
+app.controller('navigation', function($scope, $rootScope, $location) {
+  $rootScope.activeMenu = $location.$$path.replace('/', '');
+  $rootScope.activeSection = $location.hash();      
+  
   setTimeout(function(){
     uiFunctions.buildStickyHeader();
     uiFunctions.buildTopBarMobileMenu();
   }, 0);
-  $scope.setActive = function(state) {
-    $rootScope.activeMenu = state;
+  $scope.setActive = function(page, section) {
+    $rootScope.activeMenu = page;
+    $rootScope.activeSection = section ?? '';
   };
 });
 
@@ -24,32 +27,5 @@ app.controller('headerLogin', function($rootScope, $scope, $state) {
       $rootScope.$apply();
       $state.go('home');
     });
-  }
-});
-
-app.controller('mobile-header', function($scope) {
-  $scope.isHamburgOpen = false;
-  
-  $scope.toggleMenu = function () {
-    const filterModal = document.getElementById("mobile-props-filter-modal");
-    const orderModal = document.getElementById("mobile-props-order-modal");
-    
-    $scope.isHamburgOpen = !$scope.isHamburgOpen;     
-    
-    if (filterModal) filterModal.classList.remove("open");
-    
-    if (orderModal) orderModal.classList.remove("open");
-  }
-
-  var prevScrollpos = window.pageYOffset;
-  
-  window.onscroll = function() {
-  var currentScrollPos = window.pageYOffset;
-    if (prevScrollpos > currentScrollPos) {
-      document.getElementById("mobile-header").style.top = "0";
-    } else {
-      document.getElementById("mobile-header").style.top = "-65px";
-    }
-    prevScrollpos = currentScrollPos;
   }
 });
