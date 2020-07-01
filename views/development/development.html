@@ -294,7 +294,7 @@
   <div ng-show="apiReady">
     
     <!-- Gallery Slider  -->
-    <gallery-single-property item="developmentMapped" show-widgets="true" show-gallery="apiReady" show-skeleton="false"></gallery-single-property>   
+    <gallery-single-property ng-if="apiReady" item="developmentMapped" show-widgets="true" show-gallery="apiReady" show-skeleton="false"></gallery-single-property>   
     <!-- Gallery Slider End -->
 
     <!-- Subtitle -->

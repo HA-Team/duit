@@ -35,6 +35,8 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, 
       videos: result.videos
     };
 
+    $scope.showGallery = !$scope.p.hasDuit360;
+
     $scope.featuresItems = [
       {
         icon: "fas fa-ruler-vertical",
@@ -170,6 +172,7 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, 
   };
 
   $scope.toggleContactModal = () => $scope.isContactModalOpen = !$scope.isContactModalOpen;
+  $scope.toggleDuit360 = () => $scope.showGallery = !$scope.showGallery;
 
   $scope.contactGlobeOpenIcon = {
     iconClass: 'fab fa-whatsapp',

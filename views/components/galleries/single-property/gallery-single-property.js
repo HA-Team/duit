@@ -12,18 +12,21 @@ app.directive('gallerySingleProperty', function() {
         controller: ['$scope', 'sliderMoves', '$element', function ($scope, sliderMoves, $element) {  
             const gallerySlider = $element.find(".gallery-single-property-slider")[0];
             const photoCounter = $element.find(".slider-photo-counter p")[0];
+
+            $scope.item.videos = $scope.item.videos ? $scope.item.videos.filter(video => video.provider_id != 6) : null;
+            $scope.galleryCounter = $scope.item.videos ? $scope.item.photos.length + $scope.item.videos.length : $scope.item.photos.length;
             
             $scope.isGalleryOpen = false;
-            $scope.currentIndex = 1;
+            $scope.currentIndex = 1;                        
             
             $scope.moveSlider = (side) => { 
                 $scope.currentIndex = sliderMoves.moveSlider(gallerySlider, $scope.currentIndex,
-                                                             $scope.item.photos.length + $scope.item.videos.length, side,
-                                                             gallerySlider.querySelector("img").offsetWidth);
+                                                            $scope.galleryCounter, side,
+                                                            gallerySlider.querySelector("img").offsetWidth);
                 setGalleryCounterLabel();
             };        
 
-            const setGalleryCounterLabel = () => photoCounter.innerHTML = `${$scope.currentIndex}/${$scope.item.photos.length + $scope.item.videos.length}`;        
+            const setGalleryCounterLabel = () => photoCounter.innerHTML = `${$scope.currentIndex}/${$scope.galleryCounter}`;        
 
             const sides = [
                 {

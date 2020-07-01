@@ -243,16 +243,23 @@
   <div ng-show="apiReady">
     
     <!-- Video player -->
-    <div ng-show="p.hasDuit360">
+    <div ng-if="p.hasDuit360 && !showGallery">
       <iframe ng-src="{{p.video_url | trusted}}" class="video-player" allowFullScreen="true"> </iframe>
     </div>
 
     <!-- Gallery Slider  -->
-    <gallery-single-property ng-show="!p.hasDuit360" item="propertyMapped" show-widgets="true" show-gallery="apiReady" show-skeleton="false"></gallery-single-property>   
+    <gallery-single-property ng-if="apiReady && (showGallery || !p.hasDuit360)" item="propertyMapped" show-widgets="true" show-gallery="apiReady" show-skeleton="false"></gallery-single-property>   
     <!-- Gallery Slider End -->
 
     <!-- Subtitle -->
     <section class="mobile-property-subtitle">
+
+      <!-- Gallery Switcher -->
+      <div class="gallery-switcher-container" ng-if="p.hasDuit360">
+        <button ng-click="toggleDuit360()" ng-class="{'active': showGallery}">Ver Galería<i class="fas fa-images"></i></button>
+        <button ng-click="toggleDuit360()" ng-class="{'active': !showGallery}">Ver Duit 360º<i class="fas fa-street-view"></i></button>
+      </div>
+
       <div class="mobile-property-subtitle-text">
         <p><strong>{{p.prop.type.name}} - {{p.area | number:0}}m<sup>2</sup> - {{p.enviroments}} Ambientes</strong></p>
         <p><strong>{{p.prop.address}}</strong>, {{p.prop.location.name}}, {{p.state}}</p>
