@@ -10,17 +10,17 @@
   <!-- Skeleton End -->
 
   <!-- Arrows -->
-  <div class="slider-arrows-container" ng-show="item.photos.length > 1 && showGallery">
+  <div class="slider-arrows-container" ng-show="item.photos.length + item.videos.length > 1 && showGallery">
     <i class="fa fa-angle-left" ng-click="moveSlider('left')"></i>
     <i class="fa fa-angle-right" ng-click="moveSlider('right')"></i>
   </div>
 
   <!-- Slider Single Property -->
-  <a href="{{item.hRef}}">
-    <div class="gallery-single-property-slider" ng-show="showGallery">
-      <img ng-repeat="photo in item.photos" src="{{photo.image}}">
-    </div>
-  </a>
+  <div class="gallery-single-property-slider" ng-show="showGallery">
+    <a ng-if="item.hRef" href="{{item.hRef}}" ng-repeat="photo in item.photos"><img src="{{photo.image}}"></a>
+    <iframe ng-if="item.videos && !item.hRef" ng-repeat="video in item.videos" width="560" height="349" ng-src="{{video.player_url | trusted}}" frameborder="0" allowfullscreen></iframe>
+    <img ng-if="!item.hRef" ng-repeat="photo in item.photos" src="{{photo.image}}">
+  </div>  
   
   <!-- Widgets -->
   <div class="silder-widgets-container" ng-show="showWidgets && showGallery"> 
@@ -32,7 +32,7 @@
 
     <div class="slider-photo-counter">
       <i class="fa fa-camera"></i>
-      <p>{{currentIndex}}/{{item.photos.length}}</p>
+      <p>{{currentIndex}}/{{galleryCounter}}</p>
     </div>
     
   </div>  

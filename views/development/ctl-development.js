@@ -33,20 +33,14 @@ app.controller('development', function ($rootScope, $scope, tokkoApi, $statePara
     });
     
 		$scope.apiReady = true;
-    $scope.$apply()
-    ;
+    $scope.$apply();
 		uiFunctions.showMoreButton();
+		uiFunctions.buildSlickCarousel();
     uiFunctions.buildMagnificPopup();
     
+		getFeaturedProperties.getFeatured($scope, tokkoApi);
     getFeaturedProperties.getDevProps($scope, tokkoApi);
 
-    if (window.innerWidth > 1024) {
-      getFeaturedProperties.getFeatured($scope, tokkoApi);
-      uiFunctions.buildSlickCarousel();
-    } else {
-      getFeaturedProperties.getFeaturedMobile($scope, tokkoApi);
-    }
-    
 		setTimeout(() => {
 			google.maps.event.trigger(map, 'resize');
     }, 0);
