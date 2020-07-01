@@ -62,84 +62,16 @@ app.config(['AnalyticsProvider', function (AnalyticsProvider) {
 * @date: 09/06/17
 */
 
-app.service('tokkoApi', function($http) {
-  const tokkoAuth = {
-    key: 'f26431aec0277d4e7912e2709af35707fb9362e6',
-    lang: 'es_ar'
-  };
-  const httpGetAsync = function (url, callback) {
-    let xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() { 
-      if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-        callback(xmlHttp.responseText);
-    }
-    xmlHttp.open("GET", url, true); // true for asynchronous 
-    xmlHttp.send(null);
-  };
-  return {
-    find: function (endpoint, args, callback) {
-      let url = 'https://tokkobroker.com/api/v1/'+endpoint+'/?format=json&';
-      if (typeof args == 'object') {
-        for (let a in args) {
-          url += a + '=' + args[a] + '&'
-        };
-      } else {
-        url += 'id=' + args + '&';
-      };
-      httpGetAsync(url+'key='+tokkoAuth.key+"&lang="+tokkoAuth.lang, function(response) {
-        if (endpoint === 'property/get_search_summary') {
-          callback(JSON.parse(response))
-        } else {
-          callback(JSON.parse(response).objects);
-        }
-      });
-    },
-    findOne: function (endpoint, args, callback) {
-      this.find(endpoint, args, function (response) {
-        callback(response[0]);
-      });
-    },
-    insert: function (endpoint, data, callback) {
-      let http = new XMLHttpRequest(),
-        url = 'https://tokkobroker.com/api/v1/'+endpoint+'/?key='+tokkoAuth.key,
-        content = JSON.stringify(data);
-      http.open("POST", url, true);
-      //Send the proper header information along with the request
-      http.setRequestHeader("Content-type", "application/json");
-      http.onreadystatechange = function() {
-        //Call a function when the state changes.
-        if(http.readyState == 4 && (http.status == 200 || http.status == 201)) {
-          callback({result: 'success', status: http.status})
-        } else {
-          callback({result: 'error', status: http.status, result: http.responseText})
-        }
-      }
-      http.send(content);
-    },
-  }
-});
-
-app.controller('startUp', function($scope, $rootScope, tokkoApi) {
+app.controller('startUp', function($rootScope) {
   $rootScope.favorites = {dataLoaded: false, props: []};
   $rootScope.isFavorite = propId => {
     return $rootScope.favorites.props.findIndex(p => p.id === propId) === -1 ? false : true;
   };
-  // Uncomment above code when meteor was implemented on production -->
-  // $rootScope.Meteor = Meteor;
-  // FavoritesProps = new Meteor.Collection('favorites');
-  // Meteor.subscribe('favorites');
-  // Meteor.autorun(() => {
-  //   if (Meteor.user()) {
-  //     const favorites = FavoritesProps.find({users: Meteor.user()._id});
-  //     if (favorites) {
-  //       let tmp = [];
-  //       favorites.forEach((f) => {
-  //         tmp.push(f.prop);
-  //       })
-  //       $rootScope.favorites.props = tmp;
-  //       $rootScope.favorites.dataLoaded = true;
-  //       $rootScope.$apply();
-  //     }
-  //   }
-  // });
-})
+});
+
+// Filter to white list urls to embbed videos in iframes (required by angular)
+app.filter('trusted', ['$sce', function ($sce) {
+  return function(url) {
+      return $sce.trustAsResourceUrl(url);
+  };
+}]); 

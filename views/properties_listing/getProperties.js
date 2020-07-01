@@ -1,7 +1,6 @@
 const getProperties = ($scope, tokkoApi, rargs) => {
   let args = {data: rargs.data, order: rargs.order, order_by: rargs.order_by, limit: rargs.limit ? rargs.limit : 20, offset: rargs.offset ? rargs.offset : 0}
   if (args.offset == 0) {
-    // $('.sidebar-col').toggleClass('busy-sidebar');
     $scope.apiReady = false;
     $scope.results = [];
     tokkoApi.find('property/get_search_summary', args, function(result) {
@@ -24,7 +23,6 @@ const getProperties = ($scope, tokkoApi, rargs) => {
     });
   }
   tokkoApi.find('property/search', args, function(result){
-    // let props = [];
     result.forEach((p) => {
       $scope.results.push({
         id: p.id,
@@ -38,9 +36,6 @@ const getProperties = ($scope, tokkoApi, rargs) => {
         rooms: p.suite_amount ? p.suite_amount : 0,
         baths: p.bathroom_amount ? p.bathroom_amount : 0,
         parkings: p.parking_lot_amount ? p.parking_lot_amount : 0,
-        // Not working yet because there is props without front cover photo asigned
-        //cover_photo: p.photos.map(function(p){if(p.is_front_cover){return p.thumb}})[0],
-        // Instead we take the first photo as cover.
         cover_photo: p.photos.length > 0 ? p.photos[0].thumb : '/images/no-image.png',
         photos: p.photos.length > 0 ? p.photos : [{image: '/images/no-image.png'}],
         location: p.location,
@@ -48,9 +43,6 @@ const getProperties = ($scope, tokkoApi, rargs) => {
       });
     });
     $scope.results.length > 0 ? $scope.ifResults = true : $scope.ifResults = false;
-    // $scope.results = props;
-    // $scope.filteredResults = $scope.results;
-    // console.log($scope.results);
     $scope.apiReady = true;
     $scope.stopInfiniteScroll = false;
     $scope.loadingMore = false;
@@ -59,5 +51,4 @@ const getProperties = ($scope, tokkoApi, rargs) => {
     uiFunctions.gridSwitcher();
     $scope.updateChosen();
   });
-  // $('.sidebar-col').toggleClass('busy-sidebar');
 }
