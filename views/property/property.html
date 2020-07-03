@@ -143,10 +143,10 @@
         <!-- Widget / End -->
         <div class="widget">
           <h3 class="margin-bottom-35">Destacados</h3>
-          <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="featReady"></div>
+          <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="featuredProps"></div>
           <div class="listing-carousel outer" ng-show="apiReady">
             <!-- Item -->
-            <div class="item" ng-repeat="p in featured">
+            <div class="item" ng-repeat="p in featuredProps">
               <div class="listing-item compact">
                 <a ui-sref="property({propertyId: p.id})" class="listing-img-container">
                   <div class="listing-badges">
@@ -181,9 +181,9 @@
       <!-- Layout Switcher -->
       <div class="layout-switcher hidden"><a href="#" class="list"><i class="fa fa-th-list"></i></a></div>
       <div class="listings-container list-layout">
-      <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="simReady"></div>
+      <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="similarReady"></div>
         <!-- Listing Item -->
-        <div class="listing-item" ng-repeat="p in similar">
+        <div class="listing-item" ng-repeat="p in similarProps">
           <a ui-sref="property({propertyId: p.id})" class="listing-img-container">
             <div class="listing-badges">
               <span>{{p.type}}</span>
@@ -342,9 +342,9 @@
 
     <!-- Featured Props -->
     <section class="mobile-property-featured">  
-      <h3>Te aconsejamos est{{featured.length == 1 ? 'a' : 'as'}} propiedad{{featured.length == 1 ? '' : 'es'}}</h3>    
+      <h3>Te aconsejamos est{{featuredProps.length == 1 ? 'a' : 'as'}} propiedad{{featuredProps.length == 1 ? '' : 'es'}}</h3>    
       
-      <gallery-properties-cards items="featuredPropertiesMapped" show-photos="featReady"></gallery-properties-cards>
+      <gallery-properties-cards items="featuredProps" show-photos="featuredPropsReady"></gallery-properties-cards>
     </section>
     <!-- Featured Props End -->
   

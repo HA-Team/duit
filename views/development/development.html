@@ -98,13 +98,6 @@
       <!-- Property Description -->
       <div class="col-lg-8 col-md-7">
         <div class="property-description">
-          <!-- Main Features -->
-          <!-- <ul class="property-main-features">
-            <li>Superficie <span>{{d.prop.roofed_surface}} M2</span></li>
-            <li>Habitaciones <span>{{d.rooms}}</span></li>
-            <li>Baños <span>{{d.baths}}</span></li>
-            <li>Cocheras <span>{{d.parkings}}</span></li>
-          </ul> -->
           <!-- Features -->
           <h3 class="desc-headline">Características</h3>
           <ul class="property-features checkboxes margin-top-0">
@@ -162,10 +155,10 @@
           <!-- Widget / End -->
           <div class="widget">
             <h3 class="margin-bottom-35">Destacados</h3>
-            <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="featReady"></div>
-            <div class="listing-carousel outer" ng-show="featReady">
+            <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="featuredPropsReady"></div>
+            <div class="listing-carousel outer" ng-show="featuredPropsReady">
               <!-- Item -->
-              <div class="item" ng-repeat="p in featured">
+              <div class="item" ng-repeat="p in featuredProps">
                 <div class="listing-item compact">
                   <a ui-sref="property({propertyId: p.id})" class="listing-img-container">
                     <div class="listing-badges">
@@ -356,9 +349,9 @@
 
     <!-- Featured Props -->
     <section class="mobile-property-featured">  
-      <h3>Te aconsejamos est{{featured.length == 1 ? 'a' : 'as'}} propiedad{{featured.length == 1 ? '' : 'es'}}</h3>    
+      <h3>Te aconsejamos est{{featuredProps.length == 1 ? 'a' : 'as'}} propiedad{{featuredProps.length == 1 ? '' : 'es'}}</h3>    
       
-      <gallery-properties-cards items="featuredPropertiesMapped" show-photos="featReady"></gallery-properties-cards>
+      <gallery-properties-cards items="featuredProps" show-photos="featuredPropsReady"></gallery-properties-cards>
     </section>
     <!-- Featured Props End -->
   
