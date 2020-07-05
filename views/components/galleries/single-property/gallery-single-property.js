@@ -6,7 +6,8 @@ app.directive('gallerySingleProperty', function() {
             showSkeleton: '=',
             item: '=',
             showWidgets: '=',
-            galleryHeight: '='
+            galleryHeight: '=',
+            hasDuit360: '='
         },
         templateUrl: '/views/components/galleries/single-property/gallery-single-property.html',
         controller: ['$scope', 'sliderMoves', '$element', function ($scope, sliderMoves, $element) {  
@@ -17,6 +18,7 @@ app.directive('gallerySingleProperty', function() {
             $scope.galleryCounter = $scope.item.videos ? $scope.item.photos.length + $scope.item.videos.length : $scope.item.photos.length;
             
             $scope.isGalleryOpen = false;
+            $scope.showDuit360 = $scope.hasDuit360;
             $scope.currentIndex = 1;                        
             
             $scope.moveSlider = (side) => { 
@@ -55,20 +57,28 @@ app.directive('gallerySingleProperty', function() {
                 }, {capture: true});
             });
             
-            $scope.toggleGallery = () => {        
-                const header = document.querySelector("#mobile-header");                
-                const body = document.querySelector("body");
+            $scope.toggleGallery = () => {               
+                if (!$scope.item.hRef) {                    
+                    const header = document.querySelector("#mobile-header");                
+                    const body = document.querySelector("body");
+                    
+                    $scope.isGalleryOpen = !$scope.isGalleryOpen;
                 
-                $scope.isGalleryOpen = !$scope.isGalleryOpen;
-            
-                if ($scope.isGalleryOpen) {
-                  header.style.display = "none";                    
-                  body.style.overflow = "hidden";
-                }
-                else {
-                  header.style.display = "block";                    
-                  body.style.overflow = "visible";
-                }
+                    if ($scope.isGalleryOpen) {
+                      header.style.display = "none";                    
+                      body.style.overflow = "hidden";
+                    }
+                    else {
+                      header.style.display = "block";                    
+                      body.style.overflow = "visible";
+                    }
+
+                    gallerySlider.style.scrollBehavior = 'unset';    
+                    setTimeout(() => {
+                        gallerySlider.scrollLeft = gallerySlider.querySelector("img").offsetWidth * ($scope.currentIndex - 1);
+                        gallerySlider.style.scrollBehavior = 'smooth';
+                    }, 0);
+                }        
             };
 
             $scope.getSectionStyle = () => {
@@ -78,6 +88,8 @@ app.directive('gallerySingleProperty', function() {
 
                 return styles;
             };
+
+            $scope.toggleDuit360 = () => $scope.showDuit360 = !$scope.showDuit360;
         }]            
     }
 });
