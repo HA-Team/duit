@@ -7,9 +7,7 @@ app.service('getFeaturedProperties', function(tokkoApi) {
         data.property_types = [typeId];
         data.filters = [];
 
-        if(customTags > 0) {
-          data.with_custom_tags = [customTags.slice(-1)[0].id];
-        }
+        if (customTags > 0) data.with_custom_tags = [customTags.slice(-1)[0].id];
 
         const args = {data: JSON.stringify(data), order: 'desc'};
 
@@ -25,7 +23,20 @@ app.service('getFeaturedProperties', function(tokkoApi) {
         let data = JSON.parse(_.clone(tokkoSearchArgs.sData));
         data.filters.push(["is_starred_on_web", "=", "true"]);
         let args = {data: JSON.stringify(data), order: 'desc'};
+
+        args.order = { order_by: 'id', order: 'asc' };
         
         tokkoApi.find('property/search', args, callback);
     };
+
+    this.getFeatured360Props = (callback => {
+        let data = JSON.parse(_.clone(tokkoSearchArgs.sData));
+        data.filters.push(["is_starred_on_web", "=", "true"]);
+        let args = {data: JSON.stringify(data), order: 'desc'};
+
+        args.limit = 100;
+        args.order = { order_by: 'id', order: 'asc' };
+        
+        tokkoApi.find('property/search', args, callback);
+    });
 });

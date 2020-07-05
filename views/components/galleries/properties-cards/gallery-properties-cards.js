@@ -7,14 +7,13 @@ app.directive('galleryPropertiesCards', function() {
         },
         templateUrl: '/views/components/galleries/properties-cards/gallery-properties-cards.html',
         controller: ['$scope', 'sliderMoves', '$element', function ($scope, sliderMoves, $element) { 
-            const gallerySlider = $element.find(".gallery-properties-cards-slider")[0];            
+            const gallerySlider = $element.find(".gallery-properties-cards-slider")[0];
 
-            $scope.currentIndex = 1;
+            $scope.currentIndex = 1; 
 
-            const moveSlider = (side) => { 
+            const moveSlider = (side, length) => {                
                 $scope.currentIndex = sliderMoves.moveSlider(gallerySlider, $scope.currentIndex,
-                                                 $scope.items.lenght, side,
-                                                 gallerySlider.querySelector(".gallery-properties-cards-item").offsetWidth);
+                                                length, side, gallerySlider.querySelector(".gallery-properties-cards-item").offsetWidth);
                 $scope.$apply();
             };
           
@@ -32,11 +31,11 @@ app.directive('galleryPropertiesCards', function() {
             sides.forEach(side => {
                 const gallerySliderArrow = $element.find(`.gallery-properties-cards .fa-angle-${side.side}`)[0];
 
-                gallerySliderArrow.addEventListener("click", () => moveSlider(side.side));                
+                gallerySliderArrow.addEventListener("click", () => moveSlider(side.side, $scope.items.length));                
 
                 gallerySlider.addEventListener(`swiped-${side.side}`, (e) => {
                     e.preventDefault();
-                    moveSlider(side.oposite);
+                    moveSlider(side.oposite, $scope.items.length);
                 }, {capture: true});
             });        
         }]            

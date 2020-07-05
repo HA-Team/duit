@@ -4,7 +4,9 @@ app.controller('home', function($rootScope, $scope, navigation, utils, getFeatur
   setTimeout(() => $rootScope.activeMenu = 'home', 100);
 
   $scope.featuredPropsReady = false;
+  $scope.featured360PropsReady = false;
   getFeaturedProps();  
+  getFeatured360Props();
 
   $scope.isContactGlobeOpen = false;
   $scope.contactGlobeTitle = "Te asesoramos!";
@@ -99,11 +101,7 @@ app.controller('home', function($rootScope, $scope, navigation, utils, getFeatur
   $scope.$on('$destroy', () => window.removeEventListener('scroll', debouncedOnScroll));
 
   function getFeaturedProps() {
-    getFeaturedProperties.getFeaturedProps(result => {    
-      
-      console.log(result);
-      
-
+    getFeaturedProperties.getFeaturedProps(result => {
       $scope.featured = result.map(prop => {
         return {
           id: prop.id,
@@ -119,7 +117,17 @@ app.controller('home', function($rootScope, $scope, navigation, utils, getFeatur
           prop: prop
         }
       });
-      
+
+      $scope.featuredPropsReady = true;
+      $scope.$apply();
+
+      uiFunctions.buildCarousel();
+      $(window).trigger('resize');
+    });
+  };
+
+  function getFeatured360Props() {
+    getFeaturedProperties.getFeatured360Props(result => {     
       $scope.featured360Props = result
         .filter(prop => prop.videos.some(video => video.provider_id == 6))
         .map(prop => {
@@ -132,11 +140,8 @@ app.controller('home', function($rootScope, $scope, navigation, utils, getFeatur
           }
       });
 
-      $scope.featuredPropsReady = true;
+      $scope.featured360PropsReady = true;
       $scope.$apply();
-
-      uiFunctions.buildCarousel();
-      $(window).trigger('resize');
     });
   };
 });
