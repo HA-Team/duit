@@ -23,8 +23,6 @@ app.service('getFeaturedProperties', function(tokkoApi) {
         let data = JSON.parse(_.clone(tokkoSearchArgs.sData));
         data.filters.push(["is_starred_on_web", "=", "true"]);
         let args = {data: JSON.stringify(data), order: 'desc'};
-
-        args.order = { order_by: 'id', order: 'asc' };
         
         tokkoApi.find('property/search', args, callback);
     };
@@ -35,7 +33,6 @@ app.service('getFeaturedProperties', function(tokkoApi) {
         let args = {data: JSON.stringify(data), order: 'desc'};
 
         args.limit = 100;
-        args.order = { order_by: 'id', order: 'asc' };
         
         tokkoApi.find('property/search', args, callback);
     });
