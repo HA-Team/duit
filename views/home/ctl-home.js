@@ -101,6 +101,9 @@ app.controller('home', function($rootScope, $scope, navigation, utils, getFeatur
   function getFeaturedProps() {
     getFeaturedProperties.getFeaturedProps(result => {    
       
+      console.log(result);
+      
+
       $scope.featured = result.map(prop => {
         return {
           id: prop.id,
