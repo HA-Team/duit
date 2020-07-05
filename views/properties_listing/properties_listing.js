@@ -136,5 +136,7 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
     $scope.location = [];
     $scope.rooms = [];    
     $scope.find();
-  }
+  };
+
+  $rootScope.$on('changeFilter', (event, {operationType}) => $scope.changeFilter({type: 'o', val: [operationType]}));
 });
