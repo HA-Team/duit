@@ -60,13 +60,15 @@ app.controller('mobile-header', function($rootScope, $scope, navigation, $state)
         title: 'Alquiler',
         page: 'propertySearch',
         args: getOperationArgs(operationTypes.alquiler),
-        section: 'properties-rent'       
+        section: 'properties-rent',
+        action: () => $rootScope.$broadcast('changeFilter', { operationType: 2 })     
       },
       {
         title: 'Venta',
         page: 'propertySearch',
         args: getOperationArgs(operationTypes.venta),
-        section: 'properties-sell'
+        section: 'properties-sell',
+        action: () => $rootScope.$broadcast('changeFilter', { operationType: 1 }) 
       },
       {
         title: 'Emprendimientos',
