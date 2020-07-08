@@ -13,7 +13,7 @@ app.controller('navigation', ['$scope', '$rootScope', '$location', function($sco
   }, 0);
   $scope.setActive = function(page, section) {
     $rootScope.activeMenu = page;
-    $rootScope.activeSection = section ?? '';
+    $rootScope.activeSection = section ? section : '';
   };
 }]);
 

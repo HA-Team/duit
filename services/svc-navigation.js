@@ -7,6 +7,6 @@ app.service('navigation', ['$rootScope', '$location', '$anchorScroll', function(
 
     this.setActive = (page, section) => {
         if (page) $rootScope.activeMenu = page;
-        $rootScope.activeSection = section ?? '';
+        $rootScope.activeSection = section ? section : '';
     };
 }]);

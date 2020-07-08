@@ -84,7 +84,7 @@ app.directive('gallerySingleProperty', function() {
             $scope.getSectionStyle = () => {
                 const styles = {};
 
-                styles.height = $scope.galleryHeight ?? '';                
+                styles.height = $scope.galleryHeight ? $scope.galleryHeight : '';                
 
                 return styles;
             };
