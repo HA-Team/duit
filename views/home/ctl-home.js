@@ -74,6 +74,12 @@ app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeatu
   ];
 
   $scope.goToSection = (page, section) => navigation.goToSection(page, section);
+
+  $scope.focusFormControl = (e) => {
+    const dataName = e.target.htmlFor;
+    const input = document.querySelector(`#home-contact .form-control[name='${dataName}']`);
+    input.focus();    
+  }
       
   function onScroll() {
     const duitFeaturedTop = document.querySelector("#home-featured").offsetTop ? document.querySelector("#home-featured").offsetTop : 0;
