@@ -218,6 +218,10 @@ a.property-type + ul li:hover {
   margin-bottom: 25px;
 }
 
+#home-contact form .contact-form-group .form-control {
+  border-radius: 10px;
+}
+
 #home-contact form input,
 #home-contact form textarea {
   margin: 0;

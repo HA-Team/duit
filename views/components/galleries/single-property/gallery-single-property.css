@@ -222,8 +222,11 @@
     font-size: 13px;
     padding: 0 5px;
     transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
     transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;  
     backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     width: 130px;
     position: absolute;
     outline: none;
@@ -231,6 +234,7 @@
 
 .gallery-single-property .gallery-switcher-container button.active {
     transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
 }
 
 .gallery-single-property .video-player {
