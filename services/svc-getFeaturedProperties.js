@@ -1,4 +1,4 @@
-app.service('getFeaturedProperties', function(tokkoApi) {     
+app.service('getFeaturedProperties', ['tokkoApi', function(tokkoApi) {     
     this.getSimilarProps = (operationType, typeId, customTags, callback) => {
 
         let data = tokkoSearchArgs.data;
@@ -36,4 +36,4 @@ app.service('getFeaturedProperties', function(tokkoApi) {
         
         tokkoApi.find('property/search', args, callback);
     });
-});
+}]);
