@@ -1,4 +1,4 @@
-app.controller('favorites', function($location, $rootScope, $scope, tokkoApi, $state, $anchorScroll){
+app.controller('favorites', ['$rootScope', '$scope', 'tokkoApi', '$state', '$anchorScroll', function($rootScope, $scope, tokkoApi, $state, $anchorScroll){
   $rootScope.activeMenu = '';
   $scope.results = [];
   $scope.apiReady = true;
@@ -63,4 +63,4 @@ app.controller('favorites', function($location, $rootScope, $scope, tokkoApi, $s
       });
     }
   };
-});
+}]);

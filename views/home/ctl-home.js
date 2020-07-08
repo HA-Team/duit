@@ -1,4 +1,4 @@
-app.controller('home', function($rootScope, $scope, navigation, utils, getFeaturedProperties) {
+app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeaturedProperties', function($rootScope, $scope, navigation, utils, getFeaturedProperties) {
   const duitWhatsapp = '5493512463530';
   const duitPhone = '+5493512463530';
   setTimeout(() => $rootScope.activeMenu = 'home', 100);
@@ -144,4 +144,4 @@ app.controller('home', function($rootScope, $scope, navigation, utils, getFeatur
       $scope.$apply();
     });
   };
-});
+}]);

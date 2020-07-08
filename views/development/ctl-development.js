@@ -1,4 +1,4 @@
-app.controller('development', function ($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties) {
+app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 'getFeaturedProperties', function ($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties) {
 	$rootScope.activeMenu = '';
   $scope.apiReady = false;
   $scope.featuredPropsReady = false;
@@ -170,4 +170,4 @@ app.controller('development', function ($rootScope, $scope, tokkoApi, $statePara
       $scope.$apply();
     });
   };
-});
+}]);

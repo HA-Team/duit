@@ -1,4 +1,4 @@
-app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi, $stateParams, $state, $anchorScroll){
+app.controller('propsListing', ['$location', '$rootScope', '$scope', 'tokkoApi', '$stateParams', '$state', '$anchorScroll', function($location, $rootScope, $scope, tokkoApi, $stateParams, $state, $anchorScroll){
   $rootScope.activeMenu = '';
   $scope.results = [];
   $scope.resultsCount = 0;
@@ -139,4 +139,4 @@ app.controller('propsListing', function($location, $rootScope, $scope, tokkoApi,
   };
 
   $rootScope.$on('changeFilter', (event, {operationType}) => $scope.changeFilter({type: 'o', val: [operationType]}));
-});
+}]);
