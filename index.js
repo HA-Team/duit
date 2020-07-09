@@ -62,12 +62,12 @@ app.config(['AnalyticsProvider', function (AnalyticsProvider) {
 * @date: 09/06/17
 */
 
-app.controller('startUp', function($rootScope) {
+app.controller('startUp', ['$rootScope', function($rootScope) {
   $rootScope.favorites = {dataLoaded: false, props: []};
   $rootScope.isFavorite = propId => {
     return $rootScope.favorites.props.findIndex(p => p.id === propId) === -1 ? false : true;
   };
-});
+}]);
 
 // Filter to white list urls to embbed videos in iframes (required by angular)
 app.filter('trusted', ['$sce', function ($sce) {

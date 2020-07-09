@@ -1,4 +1,4 @@
-app.controller('login', function($scope){
+app.controller('login', ['$scope', function($scope){
   $scope.wrongUserOrPass = false;
   uiFunctions.buildTabs();
   $scope.loginWithPassword = () => {
@@ -52,4 +52,4 @@ app.controller('login', function($scope){
       $scope.formIncomplete = true;
     }
   }
-})
+}]);

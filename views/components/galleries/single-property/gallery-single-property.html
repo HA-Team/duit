@@ -9,28 +9,33 @@
   </div>
   <!-- Skeleton End -->
 
+  <!-- Video player -->
+  <div ng-if="hasDuit360 && showDuit360">
+    <iframe ng-src="{{item.video_url | trusted}}" class="video-player" allowFullScreen="true"> </iframe>
+  </div>
+
   <!-- Arrows -->
-  <div class="slider-arrows-container" ng-show="item.photos.length + item.videos.length > 1 && showGallery">
+  <div class="slider-arrows-container" ng-show="item.photos.length + item.videos.length > 1 && !showDuit360">
     <i class="fa fa-angle-left" ng-click="moveSlider('left')"></i>
     <i class="fa fa-angle-right" ng-click="moveSlider('right')"></i>
   </div>
 
   <!-- Slider Single Property -->
-  <div class="gallery-single-property-slider" ng-show="showGallery">
-    <a ng-if="item.hRef" href="{{item.hRef}}" ng-repeat="photo in item.photos"><img src="{{photo.image}}"></a>
+  <div class="gallery-single-property-slider" ng-show="showGallery && !showDuit360">
+    <a href="{{item.hRef}}" ng-repeat="photo in item.photos"><img src="{{photo.image}}" ng-click="toggleGallery()"></a>
     <iframe ng-if="item.videos && !item.hRef" ng-repeat="video in item.videos" width="560" height="349" ng-src="{{video.player_url | trusted}}" frameborder="0" allowfullscreen></iframe>
-    <img ng-if="!item.hRef" ng-repeat="photo in item.photos" src="{{photo.image}}">
+    <!-- <img ng-if="!item.hRef" ng-repeat="photo in item.photos" src="{{photo.image}}" > -->
   </div>  
   
   <!-- Widgets -->
-  <div class="silder-widgets-container" ng-show="showWidgets && showGallery"> 
+  <div class="silder-widgets-container" ng-show="showWidgets && showGallery" ng-style="{'flex-direction': hasDuit360 && !isGalleryOpen ? 'row' : 'row-reverse'}"> 
 
-    <div class="slider-open-gallery" ng-click="toggleGallery()">
-      <i class="fa fa-expand-arrows-alt" ng-show="!isGalleryOpen"></i>
-      <p ng-show="!isGalleryOpen">Galería</p>
+    <div class="gallery-switcher-container" ng-if="hasDuit360 && !isGalleryOpen">
+      <button ng-click="toggleDuit360()" ng-class="{'active': !showDuit360}">Ver Galería<i class="fas fa-images"></i></button>
+      <button ng-click="toggleDuit360()" ng-class="{'active': showDuit360}">Ver Duit 360º<i class="fas fa-street-view"></i></button>
     </div>
 
-    <div class="slider-photo-counter">
+    <div class="slider-photo-counter" ng-show="!showDuit360">
       <i class="fa fa-camera"></i>
       <p>{{currentIndex}}/{{galleryCounter}}</p>
     </div>
