@@ -82,10 +82,10 @@ app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeatu
   }
       
   function onScroll() {
-    const duitFeaturedTop = document.querySelector("#home-featured").offsetTop ? document.querySelector("#home-featured").offsetTop : 0;
-    const servicesTop = document.querySelector("#home-services").offsetTop ? document.querySelector("#home-services").offsetTop : 0;
-    const assesorsTop = document.querySelector("#home-assesors").offsetTop ? document.querySelector("#home-assesors").offsetTop : 0;
-    const contactTop = document.querySelector("#home-contact").offsetTop ? document.querySelector("#home-contact").offsetTop : 0;
+    const duitFeaturedTop = document.querySelector("#home-featured") ? document.querySelector("#home-featured").offsetTop : 0;
+    const servicesTop = document.querySelector("#home-services") ? document.querySelector("#home-services").offsetTop : 0;
+    const assesorsTop = document.querySelector("#home-assesors") ? document.querySelector("#home-assesors").offsetTop : 0;
+    const contactTop = document.querySelector("#home-contact") ? document.querySelector("#home-contact").offsetTop : 0;
 
     const scrollY = window.scrollY;
     
