@@ -129,14 +129,15 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
       $scope.featuredProps = result.map(prop => {
         return {
           id: prop.id,
+          title: prop.publication_title,
           type: prop.operations[0].operation_type,
           currency: prop.operations[prop.operations.length-1].prices.slice(-1)[0].currency,
           price: prop.operations[prop.operations.length-1].prices.slice(-1)[0].price,
           cover_photo: prop.photos[0].image,
           parkings: prop.parking_lot_amount ? prop.parking_lot_amount : 0,
           area: prop.type.id === 1 ? prop.surface : prop.roofed_surface,
-          suitAmount: prop.suite_amount,
-          bathroomAmount: prop.suite_amount,  
+          suitAmount: prop.suite_amount ? prop.suite_amount : 0,
+          bathroomAmount: prop.bathroom_amount ? prop.bathroom_amount : 0,  
           prop: prop
         }
       });
@@ -154,6 +155,7 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
         return {
           id: prop.id,
           type: prop.operations[0].operation_type,
+          title: prop.publication_title,
           currency: prop.operations[prop.operations.length-1].prices.slice(-1)[0].currency,
           price: prop.operations[prop.operations.length-1].prices.slice(-1)[0].price,
           cover_photo: prop.photos[0].image,

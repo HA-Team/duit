@@ -27,10 +27,10 @@
       <a ui-sref="property({propertyId: item.id})"><img src="{{item.cover_photo}}" alt=""></a>
       <div class="gallery-properties-cards-item-description-container">
         <h4><strong>{{ item.price | currency:item.currency:0}}</strong></h4>
-        <p>{{item.area |number:0}}m<sup>2</sup>totales</p>
+        <p ng-if="item.area > 0">{{item.area |number:0}}m<sup>2</sup>totales</p>
         <p>
-          {{item.suitAmount > 1 ? item.suitAmount + ' dormitorios' : item.suitAmount + ' dormitorio'}} |
-          {{item.bathroomAmount > 1 ? item.bathroomAmount + ' baños' : item.bathroomAmount + ' baño'}}
+          {{item.suitAmount > 1 ? item.suitAmount + ' dormitorios | ' : item.suitAmount == 1 ? item.suitAmount + ' dormitorio | ' : ''}}
+          {{item.bathroomAmount > 1 ? item.bathroomAmount + ' baños' : item.bathroomAmount == 1 ? item.bathroomAmount + ' baño' : ''}}
         </p>          
         <p>{{item.title}}</p>
       </div>         
