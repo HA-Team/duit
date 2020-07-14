@@ -1,6 +1,6 @@
 #propsListing fieldset {
   border: none;
-  border-top: 1px solid #c8001e;
+  border-top: 1px solid var(--primary-red);
 }
 #propsListing legend {
   text-align: center;
@@ -69,4 +69,403 @@
     width: 0px /* remove scrollbar space */;
     background: transparent /* optional: just make scrollbar invisible */;
   }
+}
+
+#mobile-props-listing .mobile-list-card-container {
+  display: flex;
+  flex-direction: row;
+  height: 16vh;
+  line-height: normal;
+  margin-bottom: 2rem;
+  justify-content: flex-start;
+  border-radius: 2px;
+}
+
+#mobile-props-listing .mobile-list-card-img {
+  width: 15vh;
+  height: 16vh;
+  border-radius: 5px;
+  max-width: inherit;
+}
+
+#mobile-props-listing .mobile-list-card-details {
+  color: black; 
+  padding: 0 1rem 0 1rem; 
+  flex-grow: 1;
+}
+
+#mobile-props-listing .mobile-list-card-details p {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color:black;
+}
+
+#mobile-props-listing .mobile-list-card-details span {
+  font-weight: 600;
+}
+
+#mobile-props-listing .mobile-card-icon-listing {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  color: lightgrey;
+  font-size: 1.5rem;
+  align-items: baseline;  
+}
+
+#mobile-props-listing .mobile-card-icon-listing p {
+  font-size: 1.3rem;
+  color: #9c9c9c;
+  margin-top: 0.5rem;
+}
+
+#mobile-props-listing .mobile-card-icon-listing i::before {
+  color: #9c9c9c;
+  margin-left: 8px;
+}
+
+#mobile-props-listing .mobile-list-card-container i {
+  color: var(--primary-blue);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@keyframes shine-lines {
+  0% {
+    background-position: -100px;
+  }
+  60%, 100% {
+    background-position: 80vw;
+  }
+}
+@keyframes shine-image {
+  0% {
+    background-position: -32px;
+  }
+  60%, 100% {
+    background-position: 32vw;
+  }
+}
+
+#mobile-props-listing .mobile-filter-menu-container {
+  position: relative;
+  display: flex;
+  flex-direction: row;    
+  height: 50px;
+  width: 100vw;
+  box-shadow: 0px 8px 5px -6px grey;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#mobile-props-listing .mobile-filter-menu-item {
+  display: flex;
+  flex-direction: row;  
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 50%;    
+  color: var(--primary-blue);
+}
+
+#mobile-props-listing .mobile-filter-menu-icon.fa-sliders {
+  transform: scale(1.3);
+}
+
+#mobile-props-listing .mobile-filter-menu-item h4 {
+  color: var(--primary-blue);
+  text-align: center;
+}
+
+#mobile-props-listing .vertical-line {
+  border-left: 1px solid lightgray;
+  height: 50%;  
+  margin: auto;
+}
+
+#mobile-props-listing .mobile-filter-menu-icon,
+#mobile-props-listing h4 {
+  cursor: pointer;
+}
+
+#mobile-props-order-modal .mobile-order-modal-container {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 135px;  
+  left: 0px;  
+  background-color: white;
+  width: calc(50% - 1rem); 
+  min-width: 225px;
+  max-width: 300px; 
+  z-index: 99999;
+  border-radius: 0.3rem;  
+  transition: all 0.3s ease-in-out;  
+  margin-left: 1rem;
+  color: black;
+}
+
+#mobile-props-order-modal .arrow-up {
+  opacity: 0;
+  position: absolute;
+  top: 123px;  
+  left: 3rem; 
+  width: 0; 
+  height: 0; 
+  z-index: 99999;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid white;
+  transition: all 0.3s ease-in-out; 
+  pointer-events: none;
+}
+
+#mobile-props-order-modal.open .arrow-up {
+  opacity: 1;
+  pointer-events: all;  
+}
+
+#mobile-props-order-modal h4 {
+  padding-left: 1rem;
+  height: 4vh;
+  font-weight: bold;
+  line-height: 4vh;
+  cursor: default;
+}
+
+#mobile-props-order-modal ul {
+  list-style-type:none;
+  padding: 0px;  
+}
+
+#mobile-props-order-modal .mobile-order-modal-item {
+  display: flex;  
+  align-items: center;
+  height: 45px;
+  width: 100%;
+  border-top: 1px solid lightgray;
+  color: grey;
+  padding-left: 2rem;
+  cursor: pointer;
+}
+
+#mobile-props-order-modal.open .mobile-order-modal-container {
+  opacity: 1;
+  pointer-events: all;  
+}
+
+#mobile-props-order-modal .mobile-order-modal-item.selected::before {
+  content: "";
+  position: relative;  
+  left: -2rem;
+  background-color: var(--primary-blue);
+  width: 1rem;
+  height: 100%;  
+}
+
+#mobile-props-order-modal .mobile-modal-background {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  background-color: black;
+  z-index: 10;
+  transition: all 0.5s ease-in-out;
+  pointer-events: none;
+}
+
+#mobile-props-order-modal.open .mobile-modal-background {
+  opacity: 0.6;  
+  pointer-events: all;
+}
+
+#mobile-props-filter-modal .mobile-filter-modal-container {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 135px;  
+  right: 0px;  
+  background-color: white;
+  width: calc(60% - 1rem); 
+  min-width: 250px;
+  max-width: 400px; 
+  z-index: 99999;
+  border-radius: 0.3rem;  
+  transition: all 0.3s ease-in-out;  
+  margin-right: 1rem;
+  color: black;
+}
+
+#mobile-props-filter-modal .mobile-filter-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-right: 2rem;
+}
+
+#mobile-props-filter-modal .mobile-filter-modal-header p {
+  color: var(--primary-blue);
+  cursor: pointer;
+}
+
+#mobile-props-filter-modal .arrow-up {
+  opacity: 0;
+  position: absolute;
+  top: 123px;  
+  right: 3rem; 
+  width: 0; 
+  height: 0; 
+  z-index: 99999;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid white;
+  transition: all 0.3s ease-in-out; 
+  pointer-events: none;
+}
+
+#mobile-props-filter-modal.open .arrow-up {
+  opacity: 1;
+  pointer-events: all;  
+}
+
+#mobile-props-filter-modal.open .mobile-filter-modal-container {
+  opacity: 1;
+  pointer-events: all;  
+}
+
+#mobile-props-filter-modal .mobile-filter-modal-item,
+#mobile-props-filter-modal .mobile-filter-item-detail
+ {
+  display: flex;  
+  justify-content: space-between;
+  align-items: center;
+  min-height: 50px;
+  width: 100%;
+  border-top: 1px solid lightgray;
+  color: grey;
+  padding-left: 2rem;
+  cursor: pointer;
+}
+
+#mobile-props-filter-modal .mobile-filter-item-detail {
+  padding-left: 0px;  
+  color: var(--primary-blue);    
+  justify-content: center;
+  flex-wrap: wrap;    
+}
+
+#mobile-props-filter-modal .mobile-filter-item-detail p {
+  font-size: 14px;
+  margin: 0px;
+}
+
+#mobile-props-filter-modal .mobile-filter-modal-item + .mobile-filter-detail-container {    
+  display: none;
+  background-color: #F4F4F4; 
+  min-height: 40px;     
+}
+
+#mobile-props-filter-modal .mobile-filter-modal-item.active + .mobile-filter-detail-container {
+  display: block;
+}
+
+
+#mobile-props-filter-modal .mobile-filter-item-text {
+  display: flex;
+  flex-direction: column;    
+  height: 100%;
+}
+
+#mobile-props-filter-modal .mobile-filter-item-text h5 {  
+  margin: 0px;
+  height: 60%;
+  line-height: 30px;
+  color: grey;
+}
+
+#mobile-props-filter-modal .mobile-filter-item-text p {
+  color: var(--primary-blue);
+  font-size: 12px;  
+  margin: 0px;
+  height: 40%;
+  line-height: 10px;
+}
+
+#mobile-props-filter-modal .fa-angle-down {
+  transform: scale(1.7);
+  margin-right: 2rem;  
+  color: var(--primary-blue);  
+}
+
+#mobile-props-filter-modal .mobile-filter-modal-item.active .fa-angle-down {
+  transform: scale(1.7) rotatex(180deg);
+}
+
+#mobile-props-filter-modal .mobile-modal-background {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  background-color: black;
+  z-index: 10;
+  transition: all 0.5s ease-in-out;
+  pointer-events: none;
+}
+
+#mobile-props-filter-modal.open .mobile-modal-background {
+  opacity: 0.6;  
+  pointer-events: all;
+}
+
+#mobile-props-filter-modal .mobile-filter-modal-container h4 {
+  padding-left: 1rem;
+  height: 4vh;
+  font-weight: bold;
+  line-height: 4vh;
+  cursor: default;
+}
+
+#mobile-props-filter-modal .mobile-filter-modal-container ul {
+  list-style-type:none;
+  padding: 0px;  
+}
+
+#mobile-props-filter-modal .price-filter {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;  
+  width: 100%;
+}
+
+#mobile-props-filter-modal .price-filter input {
+  width: 40%;
+  margin: 0px;
+  display: inline-flex;
+  height: 30px;
+}
+
+#mobile-props-filter-modal .badge {
+  margin: 5px;
+}
+
+#mobile-props-filter-modal .badge-default,
+#mobile-props-filter-modal .badge-info {
+  height: 30px !important;  
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#mobile-props-filter-modal .badge-info {
+  background-color: lightgray;
+}
+
+#mobile-props-listing .mobile-list-card-details p:first-child {  
+  overflow: hidden;  
+  position: relative;     
+  max-height: 3.5em;   
 }

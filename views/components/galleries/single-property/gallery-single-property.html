@@ -1,0 +1,46 @@
+<section class="gallery-single-property" ng-class="{' open': isGalleryOpen}" ng-style="getSectionStyle()">
+      
+  <!-- Skeleton -->
+  <div class="skeleton-container" ng-show="!showGallery && showSkeleton">
+    <div class="skeleton-image"></div>
+    <div class="skeleton-lines">
+      <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
+    </div>
+  </div>
+  <!-- Skeleton End -->
+
+  <!-- Arrows -->
+  <div class="slider-arrows-container" ng-show="item.photos.length + item.videos.length > 1 && showGallery">
+    <i class="fa fa-angle-left" ng-click="moveSlider('left')"></i>
+    <i class="fa fa-angle-right" ng-click="moveSlider('right')"></i>
+  </div>
+
+  <!-- Slider Single Property -->
+  <div class="gallery-single-property-slider" ng-show="showGallery">
+    <a ng-if="item.hRef" href="{{item.hRef}}" ng-repeat="photo in item.photos"><img src="{{photo.image}}"></a>
+    <iframe ng-if="item.videos && !item.hRef" ng-repeat="video in item.videos" width="560" height="349" ng-src="{{video.player_url | trusted}}" frameborder="0" allowfullscreen></iframe>
+    <img ng-if="!item.hRef" ng-repeat="photo in item.photos" src="{{photo.image}}">
+  </div>  
+  
+  <!-- Widgets -->
+  <div class="silder-widgets-container" ng-show="showWidgets && showGallery"> 
+
+    <div class="slider-open-gallery" ng-click="toggleGallery()">
+      <i class="fa fa-expand-arrows-alt" ng-show="!isGalleryOpen"></i>
+      <p ng-show="!isGalleryOpen">Galería</p>
+    </div>
+
+    <div class="slider-photo-counter">
+      <i class="fa fa-camera"></i>
+      <p>{{currentIndex}}/{{galleryCounter}}</p>
+    </div>
+    
+  </div>  
+  <!-- Widgets End --> 
+
+  <!-- Close Gallery Button -->
+  <i class="fa fa-times" ng-click="toggleGallery()" ng-show="isGalleryOpen"></i>  
+  
+</section>
+
+<div class="gallery-single-property-modal-background" ng-click="toggleGallery()" ng-class="{' open': isGalleryOpen}"></div> 

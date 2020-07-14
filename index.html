@@ -8,7 +8,15 @@
     <meta http-equiv="content-language" content="es-ar" />
     <meta name="Description" content="Inmobiliaria Córdoba. Alquiler, venta y tasaciones de propiedades. Departamentos, casas, terrenos, Barrios Abiertos y Cerrados.">
     <meta name="Keywords" content="departamentos, propiedades, alquiler, venta, inmobiliaria, cordoba, nueva cordoba, tasaciones, terrenos, vivienda, emprendimientos">
-    <link rel="canonical" href="https://duitpropiedades.com.ar">
+    <link rel="canonical" href="https://www.duitpropiedades.com.ar">
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/imagesfavicon.ico"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/android-chrome-512x512.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
     <!-- CSS
     ================================================== -->
     <link rel="stylesheet" href="css/style.css">
@@ -29,6 +37,7 @@
   type="text/javascript"></script>
     <script defer type="text/javascript" src="scripts/slick.min.js"></script>
     <script src="scripts/lodash.core.min.js"></script>
+    <script src="scripts/swiped-events.min.js"></script>
 
     <!-- Angular Scripts -->
     <script type="text/javascript" src="scripts/angular.min.js"></script>
@@ -49,41 +58,43 @@
     <!-- Uncomment when accounts goes to production -->
     <!-- <script defer type="text/javascript" src="views/accounts/login.js"></script> -->
     <script defer type="text/javascript" src="data/propertiesSubTypesFixture.js"></script>
+    <script defer type="text/javascript" src="data/propertiesTypes.js"></script>
     <script defer type="text/javascript" src="data/tokkoSearchArgs.js"></script>
-    <script defer type="text/javascript" src="views/common/common.js"></script>
-    <script defer type="text/javascript" src="views/home/home.js"></script>
+    <script defer type="text/javascript" src="views/common/common.js"></script>    
     <script defer type="text/javascript" src="views/properties_listing/getProperties.js"></script>
-    <script defer type="text/javascript" src="views/properties_listing/properties_listing.js"></script>
-    <script defer type="text/javascript" src="views/property/property.js"></script>
-    <script defer type="text/javascript" src="views/developments_listing/developments_listing.js"></script>
-    <script defer type="text/javascript" src="views/development/development.js"></script>
+    <script defer type="text/javascript" src="views/properties_listing/properties_listing.js"></script>        
     <script defer type="text/javascript" src="views/contact/contact.js"></script>
     <script defer type="text/javascript" src="views/agents/agents.js"></script>
-    <script defer type="text/javascript" src="data/agents.js"></script>
-    <!-- Uncomment when favorites goes to production -->
-    <!-- <script defer type="text/javascript" src="views/favorites/favorites.js"></script> -->
+    <script defer type="text/javascript" src="data/agents.js"></script>    
     <!-- End views Scripts -->
-    <!-- Chatra {literal} -->
-    <script>
-      window.ChatraSetup = {
-        colors: {
-          buttonText: '#f0f0f0', /* chat button text color */
-          buttonBg: '#c8001e'    /* chat button background color */
-        }
-      };
-      (function(d, w, c) {
-        w.ChatraID = 'QqbvaHuNbDqWEK8h9';
-        var s = d.createElement('script');
-        w[c] = w[c] || function() {
-            (w[c].q = w[c].q || []).push(arguments);
-        };
-        s.async = true;
-        s.src = (d.location.protocol === 'https:' ? 'https:': 'http:')
-        + '//call.chatra.io/chatra.js';
-        if (d.head) d.head.appendChild(s);
-      })(document, window, 'Chatra'); 
-    </script>
-    <!-- /Chatra {/literal} -->
+
+    <!-- Controllers -->
+    <script defer type="text/javascript" src="views/home/ctl-home.js"></script>
+    <script defer type="text/javascript" src="views/home/ctl-homeSearch.js"></script>
+    <script defer type="text/javascript" src="views/home/ctl-featuredProps.js"></script>
+    <script defer type="text/javascript" src="views/property/ctl-property.js"></script>
+    <script defer type="text/javascript" src="views/property/ctl-propContactForm.js"></script>
+    <script defer type="text/javascript" src="views/common/ctl-mobileHeader.js"></script>
+    <script defer type="text/javascript" src="views/development/ctl-development.js"></script>    
+    <script defer type="text/javascript" src="views/developments_listing/ctl-developments_listing.js"></script>
+    <!-- Controllers End -->
+
+    <!-- Components -->    
+    <script defer type="text/javascript" src="views/components/skeletons/listing/skeleton-listing.js"></script> 
+    <script defer type="text/javascript" src="views/components/contact-globe/dir-contact-globe.js"></script> 
+    <script defer type="text/javascript" src="views/components/galleries/single-property/gallery-single-property.js"></script> 
+    <script defer type="text/javascript" src="views/components/galleries/properties-cards/gallery-properties-cards.js"></script> 
+    <script defer type="text/javascript" src="views/components/galleries/multiple-properties/gallery-multiple-properties.js"></script> 
+    <!-- Components End -->
+
+    <!-- Services -->
+    <script defer type="text/javascript" src="services/svc-navigation.js"></script>
+    <script defer type="text/javascript" src="services/svc-tokkoApi.js"></script>
+    <script defer type="text/javascript" src="services/svc-getFeaturedProperties.js"></script>
+    <script defer type="text/javascript" src="services/svc-sliderMoves.js"></script>
+    <script defer type="text/javascript" src="services/svc-utils.js"></script>
+    <!-- Services End -->
+
   </head>
   <body>
     <!-- Wrapper -->

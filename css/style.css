@@ -1,14 +1,35 @@
 @charset "UTF-8";
-    @import url("bootstrap.css");
-    @import url("icons.css");
-    @import url("https:  //fonts.googleapis.com/css?family=Varela+Round");
-    @import url("../views/properties_listing/properties_listing.css");
-    @import url("../views/developments_listing/developments_listing.css");
-    @import url("../views/accounts/facebook_button.css");
-    @import url("../views/common/header.css");
-    .container.ng-scope {
+@import url("bootstrap.css");
+@import url("icons.css");
+@import url("https://fonts.googleapis.com/css?family=Varela+Round");
+@import url("../views/properties_listing/properties_listing.css");
+@import url("../views/developments_listing/developments_listing.css");
+@import url("../views/accounts/facebook_button.css");
+@import url("../views/common/header.css");
+@import url("../views/property/property.css");
+@import url("../views/home/home.css");
+@import url("../views/development/development.css");
+@import url("../views//common/footer.css");
+
+/* Components */
+@import url("../views/components/skeletons/listing/skeleton-listing.css");
+@import url("../views/components/contact-globe/contact-globe.css");
+@import url("../views/components/galleries/single-property/gallery-single-property.css");
+@import url("../views/components/galleries/properties-cards/gallery-properties-cards.css");
+@import url("../views/components/galleries/multiple-properties/gallery-multiple-properties.css");
+
+.container.ng-scope {
     margin-bottom: 55px;
 }
+
+:root {
+    --primary-red: #e02e21;
+    --soft-red: #de576b;
+    --primary-blue: #537ebb;
+    --softgrey: #f4f4f4;
+    --whatsapp-green: #128c7e;
+}
+
 pre {
     font-family: "Varela Round", "HelveticaNeue", "Helvetica Neue";
     white-space: pre-wrap;
@@ -17,7 +38,7 @@ pre {
     font-size: 80px;
     margin-left: 48%;
     margin-top: 20px;
-    color: #c8001e;
+    color: var(--primary-red);
 }
 .byha {
     width: 67px;
@@ -97,7 +118,8 @@ ul.top-bar-menu li i {
 }
 .top-bar-dropdown span:after {
     content: "\f0d7";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 14px;
     color: #fff;
     top: 1px;
@@ -135,11 +157,6 @@ ul.top-bar-menu li i {
 }
 #logo img {
     max-height: 54px;
-    width: auto;
-    transform: translate3d(0, 0, 0);
-}
-img.footer-logo {
-    max-height: 43px;
     width: auto;
     transform: translate3d(0, 0, 0);
 }
@@ -334,72 +351,12 @@ header.fullwidth .container {
     transform: translate(0, 0) scale(1);
     transition: .3s;
 }
-#footer {
-    padding: 70px 0 0 0;
-    background-color: #fcfcfc;
-    box-shadow: inset 0 20px 50px -20px rgba(0, 0, 0, 0.06);
-}
-#footer.sticky-footer {
-    box-shadow: none;
-}
-#footer h4 {
-    color: #333;
-    font-size: 21px;
-    margin-bottom: 25px;
-}
-.footer-shadow {
-    width: 100%;
-    display: block;
-    background: #fff;
-    height: 200px;
-    margin-top: -200px;
-    position: relative;
-    z-index: -1;
-    box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.06);
-}
 .text-widget span {
     color: #707070;
 }
 .text-widget span.address {
     display: block;
     margin-bottom: 10px;
-}
-ul.footer-links {
-    margin: 0 0 15px 0;
-    padding: 0;
-    width: 50%;
-    box-sizing: border-box;
-    display: inline-block;
-    float: left;
-}
-.footer-links li {
-    position: relative;
-    list-style: none;
-}
-.footer-links li a {
-    padding: 0 0 9px 16px;
-    display: inline-block;
-    -webkit-transition: all .2s ease-in-out;
-    -moz-transition: all .2s ease-in-out;
-    -o-transition: all .2s ease-in-out;
-    -ms-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
-    color: #707070;
-    line-height: 21px;
-}
-.footer-links li a:hover {
-    padding-left: 22px;
-    color: #66676b;
-}
-.footer-links li:before {
-    font-family: "FontAwesome";
-    font-size: 20px;
-    content: "\f105";
-    position: absolute;
-    left: 0;
-    top: -2px;
-    padding: 0 7px 0 0;
-    color: #ccc;
 }
 .copyrights {
     color: #707070;
@@ -408,41 +365,10 @@ ul.footer-links {
     text-align: center;
     padding: 40px 0;
     display: inline-block;
-    width: 100%}
-#footer.alt .copyrights {
-    margin-top: 0;
-    border: 0;
-    padding: 25px;
+    width: 100%
 }
 .copyrights a {
     color: #707070;
-}
-#footer.dark {
-    background: #222;
-    color: #aaa;
-}
-#footer.dark a, #footer.dark h4, #footer.dark a:hover {
-    color: #fff;
-}
-#footer.dark .text-widget, #footer.dark .text-widget span, #footer.dark .footer-links li a {
-    color: #aaa;
-}
-#footer.dark .footer-links li a:hover {
-    color: #fff;
-}
-#footer.dark .footer-links li:before {
-    color: #666;
-}
-#footer.dark .copyrights {
-    color: #aaa;
-    border-top: 1px solid rgba(255, 255, 255, 0.09);
-}
-#footer .social-icons li a {
-    opacity: .8;
-    transition: opacity .35s;
-}
-#footer .social-icons li a:hover {
-    opacity: 1;
 }
 #backtotop {
     position: fixed;
@@ -470,7 +396,8 @@ body #backtotop a {
 }
 #backtotop a:after {
     content: "\f106";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     position: relative;
     display: block;
     top: 50%;
@@ -533,7 +460,7 @@ button.widget-button {
 }
 .widget-button .like-icon:before, .widget-button .like-icon:after {
     transition: opacity .3s, transform .43s cubic-bezier(.0, -.41, .19, 2);
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
     position: absolute;
     right: 0;
 }
@@ -620,7 +547,7 @@ button.widget-button {
     visibility: visible;
 }
 #navigation ul li a:after, #navigation ul ul li a:after {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
     opacity: .5;
 }
 #navigation ul li a:after {
@@ -1060,22 +987,13 @@ body .search-container button:before {
     font-weight: 300;
     margin-top: 40px;
 }
-.main-search-container {
-    transform: translate3d(0, -12px, 0);
-}
 .main-search-container h1, .main-search-container h2 {
     text-align: center;
     color: #fff;
     font-size: 36px;
 }
 .main-search-form {
-    width: 660px;
-    display: block;
-    margin: 0 auto;
-    position: relative;
-    // margin-top: 35px;
     margin-top: 20px;
-    text-align: center;
 }
 .main-search-box {
     // background-color: #fff;
@@ -1321,7 +1239,8 @@ h4.search-title {
 }
 .more-search-options-trigger:before {
     content: "\f055";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     padding-right: 7px;
 }
 .more-search-options-trigger.active:before {
@@ -1453,7 +1372,8 @@ input.second-slider-value {
 }
 .checkboxes input[type=checkbox]:checked+label:before {
     content: "\f00c";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 12px;
     color: #fff;
     text-align: center;
@@ -1497,7 +1417,7 @@ input.second-slider-value {
 }
 .parallax-content {
     position: relative;
-    z-index: 999;
+    z-index: 10;
     padding: 105px 0;
 }
 #titlebar {
@@ -1558,7 +1478,8 @@ input.second-slider-value {
 }
 #breadcrumbs ul li:before {
     content: "\f105";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     color: #a0a0a0;
     font-size: 14px;
     margin-right: 15px;
@@ -2031,7 +1952,8 @@ span.like-icon {
 }
 .like-icon:before, .like-icon:after {
     transition: opacity .3s, transform .4s cubic-bezier(.0, -.41, .19, 2.5);
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     position: absolute;
     right: 0;
 }
@@ -2259,7 +2181,8 @@ ul.listing-details li {
 }
 .details.button.border:after {
     content: "\f105";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 18px;
     position: absolute;
     opacity: 0;
@@ -2356,8 +2279,7 @@ section.fullwidth {
     width: 100%;
     display: block;
     position: relative;
-    padding: 90px 0;
-    // margin: 50px 0;
+    padding: 90px 0;    
     background-color: #f7f7f7;
 }
 section.fullwidth.border-top {
@@ -2490,7 +2412,8 @@ section.fullwidth.border-bottom {
     transform: translateY(-50%);
 }
 .back-to-listings:before {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     content: "\f104";
     font-size: 36px;
     line-height: 58px;
@@ -2738,12 +2661,14 @@ section.fullwidth.border-bottom {
     margin-bottom: 30px;
 }
 .agent-widget h4 {
-    color: #c8001e;
+    color: var(--primary-red);
     margin: 0 0 6px 0;
 }
 .agent-title .agent-photo img {
     border-radius: 50%;
-    max-width: 80px;
+    width: 80px;
+    height: 80px;
+    object-fit: cover; 
 }
 .agent-title .agent-photo {
     float: left;
@@ -2828,7 +2753,8 @@ section.fullwidth.border-bottom {
     top: -1px;
     position: relative;
     content: "\f00c";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 12px;
     color: #fff;
     text-align: center;
@@ -3261,7 +3187,8 @@ a.button.preview i {
     -ms-transform: translate(-50%, -115%);
 }
 .tip:after {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     content: "\f128";
     line-height: 19px;
     display: inline-block;
@@ -3270,7 +3197,8 @@ a.button.preview i {
     -moz-transform: translateY(-1px);
 }
 .tip-content:after {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     content: "\f0dd";
     position: absolute;
     bottom: 3px;
@@ -4176,7 +4104,7 @@ body .comment-content p {
     -o-transition: all .2s ease-in-out;
     -ms-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
     border-radius: 3px;
     -webkit-text-stroke: 1px #fff;
 }
@@ -4210,7 +4138,8 @@ body .comment-content p {
 }
 .map-box-icon:before {
     content: "";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     position: relative;
     top: 7px;
     display: block;
@@ -4292,7 +4221,8 @@ to {
     color: #fff;
 }
 .custom-zoom-in:before, .custom-zoom-out:before {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     width: 100%;
     line-height: 34px;
     transition: -webkit-text-stroke .3s;
@@ -4345,7 +4275,8 @@ to {
     color: #fff;
 }
 #prevpoint:before, #nextpoint:after {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     position: relative;
     font-weight: 500;
     margin: 0 0 0 6px;
@@ -4383,7 +4314,8 @@ to {
 }
 #streetView:before {
     content: "\f21d";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 16px;
     top: 1px;
     margin-right: 8px;
@@ -4395,7 +4327,8 @@ to {
 }
 #geoLocation:before {
     content: "\f192";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 16px;
     margin: 0;
     top: 2px;
@@ -4433,15 +4366,19 @@ body .carousel {
     padding: 6px;
     font-size: 12px;
     background: transparent;
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
     font-size: 38px;
     transition: all .2s;
     background-color: transparent;
 }
 .owl-theme .owl-controls .owl-buttons .owl-next:before {
-    content: "\f105"}
+    content: "\f105";
+    font-weight: 900;
+}
 .owl-theme .owl-controls .owl-buttons .owl-prev:after {
-    content: "\f104"}
+    content: "\f104";
+    font-weight: 900;
+}
 .owl-theme .owl-controls .owl-buttons {
     position: absolute;
     top: -60px;
@@ -4507,6 +4444,13 @@ body .carousel {
     line-height: 37px;
     padding: 0;
 }
+
+@media (hover: none) and (pointer: coarse) {
+    .listing-carousel.owl-theme .owl-controls .owl-buttons div:hover, .listing-carousel.owl-theme .owl-controls .owl-buttons div {
+        opacity: 1;
+    }
+}
+
 .list-layout .listing-carousel.owl-theme .owl-controls .owl-buttons div:hover, .list-layout .listing-carousel.owl-theme .owl-controls .owl-buttons div {
     font-size: 19px;
     height: 32px;
@@ -4951,7 +4895,8 @@ body .carousel {
     position: absolute;
     top: 50%;
     z-index: 990;
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     display: block;
     width: 50px;
     height: 50px;
@@ -5330,7 +5275,8 @@ button.mfp-close, button.mfp-arrow {
     display: none;
 }
 .mfp-gallery .mfp-close:after, .mfp-gallery .mfp-close:before {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 29px;
     top: 4px;
     left: 50%;
@@ -5351,7 +5297,8 @@ button.mfp-close, button.mfp-arrow {
     transform: rotate(90deg);
 }
 .og-close:after, .og-close:before, .mfp-close:after, .mfp-close:before {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 29px;
     top: 21px;
     left: 50%;
@@ -5438,7 +5385,7 @@ button.mfp-close, button.mfp-arrow {
     color: #fff;
 }
 .mfp-arrow.mfp-arrow-left, .mfp-arrow.mfp-arrow-right {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
     font-size: 29px;
 }
 .mfp-arrow.mfp-arrow-right {
@@ -6256,7 +6203,8 @@ img.mfp-img {
 }
 .chosen-container-single .chosen-single div b:after {
     content: "\f0d7";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 14px;
     margin: 0 14px 0 0;
     top: -1px;
@@ -6265,8 +6213,7 @@ img.mfp-img {
     height: 5px;
     display: inline-block;
     color: silver;
-    float: right;
-    font-weight: normal;
+    float: right;    
 }
 .chosen-container-single .chosen-search {
     position: relative;
@@ -6290,7 +6237,8 @@ img.mfp-img {
 }
 .chosen-container-single .chosen-search:before {
     content: "\f002";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 15px;
     margin: 0 15px 0 0;
     top: 12px;
@@ -6484,7 +6432,8 @@ img.mfp-img {
 }
 .chosen-container-multi .chosen-choices li.search-choice .search-choice-close:before {
     content: "\f00d";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 13px;
     top: 1px;
     position: relative;
@@ -6729,7 +6678,8 @@ a.button.white.border:hover {
     margin-top: 0;
 }
 .list-4 li:before, .list-3 li:before, .list-2 li:before, .list-1 li:before {
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     margin: 0;
     position: relative;
     color: #66676b;
@@ -7348,7 +7298,8 @@ body .notification strong {
 }
 .notification.closeable a.close:before {
     content: "\f00d";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     position: absolute;
     right: 25px;
     top: 0;
@@ -8159,11 +8110,11 @@ body .notification strong {
     content: '\f31b'}
 .icon-instagram:before {
     content: '\f31f'}
-.agent ul.social-icons, #footer ul.social-icons, #top-bar ul.social-icons {
+.agent ul.social-icons, #top-bar ul.social-icons {
     margin: 0;
     padding: 0;
 }
-.agent .social-icons li a, #footer .social-icons li a, #top-bar .social-icons li a {
+.agent .social-icons li a, #top-bar .social-icons li a {
     width: 45px;
     height: 45px;
     display: inline-block;
@@ -8174,13 +8125,13 @@ body .notification strong {
     transform: scale(1);
     margin-right: 0;
 }
-.agent .social-icons li, #footer .social-icons li, #top-bar .social-icons li {
+.agent .social-icons li, #top-bar .social-icons li {
     border-radius: 0;
     transform: scale(1);
     -webkit-transform: scale(1);
     -webkit-filter: blur(radius);
 }
-.agent .social-icons li a i, .agent .social-icons li a:before, #footer .social-icons li a i, #footer .social-icons li a:before, #top-bar .social-icons li a i, #top-bar .social-icons li a:before {
+.agent .social-icons li a i, .agent .social-icons li a:before, #top-bar .social-icons li a i, #top-bar .social-icons li a:before {
     transform: scale(1.1) translateY(calc(-50% - 2px));
     -moz-transform: scale(1.1) translateY(calc(-50% - 1px));
     -ms-transform: scale(1.1) translateY(-50%);
@@ -8189,13 +8140,13 @@ body .notification strong {
     margin: 0;
     text-align: center;
     margin-top: 55%}
-.agent .social-icons li a.twitter i, .agent .social-icons li a.twitter:before, #footer .social-icons li a.twitter i, #footer .social-icons li a.twitter:before, #top-bar .social-icons li a.twitter i, #top-bar .social-icons li a.twitter:before {
+.agent .social-icons li a.twitter i, .agent .social-icons li a.twitter:before i, #top-bar .social-icons li a.twitter i, #top-bar .social-icons li a.twitter:before {
     transform: scale(1.1) translateY(calc(-50% - 1px));
 }
 #top-bar .social-icons {
     float: right;
 }
-.agent .social-icons li, #footer .social-icons li, #top-bar .social-icons li {
+.agent .social-icons li, #top-bar .social-icons li {
     margin: 0;
     padding: 0;
     float: left;
@@ -8215,33 +8166,33 @@ body .notification strong {
 #top-bar .social-icons li a:hover i {
     color: #66676b;
 }
-.agent .social-icons li a, #footer .social-icons li a {
+.agent .social-icons li a {
     width: 38px;
     height: 40px;
     background-color: transparent;
 }
-.agent .social-icons, #footer .social-icons {
+.agent .social-icons {
     position: relative;
     left: -13px;
 }
-.agent .social-icons li, #footer .social-icons li {
+.agent .social-icons li {
     margin: 0;
     padding: 0;
     float: left;
     line-height: 0;
 }
-.agent .social-icons li a:before, .agent .social-icons li a i, #footer .social-icons li a:before, #footer .social-icons li a i {
+.agent .social-icons li a:before, .agent .social-icons li a i {
     font-size: 15px;
     color: #a0a0a0;
 }
-.agent .social-icons li .twitter:before, .agent .social-icons li .twitter i:before, .agent .social-icons li .vimeo:before, .agent .social-icons li .vimeo i:before, #footer .social-icons li .twitter:before, #footer .social-icons li .twitter i:before, #footer .social-icons li .vimeo:before, #footer .social-icons li .vimeo i:before {
+.agent .social-icons li .twitter:before, .agent .social-icons li .twitter i:before, .agent .social-icons li .vimeo:before, .agent .social-icons li .vimeo i:before {
     font-size: 13px;
 }
-.agent .social-icons li a:hover, #footer .social-icons li a:hover {
+.agent .social-icons li a:hover {
     background: transparent !important;
     border-color: transparent;
 }
-.agent .social-icons li a:hover i, #footer .social-icons li a:hover i {
+.agent .social-icons li a:hover i {
     color: #66676b;
 }
 .info-box {
@@ -8299,7 +8250,8 @@ body .notification strong {
     left: 35px;
     bottom: -10px;
     content: "\f0dd";
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     font-size: 42px;
     color: #fff;
     text-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -8773,7 +8725,7 @@ h4 span.headline-detail {
     transition: .2s;
 }
 .pbs:hover {
-    background-color: #f4f4f4;
+    background-color: var(--softgrey);
 }
 .sl-icons-demo i {
     width: 25px;
@@ -9504,13 +9456,6 @@ a.grid-three {
 #navigation.style-1:before {
     display: none;
 }
-.main-search-form {
-    width: 100%;
-    display: block;
-    margin: 0 auto;
-    position: relative;
-    margin-top: 35px;
-}
 .search-container {
     padding: 120px 0;
 }
@@ -9785,7 +9730,7 @@ section.fullwidth .headline-box {
 }
 .main-search-container h1, .main-search-container h2 {
     text-align: center;
-    font-size: 30px;
+    font-size: 27px;
 }
 .search-container .main-search-input button.button, .larger-input button.button, .larger-input input {
     width: 100%;
@@ -10016,5 +9961,57 @@ div.layout-style {
 @media only screen and (max-width:1024px) {
     #style-switcher {
     display: none;
+    }
 }
+
+.hide {
+	display: none;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-row-reverse {
+    flex-direction: row-reverse;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+.flex-column-reverse {
+    flex-direction: column-reverse;
+}
+
+.align-items-start {
+    align-items: flex-start;
+}
+.align-items-end {
+    align-items: flex-end;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.align-items-baseline {
+    align-items: baseline;
+}
+
+@media only screen and (max-width: 1024px) {
+    #wrapper {
+        margin-top: 65px;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
 }

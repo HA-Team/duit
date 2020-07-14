@@ -1,7 +1,7 @@
 const agents = [
   {
     name: 'Agustín Aznarez',
-    position: 'Asesor',
+    position: 'Consejero',
     phone: '(351) 3102556',
     email: 'agustin@duitpropiedades.com.ar',
     facebook: 'https://www.facebook.com/agustin.aznarez',
@@ -11,19 +11,8 @@ const agents = [
     pic: '/images/team/agustin-aznarez-profile.jpg'
   },
   {
-    name: 'Martín Paradelo',
-    position: 'Asesor',
-    phone: '(351) 2463606',
-    email: 'mparadelo@duitpropiedades.com.ar',
-    facebook: 'https://www.facebook.com/martin.paradelo.7',
-    twitter: '',
-    linkedin: '',
-    instagram: 'https://www.instagram.com/martinparadelo/',
-    pic: '/images/team/martin-paradelo-profile.jpg'
-  },
-  {
     name: 'Daniel Ganim',
-    position: 'Asesor',
+    position: 'Consejero',
     phone: '(351) 5647780',
     email: 'danielganim@duitpropiedades.com.ar',
     facebook: ' ',
@@ -34,7 +23,7 @@ const agents = [
   },
   {
     name: 'Fernando Gavier',
-    position: 'Asesor',
+    position: 'Consejero',
     phone: '(0351) 155145491',
     email: 'fgavier@duitpropiedades.com.ar',
     facebook: 'https://www.facebook.com/fngavier',
@@ -45,7 +34,7 @@ const agents = [
   },
   {
     name: 'Hugo Miranda',
-    position: 'Asesor',
+    position: 'Consejero',
     phone: '(351) 2462630',
     email: 'hmiranda@duitpropiedades.com.ar',
     facebook: ' ',
@@ -56,7 +45,7 @@ const agents = [
   },
   {
     name: 'Severo Sosa',
-    position: 'Asesor',
+    position: 'Consejero',
     phone: '(351) 5648467',
     email: 'severo@duitpropiedades.com.ar',
     facebook: 'https://www.facebook.com/sapo.sosa',
@@ -66,19 +55,8 @@ const agents = [
     pic: '/images/team/severo-sosa-profile.jpg'
   },
   {
-    name: 'Cecilia Aznarez',
-    position: 'Asesora',
-    phone: '(351) 6573901',
-    email: 'cecilia@duitpropiedades.com.ar',
-    facebook: '',
-    twitter: '',
-    linkedin: '',
-    instagram: '',
-    pic: '/images/team/cecilia-aznarez-1-profile.jpg'
-  },
-  {
     name: 'Carolina Valarolo',
-    position: 'Asesora',
+    position: 'Consejera',
     phone: '(351) 5513711',
     email: 'carolina@duitpropiedades.com.ar',
     facebook: '',
@@ -97,5 +75,16 @@ const agents = [
     linkedin: '',
     instagram: '',
     pic: '/images/team/recepcion-profile.jpg'
+  },
+  {
+    name: 'Santiago Pablu',
+    position: 'Asesor',
+    phone: '(351) 5908204',
+    email: 'santiago@duitpropiedades.com.ar',
+    facebook: '',
+    twitter: '',
+    linkedin: '',
+    instagram: '',
+    pic: '/images/team/santiago-pablu-profile.jpg'
   }
 ];

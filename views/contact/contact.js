@@ -18,7 +18,7 @@ app.controller('contactForm', function($rootScope, $scope, tokkoApi) {
   $scope.success = false;
   $scope.error = false;
   $scope.send = function () {
-    if ($scope.name || $scope.email) {
+    if ($scope.name && $scope.email && $scope.message) {
       $scope.submitText = 'Enviando';
       $scope.sending = true;
       const data = {
