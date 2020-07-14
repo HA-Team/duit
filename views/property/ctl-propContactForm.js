@@ -1,4 +1,4 @@
-app.controller('propContactForm', function ($scope, tokkoApi) {
+app.controller('propContactForm', ['$scope', 'tokkoApi', function ($scope, tokkoApi) {
 	$scope.submitText = 'Enviar';
 	$scope.sending = false;
 	$scope.success = false;
@@ -42,4 +42,4 @@ app.controller('propContactForm', function ($scope, tokkoApi) {
 			});
 		}
 	};
-});
+}]);

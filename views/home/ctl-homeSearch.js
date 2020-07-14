@@ -1,4 +1,4 @@
-app.controller('homeSearch', function($rootScope, $scope, $state) {
+app.controller('homeSearch', ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
   $rootScope.activeMenu = 'home';
   $scope.operationType = [2];
   $scope.subTypes = [];
@@ -106,4 +106,4 @@ app.controller('homeSearch', function($rootScope, $scope, $state) {
 
     $scope.operationType = [type];
   });
-});
+}]);

@@ -1,15 +1,18 @@
-app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties, utils) {   
-  $scope.utils = utils;
-  
+app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', function($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties, utils) {   
+  $scope.utils = utils;  
   $rootScope.activeMenu = '';
   $scope.apiReady = false;
   $scope.isContactModalOpen = false;
   $scope.isGalleryOpen = false;
+  $scope.featuredPropsReady = false;
+  $scope.similarReady = false;
   $scope.generalFeaturesToShow = 5;
+
+  getFeaturedProps();
   
   const id = $stateParams.propertyId;
 
-  tokkoApi.findOne('property', id, function(result){
+  tokkoApi.findOne('property', id, (result) => {
     $scope.p =  {
       id: result.id,
       operation_type: result.operations[0].operation_type,
@@ -26,16 +29,16 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, 
       state: result.location.short_location.replace(/\s\|.*/, ""),      
       prop: result,
       videos: result.videos,
-      hasDuit360: result.videos.some(video => video.provider_id == 6),
-      video_url: result.videos.length ? result.videos[0].player_url + "?rel=0&enablejsapi=1" : null
+      hasDuit360: result.videos.some(video => video.provider_id == 6)
     };
+    
+    getSimilarProps(result.operations[0].operation_type == 'Venta' ? 1 : 2, result.type.id, result.custom_tags);
 
     $scope.propertyMapped = {
       photos: result.photos,
-      videos: result.videos
-    };
-
-    $scope.showGallery = !$scope.p.hasDuit360;
+      videos: result.videos,
+      video_url: result.videos.length ? result.videos[0].player_url + "?rel=0&enablejsapi=1" : null 
+    };    
 
     $scope.featuresItems = [
       {
@@ -105,9 +108,6 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, 
     uiFunctions.buildSlickCarousel();
     uiFunctions.buildMagnificPopup();
 
-    getFeaturedProperties.getSimilar($scope, tokkoApi);    
-    getFeaturedProperties.getFeatured($scope, tokkoApi);
-
     setTimeout(() => {
       google.maps.event.trigger(map, 'resize');
       google.maps.event.trigger(mobileMap, 'resize');
@@ -172,7 +172,6 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, 
   };
 
   $scope.toggleContactModal = () => $scope.isContactModalOpen = !$scope.isContactModalOpen;
-  $scope.toggleDuit360 = () => $scope.showGallery = !$scope.showGallery;
 
   $scope.contactGlobeOpenIcon = {
     iconClass: 'fab fa-whatsapp',
@@ -197,5 +196,50 @@ app.controller('property', function($rootScope, $scope, tokkoApi, $stateParams, 
       iconClass: 'fa fa-envelope', 
       fontSize: '2.7rem'       
     }
-  ];  
-});
+  ];
+  
+  function getFeaturedProps() {
+    getFeaturedProperties.getFeaturedProps(result => {
+
+      $scope.featuredProps = result.map(prop => {
+        return {
+          id: prop.id,
+          type: prop.operations[0].operation_type,
+          currency: prop.operations[prop.operations.length-1].prices.slice(-1)[0].currency,
+          price: prop.operations[prop.operations.length-1].prices.slice(-1)[0].price,
+          cover_photo: prop.photos[0].image,
+          parkings: prop.parking_lot_amount ? prop.parking_lot_amount : 0,
+          area: prop.type.id === 1 ? prop.surface : prop.roofed_surface,
+          suitAmount: prop.suite_amount,
+          bathroomAmount: prop.suite_amount,  
+          prop: prop
+        }
+      });
+
+      $scope.featuredPropsReady = true;
+
+      $scope.$apply();
+      uiFunctions.buildCarousel();
+    });
+  };
+
+  function getSimilarProps(operationType, typeId, customTags) {
+    getFeaturedProperties.getSimilarProps(operationType, typeId, customTags, result => {
+      $scope.similarProps = result.map(prop => {
+        return {
+          id: prop.id,
+          type: prop.operations[0].operation_type,
+          currency: prop.operations[prop.operations.length-1].prices.slice(-1)[0].currency,
+          price: prop.operations[prop.operations.length-1].prices.slice(-1)[0].price,
+          cover_photo: prop.photos[0] ? prop.photos[0].image : '/images/no-image.png',
+          parkings: prop.parking_lot_amount ? prop.parking_lot_amount : 0,
+          area: prop.type.id === 1 ? prop.surface : prop.roofed_surface,
+          prop: prop
+        }
+      });
+
+      $scope.similarReady = true;
+      $scope.$apply();
+    });
+  };
+}]);

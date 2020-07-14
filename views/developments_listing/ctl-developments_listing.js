@@ -1,4 +1,4 @@
-app.controller('devsListing', function($rootScope, $scope, tokkoApi){
+app.controller('devsListing', ['$rootScope', '$scope', 'tokkoApi', function($rootScope, $scope, tokkoApi){
   $rootScope.activeMenu = 'developments';
 
   $scope.results = [];
@@ -32,4 +32,4 @@ app.controller('devsListing', function($rootScope, $scope, tokkoApi){
     uiFunctions.gridSwitcher();
   });
 
-});
+}]);

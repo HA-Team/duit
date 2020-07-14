@@ -128,7 +128,7 @@
   <!-- Us Section End -->
 
   <!-- Desktop Featured -->
-  <section class="container hidden-on-mobile" ng-controller='featuredProps'>
+  <section class="container hidden-on-mobile">
     <div class="row">
     
       <div class="col-md-12">
@@ -177,18 +177,17 @@
   <!-- Desktop Featured / End -->  
 
   <!-- Mobile Featured Section -->
-  <section id="home-featured" class="hidden-on-desktop" ng-controller='featuredProps'>
+  <section id="home-featured" class="hidden-on-desktop">
     
     <div class="home-featured-container">
 
       <div class="home-featured-title" id="home-featured-anchor">
-        <p>¿Qué Necesitas?</p>
+        <h5>Duit 360&deg;</h5> 
       </div>
 
       <!-- 360 -->
-      <div class="home-featured-section">
-        <h5>Duit Destacadas 360º</h5>      
-        <gallery-multiple-properties items="featuredGalleryMap" show-widgets="false" show-gallery="featuredPropsReady"
+      <div class="home-featured-section">     
+        <gallery-multiple-properties items="featured360Props" show-widgets="false" show-gallery="featured360PropsReady"
             show-skeleton="true" show-info-card="true"></gallery-properties-generic>
       </div>
       <!-- Featured End -->
@@ -254,22 +253,22 @@
     <form ng-controller="contactForm" id="contactform" autocomplete="on">
       <div class="contact-form-group">
         <input class="form-control" name="name" placeholder=" " type="text" ng-model="name" required="required" />
-        <label class="input-placeholder" for="name">Nombre *</label>
+        <label class="input-placeholder no-select" for="name" ng-click="focusFormControl($event)">Nombre *</label>
       </div>
 
       <div class="contact-form-group">
         <input class="form-control" name="email" placeholder=" " type="email" ng-model="email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" required="required" />
-        <label class="input-placeholder" for="email">Email *</label>
+        <label class="input-placeholder no-select" for="email" ng-click="focusFormControl($event)">Email *</label>
       </div>
 
       <div class="contact-form-group">
         <input class="form-control" name="subject" placeholder=" " type="text" ng-model="phone" />
-        <label class="input-placeholder" for="subject">Teléfono</label>
+        <label class="input-placeholder no-select" for="subject" ng-click="focusFormControl($event)">Teléfono</label>
       </div>
 
       <div class="contact-form-group">
         <textarea class="form-control" name="message" placeholder=" " cols="40" rows="3" ng-model="message" spellcheck="true" required="required"></textarea>
-        <label class="input-placeholder textarea-placeholder" for="message">Mensaje *</label>
+        <label class="input-placeholder textarea-placeholder no-select" for="message" ng-click="focusFormControl($event)">Mensaje *</label>
       </div>
 
       <button class="button" ng-click="send()">Contactar<i class='fa fa-spinner fa-spin' ng-show="sending"></i></button>

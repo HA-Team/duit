@@ -1,4 +1,4 @@
-app.controller('map', function($scope) {
+app.controller('map', function() {
   const myLatLng = {lat:-31.4228448, lng: -64.1890466};
   const map = new google.maps.Map(document.getElementById('propertyMap'), {
     center: myLatLng,
@@ -11,7 +11,7 @@ app.controller('map', function($scope) {
   });
 });
 
-app.controller('contactForm', function($rootScope, $scope, tokkoApi) {
+app.controller('contactForm', ['$rootScope', '$scope', 'tokkoApi', function($rootScope, $scope, tokkoApi) {
   $rootScope.activeMenu = 'contactUs';
   $scope.submitText = 'Enviar';
   $scope.sending = false;
@@ -52,4 +52,4 @@ app.controller('contactForm', function($rootScope, $scope, tokkoApi) {
       });
     }
   };
-});
+}]);

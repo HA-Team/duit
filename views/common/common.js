@@ -1,9 +1,9 @@
-app.controller('footer', function($scope) {
+app.controller('footer', function() {
   uiFunctions.buildFooter();
   $(window).trigger('load')
 });
 
-app.controller('navigation', function($scope, $rootScope, $location) {
+app.controller('navigation', ['$scope', '$rootScope', '$location', function($scope, $rootScope, $location) {
   $rootScope.activeMenu = $location.$$path.replace('/', '');
   $rootScope.activeSection = $location.hash();      
   
@@ -13,11 +13,11 @@ app.controller('navigation', function($scope, $rootScope, $location) {
   }, 0);
   $scope.setActive = function(page, section) {
     $rootScope.activeMenu = page;
-    $rootScope.activeSection = section ?? '';
+    $rootScope.activeSection = section ? section : '';
   };
-});
+}]);
 
-app.controller('headerLogin', function($rootScope, $scope, $state) {
+app.controller('headerLogin', ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
   $scope.loggedIn = () => {
     return Meteor.user() ? true : false;
   };
@@ -28,4 +28,4 @@ app.controller('headerLogin', function($rootScope, $scope, $state) {
       $state.go('home');
     });
   }
-});
+}]);

@@ -218,6 +218,10 @@ a.property-type + ul li:hover {
   margin-bottom: 25px;
 }
 
+#home-contact form .contact-form-group .form-control {
+  border-radius: 10px;
+}
+
 #home-contact form input,
 #home-contact form textarea {
   margin: 0;
@@ -346,7 +350,7 @@ a.property-type + ul li:hover {
 }
 
 #home-featured {
-  height: 60vh;
+  height: 55vh;
   background-color: #f7f7f7;
   display: flex;
   justify-content: center;
@@ -358,18 +362,19 @@ a.property-type + ul li:hover {
   margin-top: -50px;
   width: calc(100% - 30px);
   border-radius: 10px;
-  background-color: white;    
+  background-color: white;
+  box-shadow: 0px 0px 0px 3px rgba(0,0,0,0.3);
 }
 
 #home-featured .home-featured-title {
   position: absolute;
-  top: -53px;
+  top: -40px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;  
+  height: 40px;  
   background: rgb(0, 0, 0, 0.4);
   width: 50%;
   padding: 0px 15px;  
@@ -377,27 +382,21 @@ a.property-type + ul li:hover {
   border-top-right-radius: 10px;
 } 
 
-#home-featured .home-featured-title p {
+#home-featured .home-featured-title h5 {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  font-size: 15px;
   color: white;
   margin: 0;
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-size: 16px;
 }
 
 #home-featured .home-featured-section {
   padding: 0 10px;
-}
-
-#home-featured .home-featured-section > h5 {
-  color: var(--primary-red);
-  font-weight: 700;
-  font-size: 16px;
-  padding: 15px 0 0 15px;
-  margin: 0;
 }
 
 #home-search-bar {
