@@ -1,0 +1,44 @@
+<section class="responsive-table">
+    <h3>{{title}}</h3>
+
+    <div class="responsive-table-container">
+        <div class="responsive-table-fixed">
+            <div class="responsive-table-column" ng-repeat="col in columns" ng-if="col.fixed">
+                <div class="responsive-table-header-item" ng-class="{'active ': col.isTooltipOpen}" style="min-width: 125px">
+                    <h5 ng-if ="!col.icon">{{col.name}}</h5>
+                    <i ng-if ="col.icon" class="{{col.icon}}" data-before-content="{{col.name}}" ng-click="toggleTooltip(col)"></i>
+                </div>
+
+                <a class="responsive-table-body-item" ng-repeat="item in items" href="/#!/property/{{item.id}}">
+                    <p ng-if="col.data == 'price'">{{(item.price | currency:item.currency:0)}}</p>
+                    <p ng-if="col.data == 'area'">{{(item.area | number:0) + 'm2'}}</p>
+                    <p ng-if="col.data != 'price' && col.data != 'area'">{{item[col.data]}}</p>
+                </a>
+            </div>
+        </div>
+    
+        <div class="responsive-table-slider">
+            <div class="responsive-table-column" ng-repeat="col in columns" ng-if="!col.fixed">
+                <div class="responsive-table-header-item" ng-class="{'active ': col.isTooltipOpen}" ng-style="{'width': columnWidth + 'px'}">
+                    <h5 ng-if ="!col.icon">{{col.name}}</h5>
+                    <i ng-if ="col.icon" class="{{col.icon}}" data-before-content="{{col.name}}" ng-click="toggleTooltip(col)"></i>
+                </div>
+
+                <a class="responsive-table-body-item" ng-repeat="item in items" href="/#!/property/{{item.id}}">
+                    <p ng-if="col.data == 'price'">{{(item.price | currency:item.currency:0)}}</p>
+                    <p ng-if="col.data == 'area'">{{(item.area | number:0) + 'm2'}}</p>
+                    <p ng-if="col.data != 'price' && col.data != 'area'">{{item[col.data]}}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="responsive-table-page-counter" ng-show="pages > 1">
+        <i class="fa fa-angle-left"></i>
+        <div class="responsive-table-page-counter-dots">
+            <i ng-repeat="page in totalPages track by $index" class="fa fa-dot-circle" ng-class="{'active': $index + 1 == currentIndex}"></i>
+        </div>
+        <i class="fa fa-angle-right"></i>
+    </div>
+    
+</section>

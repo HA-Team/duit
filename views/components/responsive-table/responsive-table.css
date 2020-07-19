@@ -1,0 +1,111 @@
+.responsive-table {
+    margin: 0 10px;
+}
+
+.responsive-table p {
+    margin: 0;
+    color: grey;
+}
+
+.responsive-table-container {
+    display: flex;
+}
+
+.responsive-table-column {
+    flex: 1 1;
+}
+
+.responsive-table-fixed {
+    border-right: 3px solid white;
+}
+
+.responsive-table-slider {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    scroll-behavior: smooth;  
+    width: 100%;  
+}
+
+.responsive-table-header-item,
+.responsive-table-body-item {
+    min-width: 100px;
+    flex: 1 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0;
+    height: 50px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.responsive-table-body-item:nth-of-type(even) {
+    background-color: var(--softgrey);
+}
+
+.responsive-table-header-item h5 {
+    margin: 0;  
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+.responsive-table-page-counter {
+    width: 60%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.responsive-table-page-counter > i {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.responsive-table-page-counter-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.responsive-table-page-counter-dots i {
+    margin: 0 5px;
+}
+
+.responsive-table-page-counter-dots i.active {
+    color: var(--soft-red);
+}
+
+.responsive-table-header-item i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: var(--softgrey);
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.responsive-table-header-item.active i:before {
+    content: attr(data-before-content);
+    background-color: rgba(0,0,0,0.3);
+    color: white;
+    padding: 0 10px;
+    border-radius: 5px;
+    min-height: 25px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Varela Round", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    max-width: 90px;
+    font-size: 14px;
+}

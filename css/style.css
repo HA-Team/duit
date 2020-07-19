@@ -17,6 +17,7 @@
 @import url("../views/components/galleries/single-property/gallery-single-property.css");
 @import url("../views/components/galleries/properties-cards/gallery-properties-cards.css");
 @import url("../views/components/galleries/multiple-properties/gallery-multiple-properties.css");
+@import url("../views/components/responsive-table/responsive-table.css");
 
 .container.ng-scope {
     margin-bottom: 55px;

@@ -134,6 +134,10 @@
 }
 
 #mobile-dev-detail .description-detail-button-container p {
+  display: flex;
+  width: 120px;
+  justify-content: space-between;
+  align-items: center;
   margin: 0px;
 }
 
@@ -267,4 +271,9 @@
   50%, 100% {
       background-position: 100vw;
   }
+}
+
+#mobile-dev-detail .contact-globe {
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
