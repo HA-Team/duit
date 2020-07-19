@@ -1,6 +1,6 @@
 app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', function($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties, utils) {   
   $scope.utils = utils;  
-  $rootScope.activeMenu = '';
+  $rootScope.activeMenu = 'propertySearch';
   $scope.apiReady = false;
   $scope.isContactModalOpen = false;
   $scope.isGalleryOpen = false;
@@ -31,6 +31,8 @@ app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 
       videos: result.videos,
       hasDuit360: result.videos.some(video => video.provider_id == 6)
     };
+
+    $rootScope.activeSection = $scope.p.operation_type == 'Venta' ? 'properties-sell' : 'properties-rent';
     
     getSimilarProps(result.operations[0].operation_type == 'Venta' ? 1 : 2, result.type.id, result.custom_tags);
 

@@ -1,5 +1,5 @@
 app.controller('propsListing', ['$location', '$rootScope', '$scope', 'tokkoApi', '$stateParams', '$state', '$anchorScroll', function($location, $rootScope, $scope, tokkoApi, $stateParams, $state, $anchorScroll){
-  $rootScope.activeMenu = '';
+  $rootScope.activeMenu = 'propertySearch';
   $scope.results = [];
   $scope.resultsCount = 0;
   $scope.sideBarParams = {};
@@ -17,20 +17,19 @@ app.controller('propsListing', ['$location', '$rootScope', '$scope', 'tokkoApi',
     {val: 'id_asc', text: 'Más Recientes'}
   ];
 
-  $scope.goLocation = (url) => {
-    $state.go(url);
-  }
-  $scope.opName = (type) => {
-    if (type === 1) {return 'Venta'};
-    if (type === 2) {return 'Alquiler'} else {
-      return 'Otro'
-    }
-  }
-  $scope.roomAmtName = (amount) => {
-    return parseInt(amount) > 0 ? (amount == 1 ? `${amount} Dormitorio` : `${amount} Dormitorios`) : "Loft ";
-  }
+  $scope.goLocation = (url) => $state.go(url);
+
+  $scope.opName = (type) => type === 1 ? 'Venta' : type === 2 ? 'Alquiler' : 'Otro';
+
+  $scope.roomAmtName = (amount) => parseInt(amount) > 0 ? (amount == 1 ? `${amount} Dormitorio` : `${amount} Dormitorios`) : "Loft ";
+
+  const setActiveSection = (operationType) => $rootScope.activeSection = operationType == 1 ? 'properties-sell' : 'properties-rent';
+
   args = JSON.parse($stateParams.args);
   $scope.operationType = JSON.parse(args.data).operation_types;
+
+  setActiveSection($scope.operationType);
+
   $scope.propertyType = JSON.parse(args.data).property_types;
   $scope.subTypeSelected = JSON.parse(args.data).with_custom_tags;
   $anchorScroll();
@@ -50,6 +49,8 @@ app.controller('propsListing', ['$location', '$rootScope', '$scope', 'tokkoApi',
     args.offset = 0;
     getProperties($scope, tokkoApi, args);
     $location.search({args: JSON.stringify(args)});
+
+    setActiveSection($scope.operationType);
   }
   $scope.changeFilter = (filter) => {    
     if (filter.type === 'o') {
@@ -139,4 +140,6 @@ app.controller('propsListing', ['$location', '$rootScope', '$scope', 'tokkoApi',
   };
 
   $rootScope.$on('changeFilter', (event, {operationType}) => $scope.changeFilter({type: 'o', val: [operationType]}));
+
+  
 }]);

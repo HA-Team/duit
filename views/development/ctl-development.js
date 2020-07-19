@@ -1,5 +1,5 @@
 app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 'getFeaturedProperties', function ($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties) {
-	$rootScope.activeMenu = '';
+	$rootScope.activeMenu = 'developments';
   $scope.apiReady = false;
   $scope.featuredPropsReady = false;
   $scope.devPropsReady = false;
