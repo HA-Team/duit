@@ -23,5 +23,18 @@ app.service('utils', function () {
 			}, wait);
 			if (callNow) func.apply(context, args);
 		};
-	}
+	};
+
+	this.sides = [
+		{
+			rotated: 'up',
+			side: 'left',
+			oposite: 'right'
+		},
+		{
+			rotated: 'down',
+			side: 'right',
+			oposite: 'left'
+		}
+	];
 });

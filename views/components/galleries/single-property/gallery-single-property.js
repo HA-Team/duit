@@ -10,7 +10,7 @@ app.directive('gallerySingleProperty', function() {
             hasDuit360: '='
         },
         templateUrl: '/views/components/galleries/single-property/gallery-single-property.html',
-        controller: ['$scope', 'sliderMoves', '$element', function ($scope, sliderMoves, $element) {  
+        controller: ['$scope', 'sliderMoves', '$element', 'utils', function ($scope, sliderMoves, $element, utils) {  
             const gallerySlider = $element.find(".gallery-single-property-slider")[0];
             const photoCounter = $element.find(".slider-photo-counter p")[0];
 
@@ -28,22 +28,9 @@ app.directive('gallerySingleProperty', function() {
                 setGalleryCounterLabel();
             };        
 
-            const setGalleryCounterLabel = () => photoCounter.innerHTML = `${$scope.currentIndex}/${$scope.galleryCounter}`;        
-
-            const sides = [
-                {
-                    rotated: 'up',
-                    side: 'left',
-                    oposite: 'right'
-                },
-                {
-                    rotated: 'down',
-                    side: 'right',
-                    oposite: 'left'
-                }
-            ];            
+            const setGalleryCounterLabel = () => photoCounter.innerHTML = `${$scope.currentIndex}/${$scope.galleryCounter}`;                  
           
-            sides.forEach(side => {                                
+            utils.sides.forEach(side => {                                
                 gallerySlider.addEventListener(`swiped-${side.side}`, (e) => {
                     e.preventDefault();
                     const isLandscape = window.innerHeight < window.innerWidth;

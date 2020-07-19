@@ -6,7 +6,7 @@ app.directive('galleryPropertiesCards', function() {
             items: '='                               
         },
         templateUrl: '/views/components/galleries/properties-cards/gallery-properties-cards.html',
-        controller: ['$scope', 'sliderMoves', '$element', function ($scope, sliderMoves, $element) { 
+        controller: ['$scope', 'sliderMoves', '$element', 'utils', function ($scope, sliderMoves, $element, utils) { 
             const gallerySlider = $element.find(".gallery-properties-cards-slider")[0];
 
             $scope.currentIndex = 1; 
@@ -17,18 +17,7 @@ app.directive('galleryPropertiesCards', function() {
                 $scope.$apply();
             };
           
-            const sides = [
-                {
-                    side: 'left',
-                    oposite: 'right'
-                },
-                {
-                    side: 'right',
-                    oposite: 'left'
-                }
-            ];
-          
-            sides.forEach(side => {
+            utils.sides.forEach(side => {
                 const gallerySliderArrow = $element.find(`.gallery-properties-cards .fa-angle-${side.side}`)[0];
 
                 gallerySliderArrow.addEventListener("click", () => moveSlider(side.side, $scope.items.length));                
