@@ -122,6 +122,30 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
       fontSize: '2.7rem'       
     }
   ];
+
+  $scope.availablePropsColumns = [
+    {
+      name: 'Precio',
+      icon: 'fa fa-dollar-sign',
+      data: 'price',
+      fixed: true,
+    },
+    {
+      name: 'Dormitorios',
+      icon: 'fas fa-bed',
+      data: 'suite_amount'
+    },
+    {
+      name: 'Superficie Total',
+      icon: 'fas fa-ruler-vertical',
+      data: 'area'
+    },
+    {
+      name: 'Cochera',
+      icon: 'fas fa-car',
+      data: 'parkings_av'
+    }
+  ];
   
   function getFeaturedProps() {
     getFeaturedProperties.getFeaturedProps(result => {
@@ -164,6 +188,7 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
           sell: prop.operations.filter(p => prop.operation_type == "Venta")[0]?.prices.slice(-1)[0],
           rent: prop.operations.filter(p => prop.operation_type == "Alquiler")[0]?.prices.slice(-1)[0],
           parkings_av: prop.parking_lot_amount > 0 ? "Si" : "No",
+          suite_amount: prop.suite_amount,
           prop: prop
         }
       });

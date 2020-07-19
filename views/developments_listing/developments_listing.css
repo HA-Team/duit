@@ -22,3 +22,48 @@
   margin: 0;
   text-align: center;
 }
+
+#mobile-dev-listing > .skeleton-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  transform: scale(0.9);
+  width: 90%;
+  height: 300px;
+  margin: auto;
+}
+
+#mobile-dev-listing > .skeleton-container > .skeleton-image {    
+  height: 30vh;            
+  background-color: var(--softgrey);
+  background-image: linear-gradient(90deg, var(--softgrey) 0px, rgba(229, 229, 229, 0.8) 40px, var(--softgrey) 80px);
+  background-size: 200vw;
+  animation: shine-skeleton 2s infinite ease-out;   
+  margin-bottom: 5px; 
+}
+
+#mobile-dev-listing > .skeleton-container > .skeleton-lines {
+  display: flex;
+  flex-direction: column;     
+  justify-content: center;
+  align-items: center; 
+}
+
+#mobile-dev-listing > .skeleton-container > .skeleton-lines > .skeleton-line {    
+  height: 4rem;
+  width: 100%;       
+  background-color: var(--softgrey);    
+  margin: 5px 15px;
+  background-image: linear-gradient(90deg, var(--softgrey) 0px, rgba(229, 229, 229, 0.8) 40px, var(--softgrey) 80px);
+  background-size: 200vw;
+  animation: shine-skeleton 2s infinite ease-out;  
+}
+
+@keyframes shine-skeleton {
+  0% {
+      background-position: -10px;
+  }
+  50%, 100% {
+      background-position: 100vw;
+  }
+}

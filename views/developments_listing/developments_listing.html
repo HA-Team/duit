@@ -76,8 +76,14 @@
 
 <div ng-controller="devsListing" id="mobile-dev-listing" class="hidden-on-desktop">
   
-  <!-- Skeleton Loader -->
-  <skeleton-listing rows="3" lines="2" show-me="!apiReady"></skeleton-listing>
+    <!-- Skeleton Loader -->
+    <section class="skeleton-container" ng-show="!apiReady" ng-repeat="x in [].constructor(2) track by $index">
+      <div class="skeleton-image"></div>
+      <div class="skeleton-lines">
+        <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
+      </div>
+    </section>
+    <!-- Skeleton Loader End -->
 
   <div ng-show="apiReady">
 

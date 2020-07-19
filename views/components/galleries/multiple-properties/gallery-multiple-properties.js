@@ -9,7 +9,7 @@ app.directive('galleryMultipleProperties', function() {
             showWidgets: '='
         },
         templateUrl: '/views/components/galleries/multiple-properties/gallery-multiple-properties.html',
-        controller: ['$scope', 'sliderMoves', '$element', function ($scope, sliderMoves, $element) {  
+        controller: ['$scope', 'sliderMoves', '$element', 'utils', function ($scope, sliderMoves, $element, utils) {  
             const gallerySlider = $element.find(".gallery-multiple-properties-slider")[0];
             const photoCounter = $element.find(".slider-photo-counter p")[0];
             
@@ -23,22 +23,9 @@ app.directive('galleryMultipleProperties', function() {
                 setGalleryCounterLabel();
             };        
 
-            const setGalleryCounterLabel = () => photoCounter.innerHTML = `${$scope.currentIndex}/${$scope.items.length}`;        
-
-            const sides = [
-                {
-                    rotated: 'up',
-                    side: 'left',
-                    oposite: 'right'
-                },
-                {
-                    rotated: 'down',
-                    side: 'right',
-                    oposite: 'left'
-                }
-            ];            
+            const setGalleryCounterLabel = () => photoCounter.innerHTML = `${$scope.currentIndex}/${$scope.items.length}`;                  
           
-            sides.forEach(side => {                                
+            utils.sides.forEach(side => {                                
                 gallerySlider.addEventListener(`swiped-${side.side}`, (e) => {
                     e.preventDefault();
                     const isLandscape = window.innerHeight < window.innerWidth;
