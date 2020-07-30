@@ -26,4 +26,10 @@ const propertiesTypes = [
   {
     id: 14,
     name: 'Depósitos'
+  },
+  {
+    id: 99,
+    name: 'Emprendimientos',
+    showOnlyInOperationType: 1,
+    goTo: { page:'developments', section: '' }
   }];

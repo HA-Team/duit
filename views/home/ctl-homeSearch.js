@@ -1,18 +1,11 @@
-app.controller('homeSearch', ['$rootScope', '$scope', '$state', function($rootScope, $scope, $state) {
+app.controller('homeSearch', ['$rootScope', '$scope', '$state', 'navigation', function($rootScope, $scope, $state, navigation) {
   $rootScope.activeMenu = 'home';
   $scope.operationType = [2];
-  $scope.subTypes = [];
 
   $scope.isPropertyTypeOpen = false;
-  $scope.isSubPropertyTypeOpen = false;
 
   $scope.wasFindPropertiesButtonClicked = false;
   $scope.isPropertyPlaceholderWarningActive = false;
-
-  $scope.subTypeSelected = {
-    id: -1,
-    name:"Condición"
-  };
 
   $scope.propertyType = {
     id: -1,
@@ -22,44 +15,22 @@ app.controller('homeSearch', ['$rootScope', '$scope', '$state', function($rootSc
   $scope.propertiesTypes = propertiesTypes;
 
   $scope.updateTypeChosen = function(newType) { 
+    const isTypeSelectedPlaceholder = $scope.propertiesTypes[0] != -1;
+    const isPlaceholderOnList = $scope.propertiesTypes.some(type => type.id == -1);
+
     $scope.propertyType = newType;
 
     $scope.isPropertyTypeOpen = false;
-    $scope.isSubPropertyTypeOpen = false;
     $scope.isPropertyPlaceholderWarningActive = false;
 
-    if ($scope.propertiesTypes.some(type => type.id == -1) && $scope.propertiesTypes[0] != -1) $scope.propertiesTypes.shift();
-    
-    $scope.subTypeSelected = propertiesSubTypes[$scope.propertyType.id][0];
-    
-    $scope.subTypes = propertiesSubTypes[$scope.propertyType.id].filter(type => type.id != $scope.subTypeSelected.id);
+    if (isPlaceholderOnList && isTypeSelectedPlaceholder) $scope.propertiesTypes.shift();
     
     $scope.propertiesTypes = propertiesTypes.filter(type => type.id != newType.id);
   };
 
-  $scope.updateSubTypeChosen = (newType) => {
-    $scope.subTypeSelected = newType;
+  $scope.togglePropertyTypeDropdown = () => $scope.isPropertyTypeOpen = !$scope.isPropertyTypeOpen;
 
-    $scope.isPropertyTypeOpen = false;
-    $scope.isSubPropertyTypeOpen = false;
-
-    $scope.subTypes = propertiesSubTypes[$scope.propertyType.id].filter(type => type.id != $scope.subTypeSelected.id);
-  };
-
-  $scope.togglePropertyTypeDropdown = () => { 
-    $scope.isSubPropertyTypeOpen = false;
-    $scope.isPropertyTypeOpen = !$scope.isPropertyTypeOpen;
-  };
-
-  $scope.toggleSubPropertyTypeDropdown = () => {
-    $scope.isPropertyTypeOpen = false;
-    if ($scope.propertyType.id != -1 && $scope.subTypes.length > 1) $scope.isSubPropertyTypeOpen = !$scope.isSubPropertyTypeOpen;
-  };
-
-  $scope.closeOpenSelects = () => {
-    $scope.isPropertyTypeOpen = false;
-    $scope.isSubPropertyTypeOpen = false;
-  };
+  $scope.closeOpenSelects = () => $scope.isPropertyTypeOpen = false;
 
   $scope.findProperties = () => {
     $scope.wasFindPropertiesButtonClicked = true;
@@ -73,8 +44,14 @@ app.controller('homeSearch', ['$rootScope', '$scope', '$state', function($rootSc
       }, 2000);
     }
     else {
-      $scope.isPropertyPlaceHolderWarningActive = false;
-      $scope.find();
+      if ($scope.propertyType.goTo) {
+        $state.go($scope.propertyType.goTo.page);
+        navigation.goToSection($scope.propertyType.goTo.page, $scope.propertyType.goTo.section);
+      }
+      else {
+        $scope.isPropertyPlaceHolderWarningActive = false;
+        $scope.find();
+      }
     }
   }
 
@@ -89,9 +66,6 @@ app.controller('homeSearch', ['$rootScope', '$scope', '$state', function($rootSc
     let data = JSON.parse(_.clone(tokkoSearchArgs.sData));
     data.operation_types = [$scope.operationType[0]];
     if ($scope.propertyType) data.property_types = [$scope.propertyType.id];
-    if ($scope.subTypeSelected) {
-      data.with_custom_tags = $scope.subTypeSelected.id == 0 ? [] : [$scope.subTypeSelected.id];
-    }
     let args = {data: JSON.stringify(data), offset: 0};
     $state.go('propertySearch', {args: JSON.stringify(args)});
   };

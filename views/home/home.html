@@ -23,7 +23,7 @@
           <div class="property-type-dropdown-container" ng-class="{' warning': isPropertyPlaceholderWarningActive}">
             <a class="property-type" ng-click="togglePropertyTypeDropdown()" ng-class="{' open': isPropertyTypeOpen}">{{propertyType.name}} <i class="fas fa-angle-down"></i></a>                      
             <ul class="col-md-5" ng-class="{' open': isPropertyTypeOpen}">
-              <li ng-repeat="type in propertiesTypes track by type.id" ng-click="updateTypeChosen(type)">{{type.name}}</li>                        
+              <li ng-repeat="type in propertiesTypes track by type.id" ng-click="updateTypeChosen(type)" ng-show="!type.showOnlyInOperationType || type.showOnlyInOperationType == operationType">{{type.name}}</li>                        
             </ul>
           </div>
           
@@ -247,7 +247,7 @@
   <!-- Assesors Section End -->    
 
   <!-- Contact Section -->
-  <section id="home-contact" class="hidden-on-desktop">
+  <section id="home-contact" >
     <h3>Dejanos tu consulta</h3>
 
     <form ng-controller="contactForm" id="contactform" autocomplete="on">
