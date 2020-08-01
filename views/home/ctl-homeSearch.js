@@ -44,10 +44,7 @@ app.controller('homeSearch', ['$rootScope', '$scope', '$state', 'navigation', fu
       }, 2000);
     }
     else {
-      if ($scope.propertyType.goTo) {
-        $state.go($scope.propertyType.goTo.page);
-        navigation.goToSection($scope.propertyType.goTo.page, $scope.propertyType.goTo.section);
-      }
+      if ($scope.propertyType.goTo) navigation.goToSection($scope.propertyType.goTo.page, $scope.propertyType.goTo.section);
       else {
         $scope.isPropertyPlaceHolderWarningActive = false;
         $scope.find();

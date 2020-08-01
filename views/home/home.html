@@ -205,7 +205,7 @@
 
       <div class="home-services-imgs">
         <div ng-repeat="service in services" class="home-services-img-container">
-          <a ng-click="goToSection('', service.goTo); service.action()"><img src="{{service.imgSrc}}"></a>
+          <a ng-click="goToSection(service.goTo.page, service.goTo.section); service.action()"><img src="{{service.imgSrc}}"></a>
         </div>
       </div>
     </div>

@@ -51,25 +51,25 @@ app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeatu
   $scope.services = [
     {
       imgSrc: "/images/services/consejeros.png",
-      goTo: "home-assesors" 
+      goTo: { page: 'home', section: "home-assesors" }
     },
     {
       imgSrc: "/images/services/alquiler.png",
-      goTo: "home-search-bar",
+      goTo: { page: 'home', section: "home-search-bar" },
       action: () => $scope.$broadcast('homeSearchServiceLinkClicked', { type: 2})
     },
     {
       imgSrc: "/images/services/venta.png",
-      goTo: "home-search-bar",
+      goTo: { page: 'home', section: "home-search-bar" },
       action: () => $scope.$broadcast('homeSearchServiceLinkClicked', { type: 1}) 
     },
     {
       imgSrc: "/images/services/administracion.png",
-      goTo: "home-contact" 
+      goTo: { page: 'home', section: "home-contact" }
     },
     {
       imgSrc: "/images/services/tasacion.png",
-      goTo: "home-contact" 
+      goTo: { page: 'home', section: "home-contact" }
     }
   ];
 
