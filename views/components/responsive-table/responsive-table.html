@@ -4,16 +4,16 @@
     <div class="responsive-table-container">
         <div class="responsive-table-fixed">
             <div class="responsive-table-column" ng-repeat="col in columns" ng-if="col.fixed">
-                <div class="responsive-table-header-item" ng-class="{'active ': col.isTooltipOpen}" style="min-width: 125px">
+                <div class="responsive-table-header-item" ng-class="{'active ': col.isTooltipOpen}">
                     <h5 ng-if ="!col.icon">{{col.name}}</h5>
                     <i ng-if ="col.icon" class="{{col.icon}}" data-before-content="{{col.name}}" ng-click="toggleTooltip(col)"></i>
                 </div>
 
-                <a class="responsive-table-body-item" ng-repeat="item in items" href="/#!/property/{{item.id}}">
+                <div class="responsive-table-body-item" ng-repeat="item in items" ng-click="setActiveDetail(item);">
                     <p ng-if="col.data == 'price'">{{(item.price | currency:item.currency:0)}}</p>
-                    <p ng-if="col.data == 'area'">{{(item.area | number:0) + 'm2'}}</p>
+                    <p ng-if="col.data == 'area'">{{(item.area | number:0)}}m<sup>2</sup></p>
                     <p ng-if="col.data != 'price' && col.data != 'area'">{{item[col.data]}}</p>
-                </a>
+                </div>
             </div>
         </div>
     
@@ -24,21 +24,35 @@
                     <i ng-if ="col.icon" class="{{col.icon}}" data-before-content="{{col.name}}" ng-click="toggleTooltip(col)"></i>
                 </div>
 
-                <a class="responsive-table-body-item" ng-repeat="item in items" href="/#!/property/{{item.id}}">
+                <div class="responsive-table-body-item" ng-repeat="item in items" ng-click="setActiveDetail(item);">
                     <p ng-if="col.data == 'price'">{{(item.price | currency:item.currency:0)}}</p>
-                    <p ng-if="col.data == 'area'">{{(item.area | number:0) + 'm2'}}</p>
+                    <p ng-if="col.data == 'area'">{{(item.area | number:0)}}m<sup>2</sup></p>
                     <p ng-if="col.data != 'price' && col.data != 'area'">{{item[col.data]}}</p>
-                </a>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="responsive-table-page-counter" ng-show="pages > 1">
-        <i class="fa fa-angle-left"></i>
+        <i class="fa fa-angle-left" ng-class="{'hide-me': currentIndex == 1}"></i>
         <div class="responsive-table-page-counter-dots">
             <i ng-repeat="page in totalPages track by $index" class="fa fa-dot-circle" ng-class="{'active': $index + 1 == currentIndex}"></i>
         </div>
-        <i class="fa fa-angle-right"></i>
+        <i class="fa fa-angle-right" ng-class="{'hide-me': pages == currentIndex}"></i>
+    </div>
+
+    <div class="responsive-table-detail-modal" ng-class="{ 'open': isDetailOpen }">
+        <a href="/#!/property/{{activeDetail.id}}">Ir a propiedad</a>
+        <div ng-repeat="col in columns">
+            <h5>{{col.name}}</h5>
+            <p ng-if="col.data == 'price'">{{(activeDetail.price | currency:activeDetail.currency:0)}}</p>
+            <p ng-if="col.data == 'area'">{{(activeDetail.area | number:0)}}m<sup>2</sup></p>
+            <p ng-if="col.data != 'price' && col.data != 'area'">{{activeDetail[col.data]}}</p>
+            
+            <hr style="margin: 8px;">
+        </div>
     </div>
     
 </section>
+
+<div class="responsive-table-modal-background" ng-click="toggleDetail()" ng-class="{' open': isDetailOpen}"></div> 

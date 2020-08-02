@@ -126,14 +126,24 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
 
   $scope.availablePropsColumns = [
     {
+      name: 'Ubicación',
+      icon: 'fa fa-map-marker',
+      data: 'address',
+      fixed: true,
+    },
+    {
       name: 'Precio',
       icon: 'fa fa-dollar-sign',
-      data: 'price',
-      fixed: true,
+      data: 'price'
     },
     {
       name: 'Dormitorios',
       icon: 'fas fa-bed',
+      data: 'suite_amount'
+    },
+    {
+      name: 'Baños',
+      icon: 'fas fa-bath',
       data: 'suite_amount'
     },
     {
@@ -190,6 +200,8 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
           rent: prop.operations.filter(p => prop.operation_type == "Alquiler")[0]?.prices.slice(-1)[0],
           parkings_av: prop.parking_lot_amount > 0 ? "Si" : "No",
           suite_amount: prop.suite_amount,
+          bathroom_amount: result.bathroom_amount ? result.bathroom_amount : 0,
+          address: prop.fake_address,
           prop: prop
         }
       });

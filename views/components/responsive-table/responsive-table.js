@@ -8,22 +8,36 @@ app.directive('responsiveTable', function() {
             title: '=',
         },
         templateUrl: '/views/components/responsive-table/responsive-table.html',
-        controller: ['$scope', 'sliderMoves', '$element', 'utils', function ($scope, sliderMoves, $element, utils) {
+        controller: ['$scope', '$state', '$element', 'sliderMoves', 'utils', 'navigation', function ($scope, $state, $element, sliderMoves, utils, navigation) {
             const tableContainer = $element.find('.responsive-table-container')[0];
             const tableSlider = $element.find('.responsive-table-slider')[0];
             const tableFixed = $element.find('.responsive-table-fixed')[0];
+            const setedMarginsWidth = 20;
+            
+            let pagingSteps = [0];
 
-            setTimeout(() => setColumnsWidth(tableSlider, tableFixed), 0);
+            setTimeout(() => setPaging(tableSlider, tableFixed), 0);
 
-            $scope.currentIndex = 1;            
+            $scope.isDetailOpen = false;
+            $scope.currentIndex = 1;     
             
             moveSlider = (side) => {
-                $scope.currentIndex = sliderMoves.moveSlider(tableSlider, $scope.currentIndex, $scope.pages, side, $scope.spareWidth);
+                let pxToMove;
+                if (side == 'right') pxToMove = pagingSteps[$scope.currentIndex];
+                else pxToMove = $scope.currentIndex == 1 ? pagingSteps[$scope.pages - 1] : pagingSteps[$scope.currentIndex - 2];
+
+                $scope.currentIndex = sliderMoves.moveSliderByScrollLeft(tableSlider, $scope.currentIndex, $scope.pages, side, pxToMove);
                 $scope.$apply();
             }
 
             $scope.toggleTooltip = (col) => { 
-                if (col.icon) col.isTooltipOpen = !col.isTooltipOpen;
+                if (col.icon) {
+                    $scope.columns.forEach(column => {
+                        if (column.name != col.name) column.isTooltipOpen = false;
+                    });
+                    
+                    col.isTooltipOpen = !col.isTooltipOpen;
+                }
             };
 
             utils.sides.forEach(side => {
@@ -37,19 +51,46 @@ app.directive('responsiveTable', function() {
                 }, {capture: true});
             });
 
-            const setColumnsWidth = (slider, fixed) => {
+            const setPaging = (slider, fixed) => {
+                const spareWidth = window.innerWidth - setedMarginsWidth - fixed.offsetWidth;
                 const columns = [...slider.querySelectorAll('.responsive-table-column')];
-                const maxWidth = Math.max(...columns.map(column => column.offsetWidth));
 
-                $scope.spareWidth = window.innerWidth - 20 - fixed.offsetWidth;
+                $scope.pages = 1;
 
-                const columnsToShow = Math.floor($scope.spareWidth / maxWidth);
+                let widthSum = 0;
 
-                $scope.columnWidth = Math.floor($scope.spareWidth / columnsToShow);
-                $scope.pages = Math.ceil(columns.length / columnsToShow);
+                columns.forEach(col => {
+                    if (widthSum + col.offsetWidth <= spareWidth) widthSum += col.offsetWidth;
+                    else {
+                        if ($scope.pages == 1) {
+                            pagingSteps.push(widthSum);
+                            widthSum = col.offsetWidth;
+                            $scope.pages ++;
+                        } else {
+                            pagingSteps.push(widthSum + pagingSteps[$scope.pages - 1]);
+                            widthSum = col.offsetWidth;
+                            $scope.pages ++;
+                        }
+                    }
+                });
+
                 $scope.totalPages = [...Array(parseInt($scope.pages)).keys()];
                 $scope.$apply();
             };
+
+            $scope.toggleDetail = () => $scope.isDetailOpen = !$scope.isDetailOpen;
+
+            $scope.setActiveDetail = (item) => {
+                const isSliderTableFullWidthShown = tableSlider.offsetWidth == tableSlider.scrollWidth;
+                const fixedTableElements = [...tableFixed.querySelectorAll(".responsive-table-body-item p")];
+                const isSomeElementEllipsing = fixedTableElements.some(element => element.offsetWidth < element.scrollWidth);
+
+                if (isSomeElementEllipsing || !isSliderTableFullWidthShown) {
+                    $scope.activeDetail = item;
+                    $scope.toggleDetail();
+                }
+                else navigation.goToSection('property', '', null, { propertyId: item.id });
+            }
         }]            
     }
 });
