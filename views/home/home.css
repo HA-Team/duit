@@ -96,7 +96,12 @@ a.property-type + ul li:hover {
   z-index: 99;
 }
 
-.home-agents {
+#home-assesors {
+  background-color: #f7f7f7;
+  width: 100%;
+}
+
+.home-agents-container {
     width: 100%;    
     display: flex;
     justify-content: center;
@@ -104,33 +109,38 @@ a.property-type + ul li:hover {
     flex-wrap: wrap;
     background-color: #f7f7f7;
     padding-bottom: 50px;
+    max-width: 1200px;
+    margin: auto;
 }
 
-.home-agents .home-agents-title {
+.home-agents-container .home-agents-title {
   flex: 1 1 100%;
   text-align: center;
   margin-top: 20px;
 }
 
-.home-agents .home-agents-description {
+.home-agents-container .home-agents-description {
   padding: 0 25px;
   margin-bottom: 20px;
 }
 
-.home-agents .home-agents-title img {
+.home-agents-container .home-agents-description p {
+  line-height: normal;
+}
+
+.home-agents-container .home-agents-title img {
   width: 150px;
 }
 
-.home-agents .home-agent-card {
+.home-agents-container .home-agent-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   flex: 0 0 150px;
-  min-width: 25%;
   margin-bottom: 20px;
 }
 
-.home-agents .home-agent-card img {
+.home-agents-container .home-agent-card img {
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -138,21 +148,21 @@ a.property-type + ul li:hover {
   margin-bottom: 15px;
 }
 
-.home-agents .home-agent-card > p,
-.home-agents .home-agent-card > a {
+.home-agents-container .home-agent-card > p,
+.home-agents-container .home-agent-card > a {
   line-height: 20px;
   margin: 0;
   font-size: 13px;
   color: #707070;
 }
 
-.home-agents .home-agent-card .home-agent-card-icons {
+.home-agents-container .home-agent-card .home-agent-card-icons {
   display: flex;
   width: 40%;
   justify-content: space-around;
 }
 
-.home-agents .home-agent-card .home-agent-card-icons a {
+.home-agents-container .home-agent-card .home-agent-card-icons a {
   font-size: 20px;
   color: #707070;
 }
@@ -269,6 +279,7 @@ a.property-type + ul li:hover {
     width: calc(100% - 30px);
     border-radius: 10px;  
     margin: auto;
+    max-width: 1200px;
 }
 
 #home-services h3 {

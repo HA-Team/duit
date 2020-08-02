@@ -96,37 +96,6 @@
   </section>
   <!-- Fullwidth Section / End -->
 
-  <!-- Us Section -->
-  <section id="home-us" class="parallax margin-bottom-70 hidden-on-mobile"
-    data-background="/images/team/team-4.jpg"
-    data-color="#36383e"
-    data-color-opacity="0.7"
-    data-img-width="900"
-    data-img-height="505"
-    data-z-index="1">
-
-    <!-- Infobox -->
-    <div class="text-content white-font">
-      <div class="container">
-
-        <div class="row">
-          <div class="col-lg-6 col-sm-8">
-            <h2>Nosotros.</h2>
-            <p>En Duit contamos con más de 10 años de experiencia en el mercado inmobiliario, somos personas con un mismo sueño, con una misma forma de ver la vida, de superarnos, de dar lo mejor.
-  Comprendemos la importancia y trascendencia que tiene en la vida de las personas, la compra o alquiler de una vivienda, local comercial o cualquier otro tipo de transacción inmobiliaria. 
-  Generamos vínculos a largo plazo, y trabajamos enfocados en lograr que el beneficio sea para todos. 
-  Se trata de identidad, de valores, de una forma de hacer las cosas, y aconsejar, es la única que nos representa. </p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Infobox / End -->
-
-  </section>
-  <!-- Us Section End -->
-
   <!-- Desktop Featured -->
   <section class="container hidden-on-mobile">
     <div class="row">
@@ -198,7 +167,7 @@
   <!-- Mobile Featured Section End -->
       
   <!-- Services Section -->
-  <section id="home-services" class="hidden-on-desktop"> 
+  <section id="home-services"> 
 
     <div class="home-services-container">
       <h3>Servicios</h3>
@@ -214,35 +183,37 @@
   <!-- Services Section End -->
 
   <!-- Assesors Section -->
-  <section id="home-assesors" class="home-agents hidden-on-desktop" id="agents">
+  <section id="home-assesors" class="home-agents" id="agents">
 
-    <div class="home-agents-title">
-      <img src="/images/consejeros.png" alt="">
-    </div>
-
-    <div class="home-agents-description">
-      <p>
-        En Duit contamos con más de 10 años de experiencia en el mercado inmobiliario, somos personas con un mismo sueño, con una misma forma de ver la vida, de superarnos, de dar lo mejor.
-        <br><br>
-        Comprendemos la importancia y trascendencia que tiene en la vida de las personas, la compra o alquiler de una vivienda, local comercial o cualquier otro tipo de transacción inmobiliaria
-        <br><br>
-        Generamos vínculos a largo plazo, y trabajamos enfocados en lograr que el beneficio sea para todos.
-        <br><br>
-        Se trata de identidad, de valores, de una forma de hacer las cosas, y aconsejar, es la única que nos representa.
-      </p>
-    </div>
-
-    <div class="home-agent-card" ng-repeat="agent in agents">
-      <img src="{{agent.pic}}" alt="">
-      <p>{{agent.name}}</p>
-      <a href="tel:{{agent.phone}}">{{agent.phone}}</a>
-
-      <div class="home-agent-card-icons">
-        <a href="mailto:{{agent.email}}"><i class="fa fa-envelope"></i></a>
-        <a href="https://api.whatsapp.com/send?phone={{formatCellPhone(agent.phone)}}"><i class="fab fa-whatsapp"></i></a>
+    <div class="home-agents-container">
+      <div class="home-agents-title">
+        <img src="/images/consejeros.png" alt="">
+      </div>
+  
+      <div class="home-agents-description">
+        <p>
+          En Duit contamos con más de 10 años de experiencia en el mercado inmobiliario, somos personas con un mismo sueño, con una misma forma de ver la vida, de superarnos, de dar lo mejor.
+          <br><br>
+          Comprendemos la importancia y trascendencia que tiene en la vida de las personas, la compra o alquiler de una vivienda, local comercial o cualquier otro tipo de transacción inmobiliaria.
+          <br><br>
+          Generamos vínculos a largo plazo, y trabajamos enfocados en lograr que el beneficio sea para todos.
+          <br><br>
+          Se trata de identidad, de valores, de una forma de hacer las cosas, y aconsejar, es la única que nos representa.
+        </p>
+      </div>
+  
+      <div class="home-agent-card" ng-repeat="agent in agents">
+        <img src="{{agent.pic}}" alt="">
+        <p>{{agent.name}}</p>
+        <a href="tel:{{agent.phone}}">{{agent.phone}}</a>
+  
+        <div class="home-agent-card-icons">
+          <a href="mailto:{{agent.email}}"><i class="fa fa-envelope"></i></a>
+          <a href="https://api.whatsapp.com/send?phone={{formatCellPhone(agent.phone)}}"><i class="fab fa-whatsapp"></i></a>
+        </div>
       </div>
     </div>
-
+    
   </section>
   <!-- Assesors Section End -->    
 
@@ -286,7 +257,7 @@
   <!-- Contact Section End -->
 
   <!-- Flying Contact Globe  -->
-  <ng-container id="home-contact-globe" ng-cloak class="hidden-on-desktop">
+  <ng-container id="home-contact-globe" ng-cloak>
     <contact-globe is-open="isContactGlobeOpen" main-img="'images/whatsapp-duit.png'" show-main-img-box-shadow="false"
       title="contactGlobeTitle" actions="contactGlobeActions" toggle-modal="toggleContactModal()">
     </contact-globe>
