@@ -7,7 +7,16 @@ app.directive('responsiveTable', function() {
             title: '=',
         },
         templateUrl: '/views/components/responsive-table/responsive-table.html',
-        controller: ['$scope', '$state', '$element', 'sliderMoves', 'utils', 'navigation', function ($scope, $state, $element, sliderMoves, utils, navigation) {
+        controller: ['$scope', '$element', 'sliderMoves', 'utils', 'navigation', function ($scope, $element, sliderMoves, utils, navigation) {
+            // #region Public Properties
+
+            $scope.isDetailOpen = false;
+            $scope.currentIndex = 1; 
+
+            // #endregion
+
+            // #region Private Properties
+
             const tableContainer = $element.find('.responsive-table-container')[0];
             const tableSlider = $element.find('.responsive-table-slider')[0];
             const tableFixed = $element.find('.responsive-table-fixed')[0];
@@ -15,12 +24,11 @@ app.directive('responsiveTable', function() {
             
             let pagingSteps = [0];
 
-            setTimeout(() => setPaging(tableSlider, tableFixed), 0);
+            // #endregion
 
-            $scope.isDetailOpen = false;
-            $scope.currentIndex = 1;     
-            
-            moveSlider = (side) => {
+            // #region Private Methods
+
+            const moveSlider = (side) => {
                 let pxToMove;
                 if (side == 'right') pxToMove = pagingSteps[$scope.currentIndex];
                 else pxToMove = $scope.currentIndex == 1 ? pagingSteps[$scope.pages - 1] : pagingSteps[$scope.currentIndex - 2];
@@ -28,27 +36,6 @@ app.directive('responsiveTable', function() {
                 $scope.currentIndex = sliderMoves.moveSliderByScrollLeft(tableSlider, $scope.currentIndex, $scope.pages, side, pxToMove);
                 $scope.$apply();
             }
-
-            $scope.toggleTooltip = (col) => { 
-                if (col.icon) {
-                    $scope.columns.forEach(column => {
-                        if (column.name != col.name) column.isTooltipOpen = false;
-                    });
-                    
-                    col.isTooltipOpen = !col.isTooltipOpen;
-                }
-            };
-
-            utils.sides.forEach(side => {
-                const sliderArrow = $element.find(`.responsive-table-page-counter .fa-angle-${side.side}`)[0];
-
-                sliderArrow.addEventListener("click", () => moveSlider(side.side)); 
-
-                tableContainer.addEventListener(`swiped-${side.side}`, (e) => {
-                    e.preventDefault();
-                    moveSlider(side.oposite);
-                }, {capture: true});
-            });
 
             const setPaging = (slider, fixed) => {
                 const spareWidth = window.innerWidth - setedMarginsWidth - fixed.offsetWidth;
@@ -77,6 +64,20 @@ app.directive('responsiveTable', function() {
                 $scope.$apply();
             };
 
+            // #endregion
+
+            // #region Public Methods
+
+            $scope.toggleTooltip = (col) => { 
+                if (col.icon) {
+                    $scope.columns.forEach(column => {
+                        if (column.name != col.name) column.isTooltipOpen = false;
+                    });
+                    
+                    col.isTooltipOpen = !col.isTooltipOpen;
+                }
+            };
+
             $scope.toggleDetail = () => $scope.isDetailOpen = !$scope.isDetailOpen;
 
             $scope.setActiveDetail = (item) => {
@@ -89,7 +90,26 @@ app.directive('responsiveTable', function() {
                     $scope.toggleDetail();
                 }
                 else navigation.goToSection('property', '', null, { propertyId: item.id });
-            }
+            };
+
+            // #endregion
+
+            // #region Events
+
+            setTimeout(() => setPaging(tableSlider, tableFixed), 0);
+
+            utils.sides.forEach(side => {
+                const sliderArrow = $element.find(`.responsive-table-page-counter .fa-angle-${side.side}`)[0];
+
+                sliderArrow.addEventListener("click", () => moveSlider(side.side)); 
+
+                tableContainer.addEventListener(`swiped-${side.side}`, (e) => {
+                    e.preventDefault();
+                    moveSlider(side.oposite);
+                }, {capture: true});
+            });
+
+            // #endregion
         }]            
     }
 });

@@ -1,32 +1,23 @@
 app.controller('mobile-header', ['$rootScope', '$scope', 'navigation', '$state', function($rootScope, $scope, navigation, $state) {
+  // #region Public Properties
+  
   $scope.isHamburgOpen = false;
+
+  // #endregion
+  
+  // #region Private Properties
 
   const operationTypes = {
     venta: 1,
     alquiler: 2
   };
-  
-  $scope.toggleMenu = function () {
-    const filterModal = document.getElementById("mobile-props-filter-modal");
-    const orderModal = document.getElementById("mobile-props-order-modal");
-    
-    $scope.isHamburgOpen = !$scope.isHamburgOpen;     
-    
-    if (filterModal) filterModal.classList.remove("open");
-    
-    if (orderModal) orderModal.classList.remove("open");
-  };
 
   var prevScrollpos = window.pageYOffset;
-  
-  window.onscroll = function() {
-    var currentScrollPos = window.pageYOffset;
 
-    document.getElementById("mobile-header").style.top = prevScrollpos > currentScrollPos ? "0" : "-75px";
-    
-    prevScrollpos = currentScrollPos;
-  };
-  
+  // #endregion
+
+  // #region Private Methods
+
   const getOperationArgs = (opType) => {
     let data = JSON.parse(_.clone(tokkoSearchArgs.sData));      
     
@@ -38,10 +29,41 @@ app.controller('mobile-header', ['$rootScope', '$scope', 'navigation', '$state',
     return args;
   }
 
+  // #endregion
+  
+  // #region Public Methods
+
+  $scope.toggleMenu = function () {
+    const filterModal = document.getElementById("mobile-props-filter-modal");
+    const orderModal = document.getElementById("mobile-props-order-modal");
+    
+    $scope.isHamburgOpen = !$scope.isHamburgOpen;     
+    
+    if (filterModal) filterModal.classList.remove("open");
+    
+    if (orderModal) orderModal.classList.remove("open");
+  };
+
   $scope.goToSection = (page, section, args) => {  
     $scope.toggleMenu();
     navigation.goToSection(page, section, args);      
   };
+
+  // #endregion
+
+  // #region Events
+
+  window.onscroll = function() {
+    var currentScrollPos = window.pageYOffset;
+
+    document.getElementById("mobile-header").style.top = prevScrollpos > currentScrollPos ? "0" : "-75px";
+    
+    prevScrollpos = currentScrollPos;
+  };
+
+  // #endregion
+
+  // #region Public Objects
 
   $scope.sections = [
     {
@@ -89,4 +111,49 @@ app.controller('mobile-header', ['$rootScope', '$scope', 'navigation', '$state',
       section: 'home-contact'
     }
   ];
+
+  // #endregion
 }]);
+
+
+// #region Public Properties
+
+
+
+// #endregion
+
+// #region Private Properties
+
+
+
+// #endregion
+
+// #region On Init
+
+
+
+// #endregion
+
+// #region Private Methods
+
+
+
+// #endregion
+
+// #region Public Methods
+
+
+
+// #endregion
+
+// #region Events
+
+
+
+// #endregion
+
+// #region Public Objects
+
+
+
+// #endregion

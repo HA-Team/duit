@@ -325,7 +325,7 @@
     <hr>
 
     <!-- Available Units -->
-    <responsive-table ng-if="devProps && devProps > 0" items="devProps" title="'Unidades disponibles'" columns="availablePropsColumns"></responsive-table>
+    <responsive-table ng-if="devProps && devProps.length > 0" items="devProps" title="'Unidades disponibles'" columns="availablePropsColumns"></responsive-table>
     
     <!-- Contact Modal -->
     <contact-globe is-open="isContactModalOpen" main-img="d.users_in_charge.picture" open-icon="contactGlobeOpenIcon" 

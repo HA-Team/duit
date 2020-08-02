@@ -1,4 +1,6 @@
 app.controller('homeSearch', ['$rootScope', '$scope', '$state', 'navigation', function($rootScope, $scope, $state, navigation) {
+  // #region Public Properties
+
   $rootScope.activeMenu = 'home';
   $scope.operationType = [2];
 
@@ -7,12 +9,22 @@ app.controller('homeSearch', ['$rootScope', '$scope', '$state', 'navigation', fu
   $scope.wasFindPropertiesButtonClicked = false;
   $scope.isPropertyPlaceholderWarningActive = false;
 
-  $scope.propertyType = {
-    id: -1,
-    name: "Tipo de Propiedad"
-  };
-
   $scope.propertiesTypes = propertiesTypes;
+
+  // #endregion
+
+  // #region On Init
+
+  setTimeout(function(){
+    uiFunctions.buildParallax();
+    uiFunctions.buildChosen();
+    uiFunctions.buildSearchTypeButtons();
+    uiFunctions.buildBackToTop();
+  }, 0);
+
+  // #endregion
+
+  // #region Public Methods
 
   $scope.updateTypeChosen = function(newType) { 
     const isTypeSelectedPlaceholder = $scope.propertiesTypes[0] != -1;
@@ -50,14 +62,7 @@ app.controller('homeSearch', ['$rootScope', '$scope', '$state', 'navigation', fu
         $scope.find();
       }
     }
-  }
-
-  setTimeout(function(){
-    uiFunctions.buildParallax();
-    uiFunctions.buildChosen();
-    uiFunctions.buildSearchTypeButtons();
-    uiFunctions.buildBackToTop();
-  }, 0);
+  };
 
   $scope.find = () => {
     let data = JSON.parse(_.clone(tokkoSearchArgs.sData));
@@ -66,6 +71,10 @@ app.controller('homeSearch', ['$rootScope', '$scope', '$state', 'navigation', fu
     let args = {data: JSON.stringify(data), offset: 0};
     $state.go('propertySearch', {args: JSON.stringify(args)});
   };
+
+  // #endregion
+
+  // #region Events
 
   $scope.$on('homeSearchServiceLinkClicked', (event, {type}) => {
     const button = document.querySelector(`#home-search-bar .search-type input[value='${type}']`).parentElement;    
@@ -77,4 +86,15 @@ app.controller('homeSearch', ['$rootScope', '$scope', '$state', 'navigation', fu
 
     $scope.operationType = [type];
   });
+
+  // #endregion
+
+  // #region Public Objects
+
+  $scope.propertyType = {
+    id: -1,
+    name: "Tipo de Propiedad"
+  };
+
+  // #endregion
 }]);

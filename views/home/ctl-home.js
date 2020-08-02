@@ -1,86 +1,38 @@
 app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeaturedProperties', function($rootScope, $scope, navigation, utils, getFeaturedProperties) {
-  const duitWhatsapp = '5493512463530';
-  const duitPhone = '+5493512463530';
-  setTimeout(() => $rootScope.activeMenu = 'home', 100);
+  // #region Public Properties
 
   $scope.featuredPropsReady = false;
   $scope.featured360PropsReady = false;
-  getFeaturedProps();  
-  getFeatured360Props();
-
   $scope.isContactGlobeOpen = false;
   $scope.contactGlobeTitle = "Te asesoramos!";
 
-  $scope.contactGlobeOpenIcon = {
-    iconClass: 'fab fa-whatsapp',
-      color: '#128c7e',
-      fontSize: '3rem'   
-  };
-
-  $scope.contactGlobeCloseIcon = {
-    iconClass: 'fa fa-times',
-    color: 'var(--soft-grey)',
-    fontSize: '3rem' 
-  };
-
-  $scope.contactGlobeActions = [
-    {
-      hRef: `tel:${duitPhone}`,
-      iconClass: 'fa fa-phone',
-      fontSize: '2.3rem'
-    },
-    {
-      hRef: 'mailto:contacto@duitpropiedades.com.ar',
-      iconClass: 'fa fa-envelope',
-      fontSize: '2.5rem'
-    },
-    {
-      hRef: `https://api.whatsapp.com/send?phone=${duitWhatsapp}`,
-      iconClass: 'fab fa-whatsapp',
-      color: '#128c7e',
-      fontSize: '3rem'
-    },
-  ];
-
-  $scope.toggleContactModal = () => $scope.isContactGlobeOpen = !$scope.isContactGlobeOpen;
-
   $scope.agents = agents;
-  $scope.agents.forEach(agent => agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351'));  
-  $scope.formatCellPhone = (phone) => `549${phone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');
+  
 
-  $scope.services = [
-    {
-      imgSrc: "/images/services/consejeros.png",
-      goTo: { page: 'home', section: "home-assesors" }
-    },
-    {
-      imgSrc: "/images/services/alquiler.png",
-      goTo: { page: 'home', section: "home-search-bar" },
-      action: () => $scope.$broadcast('homeSearchServiceLinkClicked', { type: 2})
-    },
-    {
-      imgSrc: "/images/services/venta.png",
-      goTo: { page: 'home', section: "home-search-bar" },
-      action: () => $scope.$broadcast('homeSearchServiceLinkClicked', { type: 1}) 
-    },
-    {
-      imgSrc: "/images/services/administracion.png",
-      goTo: { page: 'home', section: "home-contact" }
-    },
-    {
-      imgSrc: "/images/services/tasacion.png",
-      goTo: { page: 'home', section: "home-contact" }
-    }
-  ];
+  // #endregion
 
-  $scope.goToSection = (page, section) => navigation.goToSection(page, section);
+  // #region Private Properties
 
-  $scope.focusFormControl = (e) => {
-    const dataName = e.target.htmlFor;
-    const input = document.querySelector(`#home-contact .form-control[name='${dataName}']`);
-    input.focus();    
-  }
-      
+  const duitWhatsapp = '5493512463530';
+  const duitPhone = '+5493512463530';
+
+  var debouncedOnScroll = utils.debounce(onScroll, 50);
+
+  // #endregion
+
+  // #region On Init
+
+  setTimeout(() => $rootScope.activeMenu = 'home', 100);
+
+  getFeaturedProps();  
+  getFeatured360Props();
+
+  $scope.agents.forEach(agent => agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351')); 
+
+  // #endregion
+
+  // #region Private Methods
+
   function onScroll() {
     const duitFeaturedTop = document.querySelector("#home-featured") ? document.querySelector("#home-featured").offsetTop : 0;
     const servicesTop = document.querySelector("#home-services") ? document.querySelector("#home-services").offsetTop : 0;
@@ -99,12 +51,6 @@ app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeatu
   
     $scope.$apply();
   };
-
-  var debouncedOnScroll = utils.debounce(onScroll, 50)
-
-  window.addEventListener('scroll', debouncedOnScroll);  
-
-  $scope.$on('$destroy', () => window.removeEventListener('scroll', debouncedOnScroll));
 
   function getFeaturedProps() {
     getFeaturedProperties.getFeaturedProps(result => {
@@ -150,4 +96,90 @@ app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeatu
       $scope.$apply();
     });
   };
+
+  // #endregion
+
+  // #region Public Methods
+
+  $scope.toggleContactModal = () => $scope.isContactGlobeOpen = !$scope.isContactGlobeOpen;
+
+  $scope.formatCellPhone = (phone) => `549${phone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');
+  
+  $scope.goToSection = (page, section) => navigation.goToSection(page, section);
+
+  $scope.focusFormControl = (e) => {
+    const dataName = e.target.htmlFor;
+    const input = document.querySelector(`#home-contact .form-control[name='${dataName}']`);
+    input.focus();    
+  };
+
+  // #endregion
+
+  // #region Events
+
+  window.addEventListener('scroll', debouncedOnScroll);  
+
+  $scope.$on('$destroy', () => window.removeEventListener('scroll', debouncedOnScroll));
+
+  // #endregion
+
+  // #region Public Objects
+
+  $scope.contactGlobeOpenIcon = {
+    iconClass: 'fab fa-whatsapp',
+      color: '#128c7e',
+      fontSize: '3rem'   
+  };
+
+  $scope.contactGlobeCloseIcon = {
+    iconClass: 'fa fa-times',
+    color: 'var(--soft-grey)',
+    fontSize: '3rem' 
+  };
+
+  $scope.contactGlobeActions = [
+    {
+      hRef: `tel:${duitPhone}`,
+      iconClass: 'fa fa-phone',
+      fontSize: '2.3rem'
+    },
+    {
+      hRef: 'mailto:contacto@duitpropiedades.com.ar',
+      iconClass: 'fa fa-envelope',
+      fontSize: '2.5rem'
+    },
+    {
+      hRef: `https://api.whatsapp.com/send?phone=${duitWhatsapp}`,
+      iconClass: 'fab fa-whatsapp',
+      color: '#128c7e',
+      fontSize: '3rem'
+    },
+  ];
+
+  $scope.services = [
+    {
+      imgSrc: "/images/services/consejeros.png",
+      goTo: { page: 'home', section: "home-assesors" }
+    },
+    {
+      imgSrc: "/images/services/alquiler.png",
+      goTo: { page: 'home', section: "home-search-bar" },
+      action: () => $scope.$broadcast('homeSearchServiceLinkClicked', { type: 2})
+    },
+    {
+      imgSrc: "/images/services/venta.png",
+      goTo: { page: 'home', section: "home-search-bar" },
+      action: () => $scope.$broadcast('homeSearchServiceLinkClicked', { type: 1}) 
+    },
+    {
+      imgSrc: "/images/services/administracion.png",
+      goTo: { page: 'home', section: "home-contact" }
+    },
+    {
+      imgSrc: "/images/services/tasacion.png",
+      goTo: { page: 'home', section: "home-contact" }
+    }
+  ];
+
+  // #endregion
 }]);

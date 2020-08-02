@@ -1,4 +1,6 @@
 app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', function($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties, utils) {   
+  // #region Public Properties
+
   $scope.utils = utils;  
   $rootScope.activeMenu = 'propertySearch';
   $scope.apiReady = false;
@@ -8,9 +10,21 @@ app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 
   $scope.similarReady = false;
   $scope.generalFeaturesToShow = 5;
 
-  getFeaturedProps();
-  
+  // #endregion
+
+  // #region Private Properties
+
   const id = $stateParams.propertyId;
+
+  const generalFeaturesList = document.querySelector(".mobile-property-general-features ul"); 
+  const limitedHeight = `${$scope.generalFeaturesToShow * 40}px`;
+  generalFeaturesList.style.maxHeight = limitedHeight;
+
+  // #endregion
+
+  // #region On Init
+
+  getFeaturedProps();
 
   tokkoApi.findOne('property', id, (result) => {
     $scope.p =  {
@@ -124,82 +138,12 @@ app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 
     
     const emailUri = `mailto:${$scope.p.prop.producer.email}?Subject=${querySubject}`;        
     document.querySelector("#mobile-prop-detail .contact-globe-modal-icons .fa-envelope").parentElement.setAttribute("href", emailUri);
-  });     
+  });   
 
-  $scope.toggleDescriptionDetailDesktop = () => {
-    const showMore = document.querySelector(".show-more");
-    const preElement = showMore.querySelector("pre");
-    const maxHeight = `${preElement.offsetHeight + preElement.offsetTop}px`;
+  // #endregion
 
-    if (showMore.classList.contains("visible")) {
-      showMore.classList.remove("visible");
-      showMore.style.maxHeight = '';
-    }
-    else {
-      showMore.classList.add("visible");
-      showMore.style.maxHeight = maxHeight;
-    }
-  };
+  // #region Private Methods
 
-  $scope.toggleDescriptionDetail = () => {
-    const detail = document.querySelector("#mobile-prop-detail .description-detail");
-    const preElement = detail.querySelector("pre");
-    const maxHeight = `${preElement.offsetHeight + preElement.offsetTop}px`;        
-
-    if (detail.classList.contains("visible")) {
-      detail.classList.remove("visible");
-      detail.style.maxHeight = '';
-    }
-    else {
-      detail.classList.add("visible");    
-      detail.style.maxHeight = maxHeight;
-    }
-  };
-
-  const generalFeaturesList = document.querySelector(".mobile-property-general-features ul"); 
-  const limitedHeight = `${$scope.generalFeaturesToShow * 40}px`;
-  generalFeaturesList.style.maxHeight = limitedHeight;
-
-  $scope.toggleGeneralFeatures = () => {          
-    const maxHeight = `${$scope.p.prop.tags.length * 40}px`;        
-
-    if (generalFeaturesList.classList.contains("open")) {
-      generalFeaturesList.classList.remove("open");
-      generalFeaturesList.style.maxHeight = limitedHeight;
-    }
-    else {
-      generalFeaturesList.classList.add("open");    
-      generalFeaturesList.style.maxHeight = maxHeight;
-    }
-  };
-
-  $scope.toggleContactModal = () => $scope.isContactModalOpen = !$scope.isContactModalOpen;
-
-  $scope.contactGlobeOpenIcon = {
-    iconClass: 'fab fa-whatsapp',
-    color: 'var(--whatsapp-green)',
-    fontSize: '3rem'    
-  };
-
-  $scope.contactGlobeCloseIcon = {
-    iconClass: 'fa fa-times',
-    color: 'var(--soft-grey)',
-    fontSize: '3rem' 
-  };
-
-  $scope.contactGlobeActions = [
-    {
-      hRef: '#',
-      iconClass: 'fab fa-whatsapp',
-      color: 'var(--whatsapp-green)',      
-    },
-    {
-      hRef: '#',
-      iconClass: 'fa fa-envelope', 
-      fontSize: '2.7rem'       
-    }
-  ];
-  
   function getFeaturedProps() {
     getFeaturedProperties.getFeaturedProps(result => {
 
@@ -248,4 +192,84 @@ app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 
       $scope.$apply();
     });
   };
+
+  // #endregion
+
+  // #region Public Methods
+
+  $scope.toggleDescriptionDetailDesktop = () => {
+    const showMore = document.querySelector(".show-more");
+    const preElement = showMore.querySelector("pre");
+    const maxHeight = `${preElement.offsetHeight + preElement.offsetTop}px`;
+
+    if (showMore.classList.contains("visible")) {
+      showMore.classList.remove("visible");
+      showMore.style.maxHeight = '';
+    }
+    else {
+      showMore.classList.add("visible");
+      showMore.style.maxHeight = maxHeight;
+    }
+  };
+
+  $scope.toggleDescriptionDetail = () => {
+    const detail = document.querySelector("#mobile-prop-detail .description-detail");
+    const preElement = detail.querySelector("pre");
+    const maxHeight = `${preElement.offsetHeight + preElement.offsetTop}px`;        
+
+    if (detail.classList.contains("visible")) {
+      detail.classList.remove("visible");
+      detail.style.maxHeight = '';
+    }
+    else {
+      detail.classList.add("visible");    
+      detail.style.maxHeight = maxHeight;
+    }
+  };
+
+  $scope.toggleGeneralFeatures = () => {          
+    const maxHeight = `${$scope.p.prop.tags.length * 40}px`;        
+
+    if (generalFeaturesList.classList.contains("open")) {
+      generalFeaturesList.classList.remove("open");
+      generalFeaturesList.style.maxHeight = limitedHeight;
+    }
+    else {
+      generalFeaturesList.classList.add("open");    
+      generalFeaturesList.style.maxHeight = maxHeight;
+    }
+  };
+
+  $scope.toggleContactModal = () => $scope.isContactModalOpen = !$scope.isContactModalOpen;
+
+  // #endregion
+
+  // #region Public Objects
+
+  $scope.contactGlobeOpenIcon = {
+    iconClass: 'fab fa-whatsapp',
+    color: 'var(--whatsapp-green)',
+    fontSize: '3rem'    
+  };
+
+  $scope.contactGlobeCloseIcon = {
+    iconClass: 'fa fa-times',
+    color: 'var(--soft-grey)',
+    fontSize: '3rem' 
+  };
+
+  $scope.contactGlobeActions = [
+    {
+      hRef: '#',
+      iconClass: 'fab fa-whatsapp',
+      color: 'var(--whatsapp-green)',      
+    },
+    {
+      hRef: '#',
+      iconClass: 'fa fa-envelope', 
+      fontSize: '2.7rem'       
+    }
+  ];
+
+  // #endregion
 }]);

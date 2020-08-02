@@ -1,22 +1,16 @@
-app.controller('map', function() {
-  const myLatLng = {lat:-31.4228448, lng: -64.1890466};
-  const map = new google.maps.Map(document.getElementById('propertyMap'), {
-    center: myLatLng,
-    zoom: 17
-  });
-  const marker = new google.maps.Marker({
-    position: myLatLng,
-    map: map,
-    title: 'Duit'
-  });
-});
-
 app.controller('contactForm', ['$rootScope', '$scope', 'tokkoApi', function($rootScope, $scope, tokkoApi) {
+  // #region Public Properties
+
   $rootScope.activeMenu = 'contactUs';
   $scope.submitText = 'Enviar';
   $scope.sending = false;
   $scope.success = false;
   $scope.error = false;
+
+  // #endregion
+
+  // #region Public Methods
+
   $scope.send = function () {
     if ($scope.name && $scope.email && $scope.message) {
       $scope.submitText = 'Enviando';
@@ -52,4 +46,6 @@ app.controller('contactForm', ['$rootScope', '$scope', 'tokkoApi', function($roo
       });
     }
   };
+
+  // #endregion
 }]);

@@ -31,14 +31,6 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
     url: '/development/:devId',
     templateUrl: 'views/development/development.html'
   });
-  $stateProvider.state('favorites', {
-    url: '/favorites',
-    templateUrl: 'views/favorites/favorites.html'
-  });
-  $stateProvider.state('login', {
-    url: '/login',
-    templateUrl: 'views/accounts/login.html'
-  });
   $provide.decorator('$uiViewScroll', function ($delegate) {
     return function (uiViewElement) {
       // let top = uiViewElement.getBoundingClientRect().top;
@@ -63,10 +55,7 @@ app.config(['AnalyticsProvider', function (AnalyticsProvider) {
 */
 
 app.controller('startUp', ['$rootScope', function($rootScope) {
-  $rootScope.favorites = {dataLoaded: false, props: []};
-  $rootScope.isFavorite = propId => {
-    return $rootScope.favorites.props.findIndex(p => p.id === propId) === -1 ? false : true;
-  };
+
 }]);
 
 // Filter to white list urls to embbed videos in iframes (required by angular)

@@ -1,8 +1,15 @@
 app.controller('propContactForm', ['$scope', 'tokkoApi', function ($scope, tokkoApi) {
+	// #region Public Properties
+
 	$scope.submitText = 'Enviar';
 	$scope.sending = false;
 	$scope.success = false;
 	$scope.error = false;
+
+	// #endregion
+
+	// #region Public Methods
+
 	$scope.send = function () {
 		if ($scope.name || $scope.email) {
 			$scope.submitText = 'Enviando';
@@ -42,4 +49,6 @@ app.controller('propContactForm', ['$scope', 'tokkoApi', function ($scope, tokko
 			});
 		}
 	};
+
+	// #endregion
 }]);

@@ -13,9 +13,15 @@ app.directive('contactGlobe', function() {
         },
         templateUrl: '/views/components/contact-globe/contact-globe.html',
         controller: ['$scope', function ($scope) {
+            // #region Public Properties
+
             $scope.showOpenIcons = angular.isDefined($scope.openIcon) && angular.isDefined($scope.closeIcon) ? true : false;
-            $scope.showMainImgBoxShadow = angular.isDefined($scope.showMainImgBoxShadow) ? $scope.showMainImgBoxShadow : true;                    
-            
+            $scope.showMainImgBoxShadow = angular.isDefined($scope.showMainImgBoxShadow) ? $scope.showMainImgBoxShadow : true; 
+
+            // #endregion
+
+            // #region Public Methods
+
             $scope.getActionStyle = (item) => {
                 const styles = {};
 
@@ -24,6 +30,8 @@ app.directive('contactGlobe', function() {
 
                 return styles;
             };
+
+            // #endregion
         }]            
     }
 });

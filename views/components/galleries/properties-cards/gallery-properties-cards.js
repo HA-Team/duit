@@ -7,16 +7,31 @@ app.directive('galleryPropertiesCards', function() {
         },
         templateUrl: '/views/components/galleries/properties-cards/gallery-properties-cards.html',
         controller: ['$scope', 'sliderMoves', '$element', 'utils', function ($scope, sliderMoves, $element, utils) { 
-            const gallerySlider = $element.find(".gallery-properties-cards-slider")[0];
+
+            // #region Public Properties
 
             $scope.currentIndex = 1; 
+
+            // #endregion
+
+            // #region Private Properties
+
+            const gallerySlider = $element.find(".gallery-properties-cards-slider")[0];
+
+            // #endregion
+
+            // #region Private Methods
 
             const moveSlider = (side, length) => {                
                 $scope.currentIndex = sliderMoves.moveSliderByIndex(gallerySlider, $scope.currentIndex,
                                                 length, side, gallerySlider.querySelector(".gallery-properties-cards-item").offsetWidth);
                 $scope.$apply();
             };
-          
+
+            // #endregion
+
+            // #region Events
+
             utils.sides.forEach(side => {
                 const gallerySliderArrow = $element.find(`.gallery-properties-cards .fa-angle-${side.side}`)[0];
 
@@ -26,7 +41,9 @@ app.directive('galleryPropertiesCards', function() {
                     e.preventDefault();
                     moveSlider(side.oposite, $scope.items.length);
                 }, {capture: true});
-            });        
+            }); 
+
+            // #endregion
         }]            
     }
 });

@@ -1,13 +1,28 @@
 app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 'getFeaturedProperties', function ($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties) {
+  // #region Public Properties
+
   $rootScope.activeMenu = 'developments';
   $rootScope.activeSection = '';
   $scope.apiReady = false;
   $scope.featuredPropsReady = false;
   $scope.devPropsReady = false;
-  
-  getFeaturedProps();
+  $scope.generalFeaturesToShow = 5;
+  $scope.isContactModalOpen = false;
+
+  // #endregion
+
+  // #region Private Properties
 
   const id = $stateParams.devId;
+  const generalFeaturesList = document.querySelector(".mobile-dev-general-features ul"); 
+  const limitedHeight = `${$scope.generalFeaturesToShow * 40}px`;
+  generalFeaturesList.style.maxHeight = limitedHeight;
+
+  // #endregion
+
+  // #region On Init
+
+  getFeaturedProps();
 
 	tokkoApi.findOne('development', id, function (result) {
     $scope.d = result;
@@ -61,12 +76,67 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
     const emailUri = `mailto:${$scope.d.users_in_charge.email}?Subject=${querySubject}`;        
     document.querySelector("#mobile-dev-detail .contact-globe-modal-icons .fa-envelope").parentElement.setAttribute("href", emailUri);
   });
-  
-  $scope.generalFeaturesToShow = 5;
 
-  const generalFeaturesList = document.querySelector(".mobile-dev-general-features ul"); 
-  const limitedHeight = `${$scope.generalFeaturesToShow * 40}px`;
-  generalFeaturesList.style.maxHeight = limitedHeight;
+  // #endregion
+
+  // #region Private Methods
+
+  function getFeaturedProps() {
+    getFeaturedProperties.getFeaturedProps(result => {
+
+      $scope.featuredProps = result.map(prop => {
+        return {
+          id: prop.id,
+          title: prop.publication_title,
+          type: prop.operations[0].operation_type,
+          currency: prop.operations[prop.operations.length-1].prices.slice(-1)[0].currency,
+          price: prop.operations[prop.operations.length-1].prices.slice(-1)[0].price,
+          cover_photo: prop.photos[0].image,
+          parkings: prop.parking_lot_amount ? prop.parking_lot_amount : 0,
+          area: prop.type.id === 1 ? prop.surface : prop.roofed_surface,
+          suitAmount: prop.suite_amount ? prop.suite_amount : 0,
+          bathroomAmount: prop.bathroom_amount ? prop.bathroom_amount : 0,  
+          prop: prop
+        }
+      });
+
+      $scope.featuredPropsReady = true;
+
+      $scope.$apply();
+      uiFunctions.buildCarousel();
+    });
+  };
+
+  function getDevelopmentProps(id) {
+    getFeaturedProperties.getDevelopmentProps(id, result => {
+      $scope.devProps = result.map(prop => {
+        return {
+          id: prop.id,
+          type: prop.operations[0].operation_type,
+          title: prop.publication_title,
+          currency: prop.operations[prop.operations.length-1].prices.slice(-1)[0].currency,
+          price: prop.operations[prop.operations.length-1].prices.slice(-1)[0].price,
+          cover_photo: prop.photos[0].image,
+          parkings: prop.parking_lot_amount ? prop.parking_lot_amount : 0,
+          area: prop.type.id === 1 ? prop.surface : prop.roofed_surface,
+          sell: prop.operations.filter(p => prop.operation_type == "Venta")[0]?.prices.slice(-1)[0],
+          rent: prop.operations.filter(p => prop.operation_type == "Alquiler")[0]?.prices.slice(-1)[0],
+          parkings_av: prop.parking_lot_amount > 0 ? "Si" : "No",
+          suite_amount: prop.suite_amount,
+          bathroom_amount: result.bathroom_amount ? result.bathroom_amount : 0,
+          address: prop.fake_address,
+          prop: prop
+        }
+      });
+
+      $scope.devPropsReady = true;
+      $scope.$apply();
+    });
+  };
+
+  // #endregion
+
+  // #region Public Methods
 
   $scope.toggleGeneralFeatures = () => {          
     const maxHeight = `${$scope.d.tags.length * 40}px`;        
@@ -96,8 +166,11 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
     }
   };
 
-  $scope.isContactModalOpen = false;
   $scope.toggleContactModal = () => $scope.isContactModalOpen = !$scope.isContactModalOpen;
+
+  // #endregion
+
+  // #region Public Objects
 
   $scope.contactGlobeOpenIcon = {
     iconClass: 'fab fa-whatsapp',
@@ -157,57 +230,6 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
       data: 'parkings_av'
     }
   ];
-  
-  function getFeaturedProps() {
-    getFeaturedProperties.getFeaturedProps(result => {
 
-      $scope.featuredProps = result.map(prop => {
-        return {
-          id: prop.id,
-          title: prop.publication_title,
-          type: prop.operations[0].operation_type,
-          currency: prop.operations[prop.operations.length-1].prices.slice(-1)[0].currency,
-          price: prop.operations[prop.operations.length-1].prices.slice(-1)[0].price,
-          cover_photo: prop.photos[0].image,
-          parkings: prop.parking_lot_amount ? prop.parking_lot_amount : 0,
-          area: prop.type.id === 1 ? prop.surface : prop.roofed_surface,
-          suitAmount: prop.suite_amount ? prop.suite_amount : 0,
-          bathroomAmount: prop.bathroom_amount ? prop.bathroom_amount : 0,  
-          prop: prop
-        }
-      });
-
-      $scope.featuredPropsReady = true;
-
-      $scope.$apply();
-      uiFunctions.buildCarousel();
-    });
-  };
-
-  function getDevelopmentProps(id) {
-    getFeaturedProperties.getDevelopmentProps(id, result => {
-      $scope.devProps = result.map(prop => {
-        return {
-          id: prop.id,
-          type: prop.operations[0].operation_type,
-          title: prop.publication_title,
-          currency: prop.operations[prop.operations.length-1].prices.slice(-1)[0].currency,
-          price: prop.operations[prop.operations.length-1].prices.slice(-1)[0].price,
-          cover_photo: prop.photos[0].image,
-          parkings: prop.parking_lot_amount ? prop.parking_lot_amount : 0,
-          area: prop.type.id === 1 ? prop.surface : prop.roofed_surface,
-          sell: prop.operations.filter(p => prop.operation_type == "Venta")[0]?.prices.slice(-1)[0],
-          rent: prop.operations.filter(p => prop.operation_type == "Alquiler")[0]?.prices.slice(-1)[0],
-          parkings_av: prop.parking_lot_amount > 0 ? "Si" : "No",
-          suite_amount: prop.suite_amount,
-          bathroom_amount: result.bathroom_amount ? result.bathroom_amount : 0,
-          address: prop.fake_address,
-          prop: prop
-        }
-      });
-
-      $scope.devPropsReady = true;
-      $scope.$apply();
-    });
-  };
+  // #endregion
 }]);
