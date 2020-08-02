@@ -17,7 +17,7 @@ app.directive('galleryMultipleProperties', function() {
             $scope.currentIndex = 1;            
             
             $scope.moveSlider = (side) => { 
-                $scope.currentIndex = sliderMoves.moveSlider(gallerySlider, $scope.currentIndex,
+                $scope.currentIndex = sliderMoves.moveSliderByIndex(gallerySlider, $scope.currentIndex,
                                                              $scope.items.length, side,
                                                              gallerySlider.querySelector("img").offsetWidth);
                 setGalleryCounterLabel();

@@ -12,7 +12,7 @@ app.directive('galleryPropertiesCards', function() {
             $scope.currentIndex = 1; 
 
             const moveSlider = (side, length) => {                
-                $scope.currentIndex = sliderMoves.moveSlider(gallerySlider, $scope.currentIndex,
+                $scope.currentIndex = sliderMoves.moveSliderByIndex(gallerySlider, $scope.currentIndex,
                                                 length, side, gallerySlider.querySelector(".gallery-properties-cards-item").offsetWidth);
                 $scope.$apply();
             };
