@@ -513,7 +513,7 @@ a.property-type + ul li:hover {
 
 @media (min-width:698px) {
   #home-services {
-      height: 190px;
+      height: 200px;
   }
 }
 
@@ -525,4 +525,10 @@ a.property-type + ul li:hover {
   .home-contact-container > * {
     flex: 0 0 45%;
   }
+
+  #home-services .home-services-imgs img {    
+    width: 135px;
+    height: 135px;          
+    cursor: pointer;
+}
 }
