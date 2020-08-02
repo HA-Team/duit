@@ -376,7 +376,7 @@ header.fullwidth .container {
     right: 0;
     display: none;
     bottom: 47px;
-    margin: 0 25px 0 0;
+    margin: 0 36px 0 0;
     z-index: 9999;
 }
 #backtotop a {
@@ -8648,7 +8648,7 @@ body {
     color: #707070;
 }
 #wrapper {
-    background-color: #fff;
+    background-color: #f7f7f7;
 }
 body, h1, h2, h3, h4, h5, h6, input[type="text"], input[type="password"], input[type="email"], textarea, select, input[type="button"], input[type="submit"], button, #tiptip_content {
     font-family: "Varela Round", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
