@@ -10,7 +10,7 @@ app.directive('galleryMultipleProperties', function() {
         },
         templateUrl: '/views/components/galleries/multiple-properties/gallery-multiple-properties.html',
         controller: ['$scope', 'sliderMoves', '$element', 'utils', function ($scope, sliderMoves, $element, utils) {
-            // #region Public Properties
+            // #region Scoped Properties
 
             $scope.isGalleryOpen = false;            
             $scope.currentIndex = 1; 
@@ -30,7 +30,7 @@ app.directive('galleryMultipleProperties', function() {
 
             // #endregion
 
-            // #region Public Methods
+            // #region Scoped Methods
 
             $scope.moveSlider = (side) => { 
                 $scope.currentIndex = sliderMoves.moveSliderByIndex(gallerySlider, $scope.currentIndex,

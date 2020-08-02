@@ -1,5 +1,5 @@
 app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeaturedProperties', function($rootScope, $scope, navigation, utils, getFeaturedProperties) {
-  // #region Public Properties
+  // #region Scoped Properties
 
   $scope.featuredPropsReady = false;
   $scope.featured360PropsReady = false;
@@ -99,7 +99,7 @@ app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeatu
 
   // #endregion
 
-  // #region Public Methods
+  // #region Scoped Methods
 
   $scope.toggleContactModal = () => $scope.isContactGlobeOpen = !$scope.isContactGlobeOpen;
 
@@ -123,7 +123,7 @@ app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeatu
 
   // #endregion
 
-  // #region Public Objects
+  // #region Scoped Objects
 
   $scope.contactGlobeOpenIcon = {
     iconClass: 'fab fa-whatsapp',

@@ -8,7 +8,7 @@ app.directive('galleryPropertiesCards', function() {
         templateUrl: '/views/components/galleries/properties-cards/gallery-properties-cards.html',
         controller: ['$scope', 'sliderMoves', '$element', 'utils', function ($scope, sliderMoves, $element, utils) { 
 
-            // #region Public Properties
+            // #region Scoped Properties
 
             $scope.currentIndex = 1; 
 

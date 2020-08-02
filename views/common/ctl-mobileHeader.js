@@ -1,5 +1,5 @@
 app.controller('mobile-header', ['$rootScope', '$scope', 'navigation', '$state', function($rootScope, $scope, navigation, $state) {
-  // #region Public Properties
+  // #region Scoped Properties
   
   $scope.isHamburgOpen = false;
 
@@ -31,7 +31,7 @@ app.controller('mobile-header', ['$rootScope', '$scope', 'navigation', '$state',
 
   // #endregion
   
-  // #region Public Methods
+  // #region Scoped Methods
 
   $scope.toggleMenu = function () {
     const filterModal = document.getElementById("mobile-props-filter-modal");
@@ -63,7 +63,7 @@ app.controller('mobile-header', ['$rootScope', '$scope', 'navigation', '$state',
 
   // #endregion
 
-  // #region Public Objects
+  // #region Scoped Objects
 
   $scope.sections = [
     {

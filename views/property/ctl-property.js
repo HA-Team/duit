@@ -1,5 +1,5 @@
 app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', function($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties, utils) {   
-  // #region Public Properties
+  // #region Scoped Properties
 
   $scope.utils = utils;  
   $rootScope.activeMenu = 'propertySearch';
@@ -195,7 +195,7 @@ app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 
 
   // #endregion
 
-  // #region Public Methods
+  // #region Scoped Methods
 
   $scope.toggleDescriptionDetailDesktop = () => {
     const showMore = document.querySelector(".show-more");
@@ -244,7 +244,7 @@ app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 
 
   // #endregion
 
-  // #region Public Objects
+  // #region Scoped Objects
 
   $scope.contactGlobeOpenIcon = {
     iconClass: 'fab fa-whatsapp',

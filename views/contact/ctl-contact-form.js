@@ -1,5 +1,5 @@
 app.controller('contactForm', ['$rootScope', '$scope', 'tokkoApi', function($rootScope, $scope, tokkoApi) {
-  // #region Public Properties
+  // #region Scoped Properties
 
   $rootScope.activeMenu = 'contactUs';
   $scope.submitText = 'Enviar';
@@ -9,7 +9,7 @@ app.controller('contactForm', ['$rootScope', '$scope', 'tokkoApi', function($roo
 
   // #endregion
 
-  // #region Public Methods
+  // #region Scoped Methods
 
   $scope.send = function () {
     if ($scope.name && $scope.email && $scope.message) {

@@ -1,5 +1,5 @@
 app.controller('devsListing', ['$rootScope', '$scope', 'tokkoApi', function($rootScope, $scope, tokkoApi){
-  // #region Public Properties
+  // #region Scoped Properties
 
   $rootScope.activeMenu = 'developments';
 

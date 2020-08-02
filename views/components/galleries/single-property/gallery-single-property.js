@@ -11,7 +11,7 @@ app.directive('gallerySingleProperty', function() {
         },
         templateUrl: '/views/components/galleries/single-property/gallery-single-property.html',
         controller: ['$scope', 'sliderMoves', '$element', 'utils', function ($scope, sliderMoves, $element, utils) {  
-            // #region Public Properties
+            // #region Scoped Properties
 
             $scope.item.videos = $scope.item.videos ? $scope.item.videos.filter(video => video.provider_id != 6) : null;
             $scope.galleryCounter = $scope.item.videos ? $scope.item.photos.length + $scope.item.videos.length : $scope.item.photos.length;
@@ -35,7 +35,7 @@ app.directive('gallerySingleProperty', function() {
 
             // #endregion
 
-            // #region Public Methods
+            // #region Scoped Methods
 
             $scope.moveSlider = (side) => { 
                 $scope.currentIndex = sliderMoves.moveSliderByIndex(gallerySlider, $scope.currentIndex,

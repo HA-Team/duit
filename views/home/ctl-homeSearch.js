@@ -1,5 +1,5 @@
 app.controller('homeSearch', ['$rootScope', '$scope', '$state', 'navigation', function($rootScope, $scope, $state, navigation) {
-  // #region Public Properties
+  // #region Scoped Properties
 
   $rootScope.activeMenu = 'home';
   $scope.operationType = [2];
@@ -24,7 +24,7 @@ app.controller('homeSearch', ['$rootScope', '$scope', '$state', 'navigation', fu
 
   // #endregion
 
-  // #region Public Methods
+  // #region Scoped Methods
 
   $scope.updateTypeChosen = function(newType) { 
     const isTypeSelectedPlaceholder = $scope.propertiesTypes[0] != -1;
@@ -89,7 +89,7 @@ app.controller('homeSearch', ['$rootScope', '$scope', '$state', 'navigation', fu
 
   // #endregion
 
-  // #region Public Objects
+  // #region Scoped Objects
 
   $scope.propertyType = {
     id: -1,

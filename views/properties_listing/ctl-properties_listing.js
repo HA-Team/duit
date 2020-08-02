@@ -5,7 +5,7 @@ app.controller('propsListing', ['$location', '$rootScope', '$scope', 'tokkoApi',
 
   // #endregion
   
-  // #region Public Properties
+  // #region Scoped Properties
 
   $rootScope.activeMenu = 'propertySearch';
   $scope.results = [];
@@ -101,7 +101,7 @@ app.controller('propsListing', ['$location', '$rootScope', '$scope', 'tokkoApi',
 
   // #endregion
 
-  // #region Public Methods
+  // #region Scoped Methods
 
   $scope.goLocation = (url) => $state.go(url);
 
@@ -210,7 +210,7 @@ app.controller('propsListing', ['$location', '$rootScope', '$scope', 'tokkoApi',
 
   // #endregion
 
-  // #region Public Objects
+  // #region Scoped Objects
 
   $scope.orderBy = {val: 'price_asc', text: 'Menor Precio'};
 

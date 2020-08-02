@@ -1,5 +1,5 @@
 app.controller('propContactForm', ['$scope', 'tokkoApi', function ($scope, tokkoApi) {
-	// #region Public Properties
+	// #region Scoped Properties
 
 	$scope.submitText = 'Enviar';
 	$scope.sending = false;
@@ -8,7 +8,7 @@ app.controller('propContactForm', ['$scope', 'tokkoApi', function ($scope, tokko
 
 	// #endregion
 
-	// #region Public Methods
+	// #region Scoped Methods
 
 	$scope.send = function () {
 		if ($scope.name || $scope.email) {

@@ -8,7 +8,7 @@ app.directive('skeletonListing', function() {
         },
         templateUrl: '/views/components/skeletons/listing/skeleton-listing.html',
         controller: ['$scope', function ($scope) {
-            // #region Public Properties
+            // #region Scoped Properties
 
             $scope.rows = angular.isDefined($scope.rows) ? $scope.rows : 10;
             $scope.lines = angular.isDefined($scope.lines) ? $scope.lines : 2;                                    

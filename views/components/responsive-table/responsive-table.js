@@ -8,7 +8,7 @@ app.directive('responsiveTable', function() {
         },
         templateUrl: '/views/components/responsive-table/responsive-table.html',
         controller: ['$scope', '$element', 'sliderMoves', 'utils', 'navigation', function ($scope, $element, sliderMoves, utils, navigation) {
-            // #region Public Properties
+            // #region Scoped Properties
 
             $scope.isDetailOpen = false;
             $scope.currentIndex = 1; 
@@ -66,7 +66,7 @@ app.directive('responsiveTable', function() {
 
             // #endregion
 
-            // #region Public Methods
+            // #region Scoped Methods
 
             $scope.toggleTooltip = (col) => { 
                 if (col.icon) {

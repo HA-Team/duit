@@ -1,5 +1,5 @@
 app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 'getFeaturedProperties', function ($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties) {
-  // #region Public Properties
+  // #region Scoped Properties
 
   $rootScope.activeMenu = 'developments';
   $rootScope.activeSection = '';
@@ -136,7 +136,7 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
 
   // #endregion
 
-  // #region Public Methods
+  // #region Scoped Methods
 
   $scope.toggleGeneralFeatures = () => {          
     const maxHeight = `${$scope.d.tags.length * 40}px`;        
@@ -170,7 +170,7 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
 
   // #endregion
 
-  // #region Public Objects
+  // #region Scoped Objects
 
   $scope.contactGlobeOpenIcon = {
     iconClass: 'fab fa-whatsapp',
