@@ -2,7 +2,6 @@ app.directive('responsiveTable', function() {
     return {
         restrict: 'E',
         scope: {  
-            showTable: '=',
             columns: '=',
             items: '=',
             title: '=',
