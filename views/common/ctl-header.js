@@ -1,4 +1,4 @@
-app.controller('mobile-header', ['$rootScope', '$scope', 'navigation', '$state', function($rootScope, $scope, navigation, $state) {
+app.controller('header', ['$rootScope', '$scope', 'navigation', '$state', function($rootScope, $scope, navigation, $state) {
   // #region Scoped Properties
   
   $scope.isHamburgOpen = false;
