@@ -217,44 +217,69 @@
   </section>
   <!-- Assesors Section End -->    
 
+
   <!-- Contact Section -->
-  <section id="home-contact" class="hidden-on-desktop">
-    <h3>Dejanos tu consulta</h3>
+  <section class="home-contact-container">
 
-    <form ng-controller="contactForm" id="contactform" autocomplete="on">
-      <div class="contact-form-group">
-        <input class="form-control" name="name" placeholder=" " type="text" ng-model="name" required="required" />
-        <label class="input-placeholder no-select" for="name" ng-click="focusFormControl($event)">Nombre *</label>
+    <!-- Contact Form Section -->
+    <section id="home-contact">
+      <h3>Dejanos tu consulta</h3>
+
+      <form ng-controller="contactForm" id="contactform" autocomplete="on">
+        <div class="contact-form-group">
+          <input class="form-control" name="name" placeholder=" " type="text" ng-model="name" required="required" />
+          <label class="input-placeholder no-select" for="name" ng-click="focusFormControl($event)">Nombre *</label>
+        </div>
+
+        <div class="contact-form-group">
+          <input class="form-control" name="email" placeholder=" " type="email" ng-model="email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" required="required" />
+          <label class="input-placeholder no-select" for="email" ng-click="focusFormControl($event)">Email *</label>
+        </div>
+
+        <div class="contact-form-group">
+          <input class="form-control" name="subject" placeholder=" " type="text" ng-model="phone" />
+          <label class="input-placeholder no-select" for="subject" ng-click="focusFormControl($event)">Teléfono</label>
+        </div>
+
+        <div class="contact-form-group">
+          <textarea class="form-control" name="message" placeholder=" " cols="40" rows="3" ng-model="message" spellcheck="true" required="required"></textarea>
+          <label class="input-placeholder textarea-placeholder no-select" for="message" ng-click="focusFormControl($event)">Mensaje *</label>
+        </div>
+
+        <button class="button" ng-click="send()">Contactar<i class='fa fa-spinner fa-spin' ng-show="sending"></i></button>
+
+        <div class="notification success closeable" ng-show="success">
+          <p>Tu consulta fue enviada con éxito.</p>
+        </div>
+
+        <div class="notification success closeable" ng-show="error">
+          <p>Ha ocurrido un error al intentar enviar tu consulta. Perdon por las molestias.</p>
+        </div>
+
+      </form>
+    </section>
+    <!-- Contact Form Section End -->
+
+    <!-- Contact Cards Section -->
+    <section id="home-contact-cards" class="hidden-on-mobile">
+      <div class="home-contact-card">
+        <img src="/images/services/tasacion.png" alt="">
       </div>
-
-      <div class="contact-form-group">
-        <input class="form-control" name="email" placeholder=" " type="email" ng-model="email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" required="required" />
-        <label class="input-placeholder no-select" for="email" ng-click="focusFormControl($event)">Email *</label>
+      <div class="home-contact-card">
+        <img src="/images/duit-rojo-horizontal.png" alt="">
+        <div class="home-contact-card-text">
+          <p>San Luis 145, 1° Oficina H</p>
+          <p>Barrio Nueva Córdoba</p>
+          <p>Córdoba - Argentina</p>
+          <a href="tel:+5493512463530">+54 9 351 2463530</a>
+        </div>
       </div>
+    </section>
+    <!-- Contact Cards Section End -->
 
-      <div class="contact-form-group">
-        <input class="form-control" name="subject" placeholder=" " type="text" ng-model="phone" />
-        <label class="input-placeholder no-select" for="subject" ng-click="focusFormControl($event)">Teléfono</label>
-      </div>
-
-      <div class="contact-form-group">
-        <textarea class="form-control" name="message" placeholder=" " cols="40" rows="3" ng-model="message" spellcheck="true" required="required"></textarea>
-        <label class="input-placeholder textarea-placeholder no-select" for="message" ng-click="focusFormControl($event)">Mensaje *</label>
-      </div>
-
-      <button class="button" ng-click="send()">Contactar<i class='fa fa-spinner fa-spin' ng-show="sending"></i></button>
-
-      <div class="notification success closeable" ng-show="success">
-        <p>Tu consulta fue enviada con éxito.</p>
-      </div>
-
-      <div class="notification success closeable" ng-show="error">
-        <p>Ha ocurrido un error al intentar enviar tu consulta. Perdon por las molestias.</p>
-      </div>
-
-    </form>
   </section>
   <!-- Contact Section End -->
+
 
   <!-- Flying Contact Globe  -->
   <ng-container id="home-contact-globe" ng-cloak>

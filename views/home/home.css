@@ -110,6 +110,7 @@ a.property-type + ul li:hover {
     background-color: #f7f7f7;
     max-width: 1200px;
     margin: auto;
+    padding-bottom: 50px;
 }
 
 .home-agents-container .home-agents-title {
@@ -200,6 +201,15 @@ a.property-type + ul li:hover {
   height: 35px;
   line-height: normal;
   border-radius: 10px;
+}
+
+.home-contact-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  max-width: 1200px;
 }
 
 #home-contact {
@@ -418,6 +428,51 @@ a.property-type + ul li:hover {
   margin-bottom: 20px;
 }
 
+#home-contact-cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#home-contact-cards .home-contact-card {
+  width: 400px;
+  height: 200px;  
+  border-radius: 10px;
+  margin: 10px;
+  box-shadow: 0 0 3px 1px lightgrey;
+  padding: 20px;
+}
+
+#home-contact-cards .home-contact-card:first-child {
+  background-color: var(--primary-red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#home-contact-cards .home-contact-card:last-child {
+  background-color: white;
+}
+
+#home-contact-cards .home-contact-card:first-child img {
+  height: 100%;
+}
+
+#home-contact-cards .home-contact-card:last-child img {
+  width: 65%;
+}
+
+#home-contact-cards .home-contact-card-text {
+  line-height: 20px;
+  padding: 10px;
+}
+
+#home-contact-cards .home-contact-card-text p {
+  margin: 0;
+  padding: 0;
+}
+
 @media (max-width: 767px) {
   .main-search-form button {
     margin: 0px !important;
@@ -464,5 +519,9 @@ a.property-type + ul li:hover {
 @media only screen and (min-width: 1024px) {
   #home-contact-globe .contact-globe {
     bottom: 10rem;
+  }
+
+  .home-contact-container > * {
+    flex: 0 0 45%;
   }
 }
