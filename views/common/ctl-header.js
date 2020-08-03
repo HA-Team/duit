@@ -103,7 +103,7 @@ app.controller('header', ['$rootScope', '$scope', 'navigation', '$state', functi
     {
       title: 'Consejeros',
       page: 'home',
-      section: 'home-assesors'
+      section: 'home-agents'
     },
     {
       title: 'Contacto',

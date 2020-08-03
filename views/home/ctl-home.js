@@ -36,14 +36,14 @@ app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeatu
   function onScroll() {
     const duitFeaturedTop = document.querySelector("#home-featured") ? document.querySelector("#home-featured").offsetTop : 0;
     const servicesTop = document.querySelector("#home-services") ? document.querySelector("#home-services").offsetTop : 0;
-    const assesorsTop = document.querySelector("#home-assesors") ? document.querySelector("#home-assesors").offsetTop : 0;
+    const assesorsTop = document.querySelector("#home-agents") ? document.querySelector("#home-agents").offsetTop : 0;
     const contactTop = document.querySelector("#home-contact") ? document.querySelector("#home-contact").offsetTop : 0;
 
     const scrollY = window.scrollY;
     
     switch (true) {
       case scrollY > contactTop - 100: $rootScope.activeSection = 'home-contact'; break;  
-      case scrollY > assesorsTop - 100: $rootScope.activeSection = 'home-assesors'; break;
+      case scrollY > assesorsTop - 100: $rootScope.activeSection = 'home-agents'; break;
       case scrollY > servicesTop - 100: $rootScope.activeSection = 'home-services'; break;
       case scrollY > duitFeaturedTop - 100: $rootScope.activeSection = 'home-featured-anchor'; break;
       default: $rootScope.activeSection = ''; break;
@@ -159,7 +159,7 @@ app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeatu
   $scope.services = [
     {
       imgSrc: "/images/services/consejeros.png",
-      goTo: { page: 'home', section: "home-assesors" }
+      goTo: { page: 'home', section: "home-agents" }
     },
     {
       imgSrc: "/images/services/alquiler.png",
