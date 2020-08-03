@@ -19,10 +19,6 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
     url: '/property/:propertyId',
     templateUrl: 'views/property/property.html'
   });
-  $stateProvider.state('agents', {
-    url: '/agents',
-    templateUrl: 'views/agents/agents.html'
-  });
   $stateProvider.state('developments', {
     url: '/developments',
     templateUrl: 'views/developments_listing/developments_listing.html'
