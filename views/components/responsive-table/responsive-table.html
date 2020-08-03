@@ -33,14 +33,6 @@
         </div>
     </div>
 
-    <div class="responsive-table-page-counter" ng-show="pages > 1">
-        <i class="fa fa-angle-left" ng-class="{'hide-me': currentIndex == 1}"></i>
-        <div class="responsive-table-page-counter-dots">
-            <i ng-repeat="page in totalPages track by $index" class="fa fa-dot-circle" ng-class="{'active': $index + 1 == currentIndex}"></i>
-        </div>
-        <i class="fa fa-angle-right" ng-class="{'hide-me': pages == currentIndex}"></i>
-    </div>
-
     <div class="responsive-table-detail-modal" ng-class="{ 'open': isDetailOpen }">
         <a href="/#!/property/{{activeDetail.id}}">Ir a propiedad</a>
         <div ng-repeat="col in columns">
