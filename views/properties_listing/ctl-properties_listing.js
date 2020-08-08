@@ -1,4 +1,6 @@
-app.controller('propsListing', ['$location', '$rootScope', '$scope', 'tokkoApi', '$stateParams', '$state', '$anchorScroll', function($location, $rootScope, $scope, tokkoApi, $stateParams, $state, $anchorScroll){
+app.controller('propsListingController', ['$location', '$rootScope', '$scope', 'tokkoApi', '$stateParams', '$state', '$anchorScroll', function($location, $rootScope, $scope, tokkoApi, $stateParams, $state, $anchorScroll){
+  var propsListing = this;
+  
   // #region Private Properties
 
   let args = JSON.parse($stateParams.args);
@@ -8,21 +10,20 @@ app.controller('propsListing', ['$location', '$rootScope', '$scope', 'tokkoApi',
   // #region Scoped Properties
 
   $rootScope.activeMenu = 'propertySearch';
-  $scope.results = [];
-  $scope.resultsCount = 0;
-  $scope.sideBarParams = {};
-  $scope.filteredResults = [];
-  $scope.apiReady = true;
-  $scope.ifResults = true;
-  $scope.stopInfiniteScroll = true;
-  $scope.loadingMore = false;
-  $scope.isOrderOpen = false;
-  $scope.isFilterOpen = false;
+  propsListing.results = [];
+  propsListing.resultsCount = 0;
+  propsListing.sideBarParams = {};
+  propsListing.filteredResults = [];
+  propsListing.apiReady = true;
+  propsListing.ifResults = true;
+  propsListing.stopInfiniteScroll = true;
+  propsListing.loadingMore = false;
+  propsListing.isOrderOpen = false;
+  propsListing.isFilterOpen = false;
 
-  $scope.operationType = JSON.parse(args.data).operation_types;
-
-  $scope.propertyType = JSON.parse(args.data).property_types;
-  $scope.subTypeSelected = JSON.parse(args.data).with_custom_tags;
+  propsListing.operationType = JSON.parse(args.data).operation_types;
+  propsListing.propertyType = JSON.parse(args.data).property_types;
+  propsListing.subTypeSelected = JSON.parse(args.data).with_custom_tags;
 
   // #endregion
 
@@ -30,19 +31,19 @@ app.controller('propsListing', ['$location', '$rootScope', '$scope', 'tokkoApi',
 
   const setActiveSection = (operationType) => $rootScope.activeSection = operationType == 1 ? 'properties-sell' : 'properties-rent';
 
-  const getProperties = ($scope, tokkoApi, rargs) => {
+  const getProperties = (tokkoApi, rargs) => {
     let args = {data: rargs.data, order: rargs.order, order_by: rargs.order_by, limit: rargs.limit ? rargs.limit : 20, offset: rargs.offset ? rargs.offset : 0}
     if (args.offset == 0) {
-      $scope.apiReady = false;
-      $scope.results = [];
+      propsListing.apiReady = false;
+      propsListing.results = [];
       tokkoApi.find('property/get_search_summary', args, function(result) {
         let types = result.objects.property_types
-        $scope.sideBarParams = {
+        propsListing.sideBarParams = {
           locations: result.objects.locations,
           types: types.sort((a, b) => b.count - a.count),
           subTypes: (() => {
-            if ($scope.subTypeSelected && $scope.subTypeSelected.length > 0) {
-              return [propertiesSubTypes[types[0].id].find(x => x.id === $scope.subTypeSelected[0])]
+            if (propsListing.subTypeSelected && propsListing.subTypeSelected.length > 0) {
+              return [propertiesSubTypes[types[0].id].find(x => x.id === propsListing.subTypeSelected[0])]
             } else {
               return types.length === 1 ? propertiesSubTypes[types[0].id] : [];
             }
@@ -50,13 +51,13 @@ app.controller('propsListing', ['$location', '$rootScope', '$scope', 'tokkoApi',
           operations: result.objects.operation_types.sort((a, b) => b.count - a.count),
           rooms: result.objects.suite_amount.sort((a, b) => b.count - a.count),
         };
-        $scope.resultsCount = result.meta.total_count;
+        propsListing.resultsCount = result.meta.total_count;
         $scope.$apply();
       });
     }
     tokkoApi.find('property/search', args, function(result){
       result.forEach((p) => {
-        $scope.results.push({
+        propsListing.results.push({
           id: p.id,
           title: p.publication_title,
           address: p.address,
@@ -74,14 +75,14 @@ app.controller('propsListing', ['$location', '$rootScope', '$scope', 'tokkoApi',
           full_prop: p,
         });
       });
-      $scope.results.length > 0 ? $scope.ifResults = true : $scope.ifResults = false;
-      $scope.apiReady = true;
-      $scope.stopInfiniteScroll = false;
-      $scope.loadingMore = false;
+      propsListing.results.length > 0 ? propsListing.ifResults = true : propsListing.ifResults = false;
+      propsListing.apiReady = true;
+      propsListing.stopInfiniteScroll = false;
+      propsListing.loadingMore = false;
       $scope.$apply();
       uiFunctions.buildCarousel();
       uiFunctions.gridSwitcher();
-      $scope.updateChosen();
+      propsListing.updateChosen();
     });
   };
 
@@ -89,9 +90,9 @@ app.controller('propsListing', ['$location', '$rootScope', '$scope', 'tokkoApi',
 
   // #region On Init
 
-  setActiveSection($scope.operationType);
+  setActiveSection(propsListing.operationType);
   $anchorScroll();
-  getProperties($scope, tokkoApi, args);
+  getProperties(tokkoApi, args);
 
   setTimeout(() => {
     uiFunctions.buildChosen();
@@ -103,82 +104,82 @@ app.controller('propsListing', ['$location', '$rootScope', '$scope', 'tokkoApi',
 
   // #region Scoped Methods
 
-  $scope.goLocation = (url) => $state.go(url);
+  propsListing.goLocation = (url) => $state.go(url);
 
-  $scope.opName = (type) => type === 1 ? 'Venta' : type === 2 ? 'Alquiler' : 'Otro';
+  propsListing.opName = (type) => type === 1 ? 'Venta' : type === 2 ? 'Alquiler' : 'Otro';
 
-  $scope.roomAmtName = (amount) => parseInt(amount) > 0 ? (amount == 1 ? `${amount} Dormitorio` : `${amount} Dormitorios`) : "Loft ";
+  propsListing.roomAmtName = (amount) => parseInt(amount) > 0 ? (amount == 1 ? `${amount} Dormitorio` : `${amount} Dormitorios`) : "Loft ";
 
-  $scope.find = () => {
+  propsListing.find = () => {
     let data = JSON.parse(_.clone(tokkoSearchArgs.sData));    
-    data.operation_types = $scope.operationType;
-    data.property_types = $scope.propertyType;
-    data.with_custom_tags = $scope.subTypeSelected;
-    data.current_localization_id = $scope.location;
-    data.filters = [$scope.rooms];
-    if ($scope.minPrice) data.price_from = $scope.minPrice;
-    if ($scope.maxPrice) data.price_to = $scope.maxPrice;
+    data.operation_types = propsListing.operationType;
+    data.property_types = propsListing.propertyType;
+    data.with_custom_tags = propsListing.subTypeSelected;
+    data.current_localization_id = propsListing.location;
+    data.filters = [propsListing.rooms];
+    if (propsListing.minPrice) data.price_from = propsListing.minPrice;
+    if (propsListing.maxPrice) data.price_to = propsListing.maxPrice;
     args.data = JSON.stringify(data);
-    args.order_by = $scope.order ? $scope.order.order_by : 'price';
-    args.order = $scope.order ? $scope.order.order : 'asc';
+    args.order_by = propsListing.order ? propsListing.order.order_by : 'price';
+    args.order = propsListing.order ? propsListing.order.order : 'asc';
     args.offset = 0;
-    getProperties($scope, tokkoApi, args);
+    getProperties(tokkoApi, args);
     $location.search({args: JSON.stringify(args)});
 
-    setActiveSection($scope.operationType);
+    setActiveSection(propsListing.operationType);
   };
 
-  $scope.changeFilter = (filter) => {    
+  propsListing.changeFilter = (filter) => {    
     if (filter.type === 'o') {
-      $scope.operationType = filter.val;
+      propsListing.operationType = filter.val;
     }
     if (filter.type === 't') {
-      $scope.propertyType = filter.val;
-      $scope.subTypeSelected = [];
+      propsListing.propertyType = filter.val;
+      propsListing.subTypeSelected = [];
     }
     if (filter.type === 'st') {
-      $scope.subTypeSelected = filter.val;
+      propsListing.subTypeSelected = filter.val;
     }
     if (filter.type === 'l') {
-      $scope.location = filter.val;
+      propsListing.location = filter.val;
     }
     if (filter.type === 'r') {
-      $scope.rooms = filter.val;
+      propsListing.rooms = filter.val;
     }
     if (filter.type === 'or') {
-      $scope.order = {order_by: $scope.orderBy.val.split('_')[0], order: $scope.orderBy.val.split('_')[1]}
+      propsListing.order = {order_by: propsListing.orderBy.val.split('_')[0], order: propsListing.orderBy.val.split('_')[1]}
     }
-    $scope.find();
+    propsListing.find();
   };
 
-  $scope.updateChosen = () => {
+  propsListing.updateChosen = () => {
     setTimeout(() => {
       $('.chosen-select-no-single').trigger("chosen:updated");
     }, 0);
   };
 
-  $scope.loadMoreProps = () => {
-    const areAllPropsDisplayed = !$scope.sideBarParams || !$scope.sideBarParams.operations ? true : $scope.sideBarParams.operations.reduce((a, b) => a + b.count, 0) == $scope.results.length;
+  propsListing.loadMoreProps = () => {
+    const areAllPropsDisplayed = !propsListing.sideBarParams || !propsListing.sideBarParams.operations ? true : propsListing.sideBarParams.operations.reduce((a, b) => a + b.count, 0) == propsListing.results.length;
     
     args.offset += 20;
-    $scope.stopInfiniteScroll = true;
-    $scope.loadingMore = true;  
-    getProperties($scope, tokkoApi, args);
+    propsListing.stopInfiniteScroll = true;
+    propsListing.loadingMore = true;  
+    getProperties(tokkoApi, args);
 
-    if (areAllPropsDisplayed) $scope.loadingMore = false;    
+    if (areAllPropsDisplayed) propsListing.loadingMore = false;    
   };
 
-  $scope.toggleOrderModal = () => $scope.isOrderOpen = !$scope.isOrderOpen;
+  propsListing.toggleOrderModal = () => propsListing.isOrderOpen = !propsListing.isOrderOpen;
 
-  $scope.toggleFilterModal = () => $scope.isFilterOpen = !$scope.isFilterOpen;    
+  propsListing.toggleFilterModal = () => propsListing.isFilterOpen = !propsListing.isFilterOpen;    
 
-  $scope.changeOrder = (newVal) => {
-    $scope.orderBy = newVal;
-    $scope.isOrderOpen = false;
-    $scope.changeFilter({type: 'or'});
+  propsListing.changeOrder = (newVal) => {
+    propsListing.orderBy = newVal;
+    propsListing.isOrderOpen = false;
+    propsListing.changeFilter({type: 'or'});
   };
 
-  $scope.toggleActiveItem = (e) => { 
+  propsListing.toggleActiveItem = (e) => { 
     e.stopPropagation();
         
     let item = e.target;
@@ -189,32 +190,32 @@ app.controller('propsListing', ['$location', '$rootScope', '$scope', 'tokkoApi',
     else item.classList.add("active");
   };
 
-  $scope.pluralize = (name) => ['a','e','i','o','u'].includes(name.slice(-1)) ? `${name}s` : `${name}es`;
+  propsListing.pluralize = (name) => ['a','e','i','o','u'].includes(name.slice(-1)) ? `${name}s` : `${name}es`;
 
-  $scope.clearAllFilters = () => {
-    $scope.minPrice = '';
-    $scope.maxPrice = '';
-    $scope.operationType = [...Array(2 + 1).keys()].slice(1);
-    $scope.propertyType = [...Array(25 + 1).keys()].slice(1);
-    $scope.subTypeSelected = [];
-    $scope.location = [];
-    $scope.rooms = [];    
-    $scope.find();
+  propsListing.clearAllFilters = () => {
+    propsListing.minPrice = '';
+    propsListing.maxPrice = '';
+    propsListing.operationType = [...Array(2 + 1).keys()].slice(1);
+    propsListing.propertyType = [...Array(25 + 1).keys()].slice(1);
+    propsListing.subTypeSelected = [];
+    propsListing.location = [];
+    propsListing.rooms = [];    
+    propsListing.find();
   };
 
   // #endregion
 
   // #region Events
 
-  $rootScope.$on('changeFilter', (event, {operationType}) => $scope.changeFilter({type: 'o', val: [operationType]}));
+  $rootScope.$on('changeFilter', (event, {operationType}) => propsListing.changeFilter({type: 'o', val: [operationType]}));
 
   // #endregion
 
   // #region Scoped Objects
 
-  $scope.orderBy = {val: 'price_asc', text: 'Menor Precio'};
+  propsListing.orderBy = {val: 'price_asc', text: 'Menor Precio'};
 
-  $scope.orderOptions = [
+  propsListing.orderOptions = [
     {val: 'price_asc', text: 'Menor Precio'},
     {val: 'price_desc', text: 'Mayor Precio'},
     {val: 'id_asc', text: 'Más Recientes'}

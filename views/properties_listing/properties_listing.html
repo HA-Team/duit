@@ -1,4 +1,4 @@
-<div ng-controller="propsListing" id="propsListing">
+<div ng-controller="propsListingController as propsListing" id="propsListing">
   <!-- Desktop Content -->
   <div class="container margin-top-50 hidden-on-mobile" >
     <!-- <div class="row fullwidth-layout" ng-show="ifResults"> -->
@@ -17,7 +17,7 @@
               </div>
               <!-- Min Price -->
               <div class="col-md-12">
-                <select ng-model="orderBy" ng-change="changeFilter({type: 'or'})" ng-options="option.text for option in orderOptions track by option.val" class="chosen-select-no-single"> 
+                <select ng-model="propsListing.orderBy" ng-change="propsListing.changeFilter({type: 'or'})" ng-options="option.text for option in propsListing.orderOptions track by option.val" class="chosen-select-no-single"> 
                 </select>
               </div>
             </div>
@@ -27,23 +27,23 @@
               </div>
               <!-- Min Price -->
               <div class="col-md-6">
-                <input type="text" placeholder="Min." data-unit="USD" ng-model="minPrice" ng-model-options='{ debounce: 1500 }' ng-change="find()">
+                <input type="text" placeholder="Min." data-unit="USD" ng-model="propsListing.minPrice" ng-model-options='{ debounce: 1500 }' ng-change="propsListing.find()">
               </div>
               <!-- Max Price -->
               <div class="col-md-6">
-                <input type="text" placeholder="Max." data-unit="USD" ng-model="maxPrice" ng-model-options='{ debounce: 1500 }' ng-change="find()">
+                <input type="text" placeholder="Max." data-unit="USD" ng-model="propsListing.maxPrice" ng-model-options='{ debounce: 1500 }' ng-change="propsListing.find()">
               </div>
             </div>
             <div class="row with-forms">
               <!-- Status -->
               <div class="col-md-12">
                 <label class="text-primary">Operación</label>
-                <h4 class="badge badge-default" ng-if="sideBarParams.operations.length == 1" ng-repeat="o in sideBarParams.operations">
-                  {{opName(o.operation_type)}} <span class="badge badge-danger" ng-click="changeFilter({type: 'o', val: [1,2]})"><i class="fa fa-times"></i></span>
+                <h4 class="badge badge-default" ng-if="propsListing.sideBarParams.operations.length == 1" ng-repeat="o in propsListing.sideBarParams.operations">
+                  {{propsListing.opName(o.operation_type)}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'o', val: [1,2]})"><i class="fa fa-times"></i></span>
                 </h4>
-                <h4 class="badge badge-info" ng-if="sideBarParams.operations.length > 1" ng-repeat="o in sideBarParams.operations"
-                ng-click="changeFilter({type: 'o', val: [o.operation_type]})">
-                  {{opName(o.operation_type)}} ({{o.count}})</i></span>
+                <h4 class="badge badge-info" ng-if="propsListing.sideBarParams.operations.length > 1" ng-repeat="o in propsListing.sideBarParams.operations"
+                ng-click="propsListing.changeFilter({type: 'o', val: [o.operation_type]})">
+                  {{propsListing.opName(o.operation_type)}} ({{o.count}})</i></span>
                 </h4>
               </div>
             </div>
@@ -51,21 +51,21 @@
               <!-- Type -->
               <div class="col-md-12">
                 <label class="text-primary">Tipo</label> 
-                  <h4 class="badge badge-default" ng-if="sideBarParams.types.length == 1" ng-repeat="t in sideBarParams.types">
-                    {{t.type}} <span class="badge badge-danger" ng-click="changeFilter({type: 't', val: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]})"><i class="fa fa-times"></i></span>
+                  <h4 class="badge badge-default" ng-if="propsListing.sideBarParams.types.length == 1" ng-repeat="t in propsListing.sideBarParams.types">
+                    {{t.type}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 't', val: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]})"><i class="fa fa-times"></i></span>
                   </h4>
-                  <h4 class="badge badge-info" ng-if="sideBarParams.types.length > 1" ng-repeat="t in sideBarParams.types" ng-click="changeFilter({type: 't', val: [t.id]})">
+                  <h4 class="badge badge-info" ng-if="propsListing.sideBarParams.types.length > 1" ng-repeat="t in propsListing.sideBarParams.types" ng-click="propsListing.changeFilter({type: 't', val: [t.id]})">
                     {{t.type}} ({{t.count}})</i></span>
                   </h4>
               </div>
             </div>
-            <div class="row with-forms" ng-if="sideBarParams.types.length == 1">
+            <div class="row with-forms" ng-if="propsListing.sideBarParams.types.length == 1">
               <div class="col-md-12">
                 <label class="text-primary">Condición</label>
-                <h4 class="badge badge-default" ng-if="sideBarParams.subTypes.length == 1" ng-repeat="st in sideBarParams.subTypes">
-                  {{st.name}} <span class="badge badge-danger" ng-click="changeFilter({type: 'st', val: []})"><i class="fa fa-times"></i></span>
+                <h4 class="badge badge-default" ng-if="propsListing.sideBarParams.subTypes.length == 1" ng-repeat="st in propsListing.sideBarParams.subTypes">
+                  {{st.name}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'st', val: []})"><i class="fa fa-times"></i></span>
                 </h4>
-                <h4 class="badge badge-info" ng-if="sideBarParams.subTypes.length > 1" ng-repeat="st in sideBarParams.subTypes" ng-click="changeFilter({type: 'st', val: [st.id]})">
+                <h4 class="badge badge-info" ng-if="propsListing.sideBarParams.subTypes.length > 1" ng-repeat="st in propsListing.sideBarParams.subTypes" ng-click="propsListing.changeFilter({type: 'st', val: [st.id]})">
                   {{st.name}}</i></span>
                 </h4>
               </div>
@@ -74,10 +74,10 @@
               <!-- Cities -->
               <div class="col-md-12">
                 <label class="text-primary">Ciudad/Barrio</label>
-                <h4 class="badge badge-default" ng-if="sideBarParams.locations.length == 1" ng-repeat="l in sideBarParams.locations">
-                  {{l.location_name}}<span class="badge badge-danger" ng-click="changeFilter({type: 'l', val: []})"><i class="fa fa-times"></i></span>
+                <h4 class="badge badge-default" ng-if="propsListing.sideBarParams.locations.length == 1" ng-repeat="l in propsListing.sideBarParams.locations">
+                  {{l.location_name}}<span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'l', val: []})"><i class="fa fa-times"></i></span>
                 </h4>
-                <h4 class="badge badge-info" ng-if="sideBarParams.locations.length > 1" ng-repeat="l in sideBarParams.locations" ng-click="changeFilter({type: 'l', val: [l.location_id]})">
+                <h4 class="badge badge-info" ng-if="propsListing.sideBarParams.locations.length > 1" ng-repeat="l in propsListing.sideBarParams.locations" ng-click="propsListing.changeFilter({type: 'l', val: [l.location_id]})">
                   {{l.location_name}} ({{l.count}})</i></span>
                 </h4>
               </div>
@@ -86,23 +86,22 @@
               <!-- Cities -->
               <div class="col-md-12">
                 <label class="text-primary">Dormitorios</label>
-                <h4 class="badge badge-default" ng-if="sideBarParams.rooms.length == 1" ng-repeat="r in sideBarParams.rooms">
-                  {{roomAmtName(r.amount)}}<span class="badge badge-danger" ng-click="changeFilter({type: 'r', val: []})"><i class="fa fa-times"></i></span>
+                <h4 class="badge badge-default" ng-if="propsListing.sideBarParams.rooms.length == 1" ng-repeat="r in propsListing.sideBarParams.rooms">
+                  {{propsListing.roomAmtName(r.amount)}}<span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'r', val: []})"><i class="fa fa-times"></i></span>
                 </h4>
-                <h4 class="badge badge-info" ng-if="sideBarParams.rooms.length > 1" ng-repeat="r in sideBarParams.rooms" ng-click="changeFilter({type: 'r', val: ['suite_amount', '=', r.amount.toString()]})">
-                  {{roomAmtName(r.amount)}} ({{r.count}})</i></span>
+                <h4 class="badge badge-info" ng-if="propsListing.sideBarParams.rooms.length > 1" ng-repeat="r in propsListing.sideBarParams.rooms" ng-click="propsListing.changeFilter({type: 'r', val: ['suite_amount', '=', r.amount.toString()]})">
+                  {{propsListing.roomAmtName(r.amount)}} ({{r.count}})</i></span>
                 </h4>
               </div>
             </div>
-            <!-- <button class="button fullwidth margin-top-30">Search</button> -->
           </div>
           <!-- Widget / End -->
 
         </div>
       </div>
       <!-- Sidebar / End -->
-      <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="apiReady"></div>
-      <div class="col-md-9" ng-show="apiReady">
+      <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="propsListing.apiReady"></div>
+      <div class="col-md-9" ng-show="propsListing.apiReady">
 
         <!-- Sorting / Layout Switcher -->
         <div class="row margin-bottom-15">
@@ -110,12 +109,7 @@
           <div class="col-md-6">
             <!-- Sort by -->
             <div class="sort-by">
-              <label>{{resultsCount}} Propiedades encontradas</label>
-              <!-- <div class="sort-by-select">
-                <label>Ordenadas por: </label>
-                <select ng-model="orderBy" ng-change="changeFilter({type: 'or'})" ng-options="option.text for option in orderOptions track by option.val" class="chosen-select-no-single"> 
-                </select>
-              </div> -->
+              <label>{{propsListing.resultsCount}} Propiedades encontradas</label>
             </div>
           </div>
 
@@ -129,9 +123,9 @@
           </div>
         </div>
         <!-- Listings -->
-        <div class="listings-container grid-layout-three" infinite-scroll="loadMoreProps()" infinite-scroll-disabled="stopInfiniteScroll">
+        <div class="listings-container grid-layout-three" infinite-scroll="propsListing.loadMoreProps()" infinite-scroll-disabled="propsListing.stopInfiniteScroll">
           <!-- Listing Item -->
-          <div class="listing-item " ng-repeat="p in results">
+          <div class="listing-item " ng-repeat="p in propsListing.results">
 
             <a class="listing-img-container" href="/#!/property/{{p.id}}">
 
@@ -180,8 +174,8 @@
 
         <div class="clearfix"></div>
       </div>
-      <div class='spinner' ng-include="'/views/common/spinner.html'" ng-show="loadingMore"></div>
-      <div class="row fullwidth-layout text-center no-results" ng-hide="ifResults">
+      <div class='spinner' ng-include="'/views/common/spinner.html'" ng-show="propsListing.loadingMore"></div>
+      <div class="row fullwidth-layout text-center no-results" ng-hide="propsListing.ifResults">
         <i class="fa fa-5x fa-frown-o"></i>
         <h3>¡Ups! No hay nada aquí. ¡<a href="#!/contactUs">Contactános</a> para ver mas opciones!</h3>
       </div> 
@@ -193,53 +187,53 @@
     <!-- Mobile Filter Menu --> 
     <div class="d-flex flex-row mobile-filter-menu-container">      
       <div class="mobile-filter-menu-item">
-        <div class="margin-right-10 mobile-filter-menu-icon" ng-click="toggleOrderModal()">
+        <div class="margin-right-10 mobile-filter-menu-icon" ng-click="propsListing.toggleOrderModal()">
           <i class="fa fa-long-arrow-down"></i>
           <i class="fa fa-long-arrow-up"></i>
         </div>        
-        <h4 ng-click="toggleOrderModal()">Ordenar</h4>
+        <h4 ng-click="propsListing.toggleOrderModal()">Ordenar</h4>
       </div> 
       <div class="vertical-line"></div>     
       <div class="mobile-filter-menu-item">
-        <i class="fa fa-sliders margin-right-10 mobile-filter-menu-icon" ng-click="toggleFilterModal()"></i>
-        <h4 ng-click="toggleFilterModal()">Filtrar</h4>
+        <i class="fa fa-sliders margin-right-10 mobile-filter-menu-icon" ng-click="propsListing.toggleFilterModal()"></i>
+        <h4 ng-click="propsListing.toggleFilterModal()">Filtrar</h4>
       </div>
     </div>
     <!-- Mobile Filter Menu End -->
 
     <!-- Mobile Order Modal -->    
-    <div id="mobile-props-order-modal" ng-class="{' open': isOrderOpen}">
+    <div id="mobile-props-order-modal" ng-class="{' open': propsListing.isOrderOpen}">
       <div class="arrow-up"></div>
       <div class="mobile-order-modal-container">
         <h4>Ordenar por</h4>
         <ul>
-          <li class="mobile-order-modal-item" ng-repeat="option in orderOptions track by option.val" ng-click="changeOrder(option)"
-          ng-class="{' selected': option.val == orderBy.val}">            
+          <li class="mobile-order-modal-item" ng-repeat="option in propsListing.orderOptions track by option.val" ng-click="propsListing.changeOrder(option)"
+          ng-class="{' selected': option.val == propsListing.orderBy.val}">            
             <div>{{option.text}}</div>            
           </li>          
         </ul>
       </div>  
-      <div class="mobile-modal-background" ng-click="toggleOrderModal()"></div>    
+      <div class="mobile-modal-background" ng-click="propsListing.toggleOrderModal()"></div>    
     </div>
     <!-- Mobile Order Modal End -->
 
     <!-- Mobile Filter Modal -->    
-    <div id="mobile-props-filter-modal" ng-class="{' open': isFilterOpen}">
+    <div id="mobile-props-filter-modal" ng-class="{' open': propsListing.isFilterOpen}">
       <div class="arrow-up"></div>
       <div class="mobile-filter-modal-container">
         <div class="mobile-filter-modal-header">
           <h4>Filtrar por</h4>
-          <p ng-click="clearAllFilters()">Limpiar filtros</p>
+          <p ng-click="propsListing.clearAllFilters()">Limpiar filtros</p>
         </div>        
         <ul>
           <!-- Filtro Precio -->
-          <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)">    
+          <li class="mobile-filter-modal-item" ng-click="propsListing.toggleActiveItem($event)">    
             <div class="mobile-filter-item-text">
               <h5>Rango de Precio</h5>
               <p>
-                {{!maxPrice && minPrice ? 'Más de ' + (minPrice|currency:"$":0) :
-                  !minPrice && maxPrice ? 'Menos de ' + (maxPrice|currency:"$":0) :
-                  maxPrice && minPrice ? 'Entre ' + (minPrice|currency:"$":0) + ' y ' + (maxPrice|currency:"$":0) : 'Todos'}}
+                {{!propsListing.maxPrice && propsListing.minPrice ? 'Más de ' + (propsListing.minPrice | currency:"$":0) :
+                  !propsListing.minPrice && propsListing.maxPrice ? 'Menos de ' + (propsListing.maxPrice | currency:"$":0) :
+                  propsListing.maxPrice && propsListing.minPrice ? 'Entre ' + (propsListing.minPrice | currency:"$":0) + ' y ' + (propsListing.maxPrice | currency:"$":0) : 'Todos'}}
               </p>
             </div>        
             <i class="fa fa-angle-down"></i>             
@@ -247,48 +241,48 @@
           <div class="mobile-filter-detail-container">
             <div class="price-filter mobile-filter-item-detail">            
               <!-- Min Price -->              
-              <input type="text" placeholder="Min." data-unit="USD" ng-model="minPrice" ng-model-options='{ debounce: 1500 }' ng-change="find()">              
+              <input type="text" placeholder="Min." data-unit="USD" ng-model="propsListing.minPrice" ng-model-options='{ debounce: 1500 }' ng-change="propsListing.find()">              
               <!-- Max Price -->              
-              <input type="text" placeholder="Max." data-unit="USD" ng-model="maxPrice" ng-model-options='{ debounce: 1500 }' ng-change="find()"> 
+              <input type="text" placeholder="Max." data-unit="USD" ng-model="propsListing.maxPrice" ng-model-options='{ debounce: 1500 }' ng-change="propsListing.find()"> 
             </div>
           </div> 
           <!-- Filtro Precio End -->
 
           <!-- Filtro Operación -->
-          <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)">                        
+          <li class="mobile-filter-modal-item" ng-click="propsListing.toggleActiveItem($event)">                        
             <div class="mobile-filter-item-text">
               <h5>Operación</h5>  
-              <p>{{sideBarParams.operations.length == 1 ? 'Solo ' + pluralize(opName(sideBarParams.operations[0].operation_type)) : 'Todos'}}</p>
+              <p>{{propsListing.sideBarParams.operations.length == 1 ? 'Solo ' + propsListing.pluralize(propsListing.opName(propsListing.sideBarParams.operations[0].operation_type)) : 'Todos'}}</p>
             </div>        
             <i class="fa fa-angle-down"></i>         
           </li> 
           <div class="mobile-filter-detail-container">
             <div class="mobile-filter-item-detail">
-              <h4 class="badge badge-default" ng-if="sideBarParams.operations.length == 1" ng-repeat="o in sideBarParams.operations">
-                {{opName(o.operation_type)}} <span class="badge badge-danger" ng-click="changeFilter({type: 'o', val: [1,2]})"><i class="fa fa-times"></i></span>
+              <h4 class="badge badge-default" ng-if="propsListing.sideBarParams.operations.length == 1" ng-repeat="o in propsListing.sideBarParams.operations">
+                {{propsListing.opName(o.operation_type)}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'o', val: [1,2]})"><i class="fa fa-times"></i></span>
               </h4>
-              <h4 class="badge badge-info" ng-if="sideBarParams.operations.length > 1" ng-repeat="o in sideBarParams.operations"
-                  ng-click="changeFilter({type: 'o', val: [o.operation_type]})">
-                {{opName(o.operation_type)}} ({{o.count}})</i></span>
+              <h4 class="badge badge-info" ng-if="propsListing.sideBarParams.operations.length > 1" ng-repeat="o in propsListing.sideBarParams.operations"
+                  ng-click="propsListing.changeFilter({type: 'o', val: [o.operation_type]})">
+                {{propsListing.opName(o.operation_type)}} ({{o.count}})</i></span>
               </h4>
             </div>
           </div> 
           <!-- Filtro Operación End -->
 
           <!-- Filtro Tipo -->
-          <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)">            
+          <li class="mobile-filter-modal-item" ng-click="propsListing.toggleActiveItem($event)">            
             <div class="mobile-filter-item-text">
               <h5>Tipo</h5>              
-              <p>{{sideBarParams.types.length == 1 ? 'Solo ' + pluralize(sideBarParams.types[0].type) : 'Todos'}}</p>
+              <p>{{propsListing.sideBarParams.types.length == 1 ? 'Solo ' + propsListing.pluralize(propsListing.sideBarParams.types[0].type) : 'Todos'}}</p>
             </div>        
             <i class="fa fa-angle-down"></i>                       
           </li> 
           <div class="mobile-filter-detail-container">
             <div class="mobile-filter-item-detail">
-              <h4 class="badge badge-default" ng-if="sideBarParams.types.length == 1" ng-repeat="t in sideBarParams.types">
-                {{t.type}} <span class="badge badge-danger" ng-click="changeFilter({type: 't', val: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]})"><i class="fa fa-times"></i></span>
+              <h4 class="badge badge-default" ng-if="propsListing.sideBarParams.types.length == 1" ng-repeat="t in propsListing.sideBarParams.types">
+                {{t.type}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 't', val: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]})"><i class="fa fa-times"></i></span>
               </h4>
-              <h4 class="badge badge-info" ng-if="sideBarParams.types.length > 1" ng-repeat="t in sideBarParams.types" ng-click="changeFilter({type: 't', val: [t.id]})">
+              <h4 class="badge badge-info" ng-if="propsListing.sideBarParams.types.length > 1" ng-repeat="t in propsListing.sideBarParams.types" ng-click="propsListing.changeFilter({type: 't', val: [t.id]})">
                 {{t.type}} ({{t.count}})</i></span>
               </h4>
             </div>
@@ -296,19 +290,19 @@
           <!-- Filtro Tipo End -->
 
           <!-- Filtro Condición -->
-          <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)" ng-if="sideBarParams.types.length == 1">            
+          <li class="mobile-filter-modal-item" ng-click="propsListing.toggleActiveItem($event)" ng-if="propsListing.sideBarParams.types.length == 1">            
             <div class="mobile-filter-item-text">
               <h5>Condición</h5>              
-              <p>{{sideBarParams.subTypes.length == 1 ? 'Solo ' + sideBarParams.subTypes[0].name : 'Todos'}}</p>
+              <p>{{propsListing.sideBarParams.subTypes.length == 1 ? 'Solo ' + propsListing.sideBarParams.subTypes[0].name : 'Todos'}}</p>
             </div>        
             <i class="fa fa-angle-down"></i>                       
           </li> 
-          <div class="mobile-filter-detail-container" ng-if="sideBarParams.types.length == 1">
+          <div class="mobile-filter-detail-container" ng-if="propsListing.sideBarParams.types.length == 1">
             <div class="mobile-filter-item-detail">
-              <h4 class="badge badge-default" ng-if="sideBarParams.subTypes.length == 1" ng-repeat="st in sideBarParams.subTypes">
-                {{st.name}} <span class="badge badge-danger" ng-click="changeFilter({type: 'st', val: []})"><i class="fa fa-times"></i></span>
+              <h4 class="badge badge-default" ng-if="propsListing.sideBarParams.subTypes.length == 1" ng-repeat="st in propsListing.sideBarParams.subTypes">
+                {{st.name}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'st', val: []})"><i class="fa fa-times"></i></span>
               </h4>
-              <h4 class="badge badge-info" ng-if="sideBarParams.subTypes.length > 1" ng-repeat="st in sideBarParams.subTypes" ng-click="changeFilter({type: 'st', val: [st.id]})">
+              <h4 class="badge badge-info" ng-if="propsListing.sideBarParams.subTypes.length > 1" ng-repeat="st in propsListing.sideBarParams.subTypes" ng-click="propsListing.changeFilter({type: 'st', val: [st.id]})">
                 {{st.name}}</i></span>
               </h4>
             </div>
@@ -316,19 +310,19 @@
           <!-- Filtro Condición End -->
 
           <!-- Filtro Ciudad / Barrio -->
-          <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)">            
+          <li class="mobile-filter-modal-item" ng-click="propsListing.toggleActiveItem($event)">            
             <div class="mobile-filter-item-text">              
               <h5>Ciudad / Barrio</h5>   
-              <p>{{sideBarParams.locations.length == 1 ? 'Solo ' + sideBarParams.locations[0].location_name : 'Todos'}}</p>
+              <p>{{propsListing.sideBarParams.locations.length == 1 ? 'Solo ' + propsListing.sideBarParams.locations[0].location_name : 'Todos'}}</p>
             </div>        
             <i class="fa fa-angle-down"></i>          
           </li>
           <div class="mobile-filter-detail-container">
             <div class="mobile-filter-item-detail">
-              <h4 class="badge badge-default" ng-if="sideBarParams.locations.length == 1" ng-repeat="l in sideBarParams.locations">
-                {{l.location_name}}<span class="badge badge-danger" ng-click="changeFilter({type: 'l', val: []})"><i class="fa fa-times"></i></span>
+              <h4 class="badge badge-default" ng-if="propsListing.sideBarParams.locations.length == 1" ng-repeat="l in propsListing.sideBarParams.locations">
+                {{l.location_name}}<span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'l', val: []})"><i class="fa fa-times"></i></span>
               </h4>
-              <h4 class="badge badge-info" ng-if="sideBarParams.locations.length > 1" ng-repeat="l in sideBarParams.locations" ng-click="changeFilter({type: 'l', val: [l.location_id]})">
+              <h4 class="badge badge-info" ng-if="propsListing.sideBarParams.locations.length > 1" ng-repeat="l in propsListing.sideBarParams.locations" ng-click="propsListing.changeFilter({type: 'l', val: [l.location_id]})">
                 {{l.location_name}} ({{l.count}})</i></span>
               </h4>
             </div>
@@ -336,20 +330,20 @@
           <!-- Filtro Ciudad / Barrio End -->
 
           <!-- Filtro Dormitorios -->
-          <li class="mobile-filter-modal-item" ng-click="toggleActiveItem($event)">            
+          <li class="mobile-filter-modal-item" ng-click="propsListing.toggleActiveItem($event)">            
             <div class="mobile-filter-item-text">              
               <h5>Dormitorios</h5>  
-              <p>{{sideBarParams.rooms.length == 1 ? 'Solo ' + roomAmtName(sideBarParams.rooms[0].amount) : 'Todos'}}</p>
+              <p>{{propsListing.sideBarParams.rooms.length == 1 ? 'Solo ' + propsListing.roomAmtName(propsListing.sideBarParams.rooms[0].amount) : 'Todos'}}</p>
             </div>        
             <i class="fa fa-angle-down"></i>           
           </li>  
           <div class="mobile-filter-detail-container">
             <div class="mobile-filter-item-detail">
-              <h4 class="badge badge-default" ng-if="sideBarParams.rooms.length == 1" ng-repeat="r in sideBarParams.rooms">
-                {{roomAmtName(r.amount)}}<span class="badge badge-danger" ng-click="changeFilter({type: 'r', val: []})"><i class="fa fa-times"></i></span>
+              <h4 class="badge badge-default" ng-if="propsListing.sideBarParams.rooms.length == 1" ng-repeat="r in propsListing.sideBarParams.rooms">
+                {{propsListing.roomAmtName(r.amount)}}<span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'r', val: []})"><i class="fa fa-times"></i></span>
               </h4>
-              <h4 class="badge badge-info" ng-if="sideBarParams.rooms.length > 1" ng-repeat="r in sideBarParams.rooms" ng-click="changeFilter({type: 'r', val: ['suite_amount', '=', r.amount.toString()]})">
-                {{roomAmtName(r.amount)}} ({{r.count}})</i></span>
+              <h4 class="badge badge-info" ng-if="propsListing.sideBarParams.rooms.length > 1" ng-repeat="r in propsListing.sideBarParams.rooms" ng-click="propsListing.changeFilter({type: 'r', val: ['suite_amount', '=', r.amount.toString()]})">
+                {{propsListing.roomAmtName(r.amount)}} ({{r.count}})</i></span>
               </h4>
           </div>
           </div>  
@@ -357,20 +351,20 @@
 
         </ul>
       </div>  
-      <div class="mobile-modal-background" ng-click="toggleFilterModal()"></div>    
+      <div class="mobile-modal-background" ng-click="propsListing.toggleFilterModal()"></div>    
     </div>
     <!-- Mobile Filter Modal End -->
 
     <!-- Skeleton Loader -->
-    <skeleton-listing rows="3" lines="2" show-me="!apiReady"></skeleton-listing>
+    <skeleton-listing rows="3" lines="2" show-me="!propsListing.apiReady"></skeleton-listing>
         
-    <div ng-show="apiReady" class="margin-top-30">
+    <div ng-show="propsListing.apiReady" class="margin-top-30">
 
       <!-- Listings -->
-      <div class="listings-container grid-layout-three" infinite-scroll="loadMoreProps()" infinite-scroll-disabled="stopInfiniteScroll">
+      <div class="listings-container grid-layout-three" infinite-scroll="propsListing.loadMoreProps()" infinite-scroll-disabled="propsListing.stopInfiniteScroll">
         
         <!-- Listing Item -->
-        <div class="" ng-repeat="p in results">
+        <div class="" ng-repeat="p in propsListing.results">
 
           <div class="mobile-list-card-container">
             <a href="/#!/property/{{p.id}}">
@@ -400,10 +394,10 @@
     </div>
 
     <!-- Skeleton Loader -->
-    <skeleton-listing rows="3" lines="2" show-me="loadingMore"></skeleton-listing>
+    <skeleton-listing rows="3" lines="2" show-me="propsListing.loadingMore"></skeleton-listing>
     <!-- Skeleton Loader End -->  
       
-    <div class="row fullwidth-layout text-center no-results" ng-hide="ifResults">
+    <div class="row fullwidth-layout text-center no-results" ng-hide="propsListing.ifResults">
       <i class="fa fa-5x fa-frown-o"></i>
       <h3>¡Ups! No hay nada aquí. ¡<a href="#!/contactUs">Contactános</a> para ver mas opciones!</h3>
     </div> 
