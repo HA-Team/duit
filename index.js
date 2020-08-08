@@ -50,7 +50,7 @@ app.config(['AnalyticsProvider', function (AnalyticsProvider) {
 * @date: 09/06/17
 */
 
-app.controller('startUp', ['$rootScope', function($rootScope) {
+app.controller('startUpController', ['$rootScope', function($rootScope) {
 
 }]);
 
