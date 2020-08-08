@@ -49,16 +49,43 @@
   <!-- Desktop Header -->
   <section id="header" class="hidden-on-mobile">
 
-    <div class="desktop-header-container">
+    <div id="main-header" class="desktop-header-container">
       
       <!-- Logo -->
-      <div id="logo" class="margin-top-10">
+      <div id="logo">
         <a href="index.html"><img src="/images/duit_id_blanco.png" alt=""></a>
-
-        <!-- Logo for Sticky Header -->
-        <a href="index.html" class="sticky-logo"><img src="/images/duit_id_blanco.png" alt=""></a>          
       </div>
       <!-- Logo End -->
+      
+      <div class="header-right-panel">
+
+        <div class="header-social">
+          <a href="https://www.facebook.com/duitpropiedades" target="_blank"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.instagram.com/duitpropiedades/" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+
+        <!-- Main Navigation -->
+        <nav id="navigation" class="style-2">
+          <ul id="responsive">
+            <li ng-repeat="section in header.sections" ng-class="{'current' : activeMenu == section.page && activeSection == section.section}"
+              ng-click="header.goToSection(section.page, section.section, section.args); section.action();">            
+            <a>{{section.title}}</a>
+            </li>
+          </ul>
+        </nav>
+        <!-- Main Navigation / End -->
+      </div>
+
+      <div style="width: 110px;"></div>
+
+    </div>
+
+    <div id="sticky-header" class="desktop-header-container">
+      
+      <!-- Logo -->
+      <div id="logo">
+        <a href="index.html"><img src="/images/duit_id_blanco_horizontal.png" alt=""></a>          
+      </div>
       
       <!-- Main Navigation -->
       <nav id="navigation" class="style-2">
@@ -69,8 +96,12 @@
           </li>
         </ul>
       </nav>
-      <div class="clearfix"></div>
       <!-- Main Navigation / End -->
+
+      <div class="header-social" style="width: 110px;">
+        <a href="https://www.facebook.com/duitpropiedades" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/duitpropiedades/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
 
     </div>
 

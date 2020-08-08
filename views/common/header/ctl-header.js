@@ -68,9 +68,14 @@ app.controller('headerController', ['$rootScope', '$location', 'navigation', fun
   // #region Events
 
   window.onscroll = function() {
+    const mobileHeader = document.getElementById("mobile-header");
+    const stickyHeader = document.getElementById("sticky-header");
+    const mainHeader = document.getElementById("main-header");
+    
     var currentScrollPos = window.pageYOffset;
 
-    document.getElementById("mobile-header").style.top = prevScrollpos > currentScrollPos ? "0" : "-75px";
+    stickyHeader.style.top = window.pageYOffset > mainHeader.offsetHeight ? "0" : "-75px";
+    mobileHeader.style.top = prevScrollpos > currentScrollPos ? "0" : "-75px";
     
     prevScrollpos = currentScrollPos;
   };
@@ -105,7 +110,7 @@ app.controller('headerController', ['$rootScope', '$location', 'navigation', fun
       section: ''
     },
     {
-      title: 'Duit Destacadas 360º',
+      title: 'Duit 360º',
       page: 'home',
       section: 'home-featured-anchor'
     },
