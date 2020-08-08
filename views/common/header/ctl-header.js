@@ -21,15 +21,6 @@ app.controller('headerController', ['$rootScope', '$location', 'navigation', fun
 
   // #endregion
 
-  // #region On Init
-
-  setTimeout(function(){
-    uiFunctions.buildStickyHeader();
-    uiFunctions.buildTopBarMobileMenu();
-  }, 0);
-
-  // #endregion
-
   // #region Private Methods
 
   const getOperationArgs = (opType) => {

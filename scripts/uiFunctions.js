@@ -261,22 +261,6 @@ const uiFunctions = function() {
         }, 500), !1
       })
     },
-    buildTopBarMobileMenu: function() {
-      const a = $.jPanelMenu({
-        menu: '#responsive',
-        animated: !1,
-        duration: 200,
-        keyboardShortcuts: !1,
-        closeOnContentClick: !0
-      });
-      $('.menu-trigger').on('click', function() {
-        var b = $(this);
-        return b.hasClass('active') ? (a.off(), b.removeClass('active')) : (a.on(), a.open(), b.addClass('active'), $('#jPanelMenu-menu').removeClass('menu'), $('ul#jPanelMenu-menu li').removeClass('dropdown'), $('ul#jPanelMenu-menu li ul').removeAttr('style'), $('ul#jPanelMenu-menu li div').removeClass('mega').removeAttr('style'), $('ul#jPanelMenu-menu li div div').removeClass('mega-container')), !1
-      }), $(window).resize(function() {
-        var b = $(window).width();
-        992 < b && a.close()
-      })
-    },
     gridSwitcher: function() {
       (function() {
         function b(b) {
