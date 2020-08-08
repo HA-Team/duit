@@ -2,7 +2,7 @@ app.directive('contactGlobe', function() {
     return {
         restrict: 'E',
         scope: {
-            isOpen: '=isOpen',
+            isOpen: '=',
             mainImg: '=',
             openIcon: '=',
             closeIcon: '=',

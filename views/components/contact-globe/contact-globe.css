@@ -115,14 +115,10 @@
     padding: 5px 10px;
 }
 
-.contact-globe-modal-icons a {
+.contact-globe-modal-icons a:not(:last-child) {
     border-right: 1px solid lightgray;
     color: var(--soft-red);
     font-size: 3rem;
     display: flex;
     align-items: center;
-}
-
-.contact-globe-modal-icons a:last-child {
-    border-right: none;
 }
