@@ -1,14 +1,14 @@
-app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeaturedProperties', function($rootScope, $scope, navigation, utils, getFeaturedProperties) {
+app.controller('homeController', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeaturedProperties', function($rootScope, $scope, navigation, utils, getFeaturedProperties) {
+  var home = this;
+  
   // #region Scoped Properties
 
-  $scope.featuredPropsReady = false;
-  $scope.featured360PropsReady = false;
-  $scope.isContactGlobeOpen = false;
-  $scope.contactGlobeTitle = "Te asesoramos!";
-
-  $scope.agents = agents;
+  home.featuredPropsReady = false;
+  home.featured360PropsReady = false;
+  home.isContactGlobeOpen = false;
+  home.contactGlobeTitle = "Te asesoramos!";
+  home.agents = agents;
   
-
   // #endregion
 
   // #region Private Properties
@@ -27,7 +27,7 @@ app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeatu
   getFeaturedProps();  
   getFeatured360Props();
 
-  $scope.agents.forEach(agent => agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351')); 
+  home.agents.forEach(agent => agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351')); 
 
   // #endregion
 
@@ -54,7 +54,7 @@ app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeatu
 
   function getFeaturedProps() {
     getFeaturedProperties.getFeaturedProps(result => {
-      $scope.featured = result.map(prop => {
+      home.featured = result.map(prop => {
         return {
           id: prop.id,
           title: prop.publication_title,
@@ -70,7 +70,7 @@ app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeatu
         }
       });
 
-      $scope.featuredPropsReady = true;
+      home.featuredPropsReady = true;
       $scope.$apply();
 
       uiFunctions.buildCarousel();
@@ -80,7 +80,7 @@ app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeatu
 
   function getFeatured360Props() {
     getFeaturedProperties.getFeatured360Props(result => {     
-      $scope.featured360Props = result
+      home.featured360Props = result
         .filter(prop => prop.videos.some(video => video.provider_id == 6))
         .map(prop => {
           return {
@@ -92,7 +92,7 @@ app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeatu
           }
       });
 
-      $scope.featured360PropsReady = true;
+      home.featured360PropsReady = true;
       $scope.$apply();
     });
   };
@@ -101,13 +101,13 @@ app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeatu
 
   // #region Scoped Methods
 
-  $scope.toggleContactModal = () => $scope.isContactGlobeOpen = !$scope.isContactGlobeOpen;
+  home.toggleContactModal = () => home.isContactGlobeOpen = !home.isContactGlobeOpen;
 
-  $scope.formatCellPhone = (phone) => `549${phone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');
+  home.formatCellPhone = (phone) => `549${phone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');
   
-  $scope.goToSection = (page, section) => navigation.goToSection(page, section);
+  home.goToSection = (page, section) => navigation.goToSection(page, section);
 
-  $scope.focusFormControl = (e) => {
+  home.focusFormControl = (e) => {
     const dataName = e.target.htmlFor;
     const input = document.querySelector(`#home-contact .form-control[name='${dataName}']`);
     input.focus();    
@@ -125,19 +125,19 @@ app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeatu
 
   // #region Scoped Objects
 
-  $scope.contactGlobeOpenIcon = {
+  home.contactGlobeOpenIcon = {
     iconClass: 'fab fa-whatsapp',
       color: '#128c7e',
       fontSize: '3rem'   
   };
 
-  $scope.contactGlobeCloseIcon = {
+  home.contactGlobeCloseIcon = {
     iconClass: 'fa fa-times',
     color: 'var(--soft-grey)',
     fontSize: '3rem' 
   };
 
-  $scope.contactGlobeActions = [
+  home.contactGlobeActions = [
     {
       hRef: `tel:${duitPhone}`,
       iconClass: 'fa fa-phone',
@@ -156,7 +156,7 @@ app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeatu
     },
   ];
 
-  $scope.services = [
+  home.services = [
     {
       imgSrc: "/images/services/consejeros.png",
       goTo: { page: 'home', section: "home-agents" }

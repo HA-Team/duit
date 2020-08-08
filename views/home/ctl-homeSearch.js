@@ -1,15 +1,15 @@
-app.controller('homeSearch', ['$rootScope', '$scope', '$state', 'navigation', function($rootScope, $scope, $state, navigation) {
+app.controller('homeSearchController', ['$rootScope', '$scope', '$state', 'navigation', function($rootScope, $scope, $state, navigation) {
+  var homeSearch = this;
+  
   // #region Scoped Properties
 
   $rootScope.activeMenu = 'home';
-  $scope.operationType = [2];
 
-  $scope.isPropertyTypeOpen = false;
-
-  $scope.wasFindPropertiesButtonClicked = false;
-  $scope.isPropertyPlaceholderWarningActive = false;
-
-  $scope.propertiesTypes = propertiesTypes;
+  homeSearch.operationType = [2];
+  homeSearch.isPropertyTypeOpen = false;
+  homeSearch.wasFindPropertiesButtonClicked = false;
+  homeSearch.isPropertyPlaceholderWarningActive = false;
+  homeSearch.propertiesTypes = propertiesTypes;
 
   // #endregion
 
@@ -26,48 +26,48 @@ app.controller('homeSearch', ['$rootScope', '$scope', '$state', 'navigation', fu
 
   // #region Scoped Methods
 
-  $scope.updateTypeChosen = function(newType) { 
-    const isTypeSelectedPlaceholder = $scope.propertiesTypes[0] != -1;
-    const isPlaceholderOnList = $scope.propertiesTypes.some(type => type.id == -1);
+  homeSearch.updateTypeChosen = function(newType) { 
+    const isTypeSelectedPlaceholder = homeSearch.propertiesTypes[0] != -1;
+    const isPlaceholderOnList = homeSearch.propertiesTypes.some(type => type.id == -1);
 
-    $scope.propertyType = newType;
+    homeSearch.propertyType = newType;
 
-    $scope.isPropertyTypeOpen = false;
-    $scope.isPropertyPlaceholderWarningActive = false;
+    homeSearch.isPropertyTypeOpen = false;
+    homeSearch.isPropertyPlaceholderWarningActive = false;
 
-    if (isPlaceholderOnList && isTypeSelectedPlaceholder) $scope.propertiesTypes.shift();
+    if (isPlaceholderOnList && isTypeSelectedPlaceholder) homeSearch.propertiesTypes.shift();
     
-    $scope.propertiesTypes = propertiesTypes.filter(type => type.id != newType.id);
+    homeSearch.propertiesTypes = propertiesTypes.filter(type => type.id != newType.id);
   };
 
-  $scope.togglePropertyTypeDropdown = () => $scope.isPropertyTypeOpen = !$scope.isPropertyTypeOpen;
+  homeSearch.togglePropertyTypeDropdown = () => homeSearch.isPropertyTypeOpen = !homeSearch.isPropertyTypeOpen;
 
-  $scope.closeOpenSelects = () => $scope.isPropertyTypeOpen = false;
+  homeSearch.closeOpenSelects = () => homeSearch.isPropertyTypeOpen = false;
 
-  $scope.findProperties = () => {
-    $scope.wasFindPropertiesButtonClicked = true;
+  homeSearch.findProperties = () => {
+    homeSearch.wasFindPropertiesButtonClicked = true;
 
-    if ($scope.propertyType.id == -1) {
-      $scope.isPropertyPlaceholderWarningActive = true;
+    if (homeSearch.propertyType.id == -1) {
+      homeSearch.isPropertyPlaceholderWarningActive = true;
 
       setTimeout(() => {
-        $scope.isPropertyPlaceholderWarningActive = false;
+        homeSearch.isPropertyPlaceholderWarningActive = false;
         $scope.$apply();
       }, 2000);
     }
     else {
-      if ($scope.propertyType.goTo) navigation.goToSection($scope.propertyType.goTo.page, $scope.propertyType.goTo.section);
+      if (homeSearch.propertyType.goTo) navigation.goToSection(homeSearch.propertyType.goTo.page, homeSearch.propertyType.goTo.section);
       else {
-        $scope.isPropertyPlaceHolderWarningActive = false;
-        $scope.find();
+        homeSearch.isPropertyPlaceHolderWarningActive = false;
+        homeSearch.find();
       }
     }
   };
 
-  $scope.find = () => {
+  homeSearch.find = () => {
     let data = JSON.parse(_.clone(tokkoSearchArgs.sData));
-    data.operation_types = [$scope.operationType[0]];
-    if ($scope.propertyType) data.property_types = [$scope.propertyType.id];
+    data.operation_types = [homeSearch.operationType[0]];
+    if (homeSearch.propertyType) data.property_types = [homeSearch.propertyType.id];
     let args = {data: JSON.stringify(data), offset: 0};
     $state.go('propertySearch', {args: JSON.stringify(args)});
   };
@@ -84,14 +84,14 @@ app.controller('homeSearch', ['$rootScope', '$scope', '$state', 'navigation', fu
     button.classList.add("active");
     notClickedButtons.forEach(element => element.parentElement.classList.remove("active"));
 
-    $scope.operationType = [type];
+    homeSearch.operationType = [type];
   });
 
   // #endregion
 
   // #region Scoped Objects
 
-  $scope.propertyType = {
+  homeSearch.propertyType = {
     id: -1,
     name: "Tipo de Propiedad"
   };

@@ -1,8 +1,8 @@
-<div ng-controller="home">
+<div ng-controller="homeController as home">
 
   <!-- Searcher Section -->
   <section id="home-search-bar" ui-router-styles  class="parallax" data-background="images/home-parallax.jpg" data-color="#36383e"
-    data-color-opacity="0.75" data-img-width="2500" data-img-height="1600" ng-controller="homeSearch">
+    data-color-opacity="0.75" data-img-width="2500" data-img-height="1600" ng-controller="homeSearchController as homeSearch">
 
     <div class="parallax-content">
 
@@ -15,21 +15,21 @@
           
           <!-- Type -->
           <div class="search-type">
-            <label class="active"><input class="first-tab operationType" ng-model="operationType" name="tab" checked="checked" type="radio" value="2">Alquiler</label>
-            <label><input class="operationType" ng-model="operationType" name="tab" type="radio" value="1">Venta</label>
+            <label class="active"><input class="first-tab operationType" ng-model="homeSearch.operationType" name="tab" checked="checked" type="radio" value="2">Alquiler</label>
+            <label><input class="operationType" ng-model="homeSearch.operationType" name="tab" type="radio" value="1">Venta</label>
           </div>
 
           <!-- Property Type -->
-          <div class="property-type-dropdown-container" ng-class="{' warning': isPropertyPlaceholderWarningActive}">
-            <a class="property-type" ng-click="togglePropertyTypeDropdown()" ng-class="{' open': isPropertyTypeOpen}">{{propertyType.name}} <i class="fas fa-angle-down"></i></a>                      
-            <ul class="col-md-5" ng-class="{' open': isPropertyTypeOpen}">
-              <li ng-repeat="type in propertiesTypes track by type.id" ng-click="updateTypeChosen(type)" ng-show="!type.showOnlyInOperationType || type.showOnlyInOperationType == operationType">{{type.name}}</li>                        
+          <div class="property-type-dropdown-container" ng-class="{' warning': homeSearch.isPropertyPlaceholderWarningActive}">
+            <a class="property-type" ng-click="homeSearch.togglePropertyTypeDropdown()" ng-class="{' open': homeSearch.isPropertyTypeOpen}">{{homeSearch.propertyType.name}} <i class="fas fa-angle-down"></i></a>                      
+            <ul class="col-md-5" ng-class="{' open': homeSearch.isPropertyTypeOpen}">
+              <li ng-repeat="type in homeSearch.propertiesTypes track by type.id" ng-click="homeSearch.updateTypeChosen(type)" ng-show="!type.showOnlyInOperationType || type.showOnlyInOperationType == homeSearch.operationType">{{type.name}}</li>                        
             </ul>
           </div>
           
-          <div class="property-selects-background" ng-click="closeOpenSelects()" ng-show="isSubPropertyTypeOpen || isPropertyTypeOpen"></div>
+          <div class="property-selects-background" ng-click="homeSearch.closeOpenSelects()" ng-show="homeSearch.isPropertyTypeOpen"></div>
           
-          <button class="button" ng-click="findProperties()">Buscar <i class="fas fa-search"></i></button>
+          <button class="button" ng-click="homeSearch.findProperties()">Buscar <i class="fas fa-search"></i></button>
 
         </form>
         <!-- Main Search -->
@@ -53,8 +53,7 @@
 
       <!-- 360 -->
       <div class="home-featured-section">     
-        <gallery-multiple-properties items="featured360Props" show-widgets="false" show-gallery="featured360PropsReady"
-            show-skeleton="true" show-info-card="true"></gallery-properties-generic>
+        <gallery-multiple-properties items="home.featured360Props" show-gallery="home.featured360PropsReady"></gallery-properties-generic>
       </div>
       <!-- Featured End -->
 
@@ -70,8 +69,8 @@
       <h3>Servicios</h3>
 
       <div class="home-services-imgs">
-        <div ng-repeat="service in services" class="home-services-img-container">
-          <a ng-click="goToSection(service.goTo.page, service.goTo.section); service.action()"><img src="{{service.imgSrc}}"></a>
+        <div ng-repeat="service in home.services" class="home-services-img-container">
+          <a ng-click="home.goToSection(service.goTo.page, service.goTo.section); service.action()"><img src="{{service.imgSrc}}"></a>
         </div>
       </div>
     </div>
@@ -99,14 +98,14 @@
         </p>
       </div>
   
-      <div class="home-agent-card" ng-repeat="agent in agents">
+      <div class="home-agent-card" ng-repeat="agent in home.agents">
         <img src="{{agent.pic}}" alt="">
         <p>{{agent.name}}</p>
         <a href="tel:{{agent.phone}}">{{agent.phone}}</a>
   
         <div class="home-agent-card-icons">
           <a href="mailto:{{agent.email}}"><i class="fa fa-envelope"></i></a>
-          <a href="https://api.whatsapp.com/send?phone={{formatCellPhone(agent.phone)}}"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://api.whatsapp.com/send?phone={{home.formatCellPhone(agent.phone)}}"><i class="fab fa-whatsapp"></i></a>
         </div>
       </div>
     </div>
@@ -121,34 +120,34 @@
     <section id="home-contact">
       <h3>Dejanos tu consulta</h3>
 
-      <form ng-controller="contactForm" id="contactform" autocomplete="on">
+      <form ng-controller="contactFormController as contactForm" id="contactform" autocomplete="on">
         <div class="contact-form-group">
-          <input class="form-control" name="name" placeholder=" " type="text" ng-model="name" required="required" />
-          <label class="input-placeholder no-select" for="name" ng-click="focusFormControl($event)">Nombre *</label>
+          <input class="form-control" name="name" placeholder=" " type="text" ng-model="contactForm.name" required="required" />
+          <label class="input-placeholder no-select" for="name" ng-click="contactForm.focusFormControl($event)">Nombre *</label>
         </div>
 
         <div class="contact-form-group">
-          <input class="form-control" name="email" placeholder=" " type="email" ng-model="email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" required="required" />
-          <label class="input-placeholder no-select" for="email" ng-click="focusFormControl($event)">Email *</label>
+          <input class="form-control" name="email" placeholder=" " type="email" ng-model="contactForm.email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" required="required" />
+          <label class="input-placeholder no-select" for="email" ng-click="contactForm.focusFormControl($event)">Email *</label>
         </div>
 
         <div class="contact-form-group">
-          <input class="form-control" name="subject" placeholder=" " type="text" ng-model="phone" />
-          <label class="input-placeholder no-select" for="subject" ng-click="focusFormControl($event)">Teléfono</label>
+          <input class="form-control" name="subject" placeholder=" " type="text" ng-model="contactForm.phone" />
+          <label class="input-placeholder no-select" for="subject" ng-click="contactForm.focusFormControl($event)">Teléfono</label>
         </div>
 
         <div class="contact-form-group">
-          <textarea class="form-control" name="message" placeholder=" " cols="40" rows="3" ng-model="message" spellcheck="true" required="required"></textarea>
-          <label class="input-placeholder textarea-placeholder no-select" for="message" ng-click="focusFormControl($event)">Mensaje *</label>
+          <textarea class="form-control" name="message" placeholder=" " cols="40" rows="3" ng-model="contactForm.message" spellcheck="true" required="required"></textarea>
+          <label class="input-placeholder textarea-placeholder no-select" for="message" ng-click="contactForm.focusFormControl($event)">Mensaje *</label>
         </div>
 
-        <button class="button" ng-click="send()">Contactar<i class='fa fa-spinner fa-spin' ng-show="sending"></i></button>
+        <button class="button" ng-click="contactForm.send()">Contactar<i class='fa fa-spinner fa-spin' ng-show="contactForm.sending"></i></button>
 
-        <div class="notification success closeable" ng-show="success">
+        <div class="notification success closeable" ng-show="contactForm.success">
           <p>Tu consulta fue enviada con éxito.</p>
         </div>
 
-        <div class="notification success closeable" ng-show="error">
+        <div class="notification success closeable" ng-show="contactForm.error">
           <p>Ha ocurrido un error al intentar enviar tu consulta. Perdon por las molestias.</p>
         </div>
 
@@ -178,8 +177,8 @@
 
   <!-- Flying Contact Globe  -->
   <ng-container id="home-contact-globe" ng-cloak>
-    <contact-globe is-open="isContactGlobeOpen" main-img="'images/whatsapp-duit.png'" show-main-img-box-shadow="false"
-      title="contactGlobeTitle" actions="contactGlobeActions" toggle-modal="toggleContactModal()">
+    <contact-globe is-open="home.isContactGlobeOpen" main-img="'images/whatsapp-duit.png'" show-main-img-box-shadow="false"
+      title="home.contactGlobeTitle" actions="home.contactGlobeActions" toggle-modal="home.toggleContactModal()">
     </contact-globe>
   </ng-container>
   <!-- Flying Contact Globe End -->
