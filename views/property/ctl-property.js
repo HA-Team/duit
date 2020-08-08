@@ -1,14 +1,17 @@
-app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', function($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties, utils) {   
+app.controller('propertyController', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', function($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties, utils) {   
+  var property = this;
+  
   // #region Scoped Properties
 
-  $scope.utils = utils;  
   $rootScope.activeMenu = 'propertySearch';
-  $scope.apiReady = false;
-  $scope.isContactModalOpen = false;
-  $scope.isGalleryOpen = false;
-  $scope.featuredPropsReady = false;
-  $scope.similarReady = false;
-  $scope.generalFeaturesToShow = 5;
+
+  property.utils = utils;
+  property.apiReady = false;
+  property.isContactModalOpen = false;
+  property.isGalleryOpen = false;
+  property.featuredPropsReady = false;
+  property.similarReady = false;
+  property.generalFeaturesToShow = 5;
 
   // #endregion
 
@@ -17,7 +20,7 @@ app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 
   const id = $stateParams.propertyId;
 
   const generalFeaturesList = document.querySelector(".mobile-property-general-features ul"); 
-  const limitedHeight = `${$scope.generalFeaturesToShow * 40}px`;
+  const limitedHeight = `${property.generalFeaturesToShow * 40}px`;
   generalFeaturesList.style.maxHeight = limitedHeight;
 
   // #endregion
@@ -27,7 +30,7 @@ app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 
   getFeaturedProps();
 
   tokkoApi.findOne('property', id, (result) => {
-    $scope.p =  {
+    property.p =  {
       id: result.id,
       operation_type: result.operations[0].operation_type,
       currency: result.operations[result.operations.length-1].prices.slice(-1)[0].currency,
@@ -46,56 +49,56 @@ app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 
       hasDuit360: result.videos.some(video => video.provider_id == 6)
     };
 
-    $rootScope.activeSection = $scope.p.operation_type == 'Venta' ? 'properties-sell' : 'properties-rent';
+    $rootScope.activeSection = property.p.operation_type == 'Venta' ? 'properties-sell' : 'properties-rent';
     
     getSimilarProps(result.operations[0].operation_type == 'Venta' ? 1 : 2, result.type.id, result.custom_tags);
 
-    $scope.propertyMapped = {
+    property.propertyMapped = {
       photos: result.photos,
       videos: result.videos,
       video_url: result.videos.length ? result.videos[0].player_url + "?rel=0&enablejsapi=1" : null 
     };    
 
-    $scope.featuresItems = [
+    property.featuresItems = [
       {
         icon: "fas fa-ruler-vertical",
-        value: `${parseInt($scope.p.prop.total_surface)}m2`,
+        value: `${parseInt(property.p.prop.total_surface)}m2`,
         name: "Superficie total",
-        isVisible: parseInt($scope.p.prop.total_surface) > 0
+        isVisible: parseInt(property.p.prop.total_surface) > 0
       },
       {
         icon: "fas fa-door-open",
-        value: $scope.p.enviroments,
-        name: `Dormitorio${$scope.p.enviroments > 1 ? 's' : ''}`,
-        isVisible: $scope.p.enviroments > 0
+        value: property.p.enviroments,
+        name: `Dormitorio${property.p.enviroments > 1 ? 's' : ''}`,
+        isVisible: property.p.enviroments > 0
       },
       {
         icon: "fas fa-bath",
-        value: $scope.p.baths,
-        name: `Baño${$scope.p.baths > 1 ? 's' : ''}`,
-        isVisible: $scope.p.baths > 0      
+        value: property.p.baths,
+        name: `Baño${property.p.baths > 1 ? 's' : ''}`,
+        isVisible: property.p.baths > 0      
       },
       {
         icon: "fas fa-car",
-        value: $scope.p.parkings,
-        name: `Cochera${$scope.p.parkings > 1 ? 's' : ''}`,
-        isVisible: $scope.p.parkings > 0 
+        value: property.p.parkings,
+        name: `Cochera${property.p.parkings > 1 ? 's' : ''}`,
+        isVisible: property.p.parkings > 0 
       },
       {
         icon: "fas fa-toilet",
-        value: $scope.p.toilets,
-        name: `Toilet${$scope.p.toilets > 1 ? 's' : ''}`,
-        isVisible: $scope.p.toilets > 0    
+        value: property.p.toilets,
+        name: `Toilet${property.p.toilets > 1 ? 's' : ''}`,
+        isVisible: property.p.toilets > 0    
       },
       {
         icon: "far fa-calendar-alt",
-        value: $scope.p.prop.age,
+        value: property.p.prop.age,
         name: "Antiguedad",
-        isVisible: $scope.p.prop.age > 0      
+        isVisible: property.p.prop.age > 0      
       }
     ];
 
-    let myLatLng = {lat: parseFloat($scope.p.prop.geo_lat), lng: parseFloat($scope.p.prop.geo_long)};
+    let myLatLng = {lat: parseFloat(property.p.prop.geo_lat), lng: parseFloat(property.p.prop.geo_long)};
 
     let map = new google.maps.Map(document.getElementById('propertyMap'), {
       center: myLatLng,
@@ -117,7 +120,7 @@ app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 
       title: 'Duit'
     });
 
-    $scope.apiReady = true;
+    property.apiReady = true;
     $scope.$apply();
 
     uiFunctions.showMoreButton();
@@ -129,14 +132,14 @@ app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 
       google.maps.event.trigger(mobileMap, 'resize');
     }, 0);
 
-    const querySubject = `Consulta por propiedad %23${$scope.p.id}: ${$scope.p.prop.publication_title}`.replace(/\s/g, '%20');    
+    const querySubject = `Consulta por propiedad %23${property.p.id}: ${property.p.prop.publication_title}`.replace(/\s/g, '%20');    
 
-    const cellPhone = $scope.p.prop.producer.cellphone ? $scope.p.prop.producer.cellphone : $scope.p.prop.producer.phone;
+    const cellPhone = property.p.prop.producer.cellphone ? property.p.prop.producer.cellphone : property.p.prop.producer.phone;
     const cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351'); 
     const whatsAppUri = `https://api.whatsapp.com/send?phone=${cleanCellPhone}&text=${querySubject}`;  
     document.querySelector("#mobile-prop-detail .contact-globe-modal-icons .fa-whatsapp").parentElement.setAttribute("href", whatsAppUri);            
     
-    const emailUri = `mailto:${$scope.p.prop.producer.email}?Subject=${querySubject}`;        
+    const emailUri = `mailto:${property.p.prop.producer.email}?Subject=${querySubject}`;        
     document.querySelector("#mobile-prop-detail .contact-globe-modal-icons .fa-envelope").parentElement.setAttribute("href", emailUri);
   });   
 
@@ -147,7 +150,7 @@ app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 
   function getFeaturedProps() {
     getFeaturedProperties.getFeaturedProps(result => {
 
-      $scope.featuredProps = result.map(prop => {
+      property.featuredProps = result.map(prop => {
         return {
           id: prop.id,
           title: prop.publication_title,
@@ -163,7 +166,7 @@ app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 
         }
       });
 
-      $scope.featuredPropsReady = true;
+      property.featuredPropsReady = true;
 
       $scope.$apply();
       uiFunctions.buildCarousel();
@@ -172,7 +175,7 @@ app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 
 
   function getSimilarProps(operationType, typeId, customTags) {
     getFeaturedProperties.getSimilarProps(operationType, typeId, customTags, result => {
-      $scope.similarProps = result.map(prop => {
+      property.similarProps = result.map(prop => {
         return {
           id: prop.id,
           title: prop.publication_title,
@@ -188,7 +191,7 @@ app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 
         }
       });
 
-      $scope.similarReady = true;
+      property.similarReady = true;
       $scope.$apply();
     });
   };
@@ -197,7 +200,7 @@ app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 
 
   // #region Scoped Methods
 
-  $scope.toggleDescriptionDetailDesktop = () => {
+  propertytoggleDescriptionDetailDesktop = () => {
     const showMore = document.querySelector(".show-more");
     const preElement = showMore.querySelector("pre");
     const maxHeight = `${preElement.offsetHeight + preElement.offsetTop}px`;
@@ -212,7 +215,7 @@ app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 
     }
   };
 
-  $scope.toggleDescriptionDetail = () => {
+  propertytoggleDescriptionDetail = () => {
     const detail = document.querySelector("#mobile-prop-detail .description-detail");
     const preElement = detail.querySelector("pre");
     const maxHeight = `${preElement.offsetHeight + preElement.offsetTop}px`;        
@@ -227,8 +230,8 @@ app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 
     }
   };
 
-  $scope.toggleGeneralFeatures = () => {          
-    const maxHeight = `${$scope.p.prop.tags.length * 40}px`;        
+  propertytoggleGeneralFeatures = () => {          
+    const maxHeight = `${propertyp.prop.tags.length * 40}px`;        
 
     if (generalFeaturesList.classList.contains("open")) {
       generalFeaturesList.classList.remove("open");
@@ -240,25 +243,25 @@ app.controller('property', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 
     }
   };
 
-  $scope.toggleContactModal = () => $scope.isContactModalOpen = !$scope.isContactModalOpen;
+  propertytoggleContactModal = () => propertyisContactModalOpen = !propertyisContactModalOpen;
 
   // #endregion
 
   // #region Scoped Objects
 
-  $scope.contactGlobeOpenIcon = {
+  property.contactGlobeOpenIcon = {
     iconClass: 'fab fa-whatsapp',
     color: 'var(--whatsapp-green)',
     fontSize: '3rem'    
   };
 
-  $scope.contactGlobeCloseIcon = {
+  property.contactGlobeCloseIcon = {
     iconClass: 'fa fa-times',
     color: 'var(--soft-grey)',
     fontSize: '3rem' 
   };
 
-  $scope.contactGlobeActions = [
+  property.contactGlobeActions = [
     {
       hRef: '#',
       iconClass: 'fab fa-whatsapp',
