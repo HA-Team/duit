@@ -6,76 +6,6 @@ const findeoJs = function () {
 
 $(document).ready(function(){
 
-	/*--------------------------------------------------*/
-	/*  Mobile Navigation
-	/*--------------------------------------------------*/
-	// var jPanelMenu = $.jPanelMenu({
-	//   menu: '#responsive',
-	//   animated: false,
-	//   duration: 200,
-	//   keyboardShortcuts: false,
-	//   closeOnContentClick: true
-	// });
-
-
-	// Desktop devices
-	// $('.menu-trigger').on('click', function(){
-
-	//   var jpm = $(this);
-
-	//   if( jpm.hasClass('active') )
-	//   {
-	//     jPanelMenu.off();
-	//     jpm.removeClass('active');
-	//   }
-	//   else
-	//   {
-	//     jPanelMenu.on();
-	//     jPanelMenu.open();
-	//     jpm.addClass('active');
-
-	// 	// Removes SuperFish Styles
-	// 	$('#jPanelMenu-menu').removeClass('menu');
-	// 	$('ul#jPanelMenu-menu li').removeClass('dropdown');
-	// 	$('ul#jPanelMenu-menu li ul').removeAttr('style');
-	// 	$('ul#jPanelMenu-menu li div').removeClass('mega').removeAttr('style');
-	// 	$('ul#jPanelMenu-menu li div div').removeClass('mega-container');
-	//   }
-	//   return false;
-	// });
-
-	// $(window).resize(function (){
-	// 	var winWidth = $(window).width();
-	// 	if(winWidth>992) {
-	// 		jPanelMenu.close();
-	// 	}
-	// });
-
-
-	/*----------------------------------------------------*/
-	/*  Sticky Header 
-	/*----------------------------------------------------*/
-	$( "#header" ).not( "#header-container.header-style-2 #header" ).clone(true).addClass('cloned unsticky').insertAfter( "#header" );
-	$( "#navigation.style-2" ).clone(true).addClass('cloned unsticky').insertAfter( "#navigation.style-2" );
-
-	// Logo for header style 2
-	$( "#logo .sticky-logo" ).clone(true).prependTo("#navigation.style-2.cloned ul#responsive");
-
-
-	// // sticky header script
-	// var headerOffset = $("#header-container").height() * 2; // height on which the sticky header will shows
-
-	// $(window).scroll(function(){
-	// 	if($(window).scrollTop() >= headerOffset){
-	// 		$("#header.cloned").addClass('sticky').removeClass("unsticky");
-	// 		$("#navigation.style-2.cloned").addClass('sticky').removeClass("unsticky");
-	// 	} else {
-	// 		$("#header.cloned").addClass('unsticky').removeClass("sticky");
-	// 		$("#navigation.style-2.cloned").addClass('unsticky').removeClass("sticky");
-	// 	}
-	// });
-
-
 	/*----------------------------------------------------*/
 	/* Top Bar Dropdown Menu
 	/*----------------------------------------------------*/
@@ -99,7 +29,6 @@ $(document).ready(function(){
 	function hideDD(){
 		$('.top-bar-dropdown').removeClass('active');
 	}
-
 
 	/*----------------------------------------------------*/
 	/* Advanced Search Button
@@ -127,30 +56,9 @@ $(document).ready(function(){
 		e.preventDefault();
 	});
 
-
-
 	/*----------------------------------------------------*/
 	/*  Inline CSS replacement for backgrounds etc.
 	/*----------------------------------------------------*/
-	// function inlineCSS() {
-
-	// 	// Common Inline CSS
-	// 	$(".some-classes, section.fullwidth, .img-box-background, .flip-banner, .property-slider .item, .fullwidth-property-slider .item, .fullwidth-home-slider .item, .address-container").each(function() {
-	// 		var attrImageBG = $(this).attr('data-background-image');
-	// 		var attrColorBG = $(this).attr('data-background-color');
-
-	//         if(attrImageBG !== undefined) {
-	//             $(this).css('background-image', 'url('+attrImageBG+')');
-	//         }
-
-	//         if(attrColorBG !== undefined) {
-	//             $(this).css('background', ''+attrColorBG+'');
-	//         }
-	// 	});
-	// }
-
-	// Init
-	// inlineCSS();
 
 	// Slide to anchor
 	$('#titlebar .listing-address').on('click', function(e){
@@ -192,7 +100,6 @@ $(document).ready(function(){
 	    });
 	}
 	
-
     /*  Custom Input With Select
     /*----------------------------------------------------*/
 	$('.select-input').each(function(){
@@ -256,8 +163,6 @@ $(document).ready(function(){
 
 	});
 
-
-
     /*----------------------------------------------------*/
     /*  Searh Form More Options
     /*----------------------------------------------------*/
@@ -266,7 +171,6 @@ $(document).ready(function(){
 		$('.more-search-options, .more-search-options-trigger').toggleClass('active');
 		$('.more-search-options.relative').animate({height: 'toggle', opacity: 'toggle'}, 300);
 	});
-
 
     /*----------------------------------------------------*/
     /*  Like Icon Trigger
@@ -277,7 +181,6 @@ $(document).ready(function(){
 		$(this).children('.like-icon').toggleClass('liked');
 	});
 
-
     /*----------------------------------------------------*/
     /*  Show More Button
     /*----------------------------------------------------*/
@@ -285,85 +188,6 @@ $(document).ready(function(){
     	e.preventDefault();
 		$('.show-more').toggleClass('visible');
 	});
-
- //    /*----------------------------------------------------*/
- //    /*  Slick Carousel
- //    /*----------------------------------------------------*/
-	//  $('.property-slider').slick({
-	// 	slidesToShow: 1,
-	// 	slidesToScroll: 1,
-	// 	arrows: true,
-	// 	fade: true,
-	// 	asNavFor: '.property-slider-nav',
-	// 	centerMode: true,
-	// 	slide: ".item"
-	// });
-
-	// $('.property-slider-nav').slick({
-	// 	slidesToShow: 6,
-	// 	slidesToScroll: 1,
-	// 	asNavFor: '.property-slider',
-	// 	dots: false,
-	// 	arrows: false,
-	// 	centerMode: false,
-	// 	focusOnSelect: true,
-	// 	responsive: [
-	// 		{
-	// 		  breakpoint: 993,
-	// 		  settings: {
-	// 		   		slidesToShow: 4,
-	// 		  }
-	// 		},
-	// 		{
-	// 		  breakpoint: 767,
-	// 		  settings: {
-	// 		   		slidesToShow: 3,
-	// 		  }
-	// 		}
-	// 	]
-	// });
-
-
-	//  $('.fullwidth-property-slider').slick({
-	// 	centerMode: true,
-	// 	centerPadding: '20%',
-	// 	slidesToShow: 1, 
-	// 	responsive: [
-	// 		{
-	// 		  breakpoint: 1367,
-	// 		  settings: {
-	// 		    centerPadding: '15%'
-	// 		  }
-	// 		},
-	// 		{
-	// 		  breakpoint: 993,
-	// 		  settings: {
-	// 		    centerPadding: '0'
-	// 		  }
-	// 		}
-	// 	]
-	// });
-
-
-	//  $('.fullwidth-home-slider').slick({
-	// 	centerMode: true,
-	// 	centerPadding: '0',
-	// 	slidesToShow: 1, 
-	// 	responsive: [
-	// 		{
-	// 		  breakpoint: 1367,
-	// 		  settings: {
-	// 		    centerPadding: '0'
-	// 		  }
-	// 		},
-	// 		{
-	// 		  breakpoint: 993,
-	// 		  settings: {
-	// 		    centerPadding: '0'
-	// 		  }
-	// 		}
-	// 	]
-	// });
 
     /*----------------------------------------------------*/
     /*  Magnific Popup
@@ -431,256 +255,7 @@ $(document).ready(function(){
 
 		// set up a background image for each tile based on data-background-image attribute
 		$(this).children('.img-box-background').css({'background-image': 'url('+ $(this).attr('data-background-image') +')'});
-
-		// background animation on mousemove
-		// $(this).on('mousemove', function(e){
-		//   $(this).children('.img-box-background').css({'transform-origin': ((e.pageX - $(this).offset().left) / $(this).width()) * 100 + '% ' + ((e.pageY - $(this).offset().top) / $(this).height()) * 100 +'%'});
-		// })
 	});
-
-
- //    /*----------------------------------------------------*/
- //    /*  Listing Layout Switcher
- //    /*----------------------------------------------------*/
-	// function gridLayoutSwitcher() {
-
-	// 	var listingsContainer = $('.listings-container');
-
-	// 	// switcher buttons / anchors
-	// 	if ( $(listingsContainer).is(".list-layout") ) {
-	// 		owlReload();
-	// 		$('.layout-switcher a.grid, .layout-switcher a.grid-three').removeClass("active");
-	// 		$('.layout-switcher a.list').addClass("active");
-	// 	}
-
-	// 	if ( $(listingsContainer).is(".grid-layout") ) {
-	// 		owlReload();
-	// 		$('.layout-switcher a.grid').addClass("active");
-	// 		$('.layout-switcher a.grid-three, .layout-switcher a.list').removeClass("active");
-	// 		gridClear(2);
-	// 	}
-
-	// 	if ( $(listingsContainer).is(".grid-layout-three") ) {
-	// 		owlReload();
-	// 		$('.layout-switcher a.grid, .layout-switcher a.list').removeClass("active");
-	// 		$('.layout-switcher a.grid-three').addClass("active");
-	// 		gridClear(3);
-	// 	}
-
-
-	// 	// grid cleaning
-	// 	function gridClear(gridColumns) {
-	// 		$(listingsContainer).find(".clearfix").remove();
-	// 		$(".listings-container > .listing-item:nth-child("+gridColumns+"n)").after("<div class='clearfix'></div>");
-	// 	}
-
-
-	// 	// objects that need to resized
-	// 	var resizeObjects =  $('.listings-container .listing-img-container img, .listings-container .listing-img-container');
-
-	// 	// if list layout is active
-	// 	function listLayout() {
-	// 		if ( $('.layout-switcher a').is(".list.active") ) {
-
-	// 			$(listingsContainer).each(function(){
-	// 				$(this).removeClass("grid-layout grid-layout-three");
-	// 				$(this).addClass("list-layout");
-	// 			});
-
-	// 			$('.listing-item').each(function(){
-	// 				var listingContent = $(this).find('.listing-content').height();
-	// 				$(this).find(resizeObjects).css('height', ''+listingContent+'');
-	// 			});
-	// 		}
-	// 	} listLayout();
-
-	// 	$(window).on('load resize', function() {
-	// 		listLayout();
-	// 	});
-
-
-	// 	// if grid layout is active
-	// 	$('.layout-switcher a.grid').on('click', function(e) { gridClear(2); });
-
-	// 	function gridLayout() {
-	// 		if ( $('.layout-switcher a').is(".grid.active") ) {
-
-	// 			$(listingsContainer).each(function(){
-	// 				$(this).removeClass("list-layout grid-layout-three");
-	// 				$(this).addClass("grid-layout");
-	// 			});
-
-	// 			$('.listing-item').each(function(){
-	// 				$(this).find(resizeObjects).css('height', 'auto');
-	// 			});
-
-	// 		}
-	// 	} gridLayout();
-
-
-	// 	// if grid layout is active
-	// 	$('.layout-switcher a.grid-three').on('click', function(e) { gridClear(3); });
-
-	// 	function gridThreeLayout() {
-	// 		if ( $('.layout-switcher a').is(".grid-three.active") ) {
-
-	// 			$(listingsContainer).each(function(){
-	// 				$(this).removeClass("list-layout grid-layout");
-	// 				$(this).addClass("grid-layout-three");
-	// 			});
-
-	// 			$('.listing-item').each(function(){
-	// 				$(this).find(resizeObjects).css('height', 'auto');
-	// 			});
-
-	// 		}
-	// 	} gridThreeLayout();
-
-
-	// 	// Mobile fixes
-	// 	$(window).on('resize', function() {
-	// 		$(resizeObjects).css('height', '0');
-	// 		listLayout();
-	// 		gridLayout();
-	// 		gridThreeLayout();
-	// 	});
-
-	// 	$(window).on('load resize', function() {
-	// 		var winWidth = $(window).width();
-
-	// 		if(winWidth < 992) {
-	// 			owlReload();
-
-	// 			// reset to two columns grid
-	// 			gridClear(2);
-	// 		}
-
-	// 		if(winWidth > 992) {
-	// 			if ( $(listingsContainer).is(".grid-layout-three") ) {
-	// 				gridClear(3);
-	// 			}
-	// 			if ( $(listingsContainer).is(".grid-layout") ) {
-	// 				gridClear(2);
-	// 			}
-	// 		}
-
-	// 		if(winWidth < 768) {
-	// 			if ( $(listingsContainer).is(".list-layout") ) {
-	// 				$('.listing-item').each(function(){
-	// 					$(this).find(resizeObjects).css('height', 'auto');
-	// 				});
-	// 			}
-	// 		}
-
-	// 		if(winWidth < 1366) {
-	// 			if ( $(".fs-listings").is(".list-layout") ) {
-	// 				$('.listing-item').each(function(){
-	// 					$(this).find(resizeObjects).css('height', 'auto');
-	// 				});
-	// 			}
-	// 		}
-	// 	});
-
-
-	// 	// owlCarousel reload
-	// 	function owlReload() {
-	// 		$('.listing-carousel').each(function(){
-	// 			$(this).data('owlCarousel').reload();
-	// 		});
-	// 	}
-
-
-	//     // switcher buttons
-	// 	$('.layout-switcher a').on('click', function(e) {
-	// 	    e.preventDefault();
-
-	// 	    var switcherButton = $(this);
-	// 	    switcherButton.addClass("active").siblings().removeClass('active');
-
-	// 	    // reset images height
-	// 		$(resizeObjects).css('height', '0');
-
-	// 	    // carousel reload
-	// 		owlReload();
-
-	// 	    // if grid layout is active
-	// 		gridLayout();
-
-	// 	    // if three columns grid layout is active
-	// 		gridThreeLayout();
-
-	// 		// if list layout is active
-	// 		listLayout();
-
-	// 	});
-
-	// } gridLayoutSwitcher();
-
-
-
-	// /*----------------------------------------------------*/
-	// /*  Range Sliders
-	// /*----------------------------------------------------*/
-
-	// // Area Range
-	// $("#area-range").each(function() {
-
-	// 	var dataMin = $(this).attr('data-min');
-	// 	var dataMax = $(this).attr('data-max');
-	// 	var dataUnit = $(this).attr('data-unit');
-
-	// 	$(this).append( "<input type='text' class='first-slider-value'disabled/><input type='text' class='second-slider-value' disabled/>" );
-
-	// 	$(this).slider({
-
-	// 	  range: true,
-	// 	  min: dataMin,
-	// 	  max: dataMax,
-	// 	  step: 10,
-	// 	  values: [ dataMin, dataMax ],
-
-	// 	  slide: function( event, ui ) {
-	// 		 event = event;
-	// 		 $(this).children( ".first-slider-value" ).val( ui.values[ 0 ]  + " " + dataUnit );
-	// 		 $(this).children( ".second-slider-value" ).val( ui.values[ 1 ] + " " +  dataUnit );
-	// 	  }
-	// 	});
-	// 	 $(this).children( ".first-slider-value" ).val( $( this ).slider( "values", 0 ) + " " + dataUnit );
-	// 	 $(this).children( ".second-slider-value" ).val( $( this ).slider( "values", 1 ) + " " + dataUnit );
-
-	// });
-
-
-	// // Price Range
-	// $("#price-range").each(function() {
-
-	// 	var dataMin = $(this).attr('data-min');
-	// 	var dataMax = $(this).attr('data-max');
-	// 	var dataUnit = $(this).attr('data-unit');
-
-	// 	$(this).append( "<input type='text' class='first-slider-value' disabled/><input type='text' class='second-slider-value' disabled/>" );
-
-
-	// 	$(this).slider({
-
-	// 	  range: true,
-	// 	  min: dataMin,
-	// 	  max: dataMax,
-	// 	  values: [ dataMin, dataMax ],
-
-	// 	  slide: function( event, ui ) {
-	// 		 event = event;
-	// 		 $(this).children( ".first-slider-value" ).val( dataUnit  + ui.values[ 0 ].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") );
-	// 		 $(this).children( ".second-slider-value" ).val( dataUnit +  ui.values[ 1 ].toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") );
-	// 	  }
-	// 	});
-	// 	 $(this).children( ".first-slider-value" ).val( dataUnit + $( this ).slider( "values", 0 ).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") );
-	// 	 $(this).children( ".second-slider-value" ).val( dataUnit  +  $( this ).slider( "values", 1 ).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") );
-
-
-	// });
-
-
 
 	/*----------------------------------------------------*/
 	/*  Masonry
@@ -716,46 +291,6 @@ $(document).ready(function(){
 		var tipContent = $(this).attr('data-tip-content');
 		$(this).append('<div class="tip-content">'+ tipContent + '</div>');
 	});
-
-
-
-	// /*----------------------------------------------------*/
-	// /*  Tabs
-	// /*----------------------------------------------------*/ 
-
-	// var $tabsNav    = $('.tabs-nav'),
-	// $tabsNavLis = $tabsNav.children('li');
-
-	// $tabsNav.each(function() {
-	// 	 var $this = $(this);
-
-	// 	 $this.next().children('.tab-content').stop(true,true).hide()
-	// 	 .first().show();
-
-	// 	 $this.children('li').first().addClass('active').stop(true,true).show();
-	// });
-
-	// $tabsNavLis.on('click', function(e) {
-	// 	 var $this = $(this);
-
-	// 	 $this.siblings().removeClass('active').end()
-	// 	 .addClass('active');
-
-	// 	 $this.parent().next().children('.tab-content').stop(true,true).hide()
-	// 	 .siblings( $this.find('a').attr('href') ).fadeIn();
-
-	// 	 e.preventDefault();
-	// });
-	// var hash = window.location.hash;
-	// var anchor = $('.tabs-nav a[href="' + hash + '"]');
-	// if (anchor.length === 0) {
-	// 	 $(".tabs-nav li:first").addClass("active").show(); //Activate first tab
-	// 	 $(".tab-content:first").show(); //Show first tab content
-	// } else {
-	// 	 console.log(anchor);
-	// 	 anchor.parent('li').click();
-	// }
-
 
 	/*----------------------------------------------------*/
 	/*  Accordions
@@ -803,7 +338,6 @@ $(document).ready(function(){
 
 	$(".trigger.opened").addClass("active").next(".toggle-container").show();
 
-
 	/*----------------------------------------------------*/
 	/*  Notifications
 	/*----------------------------------------------------*/
@@ -811,7 +345,6 @@ $(document).ready(function(){
 	$("a.close").removeAttr("href").on('click', function(){
 		$(this).parent().fadeOut(200);
 	});
-
 
 	/*----------------------------------------------------*/
 	/*  Contact Form
