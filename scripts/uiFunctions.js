@@ -261,13 +261,6 @@ const uiFunctions = function() {
         }, 500), !1
       })
     },
-    buildStickyHeader: function() {
-      $('#header').not('#header-container.header-style-2 #header').clone(!0).addClass('cloned unsticky').insertAfter('#header'), $('#navigation.style-2').clone(!0).addClass('cloned unsticky').insertAfter('#navigation.style-2'), $('#logo .sticky-logo').clone(!0).prependTo('#navigation.style-2.cloned ul#responsive');
-      var a = 2 * $('#header-container').height();
-      $(window).scroll(function() {
-        $(window).scrollTop() >= a ? ($('#header.cloned').addClass('sticky').removeClass('unsticky'), $('#navigation.style-2.cloned').addClass('sticky').removeClass('unsticky')) : ($('#header.cloned').addClass('unsticky').removeClass('sticky'), $('#navigation.style-2.cloned').addClass('unsticky').removeClass('sticky'))
-      })
-    },
     buildTopBarMobileMenu: function() {
       const a = $.jPanelMenu({
         menu: '#responsive',
