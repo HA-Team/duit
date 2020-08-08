@@ -1,11 +1,11 @@
-<div ng-controller="devsListing" id="devsListing" class="hidden-on-mobile">
+<div ng-controller="devsListingController as devsListing" id="devsListing" class="hidden-on-mobile">
 
   <!-- Content -->
   <div class="container margin-top-50" >
 
-    <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="apiReady"></div>
+    <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="devsListing.apiReady"></div>
 
-    <div class="col-md-12" ng-show="apiReady">
+    <div class="col-md-12" ng-show="devsListing.apiReady">
 
       <!-- Sorting / Layout Switcher -->
       <div class="row margin-bottom-15">
@@ -13,7 +13,7 @@
         <div class="col-md-6">
           <!-- Sort by -->
           <div class="sort-by">
-            <label>{{resultsCount}} Emprendimientos encontrados</label>
+            <label>{{devsListing.resultsCount}} Emprendimientos encontrados</label>
           </div>
         </div>
 
@@ -31,10 +31,10 @@
 
 
       <!-- Listings -->
-      <div class="listings-container grid-layout-three" infinite-scroll="loadMoreProps()" infinite-scroll-distance="2" infinite-scroll-immediate-check='false'>
+      <div class="listings-container grid-layout-three" infinite-scroll="devsListing.loadMoreProps()" infinite-scroll-distance="2" infinite-scroll-immediate-check='false'>
         
         <!-- Listing Item -->
-        <div class="listing-item " ng-repeat="d in results">
+        <div class="listing-item " ng-repeat="d in devsListing.results">
 
           <a class="listing-img-container" href="/#!/development/{{d.id}}">
 
@@ -64,7 +64,7 @@
       
     </div>
 
-    <div class="row fullwidth-layout text-center no-results" ng-hide="ifResults">
+    <div class="row fullwidth-layout text-center no-results" ng-hide="devsListing.ifResults">
       <i class="fa fa-5x fa-frown-o"></i>
       <h3>¡Ups! No hay nada aquí. ¡<a href="#!/contactUs">Contactános</a> para ver mas opciones!</h3>
     </div> 
@@ -74,10 +74,10 @@
 
 </div>
 
-<div ng-controller="devsListing" id="mobile-dev-listing" class="hidden-on-desktop">
+<div ng-controller="devsListingController as devsListing" id="mobile-dev-listing" class="hidden-on-desktop">
   
     <!-- Skeleton Loader -->
-    <section class="skeleton-container" ng-show="!apiReady" ng-repeat="x in [].constructor(2) track by $index">
+    <section class="skeleton-container" ng-show="!devsListing.apiReady" ng-repeat="x in [].constructor(2) track by $index">
       <div class="skeleton-image"></div>
       <div class="skeleton-lines">
         <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
@@ -85,24 +85,24 @@
     </section>
     <!-- Skeleton Loader End -->
 
-  <div ng-show="apiReady">
+  <div ng-show="devsListing.apiReady">
 
-    <h4 class="dev-listing-found-title">{{resultsCount}} Emprendimientos encontrados</h4>
+    <h4 class="dev-listing-found-title">{{devsListing.resultsCount}} Emprendimientos encontrados</h4>
 
     <!-- Listing -->
-    <div class="listings-container grid-layout-three" infinite-scroll="loadMoreProps()" infinite-scroll-distance="2" infinite-scroll-immediate-check='false'>
+    <div class="listings-container grid-layout-three" infinite-scroll="devsListing.loadMoreProps()" infinite-scroll-distance="2" infinite-scroll-immediate-check='false'>
       
       <!-- Listing Item -->
-      <div class="listing-item margin-10" ng-repeat="develop in resultsMapped">
+      <div class="listing-item margin-10" ng-repeat="development in devsListing.resultsMapped">
 
-        <gallery-single-property item="develop" show-widgets="false" show-gallery="true" gallery-height="'40vh'" show-skeleton="false"></gallery-single-property>
+        <gallery-single-property item="development" show-widgets="false" show-gallery="true" gallery-height="'40vh'"></gallery-single-property>
         
         <div class="listing-content">
 
           <div class="listing-title">
-            <h4><a ui-sref="development({devId: develop.id})">{{develop.name}}</a></h4>              
+            <h4><a ui-sref="development({devId: development.id})">{{development.name}}</a></h4>              
             <i class="fa fa-map-marker"></i>
-            {{develop.location.name}}
+            {{development.location.name}}
           </div>
 
         </div>
@@ -117,7 +117,7 @@
     
   </div>
 
-  <div class="row fullwidth-layout text-center no-results" ng-hide="ifResults">
+  <div class="row fullwidth-layout text-center no-results" ng-hide="devsListing.ifResults">
     <i class="fa fa-5x fa-frown-o"></i>
     <h3>¡Ups! No hay nada aquí. ¡<a href="#!/contactUs">Contactános</a> para ver mas opciones!</h3>
   </div> 

@@ -1,13 +1,15 @@
-app.controller('devsListing', ['$rootScope', '$scope', 'tokkoApi', function($rootScope, $scope, tokkoApi){
+app.controller('devsListingController', ['$rootScope', '$scope', 'tokkoApi', function($rootScope, $scope, tokkoApi){
+  var devsListing = this;
+  
   // #region Scoped Properties
 
   $rootScope.activeMenu = 'developments';
 
-  $scope.results = [];
-  $scope.resultsMapped = [];
-  $scope.resultsCount = 0;
-  $scope.apiReady = false;
-  $scope.ifResults = true;
+  devsListing.results = [];
+  devsListing.resultsMapped = [];
+  devsListing.resultsCount = 0;
+  devsListing.apiReady = false;
+  devsListing.ifResults = true;
 
   // #endregion
 
@@ -20,8 +22,8 @@ app.controller('devsListing', ['$rootScope', '$scope', 'tokkoApi', function($roo
   // #region On Init
 
   tokkoApi.find('development', args, function(result) {
-    $scope.results = result;
-    $scope.resultsMapped = result.map(develop => {    
+    devsListing.results = result;
+    devsListing.resultsMapped = result.map(develop => {    
       return {
         id: develop.id,
         name: develop.name,
@@ -31,11 +33,11 @@ app.controller('devsListing', ['$rootScope', '$scope', 'tokkoApi', function($roo
       };
     });
 
-    $scope.resultsCount = result.length;
+    devsListing.resultsCount = result.length;
 
-    if ($scope.resultsCount == 0) $scope.ifResults = false;
+    if (devsListing.resultsCount == 0) devsListing.ifResults = false;
 
-    $scope.apiReady = true;
+    devsListing.apiReady = true;
     $scope.$apply();
 
     uiFunctions.buildCarousel();

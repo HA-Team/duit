@@ -1,13 +1,16 @@
-app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 'getFeaturedProperties', function ($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties) {
+app.controller('developmentController', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 'getFeaturedProperties', function ($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties) {
+  var development = this;
+  
   // #region Scoped Properties
 
   $rootScope.activeMenu = 'developments';
   $rootScope.activeSection = '';
-  $scope.apiReady = false;
-  $scope.featuredPropsReady = false;
-  $scope.devPropsReady = false;
-  $scope.generalFeaturesToShow = 5;
-  $scope.isContactModalOpen = false;
+  
+  development.apiReady = false;
+  development.featuredPropsReady = false;
+  development.devPropsReady = false;
+  development.generalFeaturesToShow = 5;
+  development.isContactModalOpen = false;
 
   // #endregion
 
@@ -15,7 +18,7 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
 
   const id = $stateParams.devId;
   const generalFeaturesList = document.querySelector(".mobile-dev-general-features ul"); 
-  const limitedHeight = `${$scope.generalFeaturesToShow * 40}px`;
+  const limitedHeight = `${development.generalFeaturesToShow * 40}px`;
   generalFeaturesList.style.maxHeight = limitedHeight;
 
   // #endregion
@@ -25,8 +28,8 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
   getFeaturedProps();
 
 	tokkoApi.findOne('development', id, function (result) {
-    $scope.d = result;
-    $scope.developmentMapped = {
+    development.d = result;
+    development.developmentMapped = {
       photos: result.photos
     };
 
@@ -56,7 +59,7 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
 			title: result.name,
     });
     
-		$scope.apiReady = true;
+		development.apiReady = true;
     $scope.$apply();
 		uiFunctions.showMoreButton();
 		uiFunctions.buildSlickCarousel();
@@ -66,14 +69,14 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
 			google.maps.event.trigger(map, 'resize');
     }, 0);
     
-    const querySubject = `Consulta por propiedad %23${$scope.d.id}:${$scope.d.publication_title}`.replace(/\s/g, '%20');    
+    const querySubject = `Consulta por propiedad %23${development.d.id}:${development.d.publication_title}`.replace(/\s/g, '%20');    
 
-    const cellPhone = $scope.d.users_in_charge.phone;
+    const cellPhone = development.d.users_in_charge.phone;
     const cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351'); 
     const whatsAppUri = `https://api.whatsapp.com/send?phone=${cleanCellPhone}&text=${querySubject}`;  
     document.querySelector("#mobile-dev-detail .contact-globe-modal-icons .fa-whatsapp").parentElement.setAttribute("href", whatsAppUri);            
     
-    const emailUri = `mailto:${$scope.d.users_in_charge.email}?Subject=${querySubject}`;        
+    const emailUri = `mailto:${development.d.users_in_charge.email}?Subject=${querySubject}`;        
     document.querySelector("#mobile-dev-detail .contact-globe-modal-icons .fa-envelope").parentElement.setAttribute("href", emailUri);
   });
 
@@ -84,7 +87,7 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
   function getFeaturedProps() {
     getFeaturedProperties.getFeaturedProps(result => {
 
-      $scope.featuredProps = result.map(prop => {
+      development.featuredProps = result.map(prop => {
         return {
           id: prop.id,
           title: prop.publication_title,
@@ -100,7 +103,7 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
         }
       });
 
-      $scope.featuredPropsReady = true;
+      development.featuredPropsReady = true;
 
       $scope.$apply();
       uiFunctions.buildCarousel();
@@ -109,7 +112,7 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
 
   function getDevelopmentProps(id) {
     getFeaturedProperties.getDevelopmentProps(id, result => {
-      $scope.devProps = result.map(prop => {
+      development.devProps = result.map(prop => {
         return {
           id: prop.id,
           type: prop.operations[0].operation_type,
@@ -129,7 +132,7 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
         }
       });
 
-      $scope.devPropsReady = true;
+      development.devPropsReady = true;
       $scope.$apply();
     });
   };
@@ -138,8 +141,8 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
 
   // #region Scoped Methods
 
-  $scope.toggleGeneralFeatures = () => {          
-    const maxHeight = `${$scope.d.tags.length * 40}px`;        
+  development.toggleGeneralFeatures = () => {          
+    const maxHeight = `${development.d.tags.length * 40}px`;        
 
     if (generalFeaturesList.classList.contains("open")) {
       generalFeaturesList.classList.remove("open");
@@ -151,7 +154,7 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
     }
   };
 
-  $scope.toggleDescriptionDetail = () => {
+  development.toggleDescriptionDetail = () => {
     const detail = document.querySelector("#mobile-dev-detail .description-detail");
     const preElement = detail.querySelector("pre");
     const maxHeight = `${preElement.offsetHeight + preElement.offsetTop}px`;        
@@ -166,25 +169,25 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
     }
   };
 
-  $scope.toggleContactModal = () => $scope.isContactModalOpen = !$scope.isContactModalOpen;
+  development.toggleContactModal = () => development.isContactModalOpen = !development.isContactModalOpen;
 
   // #endregion
 
   // #region Scoped Objects
 
-  $scope.contactGlobeOpenIcon = {
+  development.contactGlobeOpenIcon = {
     iconClass: 'fab fa-whatsapp',
     color: 'var(--whatsapp-green)',
     fontSize: '3rem'    
   };
 
-  $scope.contactGlobeCloseIcon = {
+  development.contactGlobeCloseIcon = {
     iconClass: 'fa fa-times',
     color: 'var(--soft-grey)',
     fontSize: '3rem' 
   };
 
-  $scope.contactGlobeActions = [
+  development.contactGlobeActions = [
     {
       hRef: '#',
       iconClass: 'fab fa-whatsapp',
@@ -197,12 +200,12 @@ app.controller('development', ['$rootScope', '$scope', 'tokkoApi', '$stateParams
     }
   ];
 
-  $scope.availablePropsColumns = [
+  development.availablePropsColumns = [
     {
       name: 'Ubicación',
       icon: 'fa fa-map-marker',
       data: 'address',
-      fixed: true,
+      fixed: true
     },
     {
       name: 'Precio',

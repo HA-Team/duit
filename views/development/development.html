@@ -1,151 +1,152 @@
-<div ng-controller="development" class="hidden-on-mobile">
-  <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="apiReady"></div>
-  <div id="titlebar" class="property-titlebar margin-bottom-0" ng-show="apiReady">
+<div ng-controller="developmentController as development" class="hidden-on-mobile">
+
+  <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="development.apiReady"></div>
+
+  <div id="titlebar" class="property-titlebar margin-bottom-0" ng-show="development.apiReady">
+
     <div class="container">
       <div class="row">
         <div class="col-md-12">
           
           <a onclick="window.history.back()" class="back-to-listings"></a>
           <div class="property-title">
-            <h2>{{d.name}} <span class="property-badge">{{d.type.name}}</span></h2>
+            <h2>{{development.d.name}} <span class="property-badge">{{development.d.type.name}}</span></h2>
             <span>
               <a href="#location" class="listing-address">
                 <i class="fa fa-map-marker"></i>
-                {{d.address}}
+                {{development.d.address}}
               </a>
             </span>
           </div>
           <div class="property-pricing">
-            <!-- <div>{{d.currency}} {{d.price}}</div> -->
-            <div class="sub-price">ID: {{d.reference_code}}</div>
+            <div class="sub-price">ID: {{development.d.reference_code}}</div>
           </div>
         </div>
       </div>
     </div>
+
   </div>
+
   <!-- Slider -->
-  <div class="fullwidth-property-slider margin-bottom-50 hidden-on-desktop" ng-show="apiReady">
-    <img ng-repeat="i in d.photos" src="{{i.image}}" class="margin-right-10">
+  <div class="fullwidth-property-slider margin-bottom-50 hidden-on-desktop" ng-show="development.apiReady">
+    <img ng-repeat="i in development.d.photos" src="{{i.image}}" class="margin-right-10">
   </div>
+
   <div class="margin-bottom-50 hidden-on-mobile">
+
     <!-- Slider Container -->
     <div class="property-slider-container">
+
       <!-- Slider -->
       <div class="property-slider no-arrows">
-        <a  data-background-image="{{d.photos[0].original}}" class="item"></a>
+
+        <a  data-background-image="{{development.d.photos[0].original}}" class="item"></a>
+
         <!-- Slider Thumbs -->
-        <ul class="proerty-gallery-thumbs-container" ng-if="d.photos.length <= 4">
-          <li class="property-gallery-thumb" ng-repeat="i in d.photos">
+        <ul class="proerty-gallery-thumbs-container" ng-if="development.d.photos.length <= 4">
+          <li class="property-gallery-thumb" ng-repeat="i in development.d.photos">
             <a href="{{i.original}}" class="item mfp-gallery">
               <img src="{{i.thumb}}" alt="">
             </a>
           </li>
         </ul>
-        <ul class="proerty-gallery-thumbs-container" ng-if="d.photos.length > 4">
+
+        <ul class="proerty-gallery-thumbs-container" ng-if="development.d.photos.length > 4">
           <li class="property-gallery-thumb">
-            <a href="{{d.photos[0].original}}" class="item mfp-gallery">
-              <img src="{{d.photos[0].thumb}}" alt="">
+            <a href="{{development.d.photos[0].original}}" class="item mfp-gallery">
+              <img src="{{development.d.photos[0].thumb}}" alt="">
             </a>
           </li>
           <li class="property-gallery-thumb">
-            <a href="{{d.photos[1].original}}" class="item mfp-gallery">
-              <img src="{{d.photos[1].thumb}}" alt="">
+            <a href="{{development.d.photos[1].original}}" class="item mfp-gallery">
+              <img src="{{development.d.photos[1].thumb}}" alt="">
             </a>
           </li>
           <li class="property-gallery-thumb">
-            <a href="{{d.photos[2].original}}" class="item mfp-gallery">
-              <img src="{{d.photos[2].thumb}}" alt="">
+            <a href="{{development.d.photos[2].original}}" class="item mfp-gallery">
+              <img src="{{development.d.photos[2].thumb}}" alt="">
             </a>
           </li>
           <li class="property-gallery-thumb more">
-            <a href="{{d.photos[3].original}}" class="item mfp-gallery">
-              <span ><i class="fa fa-plus"></i> {{d.photos.length - 3}}</span>
+            <a href="{{development.d.photos[3].original}}" class="item mfp-gallery">
+              <span ><i class="fa fa-plus"></i> {{development.d.photos.length - 3}}</span>
             </a>
           </li>
-          <li class="property-gallery-thumb hidden" ng-repeat="i in d.photos | limitTo: (4 - d.photos.length)">
+          <li class="property-gallery-thumb hidden" ng-repeat="i in development.d.photos | limitTo: (4 - development.d.photos.length)">
             <a href="{{i.original}}" class="item mfp-gallery">
               <img src="{{i.thumb}}" alt="">
             </a>
           </li>
         </ul>
+
       </div>
-      <!-- Slider / End -->
+      <!-- Slider End -->
 
     </div>
-    <!-- Slider Container / End -->
+    <!-- Slider Container End -->
+
   </div>
-  <div class="container" ng-show="apiReady">
+
+  <div class="container" ng-show="development.apiReady">
+
     <div class="row">
+
       <!-- Property Description -->
       <div class="col-lg-8 col-md-7">
+
         <div class="property-description">
+
           <!-- Features -->
           <h3 class="desc-headline">Características</h3>
           <ul class="property-features checkboxes margin-top-0">
-            <li ng-repeat="tag in d.tags">{{tag.name}}</li>
+            <li ng-repeat="tag in development.d.tags">{{tag.name}}</li>
           </ul>
+
           <!-- Location -->
           <h3 class="desc-headline no-border" id="location">Ubicación</h3>
           <div id="propertyMap-container">
             <div id="propertyMap"></div>
-            <!-- <a href="#" id="streetView">Street View</a> -->
           </div>
+
           <!-- Description -->
           <h3 class="desc-headline">Descripción</h3>
           <div class="show-more">
-            <pre>{{d.description}}</pre>
+            <pre>{{development.d.description}}</pre>
             <a href="#" class="show-more-button">Mostrar Más <i class="fa fa-angle-down"></i></a>
           </div>
+
         </div>
       </div>
-      <!-- Property Description / End -->
+      <!-- Property Description End -->
+
       <!-- Sidebar -->
       <div class="col-lg-4 col-md-5">
         <div class="sidebar sticky right">
+
           <!-- Widget -->
           <div class="widget margin-bottom-30">
             <button class="widget-button"><i class="sl sl-icon-printer"></i> Imprimir</button>
-            <!-- <button class="widget-button save" data-save-title="Save" data-saved-title="Saved"><span class="like-icon"></span></button> -->
           </div>
-          <!-- Widget / End -->
+
           <!-- Widget -->
-          <div class="widget" ng-controller="propContactForm">
-            <!-- Agent Widget -->
-            <div class="agent-widget">
-              <div class="agent-title">
-                <div class="agent-photo"><img src="{{d.users_in_charge.picture}}" alt="" /></div>
-                <div class="agent-details">
-                  <h4>{{d.users_in_charge.name}}</h4>
-                  <span ng-show="showContactForm"><i class="sl sl-icon-call-in"></i>{{d.users_in_charge.phone}}</span>
-                  <a href="" ng-hide="showContactForm" ng-click="showContactForm = !showContactForm">Contactar</a>
-                </div>
-                <div class="clearfix"></div>
-              </div>
-              <div ng-show="showContactForm" class="margin-top-30">
-                <input type="text" placeholder="Tu Email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" ng-model="email">
-                <input type="text" placeholder="Tu Teléfono" ng-model="phone">
-                <textarea ng-model="message"></textarea>
-                <div class="notification success closeable col-md-12" ng-show="success">
-                  <p>Mensaje enviado con éxito.</p>
-                </div>
-                <button class="button fullwidth margin-top-5" ng-click="send()">{{submitText}} <i class='fa fa-spinner fa-spin' ng-show="sending"></i></button>
-              </div>
-            </div>
-            <!-- Agent Widget / End -->
-          </div>
-          <!-- Widget / End -->
           <div class="widget">
+
             <h3 class="margin-bottom-35">Destacados</h3>
-            <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="featuredPropsReady"></div>
-            <div class="listing-carousel outer" ng-show="featuredPropsReady">
+            <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="development.featuredPropsReady"></div>
+
+            <div class="listing-carousel outer" ng-show="development.featuredPropsReady">
+
               <!-- Item -->
-              <div class="item" ng-repeat="p in featuredProps">
+              <div class="item" ng-repeat="p in development.featuredProps">
+
                 <div class="listing-item compact">
                   <a ui-sref="property({propertyId: p.id})" class="listing-img-container">
+
                     <div class="listing-badges">
                       <span class="featured">Destacado</span>
                       <span>{{p.type}}</span>
                     </div>
+
                     <div class="listing-img-content">
                       <span class="listing-compact-title">{{p.prop.publication_title}} <i ng-show="p.prop.web_price">{{ p.price | currency:p.currency:0}}</i></span>
                       <ul class="listing-hidden-content">
@@ -155,28 +156,42 @@
                         <li><i class="fa fa-car"></i> <span>{{p.parkings}}</span></li>
                       </ul>
                     </div>
+
                     <img src="{{p.cover_photo}}" alt="">
                   </a>
                 </div>
+
               </div>
-              <!-- Item / End -->
+              <!-- Item End -->
+
             </div>
+
           </div>
+          <!-- Widget End -->
 
         </div>
       </div>
-      <!-- Sidebar / End -->
+      <!-- Sidebar End -->
+
     </div>
+
     <div class="row">
+
       <div class="col-md-12">
+
         <!-- Similar Listings Container -->
         <h3 class="desc-headline no-border margin-bottom-35 margin-top-60">Propiedades en este Emprendimiento</h3>
+
         <!-- Layout Switcher -->
         <div class="layout-switcher hidden"><a href="#" class="list"><i class="fa fa-th-list"></i></a></div>
+
         <div class="listings-container list-layout">
-        <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="devPropsReady"></div>
+
+          <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="development.devPropsReady"></div>
+
           <!-- Listing Item -->
-          <div class="listing-item" ng-repeat="p in devProps">
+          <div class="listing-item" ng-repeat="p in development.devProps">
+
             <a ui-sref="property({propertyId: p.id})" class="listing-img-container">
               <div class="listing-badges">
                 <span>{{p.type}}</span>
@@ -187,7 +202,9 @@
               </div>
               <img src="{{p.cover_photo}}" alt="">
             </a>
+
             <div class="listing-content">
+
               <div class="listing-title">
                 <h4><a ui-sref="property({propertyId: p.id})">{{p.prop.publication_title}}</a></h4>
                 <a ui-sref="property({propertyId: p.id})">
@@ -196,33 +213,42 @@
                 </a>
                 <a ui-sref="property({propertyId: p.id})" class="details button border">Detalles</a>
               </div>
+
               <ul class="listing-details">
                 <li>{{p.area}} M2</li>
                 <li><i class="fa fa-bed"></i> <span>{{p.prop.suite_amount}}</span></li>
                 <li><i class="fas fa-bath"></i> <span>{{p.prop.bathroom_amount}}</span></li>
                 <li><i class="fa fa-car"></i> <span>{{p.parkings}}</span></li>
               </ul>
+
               <div class="listing-footer">
                 <a ui-sref="property({propertyId: p.id})"><i class="fa fa-user"></i> {{p.prop.producer.name}}</a>
-                <!-- <span><i class="fa fa-calendar-o"></i> 4 days ago</span> -->
               </div>
+
             </div>
-            <!-- Listing Item / End -->
+            
           </div>
-          <!-- Listing Item / End -->
+          <!-- Listing Item End -->
+
         </div>
-        <!-- Similar Listings Container / End -->
+        <!-- Similar Listings Container End -->
+
       </div>
     </div>
+
     <!-- Units Listing -->
     <div class="row hidden-on-mobile">
+
       <div class="col-md-12">
         <!-- Similar Listings Container -->
-        <h3 class="av-units-title" ng-hide="!devPropsReady">Unidades disponibles</h3>
+        <h3 class="av-units-title" ng-hide="!development.devPropsReady">Unidades disponibles</h3>
+
         <!-- Layout Switcher -->
-        <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="devPropsReady"></div>
-          <!-- Listing Item -->
-        <table class="av-units-table" id="headers" width="100%" ng-hide="!devPropsReady">
+        <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="development.devPropsReady"></div>
+
+        <!-- Listing Item -->
+        <table class="av-units-table" id="headers" width="100%" ng-hide="!development.devPropsReady">
+
           <thead>
             <tr>
               <th>Dirección</th>
@@ -235,8 +261,9 @@
               <th>Alquiler</th>
             </tr>
           </thead>
+
           <tbody>
-            <tr ng-repeat="p in devProps" ui-sref="property({propertyId: p.id})">
+            <tr ng-repeat="p in development.devProps" ui-sref="property({propertyId: p.id})">
               <td>{{ p.prop.fake_address }}</td>
               <td>{{ p.prop.room_amount }}</td>
               <td>{{ p.prop.suite_amount }}</td>
@@ -247,17 +274,23 @@
               <td>{{ p.rent ? (p.rent.prices.price | currency:p.rent.currency:0) : "-" }}</td>
             </tr>
           </tbody>
+
         </table>
+        <!-- Listing Item End -->
+
       </div>
     </div>
+    <!-- Units Listing End -->
+
   </div>
+
 </div>
 
 <!-- Mobile Property Detail -->
-<div id="mobile-dev-detail" ng-controller="development" class="hidden-on-desktop">
+<div id="mobile-dev-detail" ng-controller="developmentController as development" class="hidden-on-desktop">
   
   <!-- Skeleton Loader -->
-  <section class="skeleton-container" ng-show="!apiReady">
+  <section class="skeleton-container" ng-show="!development.apiReady">
     <div class="skeleton-image"></div>
     <div class="skeleton-lines">
       <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
@@ -265,22 +298,22 @@
   </section>
   <!-- Skeleton Loader End -->
   
-  <div ng-show="apiReady">
+  <div ng-show="development.apiReady">
     
     <!-- Gallery Slider  -->
-    <gallery-single-property ng-if="apiReady" item="developmentMapped" show-widgets="true" show-gallery="apiReady" show-skeleton="false"></gallery-single-property>   
+    <gallery-single-property ng-if="development.apiReady" item="development.developmentMapped" show-widgets="true" show-gallery="development.apiReady"></gallery-single-property>   
     <!-- Gallery Slider End -->
 
     <!-- Subtitle -->
     <section class="mobile-property-subtitle">
       <div class="main-subtitle">
-        <h2>{{d.name}}</h2>
-        <span class="property-badge">{{d.type.name}}</span>        
+        <h2>{{development.d.name}}</h2>
+        <span class="property-badge">{{development.d.type.name}}</span>        
       </div>
 
       <div class="subtitle-address">
         <i class="fa fa-map-marker"></i>
-        <p>&nbsp {{d.address}}</p>
+        <p>&nbsp {{development.d.address}}</p>
       </div>   
     </section>    
     <!-- Subtitle End -->
@@ -289,9 +322,9 @@
     <section class="mobile-property-description">      
       <h3 class="desc-headline">Descripción</h3>
       <div class="description-detail">
-        <pre>{{d.description.trim()}}</pre>        
+        <pre>{{development.d.description.trim()}}</pre>        
       </div>
-      <div class="description-detail-button-container" ng-click="toggleDescriptionDetail()">
+      <div class="description-detail-button-container" ng-click="development.toggleDescriptionDetail()">
         <p><i class="fa fa-angle-down"></i></p>
       </div>
     </section>
@@ -303,9 +336,9 @@
     <section class="mobile-dev-general-features">
       <h3 class="desc-headline">Características Generales</h3>
       <ul>
-        <li ng-repeat="tag in d.tags">{{tag.name}}</li>
+        <li ng-repeat="tag in development.d.tags">{{tag.name}}</li>
       </ul>
-      <div class="description-detail-button-container" ng-click="toggleGeneralFeatures()" ng-show="d.tags.length > generalFeaturesToShow">
+      <div class="description-detail-button-container" ng-click="development.toggleGeneralFeatures()" ng-show="development.d.tags.length > development.generalFeaturesToShow">
         <p><i class="fa fa-angle-down"></i></p>
       </div>
     </section>  
@@ -325,19 +358,19 @@
     <hr>
 
     <!-- Available Units -->
-    <responsive-table ng-if="devProps && devProps.length > 0" items="devProps" title="'Unidades disponibles'" columns="availablePropsColumns"></responsive-table>
+    <responsive-table ng-if="development.devProps && development.devProps.length > 0" items="development.devProps" title="'Unidades disponibles'" columns="development.availablePropsColumns"></responsive-table>
     
     <!-- Contact Modal -->
-    <contact-globe is-open="isContactModalOpen" main-img="d.users_in_charge.picture" open-icon="contactGlobeOpenIcon" 
-      close-icon="contactGlobeCloseIcon" title="d.users_in_charge.name" actions="contactGlobeActions" toggle-modal="toggleContactModal()">
+    <contact-globe is-open="development.isContactModalOpen" main-img="development.d.users_in_charge.picture" open-icon="development.contactGlobeOpenIcon" 
+      close-icon="development.contactGlobeCloseIcon" title="development.d.users_in_charge.name" actions="development.contactGlobeActions" toggle-modal="development.toggleContactModal()">
     </contact-globe>
     <!-- Contact Modal End -->
 
     <!-- Featured Props -->
     <section class="mobile-property-featured">  
-      <h3>Te aconsejamos est{{featuredProps.length == 1 ? 'a' : 'as'}} propiedad{{featuredProps.length == 1 ? '' : 'es'}}</h3>    
+      <h3>Te aconsejamos est{{development.featuredProps.length == 1 ? 'a' : 'as'}} propiedad{{development.featuredProps.length == 1 ? '' : 'es'}}</h3>    
       
-      <gallery-properties-cards items="featuredProps" show-photos="featuredPropsReady"></gallery-properties-cards>
+      <gallery-properties-cards items="development.featuredProps" show-photos="development.featuredPropsReady"></gallery-properties-cards>
     </section>
     <!-- Featured Props End -->
   
