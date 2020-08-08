@@ -1,52 +1,34 @@
 <section class="gallery-multiple-properties" ng-class="{' open': isGalleryOpen}">
       
-    <!-- Skeleton -->
-    <div class="skeleton-container" ng-show="!showGallery && showSkeleton">
-      <div class="skeleton-image"></div>
-      <div class="skeleton-lines">
-        <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
+  <!-- Skeleton -->
+  <div class="skeleton-container" ng-show="!showGallery">
+    <div class="skeleton-image"></div>
+    <div class="skeleton-lines">
+      <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
+    </div>
+  </div>
+  <!-- Skeleton End -->
+
+  <!-- Arrows -->
+  <div class="slider-arrows-container" ng-show="items.length > 1 && showGallery">
+    <i class="fa fa-angle-left" ng-click="moveSlider('left')"></i>
+    <i class="fa fa-angle-right" ng-click="moveSlider('right')"></i>
+  </div>
+
+  <!-- Slider Single Property -->
+  <div class="gallery-multiple-properties-slider" ng-show="showGallery">
+
+    <a ng-repeat="item in items" href="/#!/property/{{item.id}}">
+      <img src="{{item.coverPhoto}}">
+
+      <!-- Info Card -->
+      <div class="slider-info-card" ng-show="showGallery">
+        <p class="info-card-title">{{item.title}}</p>
+        <p class="info-card-price">{{item.price | currency:item.currency:0}}</p>
       </div>
-    </div>
-    <!-- Skeleton End -->
-  
-    <!-- Arrows -->
-    <div class="slider-arrows-container" ng-show="items.length > 1 && showGallery">
-      <i class="fa fa-angle-left" ng-click="moveSlider('left')"></i>
-      <i class="fa fa-angle-right" ng-click="moveSlider('right')"></i>
-    </div>
-  
-    <!-- Slider Single Property -->
-    <div class="gallery-multiple-properties-slider" ng-show="showGallery">
-      <a ng-repeat="item in items" href="/#!/property/{{item.id}}">
-        <img src="{{item.coverPhoto}}">
-        <!-- Info Card -->
-        <div class="slider-info-card" ng-show="showInfoCard && showGallery">
-          <p class="info-card-title">{{item.title}}</p>
-          <p class="info-card-price">{{item.price | currency:item.currency:0}}</p>
-        </div>
-        <!-- Info Card End-->
-      </a>
-    </div>
+
+    </a>
+  </div>
+  <!-- Slider Single Property End -->
     
-    <!-- Widgets -->
-    <div class="silder-widgets-container" ng-show="showWidgets && showGallery"> 
-  
-      <div class="slider-open-gallery" ng-click="toggleGallery()">
-        <i class="fa fa-expand-arrows-alt" ng-show="!isGalleryOpen"></i>
-        <p ng-show="!isGalleryOpen">Galería</p>
-      </div>
-  
-      <div class="slider-photo-counter">
-        <i class="fa fa-camera"></i>
-        <p>{{currentIndex}}/{{items.length}}</p>
-      </div>
-      
-    </div>  
-    <!-- Widgets End --> 
-  
-    <!-- Close Gallery Button -->
-    <i class="fa fa-times" ng-click="toggleGallery()" ng-show="isGalleryOpen"></i>  
-    
-  </section>
-  
-  <div class="gallery-multiple-properties-modal-background" ng-click="toggleGallery()" ng-class="{' open': isGalleryOpen}"></div> 
+</section>

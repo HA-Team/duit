@@ -3,7 +3,6 @@ app.directive('gallerySingleProperty', function() {
         restrict: 'E',
         scope: {  
             showGallery: '=',
-            showSkeleton: '=',
             item: '=',
             showWidgets: '=',
             galleryHeight: '=',
