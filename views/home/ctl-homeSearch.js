@@ -6,6 +6,7 @@ app.controller('homeSearchController', ['$rootScope', '$scope', '$state', 'navig
   $rootScope.activeMenu = 'home';
 
   homeSearch.operationType = [2];
+  homeSearch.isPropertyOperationOpen = false;
   homeSearch.isPropertyTypeOpen = false;
   homeSearch.wasFindPropertiesButtonClicked = false;
   homeSearch.isPropertyPlaceholderWarningActive = false;
@@ -40,9 +41,25 @@ app.controller('homeSearchController', ['$rootScope', '$scope', '$state', 'navig
     homeSearch.propertiesTypes = propertiesTypes.filter(type => type.id != newType.id);
   };
 
-  homeSearch.togglePropertyTypeDropdown = () => homeSearch.isPropertyTypeOpen = !homeSearch.isPropertyTypeOpen;
+  homeSearch.togglePropertyTypeDropdown = () => {
+    homeSearch.isPropertyTypeOpen = !homeSearch.isPropertyTypeOpen;
+    homeSearch.isPropertyOperationOpen = false;
+  }
 
-  homeSearch.closeOpenSelects = () => homeSearch.isPropertyTypeOpen = false;
+  homeSearch.togglePropertyOperation = () => {
+    homeSearch.isPropertyOperationOpen = !homeSearch.isPropertyOperationOpen;
+    homeSearch.isPropertyTypeOpen = false;
+  }
+
+  homeSearch.updateOperationChosen = (type) =>  {
+    homeSearch.operationType = type == 1 ? [2] : [1];
+    homeSearch.isPropertyOperationOpen = false;
+  }
+
+  homeSearch.closeOpenSelects = () => {
+    homeSearch.isPropertyTypeOpen = false;
+    homeSearch.isPropertyOperationOpen = false;
+  }
 
   homeSearch.findProperties = () => {
     homeSearch.wasFindPropertiesButtonClicked = true;
