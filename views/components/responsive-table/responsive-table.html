@@ -1,14 +1,21 @@
 <section class="responsive-table">
+
     <h3>{{title}}</h3>
 
+    <!-- Table -->
     <div class="responsive-table-container">
+
+        <!-- Fixed Columns -->
         <div class="responsive-table-fixed">
             <div class="responsive-table-column" ng-repeat="col in columns" ng-if="col.fixed">
+
+                <!-- Table Header -->
                 <div class="responsive-table-header-item" ng-class="{'active ': col.isTooltipOpen}">
                     <h5 ng-if ="!col.icon">{{col.name}}</h5>
                     <i ng-if ="col.icon" class="{{col.icon}}" data-before-content="{{col.name}}" ng-click="toggleTooltip(col)"></i>
                 </div>
 
+                <!-- Table Body -->
                 <div class="responsive-table-body-item" ng-repeat="item in items" ng-click="setActiveDetail(item);">
                     <p ng-if="col.data == 'price'">{{(item.price | currency:item.currency:0)}}</p>
                     <p ng-if="col.data == 'area'">{{(item.area | number:0)}}m<sup>2</sup></p>
@@ -16,14 +23,19 @@
                 </div>
             </div>
         </div>
+        <!-- Fixed Columns End -->
     
+        <!-- Fixed Slider -->
         <div class="responsive-table-slider">
             <div class="responsive-table-column" ng-repeat="col in columns" ng-if="!col.fixed">
+
+                <!-- Table Header -->
                 <div class="responsive-table-header-item" ng-class="{'active ': col.isTooltipOpen}" ng-style="{'width': columnWidth + 'px'}">
                     <h5 ng-if ="!col.icon">{{col.name}}</h5>
                     <i ng-if ="col.icon" class="{{col.icon}}" data-before-content="{{col.name}}" ng-click="toggleTooltip(col)"></i>
                 </div>
 
+                <!-- Table Body -->
                 <div class="responsive-table-body-item" ng-repeat="item in items" ng-click="setActiveDetail(item);">
                     <p ng-if="col.data == 'price'">{{(item.price | currency:item.currency:0)}}</p>
                     <p ng-if="col.data == 'area'">{{(item.area | number:0)}}m<sup>2</sup></p>
@@ -31,7 +43,10 @@
                 </div>
             </div>
         </div>
+        <!-- Fixed Slider End -->
+
     </div>
+    <!-- Table End -->
 
     <div class="responsive-table-page-counter" ng-show="pages > 1">
         <i class="fa fa-angle-left" ng-class="{'hide-me': currentIndex == 1}"></i>
@@ -40,9 +55,13 @@
         </div>
         <i class="fa fa-angle-right" ng-class="{'hide-me': pages == currentIndex}"></i>
     </div>
-
+    
+    <!-- Property Detail Modal -->
     <div class="responsive-table-detail-modal" ng-class="{ 'open': isDetailOpen }">
+
         <a href="/#!/property/{{activeDetail.id}}">Ir a propiedad</a>
+
+        <!-- Details -->
         <div ng-repeat="col in columns">
             <h5>{{col.name}}</h5>
             <p ng-if="col.data == 'price'">{{(activeDetail.price | currency:activeDetail.currency:0)}}</p>
@@ -51,7 +70,9 @@
             
             <hr style="margin: 8px;">
         </div>
+        
     </div>
+    <!-- Property Detail Modal End -->
     
 </section>
 
