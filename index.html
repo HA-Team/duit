@@ -92,21 +92,18 @@
   </head>
   <body>
     <!-- Wrapper -->
-    <div id='wrapper' ng-app='duit' ui-router-styles ng-controller="startUp">
-      <!-- Header Container
-      ================================================== -->
-      <div ng-include="'/views/common/header.html'"></div>
-      <!-- Header Container / End -->
-      <!-- Content
-      ================================================== -->
-      <!-- <div ng-view></div> -->
+      <!-- Header  -->
+      <div ng-include="'/views/common/header/header.html'"></div>
+      <!-- Header / End -->
+
+      <!-- Content  -->
       <ui-view autoscroll="true"></ui-view>
       <!-- Content / End -->
 
-      <!-- Footer
-      ================================================== -->
-      <div ng-include="'/views/common/footer.html'" class="hidden-on-desktop"></div>
+      <!-- Footer -->
+      <div ng-include="'/views/common/footer/footer.html'" class="hidden-on-desktop"></div>
       <!-- Footer / End -->
+
       <!-- Back To Top Button -->
       <div id="backtotop"><a href="#"></a></div>
     </div>

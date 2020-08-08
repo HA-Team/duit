@@ -1,7 +1,12 @@
-app.controller('header', ['$rootScope', '$scope', 'navigation', '$state', function($rootScope, $scope, navigation, $state) {
+app.controller('headerController', ['$rootScope', '$location', 'navigation', function($rootScope, $location, navigation) {
+  var header = this;
+  
   // #region Scoped Properties
   
-  $scope.isHamburgOpen = false;
+  $rootScope.activeMenu = $location.$$path.replace('/', '');
+  $rootScope.activeSection = $location.hash(); 
+  
+  header.isHamburgOpen = false;
 
   // #endregion
   
@@ -13,6 +18,15 @@ app.controller('header', ['$rootScope', '$scope', 'navigation', '$state', functi
   };
 
   var prevScrollpos = window.pageYOffset;
+
+  // #endregion
+
+  // #region On Init
+
+  setTimeout(function(){
+    uiFunctions.buildStickyHeader();
+    uiFunctions.buildTopBarMobileMenu();
+  }, 0);
 
   // #endregion
 
@@ -33,19 +47,19 @@ app.controller('header', ['$rootScope', '$scope', 'navigation', '$state', functi
   
   // #region Scoped Methods
 
-  $scope.toggleMenu = function () {
+  header.toggleMenu = function () {
     const filterModal = document.getElementById("mobile-props-filter-modal");
     const orderModal = document.getElementById("mobile-props-order-modal");
     
-    $scope.isHamburgOpen = !$scope.isHamburgOpen;     
+    header.isHamburgOpen = !header.isHamburgOpen;     
     
     if (filterModal) filterModal.classList.remove("open");
     
     if (orderModal) orderModal.classList.remove("open");
   };
 
-  $scope.goToSection = (page, section, args) => {  
-    $scope.toggleMenu();
+  header.goToSection = (page, section, args) => {  
+    header.toggleMenu();
     navigation.goToSection(page, section, args);      
   };
 
@@ -65,7 +79,7 @@ app.controller('header', ['$rootScope', '$scope', 'navigation', '$state', functi
 
   // #region Scoped Objects
 
-  $scope.sections = [
+  header.sections = [
     {
       title: 'Home',
       page: 'home',
