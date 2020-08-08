@@ -2,14 +2,16 @@
 @import url("bootstrap.css");
 @import url("icons.css");
 @import url("https://fonts.googleapis.com/css?family=Varela+Round");
-@import url("../views/properties_listing/properties_listing.css");
-@import url("../views/developments_listing/developments_listing.css");
-@import url("../views/accounts/facebook_button.css");
-@import url("../views/common/header.css");
-@import url("../views/property/property.css");
-@import url("../views/home/home.css");
+
+/* Views */
+@import url("../views/common/footer/footer.css");
+@import url("../views/common/header/header.css");
 @import url("../views/development/development.css");
-@import url("../views//common/footer.css");
+@import url("../views/developments_listing/developments_listing.css");
+@import url("../views/home/home.css");
+@import url("../views/property/property.css");
+@import url("../views/properties_listing/properties_listing.css");
+
 
 /* Components */
 @import url("../views/components/skeletons/listing/skeleton-listing.css");
@@ -222,7 +224,7 @@ header.fullwidth .container {
 #header-container.header-style-2 .left-side {
     width: 30%}
 #header-container.header-style-2 #header {
-    padding-top: 20px;
+    padding-top: 0;
 }
 #header-container.header-style-2 #header {
     padding-bottom: 0;
@@ -644,7 +646,6 @@ button.widget-button {
     border-radius: 0 0 3px 3px;
 }
 #navigation.style-2 {
-    width: 100%;
     margin-top: 16px;
     background-color: #66676b;
 }
@@ -655,7 +656,7 @@ button.widget-button {
     transition: all .35s;
 }
 #navigation.style-2 .current, #navigation.style-2 ul li:hover {
-    background-color: rgba(0, 0, 0, 0.2);
+    
 }
 #navigation.style-2 ul li:hover a {
     color: #fff;
@@ -666,6 +667,7 @@ button.widget-button {
     padding: 13px 20px;
     color: #fff;
     border-radius: 0;
+    cursor: pointer;
 }
 #navigation.style-2 ul ul li {
     margin: 0;
@@ -8648,7 +8650,7 @@ body {
     color: #707070;
 }
 #wrapper {
-    background-color: #f7f7f7;
+    background-color: #fff;
 }
 body, h1, h2, h3, h4, h5, h6, input[type="text"], input[type="password"], input[type="email"], textarea, select, input[type="button"], input[type="submit"], button, #tiptip_content {
     font-family: "Varela Round", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
