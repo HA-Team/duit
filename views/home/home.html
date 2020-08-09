@@ -14,7 +14,7 @@
         <form class="main-search-form desktop-search hidden-on-mobile">
           
           <!-- Type -->
-          <div class="property-type-dropdown-container">
+          <div class="property-type-dropdown-container" tabindex="-1" ng-blur="homeSearch.isPropertyOperationOpen = false;">
             <a class="property-type" ng-click="homeSearch.togglePropertyOperation()" ng-class="{'open': homeSearch.isPropertyOperationOpen}">{{homeSearch.operationType == 1 ? "Venta" : "Alquiler"}} <i class="fas fa-angle-down"></i></a>                      
             <ul class="col-md-5" ng-class="{'open': homeSearch.isPropertyOperationOpen}">
               <li ng-click="homeSearch.updateOperationChosen(homeSearch.operationType)">{{homeSearch.operationType == 1 ? "Alquiler" : "Venta"}}</li>                        
@@ -22,14 +22,12 @@
           </div>
 
           <!-- Property Type -->
-          <div class="property-type-dropdown-container" ng-class="{' warning': homeSearch.isPropertyPlaceholderWarningActive}">
+          <div class="property-type-dropdown-container" ng-class="{' warning': homeSearch.isPropertyPlaceholderWarningActive}" tabindex="-1" ng-blur="homeSearch.isPropertyTypeOpen = false;">
             <a class="property-type" ng-click="homeSearch.togglePropertyTypeDropdown()" ng-class="{' open': homeSearch.isPropertyTypeOpen}">{{homeSearch.propertyType.name}} <i class="fas fa-angle-down"></i></a>                      
             <ul class="col-md-5" ng-class="{' open': homeSearch.isPropertyTypeOpen}">
               <li ng-repeat="type in homeSearch.propertiesTypes track by type.id" ng-click="homeSearch.updateTypeChosen(type)" ng-show="!type.showOnlyInOperationType || type.showOnlyInOperationType == homeSearch.operationType">{{type.name}}</li>                        
             </ul>
           </div>
-          
-          <div class="property-selects-background" ng-click="homeSearch.closeOpenSelects()" ng-show="homeSearch.isPropertyTypeOpen || homeSearch.isPropertyOperationOpen"></div>
           
           <button class="button" ng-click="homeSearch.findProperties()"><i class="fas fa-search"></i></button>
 
@@ -46,14 +44,12 @@
           </div>
 
           <!-- Property Type -->
-          <div class="property-type-dropdown-container" ng-class="{' warning': homeSearch.isPropertyPlaceholderWarningActive}">
+          <div class="property-type-dropdown-container" ng-class="{' warning': homeSearch.isPropertyPlaceholderWarningActive}" tabindex="-1" ng-blur="homeSearch.isPropertyTypeOpen = false;">
             <a class="property-type" ng-click="homeSearch.togglePropertyTypeDropdown()" ng-class="{' open': homeSearch.isPropertyTypeOpen}">{{homeSearch.propertyType.name}} <i class="fas fa-angle-down"></i></a>                      
             <ul class="col-md-5" ng-class="{' open': homeSearch.isPropertyTypeOpen}">
               <li ng-repeat="type in homeSearch.propertiesTypes track by type.id" ng-click="homeSearch.updateTypeChosen(type)" ng-show="!type.showOnlyInOperationType || type.showOnlyInOperationType == homeSearch.operationType">{{type.name}}</li>                        
             </ul>
           </div>
-          
-          <div class="property-selects-background" ng-click="homeSearch.closeOpenSelects()" ng-show="homeSearch.isPropertyTypeOpen"></div>
           
           <button class="button" ng-click="homeSearch.findProperties()">Buscar <i class="fas fa-search"></i></button>
 

@@ -41,23 +41,12 @@ app.controller('homeSearchController', ['$rootScope', '$scope', '$state', 'navig
     homeSearch.propertiesTypes = propertiesTypes.filter(type => type.id != newType.id);
   };
 
-  homeSearch.togglePropertyTypeDropdown = () => {
-    homeSearch.isPropertyTypeOpen = !homeSearch.isPropertyTypeOpen;
-    homeSearch.isPropertyOperationOpen = false;
-  }
+  homeSearch.togglePropertyTypeDropdown = () => homeSearch.isPropertyTypeOpen = !homeSearch.isPropertyTypeOpen;
 
-  homeSearch.togglePropertyOperation = () => {
-    homeSearch.isPropertyOperationOpen = !homeSearch.isPropertyOperationOpen;
-    homeSearch.isPropertyTypeOpen = false;
-  }
+  homeSearch.togglePropertyOperation = () => homeSearch.isPropertyOperationOpen = !homeSearch.isPropertyOperationOpen;
 
   homeSearch.updateOperationChosen = (type) =>  {
     homeSearch.operationType = type == 1 ? [2] : [1];
-    homeSearch.isPropertyOperationOpen = false;
-  }
-
-  homeSearch.closeOpenSelects = () => {
-    homeSearch.isPropertyTypeOpen = false;
     homeSearch.isPropertyOperationOpen = false;
   }
 

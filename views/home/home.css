@@ -2,6 +2,7 @@
 	width: 100%;
 	transition: box-shadow 0.3s ease-in-out;
 	border-radius: 10px;
+	outline: none !important;
 }
 
 .desktop-search .property-type-dropdown-container {
@@ -103,15 +104,6 @@ a.property-type + ul li:last-child {
 a.property-type + ul li:hover {
 	color: white;
 	background-color: var(--primary-red);
-}
-
-.property-selects-background {
-	position: fixed;
-	top: 0px;
-	left: 0px;
-	min-width: 100vw !important;
-	min-height: 100vh !important;
-	z-index: 99;
 }
 
 #home-agents {
