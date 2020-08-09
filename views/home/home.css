@@ -275,6 +275,7 @@ a.property-type + ul li:hover {
 	padding-left: 20px;
 	transition: all 200ms;
 	opacity: 0.5;
+	cursor: text;
 }
 
 #home-contact form .form-control:focus + .input-placeholder,
