@@ -149,6 +149,11 @@
         </div>
 
         <div class="contact-form-group">
+          <input class="form-control" name="last-name" placeholder=" " type="text" ng-model="contactForm.lastName" />
+          <label class="input-placeholder no-select" for="last-name" ng-click="contactForm.focusFormControl($event)">Apellido</label>
+        </div>
+
+        <div class="contact-form-group">
           <input class="form-control" name="email" placeholder=" " type="email" ng-model="contactForm.email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" required="required" />
           <label class="input-placeholder no-select" for="email" ng-click="contactForm.focusFormControl($event)">Email *</label>
         </div>

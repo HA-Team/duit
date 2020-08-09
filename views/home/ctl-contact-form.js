@@ -13,14 +13,22 @@ app.controller('contactFormController', ['$rootScope', '$scope', 'tokkoApi', fun
 
   // #region Scoped Methods
 
+  contactForm.focusFormControl = (e) => {
+    const dataName = e.target.htmlFor;
+    const input = document.querySelector(`#home-contact .form-control[name='${dataName}']`);
+    input.focus();    
+  };
+
   contactForm.send = function () {
     if (contactForm.name && contactForm.email && contactForm.message) {
       
       contactForm.submitText = 'Enviando';
       contactForm.sending = true;
 
+      const fullName = `${contactForm.name} ${contactForm.lastName}`;
+
       const data = {
-        name: contactForm.name,
+        name: fullName,
         email: contactForm.email,
         phone: contactForm.phone,
         text: contactForm.message,
@@ -33,6 +41,7 @@ app.controller('contactFormController', ['$rootScope', '$scope', 'tokkoApi', fun
           contactForm.submitText = 'Enviar';
           contactForm.success = true;
           contactForm.name = '';
+          contactForm.lastName = '';
           contactForm.email = '';
           contactForm.phone = '';
           contactForm.message = '';

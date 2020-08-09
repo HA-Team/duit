@@ -294,6 +294,7 @@ a.property-type + ul li:hover {
 	max-width: 300px;
 	margin: 0;
 	border-radius: 10px;
+	z-index: 10;
 }
 
 #home-services {
@@ -551,6 +552,19 @@ a.property-type + ul li:hover {
 	#home-services .home-services-imgs img {
 		width: 135px;
 		height: 135px;
-		cursor: pointer;
+	}
+
+	#home-contact form {
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+
+	#home-contact form > * {
+		flex: 0 0 48%;
+	}
+
+	#home-contact form > div:nth-child(5) {
+		flex: 1 1 100%;
 	}
 }

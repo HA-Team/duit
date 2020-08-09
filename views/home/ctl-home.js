@@ -107,12 +107,6 @@ app.controller('homeController', ['$rootScope', '$scope', 'navigation', 'utils',
   
   home.goToSection = (page, section) => navigation.goToSection(page, section);
 
-  home.focusFormControl = (e) => {
-    const dataName = e.target.htmlFor;
-    const input = document.querySelector(`#home-contact .form-control[name='${dataName}']`);
-    input.focus();    
-  };
-
   // #endregion
 
   // #region Events
