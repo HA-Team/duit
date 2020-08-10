@@ -200,7 +200,7 @@ app.controller('propertyController', ['$rootScope', '$scope', 'tokkoApi', '$stat
 
   // #region Scoped Methods
 
-  propertytoggleDescriptionDetailDesktop = () => {
+  property.toggletoggleDescriptionDetailDesktop = () => {
     const showMore = document.querySelector(".show-more");
     const preElement = showMore.querySelector("pre");
     const maxHeight = `${preElement.offsetHeight + preElement.offsetTop}px`;
@@ -215,7 +215,7 @@ app.controller('propertyController', ['$rootScope', '$scope', 'tokkoApi', '$stat
     }
   };
 
-  propertytoggleDescriptionDetail = () => {
+  property.toggleDescriptionDetail = () => {
     const detail = document.querySelector("#mobile-prop-detail .description-detail");
     const preElement = detail.querySelector("pre");
     const maxHeight = `${preElement.offsetHeight + preElement.offsetTop}px`;        
@@ -230,8 +230,8 @@ app.controller('propertyController', ['$rootScope', '$scope', 'tokkoApi', '$stat
     }
   };
 
-  propertytoggleGeneralFeatures = () => {          
-    const maxHeight = `${propertyp.prop.tags.length * 40}px`;        
+  property.toggleGeneralFeatures = () => {          
+    const maxHeight = `${property.p.prop.tags.length * 40}px`;        
 
     if (generalFeaturesList.classList.contains("open")) {
       generalFeaturesList.classList.remove("open");
@@ -243,7 +243,7 @@ app.controller('propertyController', ['$rootScope', '$scope', 'tokkoApi', '$stat
     }
   };
 
-  propertytoggleContactModal = () => propertyisContactModalOpen = !propertyisContactModalOpen;
+  property.toggleContactModal = () => property.isContactModalOpen = !property.isContactModalOpen;
 
   // #endregion
 
