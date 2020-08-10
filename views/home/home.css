@@ -7,6 +7,7 @@
 
 .desktop-search .property-type-dropdown-container {
 	border-radius: 0;
+	width: 250px;
 }
 
 .property-type-dropdown-container.warning {
@@ -217,7 +218,6 @@ a.property-type + ul li:hover {
 
 .desktop-search > * {
 	height: 50px;
-	box-shadow: 0px 0px 0px 6px rgba(0, 0, 0, 0.3);
 }
 
 .main-search-form .search-type > * {
@@ -501,6 +501,12 @@ a.property-type + ul li:hover {
 .toggle-menu {
 	cursor: pointer;
 	font-size: 12px;
+}
+
+.main-search-form.desktop-search {
+	width: fit-content;
+    margin: 25px auto;
+	box-shadow: 0px 0px 0px 6px rgba(0, 0, 0, 0.3);
 }
 
 @media (max-width: 767px) {
