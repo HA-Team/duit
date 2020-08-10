@@ -14,7 +14,7 @@
 	position: fixed;
 	background-color: transparent;
 	width: 100vw;
-	height: 65px;
+	height: 64px;
 	z-index: 99999;
 	transition: top 0.2s ease-in-out;
 	box-shadow: 0px -2px 9px black;
@@ -22,9 +22,9 @@
 
 #mobile-header #logo img {
 	transform: none;
-	max-height: 110px;
-	margin-top: -30px;
-	margin-left: 5px;
+	max-height: 70px;
+	margin-top: -5px;
+	margin-left: 10px;
 }
 
 #mobile-header .mobile-main-header {
@@ -90,6 +90,7 @@
 #mobile-header .mobile-arrow-header {
 	height: 15px;
 	z-index: 10;
+	margin: -1px;
 }
 
 #mobile-header .mobile-arrow-header .mobile-arrow-header-item {
