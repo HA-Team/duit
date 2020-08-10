@@ -57,26 +57,21 @@
       </div>
       <!-- Logo End -->
       
-      <div class="header-right-panel">
+      <!-- Main Navigation -->
+      <nav id="navigation" class="style-2">
+        <ul id="responsive">
+          <li ng-repeat="section in header.sections" ng-class="{'current' : activeMenu == section.page && activeSection == section.section}"
+            ng-click="header.goToSection(section.page, section.section, section.args); section.action();">            
+          <a>{{section.title}}</a>
+          </li>
+        </ul>
+      </nav>
+      <!-- Main Navigation / End -->
 
-        <div class="header-social">
-          <a href="https://www.facebook.com/duitpropiedades" target="_blank"><i class="fab fa-facebook"></i></a>
-          <a href="https://www.instagram.com/duitpropiedades/" target="_blank"><i class="fab fa-instagram"></i></a>
-        </div>
-
-        <!-- Main Navigation -->
-        <nav id="navigation" class="style-2">
-          <ul id="responsive">
-            <li ng-repeat="section in header.sections" ng-class="{'current' : activeMenu == section.page && activeSection == section.section}"
-              ng-click="header.goToSection(section.page, section.section, section.args); section.action();">            
-            <a>{{section.title}}</a>
-            </li>
-          </ul>
-        </nav>
-        <!-- Main Navigation / End -->
+      <div class="header-social">
+        <a href="https://www.facebook.com/duitpropiedades" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/duitpropiedades/" target="_blank"><i class="fab fa-instagram"></i></a>
       </div>
-
-      <div style="width: 110px;"></div>
 
     </div>
 

@@ -231,20 +231,13 @@
 }
 
 #header #logo img {
-	max-height: 125px;
+	max-height: 80px;
 	transform: none;
 }
 
 #sticky-header #logo img {
 	max-height: 45px;
 	transform: none;
-}
-
-#header .desktop-header-container .header-right-panel {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-end;
-	justify-content: center;
 }
 
 #header .desktop-header-container .header-social {
@@ -300,6 +293,10 @@
 	transition: top 0.2s ease-in-out;
 	min-height: 50px;
 	box-shadow: 0px -2px 9px black;
+}
+
+#main-header {
+	opacity: 0.80;
 }
 
 @media only screen and (max-width: 1250px) {
