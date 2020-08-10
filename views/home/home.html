@@ -8,10 +8,10 @@
 
       <!-- Main Search Container -->
       <div class="main-search-container">
-        <h2>Encontrá el <strong>lugar</strong>, construí tu <strong>historia</strong>.</h2>
+        <h2>Encontrá el <strong>lugar</strong>, construí tu <strong>historia</strong>. <span class="toggle-menu" ng-click="homeSearch.showDesktopMenu = !homeSearch.showDesktopMenu">Cambiar Menu</span></h2> 
         
         <!-- Desktop Search -->
-        <form class="main-search-form desktop-search hidden-on-mobile">
+        <form class="main-search-form desktop-search" ng-show="homeSearch.showDesktopMenu">
           
           <!-- Type -->
           <div class="property-type-dropdown-container" tabindex="-1" ng-blur="homeSearch.isPropertyOperationOpen = false;">
@@ -35,7 +35,7 @@
         <!-- Desktop Search -->
 
         <!-- Mobile Search -->
-        <form class="main-search-form hidden-on-desktop">
+        <form class="main-search-form" ng-show="!homeSearch.showDesktopMenu">
           
           <!-- Type -->
           <div class="search-type">

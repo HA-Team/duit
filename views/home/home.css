@@ -498,6 +498,11 @@ a.property-type + ul li:hover {
 	padding: 0;
 }
 
+.toggle-menu {
+	cursor: pointer;
+	font-size: 12px;
+}
+
 @media (max-width: 767px) {
 	.main-search-form button {
 		margin: 0px !important;
