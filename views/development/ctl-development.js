@@ -169,6 +169,21 @@ app.controller('developmentController', ['$rootScope', '$scope', 'tokkoApi', '$s
     }
   };
 
+  development.toggleDescriptionDetailDesktop = () => {
+    const showMore = document.querySelector(".show-more-dev");
+    const preElement = showMore.querySelector("pre");
+    const maxHeight = `${preElement.offsetHeight + preElement.offsetTop}px`;
+
+    if (showMore.classList.contains("visible")) {
+      showMore.classList.remove("visible");
+      showMore.style.maxHeight = '';
+    }
+    else {
+      showMore.classList.add("visible");
+      showMore.style.maxHeight = maxHeight;
+    }
+  };
+
   development.toggleContactModal = () => development.isContactModalOpen = !development.isContactModalOpen;
 
   // #endregion

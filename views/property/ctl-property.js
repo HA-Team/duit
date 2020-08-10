@@ -200,7 +200,7 @@ app.controller('propertyController', ['$rootScope', '$scope', 'tokkoApi', '$stat
 
   // #region Scoped Methods
 
-  property.toggletoggleDescriptionDetailDesktop = () => {
+  property.toggleDescriptionDetailDesktop = () => {
     const showMore = document.querySelector(".show-more");
     const preElement = showMore.querySelector("pre");
     const maxHeight = `${preElement.offsetHeight + preElement.offsetTop}px`;
