@@ -55,26 +55,28 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
         $scope.$apply();
       });
     }
+
     tokkoApi.find('property/search', args, function(result){
       result.forEach((p) => {
-        propsListing.results.push({
-          id: p.id,
-          title: p.publication_title,
-          address: p.address,
-          agent: p.branch ? p.branch.name : '',
-          area: p.type.id === 1 ? p.surface : p.roofed_surface,
-          type: p.operations[0].operation_type,
-          currency: p.operations[p.operations.length-1].prices.slice(-1)[0].currency === 'ARS' ? '$' : p.operations[p.operations.length-1].prices.slice(-1)[0].currency,
-          price: p.operations[p.operations.length-1].prices.slice(-1)[0].price,
-          rooms: p.suite_amount ? p.suite_amount : 0,
-          baths: p.bathroom_amount ? p.bathroom_amount : 0,
-          parkings: p.parking_lot_amount ? p.parking_lot_amount : 0,
-          cover_photo: p.photos.length > 0 ? p.photos[0].thumb : '/images/no-image.png',
-          photos: p.photos.length > 0 ? p.photos : [{image: '/images/no-image.png'}],
-          location: p.location,
-          full_prop: p,
-        });
+        const isDevAlreadyInResults = propsListing.results.some(prop => prop.development?.id == p.development?.id);
+
+        if (p.development && isDevAlreadyInResults) {
+          const isTypeAlreadyInResults = propsListing.results.some(prop => prop.development?.id == p.development?.id && prop.full_prop.type.id == p.type.id);
+
+          if (!isTypeAlreadyInResults) pushPropertyToResults(p);
+          else {
+            const existingProp = propsListing.results.filter(prop => prop.development?.id == p.development?.id && prop.full_prop.type.id == p.type.id)[0];
+            const newPropPrice = p.operations[p.operations.length - 1].prices.slice(-1)[0].price;
+
+            if (newPropPrice < existingProp.price) existingProp.price = newPropPrice;
+            existingProp.numberOfPropsForDevelopment ++;
+          }
+
+          $scope.$apply();
+        }
+        else pushPropertyToResults(p);
       });
+
       propsListing.results.length > 0 ? propsListing.ifResults = true : propsListing.ifResults = false;
       propsListing.apiReady = true;
       propsListing.stopInfiniteScroll = false;
@@ -85,6 +87,28 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
       propsListing.updateChosen();
     });
   };
+
+  const pushPropertyToResults = (prop) => {
+    propsListing.results.push({
+      id: prop.id,
+      title: prop.publication_title,
+      address: prop.address,
+      agent: prop.branch ? prop.branch.name : '',
+      area: prop.type.id === 1 ? prop.surface : prop.roofed_surface,
+      type: prop.operations[0].operation_type,
+      currency: prop.operations[prop.operations.length-1].prices.slice(-1)[0].currency === 'ARS' ? '$' : prop.operations[prop.operations.length-1].prices.slice(-1)[0].currency,
+      price: prop.operations[prop.operations.length-1].prices.slice(-1)[0].price,
+      rooms: prop.suite_amount ? prop.suite_amount : 0,
+      baths: prop.bathroom_amount ? prop.bathroom_amount : 0,
+      parkings: prop.parking_lot_amount ? prop.parking_lot_amount : 0,
+      cover_photo: prop.photos.length > 0 ? prop.photos[0].thumb : '/images/no-image.png',
+      photos: prop.photos.length > 0 ? prop.photos : [{image: '/images/no-image.png'}],
+      location: prop.location,
+      development: prop.development,
+      numberOfPropsForDevelopment: 1,
+      full_prop: prop,
+    });
+  }
 
   // #endregion
 
@@ -159,7 +183,8 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
   };
 
   propsListing.loadMoreProps = () => {
-    const areAllPropsDisplayed = !propsListing.sideBarParams || !propsListing.sideBarParams.operations ? true : propsListing.sideBarParams.operations.reduce((a, b) => a + b.count, 0) == propsListing.results.length;
+    const numberOfPropsInResults = propsListing.results.reduce((a, b) => a + b.numberOfPropsForDevelopment, 0);
+    const areAllPropsDisplayed = !propsListing.sideBarParams || !propsListing.sideBarParams.operations ? true : propsListing.resultsCount == numberOfPropsInResults;
     
     args.offset += 20;
     propsListing.stopInfiniteScroll = true;
@@ -202,6 +227,8 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
     propsListing.rooms = [];    
     propsListing.find();
   };
+
+  propsListing.doesPropertyHasEnvironments = (p) => p.full_prop.type.id != 10 && p.full_prop.type.id != 1;
 
   // #endregion
 

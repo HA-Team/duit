@@ -366,24 +366,44 @@
         <!-- Listing Item -->
         <div class="" ng-repeat="p in propsListing.results">
 
-          <div class="mobile-list-card-container">
+          <!-- Not Development Properties -->
+          <div class="mobile-list-card-container" ng-if="!p.development">
             <a href="/#!/property/{{p.id}}">
               <img class="mobile-list-card-img" src="{{p.photos[0].image}}" alt="" >
             </a>
+
             <div class="mobile-list-card-details d-flex flex-column">              
-              <a href="/#!/property/{{p.id}}">
-                <p>{{p.title}} - {{p.address}}</p>
-              </a>
-              <span class="listing-price" ng-show="p.full_prop.web_price">{{ p.price | currency:p.currency:0}}</span>
+              <a href="/#!/property/{{p.id}}"><p>{{p.title}} - {{p.address}}</p></a>
+
+              <span class="listing-price" ng-show="p.full_prop.web_price">{{p.price | currency:p.currency:0}}</span>
+              
               <div class="mobile-card-icon-listing">
-                <p>{{p.area | number : 0}} m<sup>2</sup> -</p>
-                <i class="fa fa-bed"></i><p>&nbsp{{p.rooms}}</p>
-                <i class="fa fa-bath"></i><p>&nbsp{{p.baths}}</p>
-                <i class="fa fa-car"></i><p>&nbsp{{p.parkings}}</p>
-              </div>              
+                <p>{{p.area | number : 0}} m<sup>2</sup> {{propsListing.doesPropertyHasEnvironments(p) ? '-' : ''}}</p>
+                <div ng-if="propsListing.doesPropertyHasEnvironments(p)" class="d-flex">
+                  <i class="fa fa-bed"></i><p>&nbsp{{p.rooms}}</p>
+                  <i class="fa fa-bath"></i><p>&nbsp{{p.baths}}</p>
+                  <i class="fa fa-car"></i><p>&nbsp{{p.parkings}}</p>
+                </div>
+              </div>
             </div>    
-            <!-- <i class="fa fa-heart-o"></i> To be implemented -->
-          </div>          
+          </div>
+          <!-- Not Development Properties End -->
+          
+          <!-- Development Properties -->
+          <div ng-if="p.development" class="mobile-list-card-container" ng-if="!p.development">
+            <a href="/#!/development/{{p.development.id}}">
+              <img class="mobile-list-card-img" src="{{p.photos[0].image}}" alt="" >
+            </a>
+
+            <div class="mobile-list-card-details d-flex flex-column">              
+              <a href="/#!/development/{{p.development.id}}"><p>{{p.development.name}} - {{p.development.address}}</p></a>
+
+              <p>{{propsListing.pluralize(p.full_prop.type.name)}} desde:</p>
+              <span class="listing-price" ng-show="p.full_prop.web_price">{{p.price | currency:p.currency:0}}</span>            
+            </div>    
+          </div>  
+          <!-- Development Properties End -->
+
           <hr>
         </div>
         <!-- Listing Item / End -->
