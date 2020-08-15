@@ -1,6 +1,18 @@
 <section class="responsive-table">
 
-    <h3>{{title}}</h3>
+    <div class="responsive-table-header">
+        <h3>{{title}}</h3>
+
+        <!-- Columns Pagination -->
+        <div class="responsive-table-page-counter" ng-show="columnsPages > 1">
+            <i class="fa fa-angle-left" ng-class="{'hide-me': currentIndex == 1}"></i>
+            <div class="responsive-table-page-counter-dots">
+                <div ng-repeat="page in totalColumnsPages track by $index" ng-class="{'active': $index + 1 == currentIndex}"></div>
+            </div>
+            <i class="fa fa-angle-right" ng-class="{'hide-me': columnsPages == currentIndex}"></i>
+        </div>
+        <!-- Columns Pagination End -->
+    </div>
 
     <!-- Table -->
     <div class="responsive-table-container">
@@ -16,11 +28,14 @@
                 </div>
 
                 <!-- Table Body -->
-                <div class="responsive-table-body-item" ng-repeat="item in items" ng-click="setActiveDetail(item);">
-                    <p ng-if="col.data == 'price'">{{(item.price | currency:item.currency:0)}}</p>
-                    <p ng-if="col.data == 'area'">{{(item.area | number:0)}}m<sup>2</sup></p>
-                    <p ng-if="col.data != 'price' && col.data != 'area'">{{item[col.data]}}</p>
+                <div class="table-body-vertical-slider">
+                    <div class="responsive-table-body-item" ng-repeat="item in items" ng-click="setActiveDetail(item);">
+                        <p ng-if="col.data == 'price'">{{(item.price | currency:item.currency:0)}}</p>
+                        <p ng-if="col.data == 'area'">{{(item.area | number:0)}}m<sup>2</sup></p>
+                        <p ng-if="col.data != 'price' && col.data != 'area'">{{item[col.data]}}</p>
+                    </div>
                 </div>
+
             </div>
         </div>
         <!-- Fixed Columns End -->
@@ -36,10 +51,12 @@
                 </div>
 
                 <!-- Table Body -->
-                <div class="responsive-table-body-item" ng-repeat="item in items" ng-click="setActiveDetail(item);">
-                    <p ng-if="col.data == 'price'">{{(item.price | currency:item.currency:0)}}</p>
-                    <p ng-if="col.data == 'area'">{{(item.area | number:0)}}m<sup>2</sup></p>
-                    <p ng-if="col.data != 'price' && col.data != 'area'">{{item[col.data]}}</p>
+                <div class="table-body-vertical-slider">
+                    <div class="responsive-table-body-item" ng-repeat="item in items" ng-click="setActiveDetail(item);">
+                        <p ng-if="col.data == 'price'">{{(item.price | currency:item.currency:0)}}</p>
+                        <p ng-if="col.data == 'area'">{{(item.area | number:0)}}m<sup>2</sup></p>
+                        <p ng-if="col.data != 'price' && col.data != 'area'">{{item[col.data]}}</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -48,13 +65,15 @@
     </div>
     <!-- Table End -->
 
-    <div class="responsive-table-page-counter" ng-show="pages > 1">
-        <i class="fa fa-angle-left" ng-class="{'hide-me': currentIndex == 1}"></i>
-        <div class="responsive-table-page-counter-dots">
-            <i ng-repeat="page in totalPages track by $index" class="fa fa-dot-circle" ng-class="{'active': $index + 1 == currentIndex}"></i>
+    <!-- Items Pagination -->
+    <div class="table-items-counter-container" ng-if="items.length > numberOfItemsToShow">
+        <i class="fa fa-angle-up" ng-click="moveItemsSlider('up')" ng-class="{'hide-me': currentItemPage == 1}"></i>
+        <div class="items-counter-number-slider">
+            <p ng-repeat="page in totalItemPages track by $index">{{$index + 1}}</p>
         </div>
-        <i class="fa fa-angle-right" ng-class="{'hide-me': pages == currentIndex}"></i>
+        <i class="fa fa-angle-down" ng-click="moveItemsSlider('down')" ng-class="{'hide-me': currentItemPage == itemPages}"></i></i>
     </div>
+    <!-- Items Pagination End -->
     
     <!-- Property Detail Modal -->
     <div class="responsive-table-detail-modal" ng-class="{ 'open': isDetailOpen }">

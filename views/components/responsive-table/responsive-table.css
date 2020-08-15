@@ -7,6 +7,24 @@
 	color: grey;
 }
 
+.responsive-table-header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+    padding: 15px 5px;
+}
+
+.table-body-vertical-slider {
+	overflow-y: hidden;
+	height: 300px;
+	scroll-behavior: smooth;
+}
+
+.responsive-table-header h3 {
+	font-size: 18px !important;
+}
+
 .responsive-table-container {
 	display: flex;
 }
@@ -73,21 +91,19 @@
 }
 
 .responsive-table-page-counter {
-	width: 60%;
-	margin: auto;
+	min-width: 40%;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
-	margin-top: 10px;
+	justify-content: space-evenly;
 }
 
 .responsive-table-page-counter > i {
-	font-size: 30px;
+	font-size: 22px;
 	cursor: pointer;
 	pointer-events: all;
 }
 
-.responsive-table-page-counter > i.hide-me {
+.responsive-table i.hide-me {
     visibility: hidden;
 	pointer-events: none;
 }
@@ -98,12 +114,16 @@
 	justify-content: center;
 }
 
-.responsive-table-page-counter-dots i {
+.responsive-table-page-counter-dots > * {
+	background-color: lightgray;
 	margin: 0 5px;
+	width: 12px;
+    height: 12px;
+    border-radius: 50%;
 }
 
-.responsive-table-page-counter-dots i.active {
-	color: var(--soft-red);
+.responsive-table-page-counter-dots > *.active {
+	background-color: var(--soft-red);
 }
 
 .responsive-table-header-item i {
@@ -196,4 +216,58 @@
 
 .responsive-table-detail-modal div:last-child hr {
     display: none;
+}
+
+.table-items-counter-container {
+	width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 15px auto;
+	font-size: 20px;
+	height: 25px;
+}
+
+.table-items-counter-container i {
+	cursor: pointer;
+    font-size: 22px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.table-items-counter-container > * {
+	padding: 0 10px;
+}
+
+.items-counter-number-slider {
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: hidden;
+    height: 30px;
+    scroll-behavior: smooth;
+    width: 30px;
+	text-align: center;
+	margin: 0 10px;
+}
+
+.items-counter-number-slider p {
+	line-height: 28px;
+	border-bottom: 1px solid lightgray;
+	border-top: 1px solid lightgray;
+	width: 30px;
+}
+
+.items-counter-number-slider p:first-child {
+	line-height: 29px;
+	border-top: none;
+}
+
+.items-counter-number-slider p:last-child {
+	line-height: 29px;
+	border-bottom: none;
 }

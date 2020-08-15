@@ -12,6 +12,8 @@ app.directive('responsiveTable', function() {
 
             $scope.isDetailOpen = false;
             $scope.currentIndex = 1; 
+            $scope.numberOfItemsToShow = 6;
+            $scope.currentItemPage = 1;
 
             // #endregion
 
@@ -26,43 +28,59 @@ app.directive('responsiveTable', function() {
 
             // #endregion
 
+            // #region On Init
+
+            setTimeout(() => {
+                setColumnPagination(tableSlider, tableFixed);
+                setItemsPagination($scope.items);
+            }, 0);
+
+            // #endregion
+
             // #region Private Methods
 
             const moveSlider = (side) => {
                 let pxToMove;
                 if (side == 'right') pxToMove = pagingSteps[$scope.currentIndex];
-                else pxToMove = $scope.currentIndex == 1 ? pagingSteps[$scope.pages - 1] : pagingSteps[$scope.currentIndex - 2];
+                else pxToMove = $scope.currentIndex == 1 ? pagingSteps[$scope.columnsPages - 1] : pagingSteps[$scope.currentIndex - 2];
 
-                $scope.currentIndex = sliderMoves.moveSliderByScrollLeft(tableSlider, $scope.currentIndex, $scope.pages, side, pxToMove);
+                $scope.currentIndex = sliderMoves.moveSliderByScrollLeft(tableSlider, $scope.currentIndex, $scope.columnsPages, side, pxToMove);
                 $scope.$apply();
             }
 
-            const setPaging = (slider, fixed) => {
+            const setColumnPagination = (slider, fixed) => {
                 const spareWidth = window.innerWidth - setedMarginsWidth - fixed.offsetWidth;
                 const columns = [...slider.querySelectorAll('.responsive-table-column')];
 
-                $scope.pages = 1;
+                $scope.columnsPages = 1;
 
                 let widthSum = 0;
 
                 columns.forEach(col => {
                     if (widthSum + col.offsetWidth <= spareWidth) widthSum += col.offsetWidth;
                     else {
-                        if ($scope.pages == 1) {
+                        if ($scope.columnsPages == 1) {
                             pagingSteps.push(widthSum);
                             widthSum = col.offsetWidth;
-                            $scope.pages ++;
+                            $scope.columnsPages ++;
                         } else {
-                            pagingSteps.push(widthSum + pagingSteps[$scope.pages - 1]);
+                            pagingSteps.push(widthSum + pagingSteps[$scope.columnsPages - 1]);
                             widthSum = col.offsetWidth;
-                            $scope.pages ++;
+                            $scope.columnsPages ++;
                         }
                     }
                 });
 
-                $scope.totalPages = [...Array(parseInt($scope.pages)).keys()];
+                $scope.totalColumnsPages = [...Array(parseInt($scope.columnsPages)).keys()];
                 $scope.$apply();
             };
+
+            const setItemsPagination = (items) => {
+                $scope.itemPages = Math.round(items.length / $scope.numberOfItemsToShow);
+                $scope.totalItemPages = [...Array(parseInt($scope.itemPages)).keys()];
+
+                $scope.$apply();
+            }
 
             // #endregion
 
@@ -92,11 +110,26 @@ app.directive('responsiveTable', function() {
                 else navigation.goToSection('property', '', null, { propertyId: item.id });
             };
 
+            $scope.moveItemsSlider = (direction) => {
+                const bodySliders = [...document.querySelectorAll('.table-body-vertical-slider')];
+                const itemsPageCounter = document.querySelector('.items-counter-number-slider');
+
+                if (direction == 'up' && $scope.currentItemPage > 1) {
+                    bodySliders.forEach(slider => slider.scrollTop -= 300);
+                    itemsPageCounter.scrollTop -= 30;
+                    $scope.currentItemPage--;
+                }
+
+                if (direction == 'down' && $scope.currentItemPage < $scope.itemPages) {
+                    bodySliders.forEach(slider => slider.scrollTop += 300);
+                    itemsPageCounter.scrollTop += 30;
+                    $scope.currentItemPage++;
+                }
+            }
+
             // #endregion
 
             // #region Events
-
-            setTimeout(() => setPaging(tableSlider, tableFixed), 0);
 
             utils.sides.forEach(side => {
                 const sliderArrow = $element.find(`.responsive-table-page-counter .fa-angle-${side.side}`)[0];
@@ -108,6 +141,8 @@ app.directive('responsiveTable', function() {
                     moveSlider(side.oposite);
                 }, {capture: true});
             });
+
+
 
             // #endregion
         }]            
