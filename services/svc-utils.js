@@ -24,6 +24,16 @@ app.service('utils', function () {
 			if (callNow) func.apply(context, args);
 		};
 	};
+	
+	this.pluralize = (name) => ['a','e','i','o','u'].includes(name.slice(-1)) ? `${name}s` : `${name}es`;
+
+	this.pluralizeWithItem = (items, name) => {
+		if (items > 1) {
+			if (['a','e','i','o','u'].includes(name.slice(-1))) return `${name}s`;
+			else return `${name}es`;
+		}
+		else return name;
+	}
 
 	this.sides = [
 		{

@@ -1,4 +1,4 @@
-app.controller('propsListingController', ['$location', '$rootScope', '$scope', 'tokkoApi', '$stateParams', '$state', '$anchorScroll', function($location, $rootScope, $scope, tokkoApi, $stateParams, $state, $anchorScroll){
+app.controller('propsListingController', ['$location', '$rootScope', '$scope', 'tokkoApi', '$stateParams', '$state', '$anchorScroll', 'utils', function($location, $rootScope, $scope, tokkoApi, $stateParams, $state, $anchorScroll, utils){
   var propsListing = this;
   
   // #region Private Properties
@@ -215,7 +215,7 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
     else item.classList.add("active");
   };
 
-  propsListing.pluralize = (name) => ['a','e','i','o','u'].includes(name.slice(-1)) ? `${name}s` : `${name}es`;
+  propsListing.pluralize = utils.pluralize;
 
   propsListing.clearAllFilters = () => {
     propsListing.minPrice = '';
