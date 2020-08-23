@@ -79,7 +79,7 @@ app.controller('homeController', ['$rootScope', '$scope', 'navigation', 'utils',
   };
 
   function getFeatured360Props() {
-    getFeaturedProperties.getFeatured360Props(result => {     
+    getFeaturedProperties.getFeatured360Props(result => {  
       home.featured360Props = result
         .filter(prop => prop.videos.some(video => video.provider_id == 6))
         .map(prop => {
@@ -88,7 +88,14 @@ app.controller('homeController', ['$rootScope', '$scope', 'navigation', 'utils',
             coverPhoto: prop.photos[0].image,
             price: prop.operations[prop.operations.length-1].prices.slice(-1)[0].price,
             currency: prop.operations[prop.operations.length-1].prices.slice(-1)[0].currency,
-            title: prop.publication_title
+            title: prop.publication_title,
+            type: prop.type.name,
+            operationType: prop.operations[0].operation_type,
+            area: prop.surface,
+            bedrooms: prop.suite_amount ? prop.suite_amount : 0,
+            bathrooms: prop.bathroom_amount ? prop.bathroom_amount : 0,
+            video_url: `${prop.videos[0].player_url}?rel=0&enablejsapi=1`,
+            producer: prop.producer
           }
       });
 
@@ -118,18 +125,6 @@ app.controller('homeController', ['$rootScope', '$scope', 'navigation', 'utils',
   // #endregion
 
   // #region Scoped Objects
-
-  home.contactGlobeOpenIcon = {
-    iconClass: 'fab fa-whatsapp',
-      color: '#128c7e',
-      fontSize: '3rem'   
-  };
-
-  home.contactGlobeCloseIcon = {
-    iconClass: 'fa fa-times',
-    color: 'var(--soft-grey)',
-    fontSize: '3rem' 
-  };
 
   home.contactGlobeActions = [
     {

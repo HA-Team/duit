@@ -579,4 +579,8 @@ a.property-type + ul li:hover {
 	#home-contact form > div:nth-child(5) {
 		flex: 1 1 100%;
 	}
+
+	#home-featured {
+		height: 400px;
+	}
 }
