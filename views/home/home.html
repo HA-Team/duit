@@ -8,34 +8,10 @@
 
       <!-- Main Search Container -->
       <div class="main-search-container">
-        <h2>Encontrá el <strong>lugar</strong>, construí tu <strong>historia</strong>. <span class="toggle-menu" ng-click="homeSearch.showDesktopMenu = !homeSearch.showDesktopMenu">Cambiar Menu</span></h2> 
+        <h2>Encontrá el <strong>lugar</strong>, construí tu <strong>historia</strong>.</h2> 
         
-        <!-- Desktop Search -->
-        <form class="main-search-form desktop-search" ng-show="homeSearch.showDesktopMenu">
-          
-          <!-- Type -->
-          <div class="property-type-dropdown-container" tabindex="-1" ng-blur="homeSearch.isPropertyOperationOpen = false;">
-            <a class="property-type" ng-click="homeSearch.togglePropertyOperation()" ng-class="{'open': homeSearch.isPropertyOperationOpen}">{{homeSearch.operationType == 1 ? "Venta" : "Alquiler"}} <i class="fas fa-angle-down"></i></a>                      
-            <ul class="col-md-5" ng-class="{'open': homeSearch.isPropertyOperationOpen}">
-              <li ng-click="homeSearch.updateOperationChosen(homeSearch.operationType)">{{homeSearch.operationType == 1 ? "Alquiler" : "Venta"}}</li>                        
-            </ul>
-          </div>
-
-          <!-- Property Type -->
-          <div class="property-type-dropdown-container" ng-class="{' warning': homeSearch.isPropertyPlaceholderWarningActive}" tabindex="-1" ng-blur="homeSearch.isPropertyTypeOpen = false;">
-            <a class="property-type" ng-click="homeSearch.togglePropertyTypeDropdown()" ng-class="{' open': homeSearch.isPropertyTypeOpen}">{{homeSearch.propertyType.name}} <i class="fas fa-angle-down"></i></a>                      
-            <ul class="col-md-5" ng-class="{' open': homeSearch.isPropertyTypeOpen}">
-              <li ng-repeat="type in homeSearch.propertiesTypes track by type.id" ng-click="homeSearch.updateTypeChosen(type)" ng-show="!type.showOnlyInOperationType || type.showOnlyInOperationType == homeSearch.operationType">{{type.name}}</li>                        
-            </ul>
-          </div>
-          
-          <button class="button" ng-click="homeSearch.findProperties()"><i class="fas fa-search"></i></button>
-
-        </form>
-        <!-- Desktop Search -->
-
         <!-- Mobile Search -->
-        <form class="main-search-form" ng-show="!homeSearch.showDesktopMenu">
+        <form class="main-search-form">
           
           <!-- Type -->
           <div class="search-type">

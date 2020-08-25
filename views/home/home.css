@@ -5,11 +5,6 @@
 	outline: none !important;
 }
 
-.desktop-search .property-type-dropdown-container {
-	border-radius: 0;
-	width: 250px;
-}
-
 .property-type-dropdown-container.warning {
 	box-shadow: 0px 0px 4px 4px var(--primary-red);
 	border-radius: 10px;
@@ -34,11 +29,6 @@ a.property-type {
 	margin-bottom: 18px;
 	z-index: 100;
 	border-radius: 10px;
-}
-
-.desktop-search a.property-type {
-	height: 50px;
-	border-radius: 1px;
 }
 
 a.property-type.open {
@@ -72,12 +62,6 @@ a.property-type + ul {
 	box-shadow: 0px 6px 5px -4px grey;
 }
 
-.desktop-search a.property-type + ul {
-	border-bottom-left-radius: 0;
-	border-bottom-right-radius: 0;
-	box-shadow: none;
-}
-
 a.property-type + ul.open {
 	top: inherit;
 	height: fit-content;
@@ -92,10 +76,6 @@ a.property-type + ul li {
 	transition: all 0.2s ease-in-out;
 	cursor: pointer;
 	border-bottom: 1px solid #e0e0e0;
-}
-
-.desktop-search a.property-type + ul li {
-	line-height: 27px;
 }
 
 a.property-type + ul li:last-child {
@@ -189,14 +169,6 @@ a.property-type + ul li:hover {
 	border-radius: 10px;
 }
 
-.main-search-container .desktop-search button {
-	border-radius: 0;
-	margin: 0;
-	width: 80px;
-	min-width: 0;
-	font-size: 30px;
-}
-
 .main-search-form button .fa-search {
 	padding-left: 5px;
 }
@@ -214,10 +186,6 @@ a.property-type + ul li:hover {
 .main-search-form > * {
 	height: 35px;
 	max-width: 250px;
-}
-
-.desktop-search > * {
-	height: 50px;
 }
 
 .main-search-form .search-type > * {
@@ -496,17 +464,6 @@ a.property-type + ul li:hover {
 #home-contact-cards .home-contact-card-text p {
 	margin: 0;
 	padding: 0;
-}
-
-.toggle-menu {
-	cursor: pointer;
-	font-size: 12px;
-}
-
-.main-search-form.desktop-search {
-	width: fit-content;
-    margin: 25px auto;
-	box-shadow: 0px 0px 0px 6px rgba(0, 0, 0, 0.3);
 }
 
 @media (max-width: 767px) {

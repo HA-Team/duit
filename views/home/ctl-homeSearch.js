@@ -6,7 +6,6 @@ app.controller('homeSearchController', ['$rootScope', '$scope', '$state', 'navig
   $rootScope.activeMenu = 'home';
 
   homeSearch.operationType = [2];
-  homeSearch.isPropertyOperationOpen = false;
   homeSearch.isPropertyTypeOpen = false;
   homeSearch.wasFindPropertiesButtonClicked = false;
   homeSearch.isPropertyPlaceholderWarningActive = false;
@@ -42,13 +41,6 @@ app.controller('homeSearchController', ['$rootScope', '$scope', '$state', 'navig
   };
 
   homeSearch.togglePropertyTypeDropdown = () => homeSearch.isPropertyTypeOpen = !homeSearch.isPropertyTypeOpen;
-
-  homeSearch.togglePropertyOperation = () => homeSearch.isPropertyOperationOpen = !homeSearch.isPropertyOperationOpen;
-
-  homeSearch.updateOperationChosen = (type) =>  {
-    homeSearch.operationType = type == 1 ? [2] : [1];
-    homeSearch.isPropertyOperationOpen = false;
-  }
 
   homeSearch.findProperties = () => {
     homeSearch.wasFindPropertiesButtonClicked = true;
