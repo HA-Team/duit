@@ -1,4 +1,4 @@
-app.controller('developmentController', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 'getFeaturedProperties', function ($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties) {
+app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'tokkoApi', '$stateParams', 'getFeaturedProperties', function ($rootScope, $scope, $timeout, tokkoApi, $stateParams, getFeaturedProperties) {
   var development = this;
   
   // #region Scoped Properties
@@ -65,9 +65,7 @@ app.controller('developmentController', ['$rootScope', '$scope', 'tokkoApi', '$s
 		uiFunctions.buildSlickCarousel();
     uiFunctions.buildMagnificPopup();      
 
-		setTimeout(() => {
-			google.maps.event.trigger(map, 'resize');
-    }, 0);
+		$timeout(() => google.maps.event.trigger(map, 'resize'));
     
     const querySubject = `Consulta por propiedad %23${development.d.id}:${development.d.publication_title}`.replace(/\s/g, '%20');    
 

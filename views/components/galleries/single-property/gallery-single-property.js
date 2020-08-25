@@ -9,7 +9,7 @@ app.directive('gallerySingleProperty', function() {
             hasDuit360: '='
         },
         templateUrl: '/views/components/galleries/single-property/gallery-single-property.html',
-        controller: ['$scope', 'sliderMoves', '$element', 'utils', function ($scope, sliderMoves, $element, utils) {  
+        controller: ['$scope', 'sliderMoves', '$element', '$timeout', 'utils', function ($scope, sliderMoves, $element, $timeout, utils) {  
             // #region Scoped Properties
 
             $scope.item.videos = $scope.item.videos ? $scope.item.videos.filter(video => video.provider_id != 6) : null;
@@ -60,10 +60,10 @@ app.directive('gallerySingleProperty', function() {
                     }
 
                     gallerySlider.style.scrollBehavior = 'unset';    
-                    setTimeout(() => {
+                    $timeout(() => {
                         gallerySlider.scrollLeft = gallerySlider.querySelector("img").offsetWidth * ($scope.currentIndex - 1);
                         gallerySlider.style.scrollBehavior = 'smooth';
-                    }, 0);
+                    });
                 }        
             };
 

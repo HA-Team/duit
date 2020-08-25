@@ -1,4 +1,4 @@
-app.controller('homeSearchController', ['$rootScope', '$scope', '$state', 'navigation', 'sharedData', function($rootScope, $scope, $state, navigation, sharedData) {
+app.controller('homeSearchController', ['$rootScope', '$scope', '$state', '$timeout', 'navigation', 'sharedData', function($rootScope, $scope, $state, $timeout, navigation, sharedData) {
   var homeSearch = this;
   
   // #region Scoped Properties
@@ -14,12 +14,12 @@ app.controller('homeSearchController', ['$rootScope', '$scope', '$state', 'navig
 
   // #region On Init
 
-  setTimeout(function(){
+  $timeout(function(){
     uiFunctions.buildParallax();
     uiFunctions.buildChosen();
     uiFunctions.buildSearchTypeButtons();
     uiFunctions.buildBackToTop();
-  }, 0);
+  });
 
   // #endregion
 
@@ -47,10 +47,7 @@ app.controller('homeSearchController', ['$rootScope', '$scope', '$state', 'navig
     if (homeSearch.propertyType.id == -1) {
       homeSearch.isPropertyPlaceholderWarningActive = true;
 
-      setTimeout(() => {
-        homeSearch.isPropertyPlaceholderWarningActive = false;
-        $scope.$apply();
-      }, 2000);
+      $timeout(() => homeSearch.isPropertyPlaceholderWarningActive = false, 2000);
     }
     else {
       if (homeSearch.propertyType.goTo) navigation.goToSection(homeSearch.propertyType.goTo.page, homeSearch.propertyType.goTo.section);

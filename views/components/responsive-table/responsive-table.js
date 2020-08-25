@@ -7,7 +7,7 @@ app.directive('responsiveTable', function() {
             title: '=',
         },
         templateUrl: '/views/components/responsive-table/responsive-table.html',
-        controller: ['$scope', '$element', 'sliderMoves', 'utils', 'navigation', function ($scope, $element, sliderMoves, utils, navigation) {
+        controller: ['$scope', '$element', '$timeout', 'sliderMoves', 'utils', 'navigation', function ($scope, $element, $timeout, sliderMoves, utils, navigation) {
             // #region Scoped Properties
 
             $scope.isDetailOpen = false;
@@ -30,10 +30,10 @@ app.directive('responsiveTable', function() {
 
             // #region On Init
 
-            setTimeout(() => {
+            $timeout(() => {
                 setColumnPagination(tableSlider, tableFixed);
                 setItemsPagination($scope.items);
-            }, 0);
+            });
 
             // #endregion
 

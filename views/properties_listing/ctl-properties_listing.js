@@ -1,4 +1,4 @@
-app.controller('propsListingController', ['$location', '$rootScope', '$scope', 'tokkoApi', '$stateParams', '$state', '$anchorScroll', 'utils', 'sharedData', function($location, $rootScope, $scope, tokkoApi, $stateParams, $state, $anchorScroll, utils, sharedData){
+app.controller('propsListingController', ['$location', '$rootScope', '$scope', '$timeout', 'tokkoApi', '$stateParams', '$state', '$anchorScroll', 'utils', 'sharedData', function($location, $rootScope, $scope, $timeout, tokkoApi, $stateParams, $state, $anchorScroll, utils, sharedData){
   var propsListing = this;
   
   // #region Private Properties
@@ -84,7 +84,6 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
       $scope.$apply();
       uiFunctions.buildCarousel();
       uiFunctions.gridSwitcher();
-      propsListing.updateChosen();
     });
   };
 
@@ -118,11 +117,11 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
   $anchorScroll();
   getProperties(tokkoApi, args);
 
-  setTimeout(() => {
+  $timeout(() => {
     uiFunctions.buildChosen();
     $('.chosen-select-no-single').val('price_asc');
     $('.chosen-select-no-single').trigger("chosen:updated");
-  },0);
+  });
 
   // #endregion
 
@@ -174,12 +173,6 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
       propsListing.order = {order_by: propsListing.orderBy.val.split('_')[0], order: propsListing.orderBy.val.split('_')[1]}
     }
     propsListing.find();
-  };
-
-  propsListing.updateChosen = () => {
-    setTimeout(() => {
-      $('.chosen-select-no-single').trigger("chosen:updated");
-    }, 0);
   };
 
   propsListing.loadMoreProps = () => {

@@ -1,4 +1,4 @@
-app.service('utils', function () {
+app.service('utils', ['$timeout', function ($timeout) {
 	this.getDaysDifference = (date) => {
 		const today = Date.now();
 		const newDate = new Date(date);
@@ -15,7 +15,7 @@ app.service('utils', function () {
 				args = arguments;
 			var callNow = immediate && !timeout;
 			clearTimeout(timeout);
-			timeout = setTimeout(function () {
+			timeout = $timeout(function () {
 				timeout = null;
 				if (!immediate) {
 					func.apply(context, args);
@@ -47,4 +47,4 @@ app.service('utils', function () {
 			oposite: 'left'
 		}
 	];
-});
+}]);

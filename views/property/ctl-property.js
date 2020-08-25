@@ -1,4 +1,4 @@
-app.controller('propertyController', ['$rootScope', '$scope', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', function($rootScope, $scope, tokkoApi, $stateParams, getFeaturedProperties, utils) {   
+app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', function($rootScope, $scope, $timeout, tokkoApi, $stateParams, getFeaturedProperties, utils) {   
   var property = this;
   
   // #region Scoped Properties
@@ -128,10 +128,10 @@ app.controller('propertyController', ['$rootScope', '$scope', 'tokkoApi', '$stat
     uiFunctions.buildSlickCarousel();
     uiFunctions.buildMagnificPopup();
 
-    setTimeout(() => {
+    $timeout(() => {
       google.maps.event.trigger(map, 'resize');
       google.maps.event.trigger(mobileMap, 'resize');
-    }, 0);
+    });
 
     const querySubject = `Consulta por propiedad %23${property.p.id}: ${property.p.prop.publication_title}`.replace(/\s/g, '%20');    
 

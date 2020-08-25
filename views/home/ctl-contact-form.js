@@ -1,4 +1,4 @@
-app.controller('contactFormController', ['$rootScope', '$scope', 'tokkoApi', function($rootScope, $scope, tokkoApi) {
+app.controller('contactFormController', ['$rootScope', '$scope', '$timeout', 'tokkoApi', function($rootScope, $scope, $timeout, tokkoApi) {
   var contactForm = this;
   
   // #region Scoped Properties
@@ -46,9 +46,8 @@ app.controller('contactFormController', ['$rootScope', '$scope', 'tokkoApi', fun
           contactForm.phone = '';
           contactForm.message = '';
 
-          setTimeout(function() {
+          $timeout(function() {
             contactForm.success = false;
-            $scope.$apply()
           }, 3000);
 
           $scope.$apply();
@@ -57,9 +56,8 @@ app.controller('contactFormController', ['$rootScope', '$scope', 'tokkoApi', fun
 
           $scope.$apply();
 
-          setTimeout(function() {
+          $timeout(function() {
             contactForm.error = false;
-            $scope.$apply()
           }, 3000);
         }
       });

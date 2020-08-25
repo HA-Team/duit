@@ -1,4 +1,4 @@
-app.service('navigation', ['$rootScope', '$location', '$anchorScroll', '$state', function($rootScope, $location, $anchorScroll, $state) {
+app.service('navigation', ['$rootScope', '$location', '$anchorScroll', '$timeout', '$state', function($rootScope, $location, $anchorScroll, $timeout, $state) {
     this.goToSection = (page, section, args, params) => {
         $anchorScroll.yOffset = 75;
         this.setActive(page, section); 
@@ -6,7 +6,7 @@ app.service('navigation', ['$rootScope', '$location', '$anchorScroll', '$state',
         if ($rootScope.activeMenu != $state.current.name) {        
             $state.go(page, args ? {args: JSON.stringify(args)} : params ? params : null);
 
-            setTimeout(() => {
+            $timeout(() => {
                 if ($location.hash() !== section) $location.hash(section);  
                 $anchorScroll();
             }, 100);            

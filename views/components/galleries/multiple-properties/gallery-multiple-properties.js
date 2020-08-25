@@ -6,7 +6,7 @@ app.directive('galleryMultipleProperties', function() {
             items: '=',
         },
         templateUrl: '/views/components/galleries/multiple-properties/gallery-multiple-properties.html',
-        controller: ['$scope', 'sliderMoves', '$element', 'utils', function ($scope, sliderMoves, $element, utils) {
+        controller: ['$scope', 'sliderMoves', '$element', '$timeout', 'utils', function ($scope, sliderMoves, $element, $timeout, utils) {
             // #region Scoped Properties
 
             $scope.currentIndex = 1; 
@@ -78,13 +78,13 @@ app.directive('galleryMultipleProperties', function() {
 
             var itemsWatcher = $scope.$watch('items', function(newValue, oldvalue) {
                 if (newValue) {
-                    setTimeout(() => {
+                    $timeout(() => {
                         const sliderItems = [...desktopSlider.querySelectorAll(".desktop-info-container")];
                         sliderItems.forEach((element, index) => {
                             updateProducersContacts(element, index);
                         });
                         itemsWatcher();
-                    },0);
+                    });
                 }
             });
 
