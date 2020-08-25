@@ -99,6 +99,8 @@ app.controller('homeController', ['$rootScope', '$scope', 'navigation', 'utils',
           }
       });
 
+      home.featured360Props = _.shuffle(home.featured360Props);
+
       home.featured360PropsReady = true;
       $scope.$apply();
     });
