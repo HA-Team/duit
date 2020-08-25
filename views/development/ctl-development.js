@@ -101,8 +101,9 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
         }
       });
 
-      development.featuredPropsReady = true;
+      development.featuredProps = _.shuffle(development.featuredProps);
 
+      development.featuredPropsReady = true;
       $scope.$apply();
       uiFunctions.buildCarousel();
     });

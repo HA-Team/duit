@@ -192,6 +192,8 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
         }
       });
 
+      property.similarProps = _.shuffle(property.similarProps);
+
       property.similarReady = true;
       $scope.$apply();
     });
