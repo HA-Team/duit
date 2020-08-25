@@ -1,4 +1,4 @@
-app.controller('homeController', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeaturedProperties', function($rootScope, $scope, navigation, utils, getFeaturedProperties) {
+app.controller('homeController', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeaturedProperties', 'sharedData', function($rootScope, $scope, navigation, utils, getFeaturedProperties, sharedData) {
   var home = this;
   
   // #region Scoped Properties
@@ -7,7 +7,7 @@ app.controller('homeController', ['$rootScope', '$scope', 'navigation', 'utils',
   home.featured360PropsReady = false;
   home.isContactGlobeOpen = false;
   home.contactGlobeTitle = "Te asesoramos!";
-  home.agents = agents;
+  home.agents = sharedData.agents;
   
   // #endregion
 

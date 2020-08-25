@@ -1,4 +1,4 @@
-app.controller('homeSearchController', ['$rootScope', '$scope', '$state', 'navigation', function($rootScope, $scope, $state, navigation) {
+app.controller('homeSearchController', ['$rootScope', '$scope', '$state', 'navigation', 'sharedData', function($rootScope, $scope, $state, navigation, sharedData) {
   var homeSearch = this;
   
   // #region Scoped Properties
@@ -9,8 +9,7 @@ app.controller('homeSearchController', ['$rootScope', '$scope', '$state', 'navig
   homeSearch.isPropertyTypeOpen = false;
   homeSearch.wasFindPropertiesButtonClicked = false;
   homeSearch.isPropertyPlaceholderWarningActive = false;
-  homeSearch.propertiesTypes = propertiesTypes;
-
+  homeSearch.propertiesTypes = sharedData.propertiesTypes;
   // #endregion
 
   // #region On Init
@@ -63,7 +62,7 @@ app.controller('homeSearchController', ['$rootScope', '$scope', '$state', 'navig
   };
 
   homeSearch.find = () => {
-    let data = JSON.parse(_.clone(tokkoSearchArgs.sData));
+    let data = JSON.parse(_.clone(sharedData.tokkoSearchArgs.sData));
     data.operation_types = [homeSearch.operationType[0]];
     if (homeSearch.propertyType) data.property_types = [homeSearch.propertyType.id];
     let args = {data: JSON.stringify(data), offset: 0};

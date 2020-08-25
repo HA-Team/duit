@@ -1,4 +1,4 @@
-app.controller('propsListingController', ['$location', '$rootScope', '$scope', 'tokkoApi', '$stateParams', '$state', '$anchorScroll', 'utils', function($location, $rootScope, $scope, tokkoApi, $stateParams, $state, $anchorScroll, utils){
+app.controller('propsListingController', ['$location', '$rootScope', '$scope', 'tokkoApi', '$stateParams', '$state', '$anchorScroll', 'utils', 'sharedData', function($location, $rootScope, $scope, tokkoApi, $stateParams, $state, $anchorScroll, utils, sharedData){
   var propsListing = this;
   
   // #region Private Properties
@@ -43,9 +43,9 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
           types: types.sort((a, b) => b.count - a.count),
           subTypes: (() => {
             if (propsListing.subTypeSelected && propsListing.subTypeSelected.length > 0) {
-              return [propertiesSubTypes[types[0].id].find(x => x.id === propsListing.subTypeSelected[0])]
+              return [sharedData.propertiesSubTypes[types[0].id].find(x => x.id === propsListing.subTypeSelected[0])]
             } else {
-              return types.length === 1 ? propertiesSubTypes[types[0].id] : [];
+              return types.length === 1 ? sharedData.propertiesSubTypes[types[0].id] : [];
             }
           })(),
           operations: result.objects.operation_types.sort((a, b) => b.count - a.count),
@@ -135,7 +135,7 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
   propsListing.roomAmtName = (amount) => parseInt(amount) > 0 ? (amount == 1 ? `${amount} Dormitorio` : `${amount} Dormitorios`) : "Loft ";
 
   propsListing.find = () => {
-    let data = JSON.parse(_.clone(tokkoSearchArgs.sData));    
+    let data = JSON.parse(_.clone(sharedData.tokkoSearchArgs.sData));    
     data.operation_types = propsListing.operationType;
     data.property_types = propsListing.propertyType;
     data.with_custom_tags = propsListing.subTypeSelected;

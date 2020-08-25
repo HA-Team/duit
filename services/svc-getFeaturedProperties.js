@@ -1,7 +1,7 @@
-app.service('getFeaturedProperties', ['tokkoApi', function(tokkoApi) {     
+app.service('getFeaturedProperties', ['tokkoApi', 'sharedData', function(tokkoApi, sharedData) {     
     this.getSimilarProps = (operationType, typeId, customTags, callback) => {
 
-        let data = tokkoSearchArgs.data;
+        let data = sharedData.tokkoSearchArgs.data;
 
         data.operation_types = [operationType];
         data.property_types = [typeId];
@@ -20,7 +20,7 @@ app.service('getFeaturedProperties', ['tokkoApi', function(tokkoApi) {
     };
         
     this.getFeaturedProps = (callback) => {
-        let data = JSON.parse(_.clone(tokkoSearchArgs.sData));
+        let data = JSON.parse(_.clone(sharedData.tokkoSearchArgs.sData));
         data.filters.push(["is_starred_on_web", "=", "true"]);
         let args = {data: JSON.stringify(data), order: 'desc'};
         
@@ -28,7 +28,7 @@ app.service('getFeaturedProperties', ['tokkoApi', function(tokkoApi) {
     };
 
     this.getFeatured360Props = (callback => {
-        let data = JSON.parse(_.clone(tokkoSearchArgs.sData));
+        let data = JSON.parse(_.clone(sharedData.tokkoSearchArgs.sData));
         data.filters.push(["is_starred_on_web", "=", "true"]);
         let args = {data: JSON.stringify(data), order: 'desc'};
 

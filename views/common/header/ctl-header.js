@@ -1,4 +1,4 @@
-app.controller('headerController', ['$rootScope', '$location', 'navigation', function($rootScope, $location, navigation) {
+app.controller('headerController', ['$rootScope', '$location', 'navigation', 'sharedData', function($rootScope, $location, navigation, sharedData) {
   var header = this;
   
   // #region Scoped Properties
@@ -24,7 +24,7 @@ app.controller('headerController', ['$rootScope', '$location', 'navigation', fun
   // #region Private Methods
 
   const getOperationArgs = (opType) => {
-    let data = JSON.parse(_.clone(tokkoSearchArgs.sData));      
+    let data = JSON.parse(_.clone(sharedData.tokkoSearchArgs.sData));      
     
     data.operation_types = [opType];
     data.with_custom_tags = [];
