@@ -415,6 +415,8 @@ a.property-type + ul li:hover {
 #home-search-bar {
 	margin-top: -80px;
 	height: 500px;
+	-webkit-transition: background-image 1s ease-in-out;
+	transition: background-image 1s ease-in-out;
 }
 
 #home-contact-globe .contact-globe {

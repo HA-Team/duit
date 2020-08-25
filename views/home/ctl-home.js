@@ -1,9 +1,8 @@
-app.controller('homeController', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeaturedProperties', 'sharedData', function($rootScope, $scope, navigation, utils, getFeaturedProperties, sharedData) {
+app.controller('homeController', ['$rootScope', '$scope', '$interval', '$timeout', 'navigation', 'utils', 'getFeaturedProperties', 'sharedData', function($rootScope, $scope, $interval, $timeout, navigation, utils, getFeaturedProperties, sharedData) {
   var home = this;
   
   // #region Scoped Properties
 
-  home.featuredPropsReady = false;
   home.featured360PropsReady = false;
   home.isContactGlobeOpen = false;
   home.contactGlobeTitle = "Te asesoramos!";
@@ -12,19 +11,27 @@ app.controller('homeController', ['$rootScope', '$scope', 'navigation', 'utils',
   // #endregion
 
   // #region Private Properties
+  const parallaxElement = document.getElementById('home-search-bar');
 
   const duitWhatsapp = '5493512463530';
   const duitPhone = '+5493512463530';
 
   var debouncedOnScroll = utils.debounce(onScroll, 50);
+  var backgroundImageIndex = 0;
 
   // #endregion
 
   // #region On Init
 
-  setTimeout(() => $rootScope.activeMenu = 'home', 100);
+  $timeout(() => $rootScope.activeMenu = 'home', 100);
+   
+  var changeBackgroundImageInterval = setInterval(() => {
+    if (home.featured360Props) {
+      parallaxElement.style.backgroundImage = `url(${home.featured360Props[backgroundImageIndex].coverPhoto})`;
+      backgroundImageIndex = backgroundImageIndex == home.featured360Props.length - 1 ? 0 : backgroundImageIndex + 1;
+    }
+  }, 6000);
 
-  getFeaturedProps();  
   getFeatured360Props();
 
   home.agents.forEach(agent => agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351')); 
@@ -50,32 +57,6 @@ app.controller('homeController', ['$rootScope', '$scope', 'navigation', 'utils',
     }    
   
     $scope.$apply();
-  };
-
-  function getFeaturedProps() {
-    getFeaturedProperties.getFeaturedProps(result => {
-      home.featured = result.map(prop => {
-        return {
-          id: prop.id,
-          title: prop.publication_title,
-          area: prop.type.id === 1 ? prop.surface : prop.roofed_surface,
-          type: prop.operations[0].operation_type,
-          currency: prop.operations[prop.operations.length-1].prices.slice(-1)[0].currency,
-          price: prop.operations[prop.operations.length-1].prices.slice(-1)[0].price,
-          rooms: prop.suite_amount,
-          baths: prop.bathroom_amount,
-          parkings: prop.parking_lot_amount,
-          cover_photo: prop.photos[0].image,
-          prop: prop
-        }
-      });
-
-      home.featuredPropsReady = true;
-      $scope.$apply();
-
-      uiFunctions.buildCarousel();
-      $(window).trigger('resize');
-    });
   };
 
   function getFeatured360Props() {
@@ -122,7 +103,10 @@ app.controller('homeController', ['$rootScope', '$scope', 'navigation', 'utils',
 
   window.addEventListener('scroll', debouncedOnScroll);  
 
-  $scope.$on('$destroy', () => window.removeEventListener('scroll', debouncedOnScroll));
+  $scope.$on('$destroy', () => {
+    window.removeEventListener('scroll', debouncedOnScroll);
+    clearInterval(changeBackgroundImageInterval);
+  });
 
   // #endregion
 
