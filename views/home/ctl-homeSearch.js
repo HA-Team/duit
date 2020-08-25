@@ -36,7 +36,7 @@ app.controller('homeSearchController', ['$rootScope', '$scope', '$state', 'navig
 
     if (isPlaceholderOnList && isTypeSelectedPlaceholder) homeSearch.propertiesTypes.shift();
     
-    homeSearch.propertiesTypes = propertiesTypes.filter(type => type.id != newType.id);
+    homeSearch.propertiesTypes = sharedData.propertiesTypes.filter(type => type.id != newType.id);
   };
 
   homeSearch.togglePropertyTypeDropdown = () => homeSearch.isPropertyTypeOpen = !homeSearch.isPropertyTypeOpen;
