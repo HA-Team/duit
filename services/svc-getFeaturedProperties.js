@@ -27,7 +27,7 @@ app.service('getFeaturedProperties', ['tokkoApi', 'sharedData', function(tokkoAp
         tokkoApi.find('property/search', args, callback);
     };
 
-    this.getFeatured360Props = (callback => {
+    this.getFeatured360Props = (callback) => {
         let data = JSON.parse(_.clone(sharedData.tokkoSearchArgs.sData));
         data.filters.push(["is_starred_on_web", "=", "true"]);
         let args = {data: JSON.stringify(data), order: 'desc'};
