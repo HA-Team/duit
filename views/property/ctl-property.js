@@ -52,6 +52,7 @@ app.controller('propertyController', ['$rootScope', '$scope', 'tokkoApi', '$stat
     $rootScope.activeSection = property.p.operation_type == 'Venta' ? 'properties-sell' : 'properties-rent';
     
     getSimilarProps(result.operations[0].operation_type == 'Venta' ? 1 : 2, result.type.id, result.custom_tags);
+    if (result.development) getDevelopmentProps(result.development.id);
 
     property.propertyMapped = {
       photos: result.photos,
@@ -67,7 +68,7 @@ app.controller('propertyController', ['$rootScope', '$scope', 'tokkoApi', '$stat
         isVisible: parseInt(property.p.prop.total_surface) > 0
       },
       {
-        icon: "fas fa-door-open",
+        icon: "fa fa-bed",
         value: property.p.enviroments,
         name: `Dormitorio${property.p.enviroments > 1 ? 's' : ''}`,
         isVisible: property.p.enviroments > 0
@@ -196,6 +197,33 @@ app.controller('propertyController', ['$rootScope', '$scope', 'tokkoApi', '$stat
     });
   };
 
+  function getDevelopmentProps(id) {
+    getFeaturedProperties.getDevelopmentProps(id, result => {
+      property.devProps = result.map(prop => {
+        return {
+          id: prop.id,
+          type: prop.operations[0].operation_type,
+          title: prop.publication_title,
+          currency: prop.operations[prop.operations.length-1].prices.slice(-1)[0].currency,
+          price: prop.operations[prop.operations.length-1].prices.slice(-1)[0].price,
+          cover_photo: prop.photos[0].image,
+          parkings: prop.parking_lot_amount ? prop.parking_lot_amount : 0,
+          area: prop.type.id === 1 ? prop.surface : prop.roofed_surface,
+          sell: prop.operations.filter(p => prop.operation_type == "Venta")[0]?.prices.slice(-1)[0],
+          rent: prop.operations.filter(p => prop.operation_type == "Alquiler")[0]?.prices.slice(-1)[0],
+          parkings_av: prop.parking_lot_amount > 0 ? "Si" : "No",
+          suite_amount: prop.suite_amount,
+          bathroom_amount: result.bathroom_amount ? result.bathroom_amount : 0,
+          address: prop.fake_address,
+          prop: prop
+        }
+      });
+
+      property.devPropsReady = true;
+      $scope.$apply();
+    });
+  };
+
   // #endregion
 
   // #region Scoped Methods
@@ -271,6 +299,40 @@ app.controller('propertyController', ['$rootScope', '$scope', 'tokkoApi', '$stat
       hRef: '#',
       iconClass: 'fa fa-envelope', 
       fontSize: '2.7rem'       
+    }
+  ];
+
+  property.availablePropsColumns = [
+    {
+      name: 'Ubicación',
+      icon: 'fa fa-map-marker',
+      data: 'address',
+      fixed: true
+    },
+    {
+      name: 'Precio',
+      icon: 'fa fa-dollar-sign',
+      data: 'price'
+    },
+    {
+      name: 'Dormitorios',
+      icon: 'fas fa-bed',
+      data: 'suite_amount'
+    },
+    {
+      name: 'Baños',
+      icon: 'fas fa-bath',
+      data: 'suite_amount'
+    },
+    {
+      name: 'Superficie Total',
+      icon: 'fas fa-ruler-vertical',
+      data: 'area'
+    },
+    {
+      name: 'Cochera',
+      icon: 'fas fa-car',
+      data: 'parkings_av'
     }
   ];
 

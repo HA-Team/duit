@@ -264,9 +264,8 @@
     <!-- Type Card End -->
     
     <!-- Published Days -->
-    <section class="mobile-property-created-at">
-      <i class="fa fa-clock-o"></i>
-      <p>&nbsp;Publicado hace {{property.utils.getDaysDifference(property.p.prop.created_at)}} días</p>
+    <section class="go-to-development-section" ng-if="property.p.prop.development">
+      <a href="/#!/development/{{property.p.prop.development.id}}">Ver ficha completa del Emprendimiento.</a>
     </section>
     <!-- Published Days End -->
     
@@ -310,6 +309,11 @@
       </div>
     </section>  
     <!-- General Features End --> 
+
+    <hr>
+
+    <!-- Available Units -->
+    <responsive-table ng-if="property.p.prop.development && property.devProps.length > 0" items="property.devProps" title="'Otras unidades del Emprendimiento'" columns="property.availablePropsColumns"></responsive-table>
 
     <hr>
 
