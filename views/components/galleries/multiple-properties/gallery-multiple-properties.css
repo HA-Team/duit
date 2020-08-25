@@ -181,6 +181,16 @@
     margin-bottom: 10px;
 }
 
+.gallery-multiple-properties .slider-info-card a {
+    margin-top: 10px;
+    opacity: 0.9;
+    background-color: var(--primary-red);
+    border-radius: 5px;
+    padding: 2px 6px;
+    color: white;
+    width: fit-content;
+}
+
 @media only screen and (min-width: 1024px) {
     .gallery-multiple-properties {
         height: 400px;
