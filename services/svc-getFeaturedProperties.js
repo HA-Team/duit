@@ -35,5 +35,5 @@ app.service('getFeaturedProperties', ['tokkoApi', 'sharedData', function(tokkoAp
         args.limit = 100;
         
         tokkoApi.find('property/search', args, callback);
-    });
+    };
 }]);
