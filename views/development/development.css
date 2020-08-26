@@ -85,7 +85,12 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  line-height: 22px;
+  line-height: normal;
+  margin: 5px 0;
+}
+
+#mobile-dev-detail .subtitle-address p {
+  margin: 0;
 }
 
 #mobile-dev-detail .mobile-property-description {

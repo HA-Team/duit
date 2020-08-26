@@ -275,6 +275,8 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
 
   property.toggleContactModal = () => property.isContactModalOpen = !property.isContactModalOpen;
 
+  property.isDateGraterThanToday = (date) => utils.isDateGraterThanToday(date);
+
   // #endregion
 
   // #region Scoped Objects

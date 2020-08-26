@@ -33,7 +33,9 @@ app.service('utils', ['$timeout', function ($timeout) {
 			else return `${name}es`;
 		}
 		else return name;
-	}
+	};
+
+	this.isDateGraterThanToday = (date) => new Date(date) >= new Date();
 
 	this.sides = [
 		{

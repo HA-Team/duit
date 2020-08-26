@@ -31,10 +31,6 @@
     margin: 0px;
 }
 
-#mobile-prop-detail .mobile-property-subtitle-text p:last-child {
-    font-size: 11px;
-}
-
 #mobile-prop-detail .mobile-property-modal-content {
     display: flex;
     flex-direction: column;

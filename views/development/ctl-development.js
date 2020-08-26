@@ -1,4 +1,4 @@
-app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'tokkoApi', '$stateParams', 'getFeaturedProperties', function ($rootScope, $scope, $timeout, tokkoApi, $stateParams, getFeaturedProperties) {
+app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', function ($rootScope, $scope, $timeout, tokkoApi, $stateParams, getFeaturedProperties, utils) {
   var development = this;
   
   // #region Scoped Properties
@@ -184,6 +184,8 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
   };
 
   development.toggleContactModal = () => development.isContactModalOpen = !development.isContactModalOpen;
+
+  development.isDateGraterThanToday = (date) => utils.isDateGraterThanToday(date);
 
   // #endregion
 

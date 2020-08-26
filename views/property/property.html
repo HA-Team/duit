@@ -252,6 +252,7 @@
       <div class="mobile-property-subtitle-text">
         <p><strong>{{property.p.prop.type.name}} - {{property.p.area | number:0}}m<sup>2</sup> - {{property.p.enviroments}} Ambientes</strong></p>
         <p><strong>{{property.p.prop.address}}</strong>, {{property.p.prop.location.name}}, {{property.p.state}}</p>
+        <p ng-if="property.p.prop.development.construction_date && property.isDateGraterThanToday(property.p.prop.development.construction_date)"><strong>Posesión: {{property.p.prop.development.construction_date | date:'MM/yyyy'}}</strong></p>
       </div>      
     </section>    
     <!-- Subtitle End -->
