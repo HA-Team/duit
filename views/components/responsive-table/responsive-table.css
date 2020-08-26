@@ -17,7 +17,7 @@
 
 .table-body-vertical-slider {
 	overflow-y: hidden;
-	height: 300px;
+	max-height: 300px;
 	scroll-behavior: smooth;
 }
 
