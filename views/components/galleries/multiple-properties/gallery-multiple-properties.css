@@ -36,6 +36,34 @@
     animation: shine-recomended 2s infinite ease-out;  
 }
 
+@media only screen and (min-width: 1024px) {
+    .gallery-multiple-properties .skeleton-container {
+        height: 400px;
+        flex-direction: row;
+    }
+    
+    .gallery-multiple-properties .skeleton-image {    
+        height: 100%;
+        width: 65%;   
+    }
+    
+    .gallery-multiple-properties .skeleton-lines {
+        flex: 1;
+        padding: 0 10px;
+        align-items: flex-start;
+    }
+    
+    .gallery-multiple-properties .skeleton-line {    
+        height: 4rem;
+        margin-top: 0;
+        margin-bottom: 30px;
+    }
+
+    .gallery-multiple-properties .skeleton-line:not(:nth-child(2)) {    
+        width: 60%;
+    }
+}
+
 @keyframes shine-recomended {
     0% {
         background-position: -20vw;
