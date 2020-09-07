@@ -15,6 +15,7 @@
 
 /* Components */
 @import url("../views/components/skeletons/listing/skeleton-listing.css");
+@import url("../views/components/skeletons/listing-card/skeleton-listing-card.css");
 @import url("../views/components/contact-globe/contact-globe.css");
 @import url("../views/components/galleries/single-property/gallery-single-property.css");
 @import url("../views/components/galleries/properties-cards/gallery-properties-cards.css");
@@ -1850,6 +1851,31 @@ button.fs-map-btn.button {
     background-color: #eee;
     color: #000;
 }
+
+@media only screen and (min-width: 1024px) {
+    .badge-default {
+      background-color: white;
+    }
+  
+    .badge {
+      color: black;
+      border-radius: 4px;
+      padding: 4px 8px;
+    }
+
+    .badge-danger {
+        background-color: inherit;
+    }
+
+    .badge-danger i {
+        font-size: 14px;
+    }
+
+    .badge-info {
+        background-color: inherit;
+    }
+  }
+
 .listing-badges {
     position: absolute;
     top: 0;

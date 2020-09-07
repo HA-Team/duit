@@ -1,0 +1,11 @@
+<section class="listing-card-container" ng-if="showMe">
+
+    <!-- Skeleton -->
+    <div class="skeleton-listing-card-container" ng-repeat="row in rowsToShow track by $index">
+        <div class="skeleton-image"></div>
+        <div class="d-flex flex-column skeleton-lines">
+            <div ng-repeat="line in linesToShow track by $index" class="skeleton-line"></div>                
+        </div>      
+    </div>
+
+</section>

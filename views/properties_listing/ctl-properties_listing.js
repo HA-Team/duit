@@ -14,6 +14,8 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
   propsListing.resultsCount = 0;
   propsListing.sideBarParams = {};
   propsListing.filteredResults = [];
+  propsListing.tags = [];
+
   propsListing.apiReady = true;
   propsListing.ifResults = true;
   propsListing.stopInfiniteScroll = true;
@@ -37,12 +39,12 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
       propsListing.apiReady = false;
       propsListing.results = [];
       tokkoApi.find('property/get_search_summary', args, function(result) {
-        let types = result.objects.property_types
+        let types = result.objects.property_types;
         propsListing.sideBarParams = {
           locations: result.objects.locations,
           types: types.sort((a, b) => b.count - a.count),
           subTypes: (() => {
-            if (propsListing.subTypeSelected && propsListing.subTypeSelected.length > 0) {
+            if (propsListing.subTypeSelected && propsListing.subTypeSelected.length > 0 && types[0]) {
               return [sharedData.propertiesSubTypes[types[0].id].find(x => x.id === propsListing.subTypeSelected[0])]
             } else {
               return types.length === 1 ? sharedData.propertiesSubTypes[types[0].id] : [];
@@ -82,8 +84,6 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
       propsListing.stopInfiniteScroll = false;
       propsListing.loadingMore = false;
       $scope.$apply();
-      uiFunctions.buildCarousel();
-      uiFunctions.gridSwitcher();
     });
   };
 
@@ -107,21 +107,35 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
       numberOfPropsForDevelopment: 1,
       full_prop: prop,
     });
-  }
+  };
 
-  // #endregion
+  const handleTags = (filter, defaultValue) => {
+    if (filter.val.length == 1 || (filter.type == 'r' && filter.val.length == 3)) {
+      const tag = {
+        type: filter.type,
+        name: filter.name,
+        action: () => propsListing.changeFilter({ type: filter.type, val: defaultValue })
+      } 
 
-  // #region On Init
+      propsListing.tags.push(tag);
+    } else {
+      propsListing.tags.splice(propsListing.tags.findIndex(tag => tag.type == filter.type), 1);
+    }
+  };
 
-  setActiveSection(propsListing.operationType);
-  $anchorScroll();
-  getProperties(tokkoApi, args);
+  const setInitialTags = () => {
+    if (propsListing.operationType.length == 1) {
+      handleTags({type: 'o', name: propsListing.opName(propsListing.operationType[0]), val: [propsListing.operationType[0]]}, [...Array(2 + 1).keys()].slice(1));
+    }
 
-  $timeout(() => {
-    uiFunctions.buildChosen();
-    $('.chosen-select-no-single').val('price_asc');
-    $('.chosen-select-no-single').trigger("chosen:updated");
-  });
+    if (propsListing.propertyType.length == 1) {
+      const name = sharedData.propertiesTypes.find(type => type.id == propsListing.propertyType[0]).name;
+      handleTags({type: 't', name: name, val: [propsListing.propertyType[0]]}, [...Array(25 + 1).keys()].slice(1));
+    }
+    
+    
+    //handleTags(filter, []);
+  };
 
   // #endregion
 
@@ -129,7 +143,7 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
 
   propsListing.goLocation = (url) => $state.go(url);
 
-  propsListing.opName = (type) => type === 1 ? 'Venta' : type === 2 ? 'Alquiler' : 'Otro';
+  propsListing.opName = (type) => type == 1 ? 'Venta' : type == 2 ? 'Alquiler' : 'Otro';
 
   propsListing.roomAmtName = (amount) => parseInt(amount) > 0 ? (amount == 1 ? `${amount} Dormitorio` : `${amount} Dormitorios`) : "Loft ";
 
@@ -155,23 +169,29 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
   propsListing.changeFilter = (filter) => {    
     if (filter.type === 'o') {
       propsListing.operationType = filter.val;
+      handleTags(filter, [...Array(2 + 1).keys()].slice(1));      
     }
     if (filter.type === 't') {
       propsListing.propertyType = filter.val;
       propsListing.subTypeSelected = [];
+      handleTags(filter, [...Array(25 + 1).keys()].slice(1));
     }
     if (filter.type === 'st') {
       propsListing.subTypeSelected = filter.val;
+      handleTags(filter, []);
     }
     if (filter.type === 'l') {
       propsListing.location = filter.val;
+      handleTags(filter, []);
     }
     if (filter.type === 'r') {
       propsListing.rooms = filter.val;
+      handleTags(filter, []);
     }
     if (filter.type === 'or') {
       propsListing.order = {order_by: propsListing.orderBy.val.split('_')[0], order: propsListing.orderBy.val.split('_')[1]}
     }
+
     propsListing.find();
   };
 
@@ -223,11 +243,37 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
 
   propsListing.doesPropertyHasEnvironments = (p) => p.full_prop.type.id != 10 && p.full_prop.type.id != 1;
 
+  propsListing.toggleMoreLocations = () => {
+    const itemsContainerElement = document.querySelector(".prop-listing-location-filter");
+    const maxHeight = `${itemsContainerElement.scrollHeight}px`;
+
+    if (itemsContainerElement.classList.contains("visible")) {
+      itemsContainerElement.classList.remove("visible");
+      itemsContainerElement.style.maxHeight = '';
+    }
+    else {
+      itemsContainerElement.classList.add("visible");
+      itemsContainerElement.style.maxHeight = maxHeight;
+    }
+  };
+
+  // #endregion
+
+  // #region On Init
+
+  setActiveSection(propsListing.operationType);
+  $anchorScroll();
+  getProperties(tokkoApi, args);
+  setInitialTags();  
+
   // #endregion
 
   // #region Events
 
-  $rootScope.$on('changeFilter', (event, {operationType}) => propsListing.changeFilter({type: 'o', val: [operationType]}));
+  $rootScope.$on('changeFilter', (event, {operationType}) => {
+    propsListing.tags = propsListing.tags.filter(tag => tag.type != 'o');
+    propsListing.changeFilter({type: 'o', name: propsListing.opName(operationType), val: [operationType]});
+  });
 
   // #endregion
 

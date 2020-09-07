@@ -58,13 +58,6 @@
   bottom: 35px;
 }
 @media (min-width: 991px) {
-  #propsListing .sidebar-col {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 70px;
-    height: 100vh;
-    overflow: scroll;
-  }
   #propsListing ::-webkit-scrollbar {
     width: 0px /* remove scrollbar space */;
     background: transparent /* optional: just make scrollbar invisible */;
@@ -131,23 +124,6 @@
   cursor: pointer;
 }
 
-@keyframes shine-lines {
-  0% {
-    background-position: -100px;
-  }
-  60%, 100% {
-    background-position: 80vw;
-  }
-}
-@keyframes shine-image {
-  0% {
-    background-position: -32px;
-  }
-  60%, 100% {
-    background-position: 32vw;
-  }
-}
-
 #mobile-props-listing .mobile-filter-menu-container {
   position: relative;
   display: flex;
@@ -209,7 +185,7 @@
 #mobile-props-order-modal .arrow-up {
   opacity: 0;
   position: absolute;
-  top: 123px;  
+  top: 125px;  
   left: 3rem; 
   width: 0; 
   height: 0; 
@@ -314,7 +290,7 @@
 #mobile-props-filter-modal .arrow-up {
   opacity: 0;
   position: absolute;
-  top: 123px;  
+  top: 125px;  
   right: 3rem; 
   width: 0; 
   height: 0; 
@@ -470,3 +446,257 @@
   position: relative;     
   max-height: 3.5em;   
 }
+
+.prop-listing-desktop-container {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  border-radius: 10px;
+  background-color: var(--softgrey);
+  padding: 40px;
+  margin: 20px auto;
+}
+
+.prop-listing-desktop-container .prop-listing-sidebar {
+  flex: 1;
+  padding: 0 10px;
+}
+
+.prop-listing-desktop-container .prop-listing-sidebar .prop-listing-tags {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.prop-listing-desktop-container .prop-listing-sidebar .prop-listing-tags p {
+  margin: 5px;
+}
+
+.prop-listing-sidebar > div h4 {
+  font-weight: bold;
+}
+
+.prop-listing-sidebar > div {
+  flex-direction: column;
+}
+
+.prop-listing-desktop-container .desktop-prop-listing-order {
+  display: flex;
+  flex-direction: column;  
+}
+
+.prop-listing-desktop-container .desktop-prop-listing-order ul {
+  list-style-type:none;
+  padding: 0px;
+  background-color: white;
+  border-radius: 10px;
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  transition: all 0.2s ease-in-out;
+  margin-top: 70px;
+  width: 180px;
+  box-shadow: 0 0 3px 1px lightgrey;
+}
+
+.prop-listing-desktop-container .desktop-prop-listing-order.open ul {
+  opacity: 1;
+  visibility: visible;
+}
+
+.prop-listing-desktop-container .desktop-prop-listing-order .desktop-order-modal-item {
+  display: flex;  
+  align-items: center;
+  height: 45px;
+  width: 100%;
+  border-bottom: 1px solid lightgray;
+  color: grey;
+  padding-left: 2rem;
+  cursor: pointer;
+}
+
+.prop-listing-desktop-container .desktop-prop-listing-order .desktop-order-modal-item:last-child {
+  border-bottom: none;
+}
+
+.prop-listing-desktop-container .desktop-prop-listing-order .desktop-order-modal-item.selected::before {
+  content: "";
+  position: relative;  
+  left: -2rem;
+  background-color: var(--primary-blue);
+  width: 1rem;
+  height: 100%;  
+}
+
+.prop-listing-desktop-container .desktop-prop-listing-order .desktop-order-modal-item:first-child.selected::before {
+  border-top-left-radius: 10px;
+}
+
+.prop-listing-desktop-container .desktop-prop-listing-order .desktop-order-modal-item:last-child.selected::before {
+  border-bottom-left-radius: 10px;
+}
+
+.prop-listing-desktop-container .desktop-prop-listing-order p {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  cursor: pointer;
+  outline: none;
+}
+
+.prop-listing-desktop-container .desktop-prop-listing-order p i {
+  font-size: 20px;
+  color: var(--primary-blue);
+  margin-left: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.prop-listing-desktop-container .desktop-prop-listing-order.open p i {
+  transform: rotateZ(180deg);
+}
+
+.prop-listing-desktop-container .desktop-prop-listing-price {
+  margin-top: 30px;
+}
+
+.prop-listing-desktop-container .desktop-prop-listing-price .desktop-prop-listing-price-items {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.prop-listing-desktop-container .desktop-prop-listing-price .desktop-prop-listing-price-items input {
+  height: 30px !important;
+  flex: 1;
+  margin: 0 5px;
+  max-width: 100px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.prop-listing-desktop-container .desktop-prop-listing-price .desktop-prop-listing-price-items input::-webkit-outer-spin-button,
+.prop-listing-desktop-container .desktop-prop-listing-price .desktop-prop-listing-price-items input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.prop-listing-desktop-container .desktop-prop-listing-price .desktop-prop-listing-price-items input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.prop-listing-desktop-container .desktop-prop-listing-price .desktop-prop-listing-price-items input:first-child {
+  margin-left: 0;
+}
+
+.prop-listing-desktop-container .prop-listing-main {
+  width: 75%;
+}
+
+.prop-listing-desktop-container .prop-listing-items-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.prop-listing-desktop-container .prop-listing-item-card {
+  flex: 0 1 250px;
+  margin: 15px;
+}
+
+.prop-listing-desktop-container img {
+  width: 100%;
+  height: 280px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  object-fit: cover;
+  padding: 0px;
+}
+
+.prop-listing-desktop-container .prop-listing-card-content {
+  background-color: white;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  line-height: normal;
+}
+
+.prop-listing-desktop-container .prop-listing-card-content * {
+  margin: 0;
+}
+
+.prop-listing-desktop-container .prop-listing-card-content h5 {
+  font-size: 20px;
+}
+
+.prop-listing-desktop-container .prop-listing-card-not-dev p:nth-of-type(1) {
+  font-size: 14px;
+}
+
+.prop-listing-desktop-container .prop-listing-card-not-dev p:nth-of-type(2) {
+  margin-top: 10px;
+}
+
+.prop-listing-desktop-container .prop-listing-card-not-dev p:nth-of-type(3) {
+  font-size: 18px;
+  color: black;
+}
+
+.prop-listing-desktop-container .prop-listing-card-not-dev p:nth-of-type(4) {
+  margin-top: 10px;
+}
+
+.prop-listing-desktop-container .prop-listing-card-dev p:nth-of-type(1) {
+  font-size: 14px;
+}
+
+.prop-listing-desktop-container .prop-listing-card-dev p:nth-of-type(2) {
+  margin-top: 10px;
+}
+
+.prop-listing-desktop-container .prop-listing-card-dev p:nth-of-type(3) {
+  font-size: 18px;
+  color: black;
+}
+
+.prop-listing-desktop-container .prop-listing-card-dev p:nth-of-type(4) {
+  margin-top: 10px;
+}
+
+.prop-listing-location-filter {
+  max-height: 400px;
+  overflow: hidden;
+  transition: max-height 1s;
+}
+
+.props-listing-show-more-locations {
+  cursor: pointer;
+  color: var(--primary-blue);
+  width: 100%;
+  max-width: 135px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.props-listing-show-more-locations i {
+  margin-left: 3px;
+  transition: all 0.5s ease;
+}
+
+.props-listing-show-more-locations::before {
+  content: "Mostrar más ";
+}
+
+.prop-listing-location-filter.visible + .props-listing-show-more-locations::before {
+  content: "Mostrar menos ";
+}
+
+.prop-listing-location-filter.visible + .props-listing-show-more-locations i {
+  transform: rotateZ(180deg);
+}
+

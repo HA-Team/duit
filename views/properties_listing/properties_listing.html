@@ -1,185 +1,154 @@
 <div ng-controller="propsListingController as propsListing" id="propsListing">
+  
   <!-- Desktop Content -->
-  <div class="container margin-top-50 hidden-on-mobile" >
-    <!-- <div class="row fullwidth-layout" ng-show="ifResults"> -->
+  <div class="hidden-on-mobile">
+    
+    <div class="prop-listing-desktop-container">
 
-    <!-- Sidebar
-      ================================================== -->
-      <div class="col-md-3 sidebar-col">
-        <div class="sidebar sticky right">
-          <!-- Widget -->
-          <div class="widget margin-bottom-40">
-            <h3 class="margin-top-0 margin-bottom-35">Filtrar búsqueda</h3>
-            <!-- Row -->
-            <div class="row with-forms">
-              <div class="col-md-12">
-                <label class="text-primary">Orden</label>
-              </div>
-              <!-- Min Price -->
-              <div class="col-md-12">
-                <select ng-model="propsListing.orderBy" ng-change="propsListing.changeFilter({type: 'or'})" ng-options="option.text for option in propsListing.orderOptions track by option.val" class="chosen-select-no-single"> 
-                </select>
-              </div>
-            </div>
-            <div class="row with-forms">
-              <div class="col-md-12">
-                <label class="text-primary">Rango de precio</label>
-              </div>
-              <!-- Min Price -->
-              <div class="col-md-6">
-                <input type="text" placeholder="Min." data-unit="USD" ng-model="propsListing.minPrice" ng-model-options='{ debounce: 1500 }' ng-change="propsListing.find()">
-              </div>
-              <!-- Max Price -->
-              <div class="col-md-6">
-                <input type="text" placeholder="Max." data-unit="USD" ng-model="propsListing.maxPrice" ng-model-options='{ debounce: 1500 }' ng-change="propsListing.find()">
-              </div>
-            </div>
-            <div class="row with-forms">
-              <!-- Status -->
-              <div class="col-md-12">
-                <label class="text-primary">Operación</label>
-                <h4 class="badge badge-default" ng-if="propsListing.sideBarParams.operations.length == 1" ng-repeat="o in propsListing.sideBarParams.operations">
-                  {{propsListing.opName(o.operation_type)}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'o', val: [1,2]})"><i class="fa fa-times"></i></span>
-                </h4>
-                <h4 class="badge badge-info" ng-if="propsListing.sideBarParams.operations.length > 1" ng-repeat="o in propsListing.sideBarParams.operations"
-                ng-click="propsListing.changeFilter({type: 'o', val: [o.operation_type]})">
-                  {{propsListing.opName(o.operation_type)}} ({{o.count}})</i></span>
-                </h4>
-              </div>
-            </div>
-            <div class="row with-forms">
-              <!-- Type -->
-              <div class="col-md-12">
-                <label class="text-primary">Tipo</label> 
-                  <h4 class="badge badge-default" ng-if="propsListing.sideBarParams.types.length == 1" ng-repeat="t in propsListing.sideBarParams.types">
-                    {{t.type}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 't', val: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]})"><i class="fa fa-times"></i></span>
-                  </h4>
-                  <h4 class="badge badge-info" ng-if="propsListing.sideBarParams.types.length > 1" ng-repeat="t in propsListing.sideBarParams.types" ng-click="propsListing.changeFilter({type: 't', val: [t.id]})">
-                    {{t.type}} ({{t.count}})</i></span>
-                  </h4>
-              </div>
-            </div>
-            <div class="row with-forms" ng-if="propsListing.sideBarParams.types.length == 1">
-              <div class="col-md-12">
-                <label class="text-primary">Condición</label>
-                <h4 class="badge badge-default" ng-if="propsListing.sideBarParams.subTypes.length == 1" ng-repeat="st in propsListing.sideBarParams.subTypes">
-                  {{st.name}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'st', val: []})"><i class="fa fa-times"></i></span>
-                </h4>
-                <h4 class="badge badge-info" ng-if="propsListing.sideBarParams.subTypes.length > 1" ng-repeat="st in propsListing.sideBarParams.subTypes" ng-click="propsListing.changeFilter({type: 'st', val: [st.id]})">
-                  {{st.name}}</i></span>
-                </h4>
-              </div>
-            </div>
-            <div class="row with-forms">
-              <!-- Cities -->
-              <div class="col-md-12">
-                <label class="text-primary">Ciudad/Barrio</label>
-                <h4 class="badge badge-default" ng-if="propsListing.sideBarParams.locations.length == 1" ng-repeat="l in propsListing.sideBarParams.locations">
-                  {{l.location_name}}<span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'l', val: []})"><i class="fa fa-times"></i></span>
-                </h4>
-                <h4 class="badge badge-info" ng-if="propsListing.sideBarParams.locations.length > 1" ng-repeat="l in propsListing.sideBarParams.locations" ng-click="propsListing.changeFilter({type: 'l', val: [l.location_id]})">
-                  {{l.location_name}} ({{l.count}})</i></span>
-                </h4>
-              </div>
-            </div>
-            <div class="row with-forms">
-              <!-- Cities -->
-              <div class="col-md-12">
-                <label class="text-primary">Dormitorios</label>
-                <h4 class="badge badge-default" ng-if="propsListing.sideBarParams.rooms.length == 1" ng-repeat="r in propsListing.sideBarParams.rooms">
-                  {{propsListing.roomAmtName(r.amount)}}<span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'r', val: []})"><i class="fa fa-times"></i></span>
-                </h4>
-                <h4 class="badge badge-info" ng-if="propsListing.sideBarParams.rooms.length > 1" ng-repeat="r in propsListing.sideBarParams.rooms" ng-click="propsListing.changeFilter({type: 'r', val: ['suite_amount', '=', r.amount.toString()]})">
-                  {{propsListing.roomAmtName(r.amount)}} ({{r.count}})</i></span>
-                </h4>
-              </div>
-            </div>
-          </div>
-          <!-- Widget / End -->
+      <!-- Sidebar -->
+      <section class="prop-listing-sidebar">
 
+        <h2>{{propsListing.sideBarParams.types.length == 1 ? propsListing.pluralize(propsListing.sideBarParams.types[0].type) : 'Inmuebles'}} {{propsListing.operationType.length == 1 ? 'en ' + propsListing.opName(propsListing.operationType[0]) : ''}}</h2>
+        <p>{{propsListing.resultsCount}} resultados</p>
+
+        <div class="prop-listing-tags" ng-if="propsListing.tags.length > 0">
+          <p class="badge badge-default" ng-repeat="tag in propsListing.tags">
+            {{tag.name}} <span class="badge badge-danger" ng-click="tag.action();"><i class="fa fa-times"></i></span>
+          </p>
         </div>
-      </div>
+
+        <!-- Order Section -->
+        <div class="desktop-prop-listing-order" ng-class="{'open': propsListing.isOrderOpen}">
+          <h4>Ordenar Publicaciones</h4>
+          <p ng-click="propsListing.toggleOrderModal()" tabindex="-1" ng-blur="propsListing.isOrderOpen = false">{{propsListing.orderBy.text}}<i class="fas fa-angle-down"></i></p>
+          <ul class="desktop-order-modal" >
+            <li class="desktop-order-modal-item" ng-repeat="option in propsListing.orderOptions track by option.val" ng-click="propsListing.changeOrder(option)"
+            ng-class="{' selected': option.val == propsListing.orderBy.val}">            
+              <div>{{option.text}}</div>            
+            </li>          
+          </ul>
+        </div>
+        <!-- Order Section End -->
+
+        <!-- Price Filter Section -->
+        <div class="desktop-prop-listing-price">
+          <h4>Precio</h4>
+          <div class="desktop-prop-listing-price-items">
+            <input type="number" min="0.00" step="0.01" placeholder="Mínimo" data-unit="USD" ng-model="propsListing.minPrice" ng-model-options='{ debounce: 1500 }' ng-change="propsListing.find()"> - 
+            <input type="number" min="0.00" step="0.01" placeholder="Máximo" data-unit="USD" ng-model="propsListing.maxPrice" ng-model-options='{ debounce: 1500 }' ng-change="propsListing.find()">
+          </div>
+        </div>
+        <!-- Price Filter Section End -->
+
+        <!-- Operation Filter  -->
+        <div class="margin-top-30">
+          <h4>Operación</h4>
+          <p class="badge badge-default" ng-if="propsListing.sideBarParams.operations.length == 1" ng-repeat="o in propsListing.sideBarParams.operations">
+            {{propsListing.opName(o.operation_type)}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'o', val: [1,2]})"><i class="fa fa-times"></i></span>
+          </p>
+          <p class="badge badge-info" ng-if="propsListing.sideBarParams.operations.length > 1" ng-repeat="o in propsListing.sideBarParams.operations"
+            ng-click="propsListing.changeFilter({type: 'o', name: propsListing.opName(o.operation_type), val: [o.operation_type]})">
+            {{propsListing.opName(o.operation_type)}} ({{o.count}})</i></span>
+          </p>
+        </div>
+        <!-- Operation Filter End -->
+
+        <!-- Type Filter -->
+        <div class="margin-top-20">
+          <h4>Tipo</h4>
+          <p class="badge badge-default" ng-if="propsListing.sideBarParams.types.length == 1" ng-repeat="t in propsListing.sideBarParams.types">
+            {{t.type}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 't', val: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]})"><i class="fa fa-times"></i></span>
+          </p>
+          <p class="badge badge-info" ng-if="propsListing.sideBarParams.types.length > 1" ng-repeat="t in propsListing.sideBarParams.types" ng-click="propsListing.changeFilter({type: 't', name: t.type, val: [t.id]})">
+            {{t.type}} ({{t.count}})</i></span>
+          </p>
+        </div>
+        <!-- Type Filter End -->
+
+        <!-- Condition Filter -->
+        <div class="margin-top-20" ng-if="propsListing.sideBarParams.types.length == 1">
+          <h4>Condición</h4>
+          <p class="badge badge-default" ng-if="propsListing.sideBarParams.subTypes.length == 1" ng-repeat="st in propsListing.sideBarParams.subTypes">
+            {{st.name}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'st', val: []})"><i class="fa fa-times"></i></span>
+          </p>
+          <p class="badge badge-info" ng-if="propsListing.sideBarParams.subTypes.length > 1" ng-repeat="st in propsListing.sideBarParams.subTypes" ng-click="propsListing.changeFilter({type: 'st', name: st.name, val: [st.id]})">
+            {{st.name}}</i></span>
+          </p>
+        </div>
+        <!-- Condition Filter End -->
+
+        <!-- Rooms Filter -->
+        <div class="margin-top-20">
+          <h4>Dormitorios</h4>
+          <p class="badge badge-default" ng-if="propsListing.sideBarParams.rooms.length == 1" ng-repeat="r in propsListing.sideBarParams.rooms">
+            {{propsListing.roomAmtName(r.amount)}}<span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'r', val: []})"><i class="fa fa-times"></i></span>
+          </p>
+          <p class="badge badge-info" ng-if="propsListing.sideBarParams.rooms.length > 1" ng-repeat="r in propsListing.sideBarParams.rooms" ng-click="propsListing.changeFilter({type: 'r', name: propsListing.roomAmtName(r.amount), val: ['suite_amount', '=', r.amount.toString()]})">
+            {{propsListing.roomAmtName(r.amount)}} ({{r.count}})</i></span>
+          </p>
+        </div>
+        <!-- Rooms Filter End -->
+
+        <!-- Location Filter -->
+        <div class="margin-top-20 prop-listing-location-filter">
+          <h4>Ciudad / Barrio</h4>
+          <p class="badge badge-default" ng-if="propsListing.sideBarParams.locations.length == 1" ng-repeat="l in propsListing.sideBarParams.locations">
+            {{l.location_name}}<span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'l', val: []})"><i class="fa fa-times"></i></span>
+          </p>
+          <p class="badge badge-info" ng-if="propsListing.sideBarParams.locations.length > 1" ng-repeat="l in propsListing.sideBarParams.locations" ng-click="propsListing.changeFilter({type: 'l', name: l.location_name, val: [l.location_id]})">
+            {{l.location_name}} ({{l.count}})</i></span>
+          </p>          
+        </div>
+
+        <p class="props-listing-show-more-locations" ng-click="propsListing.toggleMoreLocations()" ng-if="propsListing.sideBarParams.locations.length > 9"><i class="fa fa-angle-down"></i></p>
+        <!-- Location Filter End -->
+
+      </section>    
       <!-- Sidebar / End -->
-      <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="propsListing.apiReady"></div>
-      <div class="col-md-9" ng-show="propsListing.apiReady">
 
-        <!-- Sorting / Layout Switcher -->
-        <div class="row margin-bottom-15">
+      <!-- Listing Container -->
+      <section class="prop-listing-main">
+        
+        <skeleton-listing-card rows="3" lines="2" show-me="!propsListing.apiReady"></skeleton-listing-card>
 
-          <div class="col-md-6">
-            <!-- Sort by -->
-            <div class="sort-by">
-              <label>{{propsListing.resultsCount}} Propiedades encontradas</label>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <!-- Layout Switcher -->
-            <div class="layout-switcher">
-              <a href="#" class="grid-three"><i class="fa fa-th"></i></a>
-              <a href="#" class="grid"><i class="fa fa-th-large"></i></a>
-              <a href="#" class="list"><i class="fa fa-th-list"></i></a>
-            </div>
-          </div>
-        </div>
-        <!-- Listings -->
-        <div class="listings-container grid-layout-three" infinite-scroll="propsListing.loadMoreProps()" infinite-scroll-disabled="propsListing.stopInfiniteScroll">
+        <div class="prop-listing-items-container" infinite-scroll="propsListing.loadMoreProps()" infinite-scroll-disabled="propsListing.stopInfiniteScroll" ng-show="propsListing.apiReady">
+          
           <!-- Listing Item -->
-          <div class="listing-item " ng-repeat="p in propsListing.results">
-
-            <a class="listing-img-container" href="/#!/property/{{p.id}}">
-
-              <div class="listing-badges">
-                <span>{{p.type}}</span>
-              </div>
-
-              <div class="listing-img-content">
-                <span class="listing-price" ng-show="p.full_prop.web_price">{{ p.price | currency:p.currency:0}}</span>
-              </div>
-
-              <div class="listing-carousel">
-                <div ng-repeat="photo in p.photos"><img src="{{photo.image}}" alt="" ></div>
-              </div>
+          <article class="prop-listing-item-card" ng-repeat="p in propsListing.results">
+            <a href="{{!p.development ? '/#!/property/' + p.id : '/#!/development/' + p.development.id}}">
+              <img src="{{p.cover_photo}}" alt="">            
             </a>
             
-            <div class="listing-content">
-
-              <div class="listing-title">
-                <h4><a ui-sref="property({propertyId: p.id})">{{p.title}}</a></h4>
-                <a href="https://www.google.com/maps/place/{{p.full_prop.geo_lat}},{{p.full_prop.geo_long}}" target="blank" class="listing-address popup-gmaps">
-                  <i class="fa fa-map-marker"></i>
-                  {{p.address}}
-                </a>
-
-                <a ui-sref="property({propertyId: p.id})" class="details button border">Detalles</a>
-              </div>
-
-              <ul class="listing-details">
-                <li>{{p.area}} M2</li>
-                <li><i class="fa fa-bed"></i> {{p.rooms}}</li>
-                <li><i class="fa fa-bath"></i> {{p.baths}}</li>
-                <li><i class="fa fa-car"></i> {{p.parkings}}</li>
-              </ul>
-
-              <div class="listing-footer">
-                <a href="#"><i class="fa fa-user"></i> {{p.agent}}</a>
-              </div>
-
+            <div class="prop-listing-card-content prop-listing-card-not-dev" ng-if="!p.development">
+              <h5>{{p.price | currency:p.currency:0}}</h5> 
+              <p>{{p.area > 0 ? (p.area | number:0) + 'm': ''}}<sup ng-show="p.area > 0">2</sup> {{p.rooms == 1 ? ( p.area > 0 ? '| ' : '') + p.rooms + ' Dormitorio' : p.rooms > 1 ? (p.area > 0 ? '| ' : '') + p.rooms + ' Dormitorios' : ''}}</p> 
+              <p>{{p.full_prop.type.name}} en {{p.type}}</p> 
+              <p>{{p.title}}</p> 
+              <p>{{p.address}}</p>
             </div>
 
-          </div>
+            <div class="prop-listing-card-content prop-listing-card-dev" ng-if="p.development">
+              <p>Desde</p>
+              <h5>{{p.price | currency:p.currency:0}}</h5> 
+              <p>{{p.full_prop.type.name}} en {{p.type}}</p> 
+              <p>{{p.title}}</p> 
+              <p>{{p.address}}</p>
+            </div>
+          </article>
           <!-- Listing Item / End -->
+
+          <skeleton-listing-card rows="1" lines="2" show-me="propsListing.loadingMore"></skeleton-listing-card>
+
         </div>
         <!-- Listings Container / End -->
 
-        <div class="clearfix"></div>
-      </div>
-      <div class='spinner' ng-include="'/views/common/spinner.html'" ng-show="propsListing.loadingMore"></div>
-      <div class="row fullwidth-layout text-center no-results" ng-hide="propsListing.ifResults">
-        <i class="fa fa-5x fa-frown-o"></i>
-        <h3>¡Ups! No hay nada aquí. ¡<a href="#!/contactUs">Contactános</a> para ver mas opciones!</h3>
-      </div> 
+      </section>
+      <!-- Listing Container End -->
+
+    </div>
+
   </div>
+  <!-- Desktop Content End -->
   
   <!-- Mobile Content -->
   <div id="mobile-props-listing" class="container hidden-on-desktop" >    
@@ -241,9 +210,9 @@
           <div class="mobile-filter-detail-container">
             <div class="price-filter mobile-filter-item-detail">            
               <!-- Min Price -->              
-              <input type="text" placeholder="Min." data-unit="USD" ng-model="propsListing.minPrice" ng-model-options='{ debounce: 1500 }' ng-change="propsListing.find()">              
+              <input type="number" placeholder="Mínimo" data-unit="USD" ng-model="propsListing.minPrice" ng-model-options='{ debounce: 1500 }' ng-change="propsListing.find()">              
               <!-- Max Price -->              
-              <input type="text" placeholder="Max." data-unit="USD" ng-model="propsListing.maxPrice" ng-model-options='{ debounce: 1500 }' ng-change="propsListing.find()"> 
+              <input type="number" placeholder="Máximo" data-unit="USD" ng-model="propsListing.maxPrice" ng-model-options='{ debounce: 1500 }' ng-change="propsListing.find()"> 
             </div>
           </div> 
           <!-- Filtro Precio End -->
@@ -407,6 +376,7 @@
           <hr>
         </div>
         <!-- Listing Item / End -->
+
       </div>
       <!-- Listings Container / End -->
 
@@ -415,12 +385,13 @@
 
     <!-- Skeleton Loader -->
     <skeleton-listing rows="3" lines="2" show-me="propsListing.loadingMore"></skeleton-listing>
-    <!-- Skeleton Loader End -->  
-      
-    <div class="row fullwidth-layout text-center no-results" ng-hide="propsListing.ifResults">
-      <i class="fa fa-5x fa-frown-o"></i>
-      <h3>¡Ups! No hay nada aquí. ¡<a href="#!/contactUs">Contactános</a> para ver mas opciones!</h3>
-    </div> 
+ 
+  </div>
+  <!-- Mobile Content End -->
+
+  <div class="row fullwidth-layout text-center no-results" ng-hide="propsListing.ifResults">
+    <i class="fa fa-5x fa-frown-o"></i>
+    <h3>¡Ups! No hay nada aquí. ¡<a href="#!/contactUs">Contactános</a> para ver mas opciones!</h3>
   </div>
       
 </div>
