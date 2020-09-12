@@ -1,4 +1,4 @@
-app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', function($rootScope, $scope, $timeout, tokkoApi, $stateParams, getFeaturedProperties, utils) {   
+app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', 'navigation', function($rootScope, $scope, $timeout, tokkoApi, $stateParams, getFeaturedProperties, utils, navigation) {   
   var property = this;
   
   // #region Scoped Properties
@@ -276,6 +276,8 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
   property.toggleContactModal = () => property.isContactModalOpen = !property.isContactModalOpen;
 
   property.isDateGraterThanToday = (date) => utils.isDateGraterThanToday(date);
+
+  property.goToOtherUnits = () => document.getElementById("other-units-table").scrollIntoView({behavior: 'smooth'});;
 
   // #endregion
 

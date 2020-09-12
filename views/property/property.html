@@ -266,7 +266,7 @@
     
     <!-- Published Days -->
     <section class="go-to-development-section" ng-if="property.p.prop.development">
-      <a href="/#!/development/{{property.p.prop.development.id}}">Ver ficha completa del Emprendimiento. <i class="fas fa-link"></i></a>
+      <a ng-click="property.goToOtherUnits()">Ver ficha completa del Emprendimiento. <i class="fas fa-link"></i></a>
     </section>
     <!-- Published Days End -->
     
@@ -314,7 +314,7 @@
     <hr>
 
     <!-- Available Units -->
-    <responsive-table ng-if="property.p.prop.development && property.devProps.length > 0" items="property.devProps" title="'Otras unidades del Emprendimiento'" columns="property.availablePropsColumns"></responsive-table>
+    <responsive-table id="other-units-table" ng-if="property.p.prop.development && property.devProps.length > 0" items="property.devProps" title="'Otras unidades del Emprendimiento'" columns="property.availablePropsColumns"></responsive-table>
 
     <hr>
 
