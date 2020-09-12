@@ -3,7 +3,6 @@ app.controller('contactFormController', ['$rootScope', '$scope', '$timeout', 'to
   
   // #region Scoped Properties
 
-  $rootScope.activeMenu = 'contactUs';
   contactForm.submitText = 'Enviar';
   contactForm.sending = false;
   contactForm.success = false;
