@@ -19,6 +19,8 @@ app.controller('homeController', ['$rootScope', '$scope', '$interval', '$timeout
   var debouncedOnScroll = utils.debounce(onScroll, 50);
   var backgroundImageIndex = 0;
 
+  const footer = document.querySelector('footer');
+
   // #endregion
 
   // #region On Init
@@ -34,7 +36,9 @@ app.controller('homeController', ['$rootScope', '$scope', '$interval', '$timeout
 
   getFeatured360Props();
 
-  home.agents.forEach(agent => agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351')); 
+  home.agents.forEach(agent => agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351'));
+
+  footer.style.display = 'none';
 
   // #endregion
 
@@ -106,6 +110,7 @@ app.controller('homeController', ['$rootScope', '$scope', '$interval', '$timeout
   $scope.$on('$destroy', () => {
     window.removeEventListener('scroll', debouncedOnScroll);
     clearInterval(changeBackgroundImageInterval);
+    footer.style.display = 'flex';
   });
 
   // #endregion

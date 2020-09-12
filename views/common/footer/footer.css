@@ -10,7 +10,7 @@ footer {
 footer > div {
     width: 100%;
     padding: 10px;
-    max-width: 600px;
+    max-width: 750px;
 }
 
 footer .footer-logos-container {    
@@ -69,4 +69,27 @@ img.by-ha {
     max-height: 25px;
     width: auto;
     margin-top: 8px;
+}
+
+
+@media only screen and (min-width: 1024px) {
+    footer {
+        display: flex;
+        max-width: 1300px;
+        margin: 25px auto;
+        border-radius: 5px;
+    }
+
+    footer .footer-copy {
+        padding-bottom: 0;
+    }
+    
+    footer .footer-copy p {
+        font-size: 16px;
+        line-height: 25px;
+    }
+
+    .footer-text > * {
+        font-size: 14px;
+    }
 }
