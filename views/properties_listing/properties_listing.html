@@ -115,7 +115,7 @@
           
           <!-- Listing Item -->
           <article class="prop-listing-item-card" ng-repeat="p in propsListing.results">
-            <a href="{{!p.development ? '/#!/property/' + p.id : '/#!/development/' + p.development.id}}">
+            <a href="{{'/#!/property/' + p.id}}">
               <img src="{{p.cover_photo}}" alt="">            
             </a>
             
@@ -360,12 +360,12 @@
           
           <!-- Development Properties -->
           <div ng-if="p.development" class="mobile-list-card-container" ng-if="!p.development">
-            <a href="/#!/development/{{p.development.id}}">
+            <a href="/#!/property/{{p.id}}">
               <img class="mobile-list-card-img" src="{{p.photos[0].image}}" alt="" >
             </a>
 
             <div class="mobile-list-card-details d-flex flex-column">              
-              <a href="/#!/development/{{p.development.id}}"><p>{{p.development.name}} - {{p.development.address}}</p></a>
+              <a href="/#!/property/{{p.id}}"><p>{{p.development.name}} - {{p.development.address}}</p></a>
 
               <p>{{propsListing.pluralize(p.full_prop.type.name)}} desde:</p>
               <span class="listing-price" ng-show="p.full_prop.web_price">{{p.price | currency:p.currency:0}}</span>            

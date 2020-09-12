@@ -70,7 +70,10 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
             const existingProp = propsListing.results.filter(prop => prop.development?.id == p.development?.id && prop.full_prop.type.id == p.type.id)[0];
             const newPropPrice = p.operations[p.operations.length - 1].prices.slice(-1)[0].price;
 
-            if (newPropPrice < existingProp.price) existingProp.price = newPropPrice;
+            if (newPropPrice < existingProp.price) {
+              existingProp.price = newPropPrice;
+              existingProp.id = p.id;
+            }
             existingProp.numberOfPropsForDevelopment ++;
           }
 
