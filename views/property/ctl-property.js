@@ -52,6 +52,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
     $rootScope.activeSection = property.p.operation_type == 'Venta' ? 'properties-sell' : 'properties-rent';
     
     getSimilarProps(result.operations[0].operation_type == 'Venta' ? 1 : 2, result.type.id, result.custom_tags);
+    
     if (result.development) getDevelopmentProps(result.development.id);
 
     property.propertyMapped = {
@@ -99,6 +100,37 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
       }
     ];
 
+    property.desktopFeatures = [
+      {
+        title: 'Superficie',
+        description: `${parseInt(property.p.area)} m`
+      },
+      {
+        title: 'Dormitorios',
+        description: property.p.rooms
+      },
+      {
+        title: 'Baños',
+        description: property.p.baths
+      },
+      {
+        title: 'Cocheras',
+        description: property.p.parkings
+      },
+      {
+        title: 'Antiguedad',
+        description: property.p.prop.age ? `${property.p.prop.age} años` : ''
+      },
+      {
+        title: 'Orientación',
+        description: property.p.prop.orientation
+      },
+      {
+        title: 'Disposición',
+        description: property.p.prop.disposition
+      }
+    ]
+
     let myLatLng = {lat: parseFloat(property.p.prop.geo_lat), lng: parseFloat(property.p.prop.geo_long)};
 
     let map = new google.maps.Map(document.getElementById('propertyMap'), {
@@ -124,10 +156,6 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
     property.apiReady = true;
     $scope.$apply();
 
-    uiFunctions.showMoreButton();
-    uiFunctions.buildSlickCarousel();
-    uiFunctions.buildMagnificPopup();
-
     $timeout(() => {
       google.maps.event.trigger(map, 'resize');
       google.maps.event.trigger(mobileMap, 'resize');
@@ -136,12 +164,15 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
     const querySubject = `Consulta por propiedad %23${property.p.id}: ${property.p.prop.publication_title}`.replace(/\s/g, '%20');    
 
     const cellPhone = property.p.prop.producer.cellphone ? property.p.prop.producer.cellphone : property.p.prop.producer.phone;
-    const cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351'); 
+    const cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');
+    property.p.formatedPhone = cleanCellPhone.replace(/^549351/,'+54 9 351 ');
     const whatsAppUri = `https://api.whatsapp.com/send?phone=${cleanCellPhone}&text=${querySubject}`;  
-    document.querySelector("#mobile-prop-detail .contact-globe-modal-icons .fa-whatsapp").parentElement.setAttribute("href", whatsAppUri);            
+    document.querySelector("#mobile-prop-detail .contact-globe-modal-icons .fa-whatsapp").parentElement.setAttribute("href", whatsAppUri);
+    document.querySelector(".desktop-prop-detail-contact-container .fa-whatsapp").parentElement.setAttribute("href", whatsAppUri);
     
     const emailUri = `mailto:${property.p.prop.producer.email}?Subject=${querySubject}`;        
     document.querySelector("#mobile-prop-detail .contact-globe-modal-icons .fa-envelope").parentElement.setAttribute("href", emailUri);
+    document.querySelector(".desktop-prop-detail-contact-container .fa-envelope").parentElement.setAttribute("href", emailUri);
   });   
 
   // #endregion
@@ -170,7 +201,6 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
       property.featuredPropsReady = true;
 
       $scope.$apply();
-      uiFunctions.buildCarousel();
     });
   };
 
@@ -231,17 +261,18 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
   // #region Scoped Methods
 
   property.toggleDescriptionDetailDesktop = () => {
-    const showMore = document.querySelector(".show-more");
-    const preElement = showMore.querySelector("pre");
+    
+    const showMore = document.querySelector(".collapsable-title");
+    const preElement = document.querySelector(".desktop-prop-detail-left-panel pre");
     const maxHeight = `${preElement.offsetHeight + preElement.offsetTop}px`;
 
     if (showMore.classList.contains("visible")) {
       showMore.classList.remove("visible");
-      showMore.style.maxHeight = '';
+      preElement.style.maxHeight = '';
     }
     else {
       showMore.classList.add("visible");
-      showMore.style.maxHeight = maxHeight;
+      preElement.style.maxHeight = maxHeight;
     }
   };
 
@@ -275,7 +306,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
 
   property.toggleContactModal = () => property.isContactModalOpen = !property.isContactModalOpen;
 
-  property.isDateGraterThanToday = (date) => utils.isDateGraterThanToday(date);
+  property.isDateGreaterThanToday = (date) => utils.isDateGreaterThanToday(date);
 
   property.goToOtherUnits = () => document.getElementById("other-units-table").scrollIntoView({behavior: 'smooth'});;
 

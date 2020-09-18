@@ -185,7 +185,7 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
 
   development.toggleContactModal = () => development.isContactModalOpen = !development.isContactModalOpen;
 
-  development.isDateGraterThanToday = (date) => utils.isDateGraterThanToday(date);
+  development.isDateGreaterThanToday = (date) => utils.isDateGreaterThanToday(date);
 
   // #endregion
 

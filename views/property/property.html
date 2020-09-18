@@ -1,226 +1,82 @@
 <!-- Desktop Property Detail -->
 <div ng-controller="propertyController as property" class="hidden-on-mobile">
-<div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="property.apiReady"></div>
-<div id="titlebar" class="property-titlebar margin-bottom-0" ng-show="property.apiReady">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        
-        <a onclick="window.history.back()" class="back-to-listings"></a>
-        <div class="property-title">
-          <h2>{{property.p.prop.publication_title}} <span class="property-badge">{{property.p.operation_type}}</span></h2>
-          <span>
-            <a href="#location" class="listing-address">
-              <i class="fa fa-map-marker"></i>
-              {{property.p.prop.address}}
-            </a>
-          </span>
-        </div>
-        <div class="property-pricing">
-          <div ng-show="property.p.prop.web_price">{{ property.p.price | currency:property.p.currency:0}}</div>
-          <div class="sub-price">ID: {{property.p.prop.reference_code}}</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Slider -->
-<div class="fullwidth-property-slider margin-bottom-50 hidden-on-desktop" ng-show="property.apiReady">
-  <img ng-repeat="i in property.p.prop.photos" src="{{i.image}}" class="margin-right-10">
-</div>
-<div class="margin-bottom-50 hidden-on-mobile">
-  <!-- Slider Container -->
-  <div class="property-slider-container">
-    <!-- Slider -->
-    <div class="property-slider no-arrows">
-      <a  data-background-image="{{property.p.cover_photo_original}}" class="item"></a>
-      <!-- Slider Thumbs -->
-      <ul class="proerty-gallery-thumbs-container" ng-if="property.p.prop.photos.length <= 4">
-        <li class="property-gallery-thumb" ng-repeat="i in property.p.prop.photos">
-          <a href="{{i.original}}" class="item mfp-gallery">
-            <img src="{{i.thumb}}" alt="">
-          </a>
-        </li>
-      </ul>
-      <ul class="proerty-gallery-thumbs-container" ng-if="property.p.prop.photos.length > 4">
-        <li class="property-gallery-thumb">
-          <a href="{{property.p.prop.photos[0].original}}" class="item mfp-gallery">
-            <img src="{{property.p.prop.photos[0].thumb}}" alt="">
-          </a>
-        </li>
-        <li class="property-gallery-thumb">
-          <a href="{{property.p.prop.photos[1].original}}" class="item mfp-gallery">
-            <img src="{{property.p.prop.photos[1].thumb}}" alt="">
-          </a>
-        </li>
-        <li class="property-gallery-thumb">
-          <a href="{{property.p.prop.photos[2].original}}" class="item mfp-gallery">
-            <img src="{{property.p.prop.photos[2].thumb}}" alt="">
-          </a>
-        </li>
-        <li class="property-gallery-thumb more">
-          <a href="{{property.p.prop.photos[3].original}}" class="item mfp-gallery">
-            <span ><i class="fa fa-plus"></i> {{property.p.prop.photos.length - 3}}</span>
-          </a>
-        </li>
-        <li class="property-gallery-thumb hidden" ng-repeat="i in property.p.prop.photos | limitTo: (4 - property.p.prop.photos.length)">
-          <a href="{{i.original}}" class="item mfp-gallery">
-            <img src="{{i.thumb}}" alt="">
-          </a>
-        </li>
-      </ul>
-    </div>
-    <!-- Slider / End -->
-    <!-- Slider Container / End -->
-  </div>
-</div>
-<div class="container" ng-show="property.apiReady">
-  <div class="row">
-    <!-- Property Description -->
-    <div class="col-lg-8 col-md-7">
-      <div class="property-description">
-        <!-- Main Features -->
-        <ul class="property-main-features">
-          <li>Superficie <span>{{property.p.area}} M2</span></li>
-          <li>Habitaciones <span>{{property.p.rooms}}</span></li>
-          <li>Baños <span>{{property.p.baths}}</span></li>
-          <li>Cocheras <span>{{property.p.parkings}}</span></li>
-        </ul>
-        <!-- Features -->
-        <h3 class="desc-headline">Características</h3>
-        <ul class="property-features checkboxes margin-top-0">
-          <li ng-repeat="tag in property.p.prop.tags">{{tag.name}}</li>
-        </ul>
-        <!-- Location -->
-        <h3 class="desc-headline no-border" id="location">Ubicación</h3>
-        <div id="propertyMap-container">
-          <div id="propertyMap"></div>
-          <!-- <a href="#" id="streetView">Street View</a> -->
-        </div>
-        <!-- Description -->
-        <h3 class="desc-headline">Descripción</h3>
-        <div class="show-more">
-          <pre>{{property.p.prop.description}}</pre>
-          <a href="#" class="show-more-button" ng-click="property.toggleDescriptionDetailDesktop()">Mostrar Más <i class="fa fa-angle-down"></i></a>
-        </div>
-      </div>
-    </div>
-    <!-- Property Description / End -->
-    <!-- Sidebar -->
-    <div class="col-lg-4 col-md-5">
-      <div class="sidebar sticky right">
-        <!-- Widget -->
-        <div class="widget margin-bottom-30">
-          <button class="widget-button"><i class="sl sl-icon-printer"></i> Imprimir</button>
-        </div>
-        <!-- Widget / End -->
-        <!-- Widget -->
-        <div class="widget">
-          <!-- Agent Widget -->
-          <div class="agent-widget">
-            <div class="agent-title">
-              <div class="agent-photo"><img src="{{property.p.prop.producer.picture}}" alt="" /></div>
-              <div class="agent-details">
-                <h4>{{property.p.prop.producer.name}}</h4>
-                <span ng-show="property.showContactForm"><i class="sl sl-icon-call-in"></i>{{property.p.prop.producer.phone}}</span>
-                <a href="" ng-hide="property.showContactForm" ng-click="property.showContactForm = !property.showContactForm">Contactar</a>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-            <div ng-show="property.showContactForm" class="margin-top-30">
-              <input type="text" placeholder="Tu Email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" ng-model="property.email">
-              <input type="text" placeholder="Tu Teléfono" ng-model="property.phone">
-              <textarea ng-model="property.message"></textarea>
-              <div class="notification success closeable col-md-12" ng-show="property.success">
-                <p>Mensaje enviado con éxito.</p>
-              </div>
-              <button class="button fullwidth margin-top-5" ng-click="property.send()">{{submitText}} <i class='fa fa-spinner fa-spin' ng-show="property.sending"></i></button>
-            </div>
-          </div>
-          <!-- Agent Widget / End -->
-        </div>
-        <!-- Widget / End -->
-        <div class="widget">
-          <h3 class="margin-bottom-35">Destacados</h3>
-          <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="property.featuredProps"></div>
-          <div class="listing-carousel outer" ng-show="property.apiReady">
-            <!-- Item -->
-            <div class="item" ng-repeat="p in property.featuredProps">
-              <div class="listing-item compact">
-                <a ui-sref="property({propertyId: p.id})" class="listing-img-container">
-                  <div class="listing-badges">
-                    <span class="featured">Destacado</span>
-                    <span>{{p.type}}</span>
-                  </div>
-                  <div class="listing-img-content">
-                    <span class="listing-compact-title">{{p.prop.publication_title}} <i ng-show="p.prop.web_price">{{ p.price | currency:p.currency:0}}</i></span>
-                    <ul class="listing-hidden-content">
-                      <li>Superficie <span>{{p.area}} M2</span></li>
-                      <li><i class="fa fa-bed"></i> <span>{{p.prop.suite_amount}}</span></li>
-                      <li><i class="fa fa-bathtub"></i> <span>{{p.prop.bathroom_amount}}</span></li>
-                      <li><i class="fa fa-car"></i> <span>{{p.parkings}}</span></li>
-                    </ul>
-                  </div>
-                  <img src="{{p.cover_photo}}" alt="">
-                </a>
-              </div>
-            </div>
-            <!-- Item / End -->
-          </div>
-        </div>
+  
+  <!-- Main Container -->
+  <div class="desktop-prop-detail-main-container">
 
+    <!-- Left Panel -->
+    <div class="desktop-prop-detail-left-panel">
+      <img src="{{property.p.cover_photo_original}}" alt="">
+      
+      <div class="gallery-slider">
+        <img src="{{i.thumb}}" alt="" ng-repeat="i in property.p.prop.photos">
       </div>
-    </div>
-    <!-- Sidebar / End -->
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <!-- Similar Listings Container -->
-      <h3 class="desc-headline no-border margin-bottom-35 margin-top-60">Propiedades Similares</h3>
-      <!-- Layout Switcher -->
-      <div class="layout-switcher hidden"><a href="#" class="list"><i class="fa fa-th-list"></i></a></div>
-      <div class="listings-container list-layout">
-      <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="property.similarReady"></div>
-        <!-- Listing Item -->
-        <div class="listing-item" ng-repeat="p in property.similarProps">
-          <a ui-sref="property({propertyId: p.id})" class="listing-img-container">
-            <div class="listing-badges">
-              <span>{{p.type}}</span>
-            </div>
-            <div class="listing-img-content">
-              <span class="listing-price" ng-show="p.prop.web_price">{{ p.price | currency:p.currency:0}}</span>
-              <span class="like-icon"></span>
-            </div>
-            <img src="{{p.cover_photo}}" alt="">
-          </a>
-          <div class="listing-content">
-            <div class="listing-title">
-              <h4><a ui-sref="property({propertyId: p.id})">{{p.prop.publication_title}}</a></h4>
-              <a ui-sref="property({propertyId: p.id})">
-                <i class="fa fa-map-marker"></i>
-                {{p.prop.address}}
-              </a>
-              <a ui-sref="property({propertyId: p.id})" class="details button border">Detalles</a>
-            </div>
-            <ul class="listing-details">
-              <li>{{p.area}} M2</li>
-              <li><i class="fa fa-bed"></i> <span>{{p.prop.suite_amount}}</span></li>
-              <li><i class="fa fa-bathtub"></i> <span>{{p.prop.bathroom_amount}}</span></li>
-              <li><i class="fa fa-car"></i> <span>{{p.parkings}}</span></li>
-            </ul>
-            <div class="listing-footer">
-              <a ui-sref="property({propertyId: p.id})"><i class="fa fa-user"></i> {{p.prop.producer.name}}</a>
-              <!-- <span><i class="fa fa-calendar-o"></i> 4 days ago</span> -->
-            </div>
-          </div>
-          <!-- Listing Item / End -->
+
+      <!-- Features -->
+      <h3 class="margin-top-40">Características</h3>
+
+      <div class="desktop-prop-detail-features-container">
+        <div ng-repeat="feature in property.desktopFeatures" ng-if ="feature.description">
+          <p>{{feature.title}}</p> 
+          <h3>{{feature.description}}<sup ng-if="feature.title == 'Superficie'">2</sup></h3>
         </div>
-        <!-- Listing Item / End -->
       </div>
-      <!-- Similar Listings Container / End -->
+      <!-- Features End -->
+
+      <hr >
+
+      <!-- Special Features -->
+      <h3>Características Generales</h3>
+      <div class="desktop-prop-detail-general-features-container">
+        <p ng-repeat="tag in property.p.prop.tags">{{tag.name}}</p>
+      </div>      
+
+      <hr >
+
+      <h3 class="collapsable-title" ng-click="property.toggleDescriptionDetailDesktop()">Descripción <i class="fa fa-angle-up"></i></h3>
+      <pre>{{property.p.prop.description.trim()}}</pre>      
+    </div>  
+    <!-- Left Panel End -->
+    
+    <!-- Right Panel -->    
+    <div class="desktop-prop-detail-right-panel">
+
+      <!-- Main Info -->
+      <div class="desktop-prop-detail-info-container">
+        <p ng-if="property.p.prop.development.construction_date && property.isDateGreaterThanToday(property.p.prop.development.construction_date)">Entrega {{property.p.prop.development.construction_date | date:'MM/yyyy'}}</p>
+        <h3>{{property.p.prop.publication_title}}</h3> 
+        <p class="margin-top-15">{{property.p.operation_type}}</p> 
+        <h2>{{property.p.price | currency:property.p.currency:0}}</h2>        
+      </div>
+
+      <!-- Contact -->
+      <div class="desktop-prop-detail-contact-container">
+        <img src="{{property.p.prop.producer.picture}}" alt="">
+        <div class="contact-info">
+          <p>{{property.p.prop.producer.name}}</p>
+          <a>
+            <i class="fab fa-whatsapp"></i> <p>{{property.p.formatedPhone}}</p>
+          </a>
+          <a>
+            <i class="fa fa-envelope"></i> <p>{{property.p.prop.producer.email}}</p>
+          </a>                    
+        </div>
+      </div>
+      
+      <!-- Maps -->
+      <div id="propertyMap-container">
+        <div id="propertyMap"></div>
+      </div>
+
     </div>
+    <!-- Right Panel End -->
+
   </div>
-</div>
+  <!-- Main Container End -->
+
+  <!-- Featured Properties -->
+  Propiedades Similares
+
 </div>
 <!-- Desktop Property Detail End -->
 
@@ -252,7 +108,7 @@
       <div class="mobile-property-subtitle-text">
         <p><strong>{{property.p.prop.type.name}} - {{property.p.area | number:0}}m<sup>2</sup> - {{property.p.enviroments}} Ambientes</strong></p>
         <p><strong>{{property.p.prop.address}}</strong>, {{property.p.prop.location.name}}, {{property.p.state}}</p>
-        <p ng-if="property.p.prop.development.construction_date && property.isDateGraterThanToday(property.p.prop.development.construction_date)"><strong>Posesión: {{property.p.prop.development.construction_date | date:'MM/yyyy'}}</strong></p>
+        <p ng-if="property.p.prop.development.construction_date && property.isDateGreaterThanToday(property.p.prop.development.construction_date)"><strong>Entrega: {{property.p.prop.development.construction_date | date:'MM/yyyy'}}</strong></p>
       </div>      
     </section>    
     <!-- Subtitle End -->

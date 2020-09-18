@@ -332,3 +332,215 @@
         background-position: 80vw;
     }
 }
+
+.desktop-prop-detail-main-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 1500px;
+    margin: auto;
+    border-radius: 10px;
+    background-color: var(--softgrey);
+    padding: 40px;
+    margin: 20px auto;
+    width: 95%;
+}
+
+.desktop-prop-detail-left-panel {
+    flex: 1;
+}   
+
+.desktop-prop-detail-left-panel hr {
+    border: 1px solid grey !important;
+    width: 98%;
+    margin: 30px auto;
+}
+
+.desktop-prop-detail-left-panel > img {
+    width: 100%;
+    height: 50vh;
+    border-radius: 5px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.desktop-prop-detail-left-panel .gallery-slider {
+    width: 100%;
+    overflow: hidden;
+    flex-wrap: nowrap;
+    display: flex;
+    scroll-behavior: smooth;
+    margin: 10px 0;
+}
+
+.desktop-prop-detail-left-panel .gallery-slider img {
+    height: 130px;
+    width: 160px;
+    border-radius: 5px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.desktop-prop-detail-features-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.desktop-prop-detail-features-container div {    
+    min-width: 140px;
+    flex: 0 0 25%;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+    justify-content: center;
+}
+
+.desktop-prop-detail-features-container div * {
+    margin: 0;
+}
+
+.desktop-prop-detail-general-features-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.desktop-prop-detail-general-features-container p {
+    margin: 0;
+    padding: 5px 10px;
+    background-color: #e7e7e7;
+    border-radius: 5px;
+    width: fit-content;
+    margin: 5px;
+}
+
+.collapsable-title {
+    display: flex;
+    justify-content: space-between;
+    width: 98%;
+    cursor: pointer;
+}
+
+.collapsable-title i {
+    transition: all 0.5s ease-in-out;
+}
+
+.collapsable-title.visible i {
+    transform: rotateZ(-180deg);
+} 
+
+.desktop-prop-detail-left-panel pre {
+    position: relative;
+    background-color: #e7e7e7;
+    border-radius: 5px;
+    padding: 15px;
+    max-height: 150px;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+}
+
+.desktop-prop-detail-left-panel .collapsable-title + pre:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    display: block;
+    background: linear-gradient(#e7e7e7, var(--softgrey) 88%);
+    z-index: 9;
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.5s;
+}
+
+.desktop-prop-detail-left-panel .collapsable-title.visible + pre:after {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.desktop-prop-detail-right-panel {
+    margin-left: -2%;
+    max-width: 440px;
+    margin-top: 30px;
+}
+
+.desktop-prop-detail-right-panel > div {
+    box-shadow: 0px 0px 0px 3px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    background-color: white;
+}
+
+.desktop-prop-detail-info-container,
+.desktop-prop-detail-contact-container {
+    display: flex;
+    flex-direction: column;    
+    padding: 15px;
+}
+
+.desktop-prop-detail-info-container * {
+    margin: 0;
+}
+
+.desktop-prop-detail-info-container h3 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.desktop-prop-detail-contact-container  {
+    display: flex;
+    flex-direction: row;
+    margin: 20px 0;
+    position: sticky;
+    top: 75px;
+    z-index: 2;
+    transform: scale(1.04);
+}
+
+.desktop-prop-detail-contact-container img {
+    width: 100px;
+    height: 100px;  
+    object-fit: cover;  
+    border-radius: 50%;  
+}
+
+.desktop-prop-detail-contact-container .contact-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 10px;
+}
+
+.desktop-prop-detail-contact-container .contact-info a {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: grey;
+    width: fit-content;
+}
+
+.desktop-prop-detail-contact-container .contact-info * {
+    margin: 0;
+    font-size: 16px;
+}
+
+.desktop-prop-detail-contact-container .contact-info i {
+    font-size: 25px;
+    margin-right: 10px;
+}
+
+.desktop-prop-detail-contact-container .contact-info .fa-whatsapp {
+    color: var(--whatsapp-green);
+}
+
+.desktop-prop-detail-contact-container .contact-info .fa-envelope {
+    color: var(--soft-red);
+}
+
+.desktop-prop-detail-contact-container .contact-info p:first-child {
+    font-size: 18px;
+    color: var(--primary-red);
+    font-weight: bold;
+}
