@@ -148,7 +148,7 @@
     width: 100%;
     height: 60px;
     display: block;
-    background: linear-gradient(rgba(255, 255, 255, 0), #fff 88%);
+    background: linear-gradient(rgba(255, 255, 255, 0), #fff 50%);
     z-index: 9;
     opacity: 1;
     visibility: visible;
@@ -340,14 +340,16 @@
     max-width: 1500px;
     margin: auto;
     border-radius: 10px;
-    background-color: var(--softgrey);
-    padding: 40px;
+    background-color: white;
     margin: 20px auto;
     width: 95%;
 }
 
 .desktop-prop-detail-left-panel {
     flex: 1;
+    background-color: var(--softgrey);
+    padding: 30px;
+    border-radius: 10px;
 }   
 
 .desktop-prop-detail-left-panel hr {
@@ -388,13 +390,16 @@
 }
 
 .desktop-prop-detail-features-container div {    
-    min-width: 140px;
-    flex: 0 0 25%;
-    height: 70px;
     display: flex;
     flex-direction: column;
-    align-items: center;    
+    align-items: center;
     justify-content: center;
+    margin: 10px;
+    background-color: #e7e7e7;
+    border-radius: 5px;
+    min-width: 100px;
+    flex: 0 0 calc(25% - 20px);
+    height: 65px;    
 }
 
 .desktop-prop-detail-features-container div * {
@@ -450,7 +455,7 @@
     height: 50px;
     display: block;
     background: linear-gradient(#e7e7e7, var(--softgrey) 88%);
-    z-index: 9;
+    z-index: 2;
     opacity: 1;
     visibility: visible;
     transition: all 0.5s;
@@ -462,7 +467,7 @@
 }
 
 .desktop-prop-detail-right-panel {
-    margin-left: -2%;
+    margin-left: -3%;
     max-width: 440px;
     margin-top: 30px;
 }
@@ -485,7 +490,7 @@
 }
 
 .desktop-prop-detail-info-container h3 {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
 }
 
@@ -543,4 +548,47 @@
     font-size: 18px;
     color: var(--primary-red);
     font-weight: bold;
+}
+
+.desktop-prop-detail-featured {
+    width: 80%;
+    max-width: 1500px;
+    margin: 50px auto 20px auto;
+}
+
+.desktop-prop-detail-featured h3 {
+    padding: 20px 40px;
+    color: white;
+    width: fit-content;
+    background-color: #a6a6a6;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-bottom: -5px;
+}
+
+.desktop-prop-detail-featured .slider-arrows-container {
+    max-width: 1650px;
+}
+
+.desktop-prop-detail-featured .gallery-properties-cards {
+    background-color: var(--softgrey);
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    padding: 10px;  
+}
+
+.desktop-prop-detail-featured .gallery-properties-cards-item .gallery-properties-cards-item-description-container p {
+    font-size: 17px;
+}
+
+.desktop-prop-detail-featured .gallery-properties-cards-item .gallery-properties-cards-item-description-container {
+    height: 180px;
+}
+
+.desktop-prop-detail-featured .gallery-properties-cards-emtpy-item {
+    max-width: 20px;
+}
+
+.desktop-prop-detail-featured .gallery-properties-cards-item:last-child {
+    margin-right: 20px;
 }

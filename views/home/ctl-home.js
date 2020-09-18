@@ -25,7 +25,10 @@ app.controller('homeController', ['$rootScope', '$scope', '$interval', '$timeout
 
   // #region On Init
 
-  $timeout(() => $rootScope.activeMenu = 'home', 100);
+  $timeout(() => {
+    $rootScope.activeMenu = 'home';
+    footer.style.display = 'none';
+  }, 100);
    
   var changeBackgroundImageInterval = setInterval(() => {
     if (home.featured360Props) {
@@ -37,8 +40,6 @@ app.controller('homeController', ['$rootScope', '$scope', '$interval', '$timeout
   getFeatured360Props();
 
   home.agents.forEach(agent => agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351'));
-
-  footer.style.display = 'none';
 
   // #endregion
 

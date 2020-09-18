@@ -2,7 +2,7 @@
 <div ng-controller="propertyController as property" class="hidden-on-mobile">
   
   <!-- Main Container -->
-  <div class="desktop-prop-detail-main-container">
+  <section class="desktop-prop-detail-main-container">
 
     <!-- Left Panel -->
     <div class="desktop-prop-detail-left-panel">
@@ -23,10 +23,10 @@
       </div>
       <!-- Features End -->
 
-      <hr >
+      <hr ng-if="property.p.prop.tags.length > 0">
 
       <!-- Special Features -->
-      <h3>Características Generales</h3>
+      <h3 ng-if="property.p.prop.tags.length > 0">Características Generales</h3>
       <div class="desktop-prop-detail-general-features-container">
         <p ng-repeat="tag in property.p.prop.tags">{{tag.name}}</p>
       </div>      
@@ -71,11 +71,16 @@
     </div>
     <!-- Right Panel End -->
 
-  </div>
+  </section>
   <!-- Main Container End -->
 
   <!-- Featured Properties -->
-  Propiedades Similares
+  <section class="desktop-prop-detail-featured">  
+    <h3>Te aconsejamos estas propiedades</h3>    
+    
+    <gallery-properties-cards items="property.similarProps" show-photos="property.similarReady"></gallery-properties-cards>
+  </section>
+  <!-- Featured Props End -->
 
 </div>
 <!-- Desktop Property Detail End -->

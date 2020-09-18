@@ -70,9 +70,9 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
       },
       {
         icon: "fa fa-bed",
-        value: property.p.enviroments,
-        name: `Dormitorio${property.p.enviroments > 1 ? 's' : ''}`,
-        isVisible: property.p.enviroments > 0
+        value: property.p.rooms,
+        name: `Dormitorio${property.p.rooms > 1 ? 's' : ''}`,
+        isVisible: property.p.rooms > 0
       },
       {
         icon: "fas fa-bath",
@@ -103,7 +103,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
     property.desktopFeatures = [
       {
         title: 'Superficie',
-        description: `${parseInt(property.p.area)} m`
+        description: property.p.area != 0 ? `${parseInt(property.p.area)} m` : ''
       },
       {
         title: 'Dormitorios',
