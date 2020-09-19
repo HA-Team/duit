@@ -366,21 +366,64 @@
     cursor: pointer;
 }
 
+.desktop-prop-detail-left-panel .slider-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .desktop-prop-detail-left-panel .gallery-slider {
     width: 100%;
     overflow: hidden;
     flex-wrap: nowrap;
     display: flex;
+    align-items: center;
     scroll-behavior: smooth;
     margin: 10px 0;
 }
 
+.desktop-prop-detail-left-panel .slider-arrows-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 3;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    margin: auto;
+    pointer-events: none;
+    -webkit-user-select: none;       
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.desktop-prop-detail-left-panel .slider-arrows-container i {
+    pointer-events: all;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+    z-index: 2;
+    background-color: rgba(0,0,0,0.25);
+    border-radius: 50%;
+}
+
 .desktop-prop-detail-left-panel .gallery-slider img {
-    height: 130px;
+    flex: 0 0 160px;
     width: 160px;
+    height: 130px;
     border-radius: 5px;
     margin-right: 8px;
     cursor: pointer;
+    object-fit: cover;
 }
 
 .desktop-prop-detail-features-container {
@@ -391,20 +434,41 @@
 
 .desktop-prop-detail-features-container div {    
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin: 10px;
+    margin: 5px;
     background-color: #e7e7e7;
     border-radius: 5px;
     min-width: 100px;
-    flex: 0 0 calc(25% - 20px);
     height: 65px;    
+}
+
+.desktop-prop-detail-features-container > div {
+    min-width: 160px;
 }
 
 .desktop-prop-detail-features-container div * {
     margin: 0;
 }
+
+.desktop-prop-detail-features-container i {
+    font-size: 22px;
+    background-color: var(--softgrey);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+}
+
+.desktop-prop-detail-features-container div div {
+    display: flex;
+    flex-direction: column;
+}
+
 
 .desktop-prop-detail-general-features-container {
     display: flex;
@@ -413,12 +477,20 @@
 }
 
 .desktop-prop-detail-general-features-container p {
+    display: flex;
+    align-items: center;
     margin: 0;
     padding: 5px 10px;
     background-color: #e7e7e7;
     border-radius: 5px;
     width: fit-content;
     margin: 5px;
+}
+
+.desktop-prop-detail-general-features-container p i {
+    font-size: 18px;
+    margin-right: 7px;
+    color: var(--soft-red);
 }
 
 .collapsable-title {

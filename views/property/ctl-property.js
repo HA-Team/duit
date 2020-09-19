@@ -1,4 +1,4 @@
-app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', 'navigation', function($rootScope, $scope, $timeout, tokkoApi, $stateParams, getFeaturedProperties, utils, navigation) {   
+app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', 'sliderMoves', function($rootScope, $scope, $timeout, tokkoApi, $stateParams, getFeaturedProperties, utils, sliderMoves) {   
   var property = this;
   
   // #region Scoped Properties
@@ -48,6 +48,8 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
       videos: result.videos,
       hasDuit360: result.videos.some(video => video.provider_id == 6)
     };
+
+    property.activeGalleryPhoto = property.p.cover_photo_original;
 
     $rootScope.activeSection = property.p.operation_type == 'Venta' ? 'properties-sell' : 'properties-rent';
     
@@ -103,31 +105,38 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
     property.desktopFeatures = [
       {
         title: 'Superficie',
-        description: property.p.area != 0 ? `${parseInt(property.p.area)} m` : ''
+        description: property.p.area != 0 ? `${parseInt(property.p.area)} m` : '',
+        icon: "fas fa-ruler-vertical"
       },
       {
         title: 'Dormitorios',
-        description: property.p.rooms
+        description: property.p.rooms,
+        icon: "fa fa-bed"
       },
       {
         title: 'Baños',
-        description: property.p.baths
+        description: property.p.baths,
+        icon: "fas fa-bath"
       },
       {
         title: 'Cocheras',
-        description: property.p.parkings
+        description: property.p.parkings,
+        icon: "fas fa-car"
       },
       {
         title: 'Antiguedad',
-        description: property.p.prop.age ? `${property.p.prop.age} años` : ''
+        description: property.p.prop.age ? `${property.p.prop.age} años` : '',
+        icon: "far fa-calendar-alt"
       },
       {
         title: 'Orientación',
-        description: property.p.prop.orientation
+        description: property.p.prop.orientation,
+        icon: 'fa fa-compass'
       },
       {
         title: 'Disposición',
-        description: property.p.prop.disposition
+        description: property.p.prop.disposition,
+        icon: 'fa fa-building'
       }
     ]
 
@@ -156,6 +165,9 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
     property.apiReady = true;
     $scope.$apply();
 
+    const gallerySlider = document.querySelector('.gallery-slider');
+    property.showGalleryArrows = gallerySlider ? gallerySlider.scrollWidth > gallerySlider.offsetWidth : false;
+
     $timeout(() => {
       google.maps.event.trigger(map, 'resize');
       google.maps.event.trigger(mobileMap, 'resize');
@@ -173,7 +185,15 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
     const emailUri = `mailto:${property.p.prop.producer.email}?Subject=${querySubject}`;        
     document.querySelector("#mobile-prop-detail .contact-globe-modal-icons .fa-envelope").parentElement.setAttribute("href", emailUri);
     document.querySelector(".desktop-prop-detail-contact-container .fa-envelope").parentElement.setAttribute("href", emailUri);
-  });   
+  });
+  
+  property.moveSlider = (slider, side) => {
+    const step = slider.querySelector('img').offsetWidth;
+
+    if (side == 'left' && slider.scrollLeft > 0) slider.scrollLeft -= step;
+
+    if (side == 'right') slider.scrollLeft = slider.scrollLeft + step;
+  } 
 
   // #endregion
 

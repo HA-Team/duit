@@ -6,34 +6,45 @@
 
     <!-- Left Panel -->
     <div class="desktop-prop-detail-left-panel">
-      <img src="{{property.p.cover_photo_original}}" alt="">
+      <img src="{{property.activeGalleryPhoto}}" alt="">
       
-      <div class="gallery-slider">
-        <img src="{{i.thumb}}" alt="" ng-repeat="i in property.p.prop.photos">
+      <div class="slider-container" ng-if="property.p.prop.photos.length > 1">
+        <div class="gallery-slider">
+          <img src="{{i.thumb}}" alt="" ng-repeat="i in property.p.prop.photos" ng-click="property.activeGalleryPhoto = i.image">        
+        </div>
+  
+        <!-- Arrows -->
+        <div class="slider-arrows-container" ng-if="property.showGalleryArrows">
+          <i class="fa fa-angle-left" ng-click="property.moveSlider($event.target.parentElement.previousElementSibling, 'left')"></i>
+          <i class="fa fa-angle-right" ng-click="property.moveSlider($event.target.parentElement.previousElementSibling,'right')"></i>
+        </div>
       </div>
 
       <!-- Features -->
-      <h3 class="margin-top-40">Características</h3>
+      <h3 class="margin-top-40">Características Principales</h3>
 
       <div class="desktop-prop-detail-features-container">
         <div ng-repeat="feature in property.desktopFeatures" ng-if ="feature.description">
-          <p>{{feature.title}}</p> 
-          <h3>{{feature.description}}<sup ng-if="feature.title == 'Superficie'">2</sup></h3>
-        </div>
+          <i class="{{feature.icon}}"></i>
+          <div>
+            <p>{{feature.title}}</p> 
+            <h3>{{feature.description}}<sup ng-if="feature.title == 'Superficie'">2</sup></h3>
+          </div>          
+        </div>        
       </div>
       <!-- Features End -->
 
       <hr ng-if="property.p.prop.tags.length > 0">
 
       <!-- Special Features -->
-      <h3 ng-if="property.p.prop.tags.length > 0">Características Generales</h3>
+      <h3 ng-if="property.p.prop.tags.length > 0">Características Adicionales</h3>
       <div class="desktop-prop-detail-general-features-container">
-        <p ng-repeat="tag in property.p.prop.tags">{{tag.name}}</p>
+        <p ng-repeat="tag in property.p.prop.tags"><i class="fa fa-check-square"></i>{{tag.name}}</p>
       </div>      
 
       <hr >
 
-      <h3 class="collapsable-title" ng-click="property.toggleDescriptionDetailDesktop()">Descripción <i class="fa fa-angle-up"></i></h3>
+      <h3 class="collapsable-title" ng-click="property.toggleDescriptionDetailDesktop()">Descripción <i class="fa fa-angle-down"></i></h3>
       <pre>{{property.p.prop.description.trim()}}</pre>      
     </div>  
     <!-- Left Panel End -->
@@ -177,7 +188,7 @@
     <!-- Available Units -->
     <responsive-table id="other-units-table" ng-if="property.p.prop.development && property.devProps.length > 0" items="property.devProps" title="'Otras unidades del Emprendimiento'" columns="property.availablePropsColumns"></responsive-table>
 
-    <hr>
+    <hr ng-if="property.p.prop.development && property.devProps.length > 0">
 
     <!-- Location -->
     <section class="mobile-property-location">    
