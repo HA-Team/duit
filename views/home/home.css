@@ -540,6 +540,16 @@ a.property-type + ul li:hover {
 	}
 
 	#home-featured {
-		height: 400px;
+		height: 50vh;
+		max-height: 450px;
+	}
+
+	#home-search-bar {
+		min-height: 400px;
+		height: 50vh;
+	}
+
+	.parallax-content {
+		padding: 20vh 0;
 	}
 }

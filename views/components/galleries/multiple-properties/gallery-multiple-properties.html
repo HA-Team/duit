@@ -1,6 +1,6 @@
 <section class="gallery-multiple-properties">
   
-  <div class="hidden-on-mobile" style="width: 100%">
+  <div class="hidden-on-mobile" style="width: 100%; height: 100%;">
     
     <!-- Skeleton -->
     <div class="skeleton-container" ng-show="!showGallery">
@@ -17,7 +17,7 @@
       <div class="desktop-slider-item-container" ng-repeat="item in items">
 
         <!-- Video player -->
-        <iframe ng-src="{{item.video_url | trusted}}" class="video-player" allowFullScreen="true"> </iframe>
+        <img src="{{item.coverPhoto}}">
 
         <div class="desktop-info-container">
 
