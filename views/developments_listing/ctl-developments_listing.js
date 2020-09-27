@@ -39,9 +39,6 @@ app.controller('devsListingController', ['$rootScope', '$scope', 'tokkoApi', fun
 
     devsListing.apiReady = true;
     $scope.$apply();
-
-    uiFunctions.buildCarousel();
-    uiFunctions.gridSwitcher();
   });
 
   // #endregion
