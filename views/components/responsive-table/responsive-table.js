@@ -99,7 +99,7 @@ app.directive('responsiveTable', function() {
             $scope.toggleDetail = () => $scope.isDetailOpen = !$scope.isDetailOpen;
 
             $scope.setActiveDetail = (item) => {
-                const isSliderTableFullWidthShown = tableSlider.offsetWidth == tableSlider.scrollWidth;
+                const isSliderTableFullWidthShown = Math.abs(tableSlider.offsetWidth - tableSlider.scrollWidth) < 10;
                 const fixedTableElements = [...tableFixed.querySelectorAll(".responsive-table-body-item p")];
                 const isSomeElementEllipsing = fixedTableElements.some(element => element.offsetWidth < element.scrollWidth);
 
@@ -107,7 +107,7 @@ app.directive('responsiveTable', function() {
                     $scope.activeDetail = item;
                     $scope.toggleDetail();
                 }
-                else navigation.goToSection('property', '', null, { propertyId: item.id });
+                else  window.location.href = `/#!/property/${item.id}`;
             };
 
             $scope.moveItemsSlider = (direction) => {
