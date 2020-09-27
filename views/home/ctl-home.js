@@ -19,15 +19,13 @@ app.controller('homeController', ['$rootScope', '$scope', '$interval', '$timeout
   var debouncedOnScroll = utils.debounce(onScroll, 50);
   var backgroundImageIndex = 0;
 
-  const footer = document.querySelector('footer');
-
   // #endregion
 
   // #region On Init
 
   $timeout(() => {
     $rootScope.activeMenu = 'home';
-    footer.style.display = 'none';
+    document.querySelector('footer').style.display = 'none';
   }, 100);
    
   var changeBackgroundImageInterval = setInterval(() => {
@@ -111,7 +109,7 @@ app.controller('homeController', ['$rootScope', '$scope', '$interval', '$timeout
   $scope.$on('$destroy', () => {
     window.removeEventListener('scroll', debouncedOnScroll);
     clearInterval(changeBackgroundImageInterval);
-    footer.style.display = 'flex';
+    document.querySelector('footer').style.display = 'flex';
   });
 
   // #endregion
