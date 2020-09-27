@@ -6,8 +6,11 @@
     <!-- Main Container -->
     <section class="desktop-prop-detail-main-container">
 
+      <!-- Left Panel Skeleton -->
+      <div class="left-panel-skeleton" ng-show="!property.apiReady"></div>
+
       <!-- Left Panel -->
-      <div class="desktop-prop-detail-left-panel">
+      <div class="desktop-prop-detail-left-panel" ng-show="property.apiReady">
         <img src="{{property.activeGalleryPhoto}}" alt="" ng-click="property.toggleGallery()">
 
         <div class="gallery-container" ng-show="property.isGalleryOpen">
@@ -73,16 +76,22 @@
       <!-- Right Panel -->  
       <div class="desktop-prop-detail-right-panel">
 
+        <!-- Main Info Skeleton -->
+        <div class="main-info-skeleton" ng-show="!property.apiReady"></div>
+
         <!-- Main Info -->
-        <div class="desktop-prop-detail-info-container">
+        <div class="desktop-prop-detail-info-container" ng-show="property.apiReady">
           <p ng-if="property.p.prop.development.construction_date && property.isDateGreaterThanToday(property.p.prop.development.construction_date)">Entrega {{property.p.prop.development.construction_date | date:'MM/yyyy'}}</p>
           <h3>{{property.p.prop.publication_title}}</h3> 
           <p class="margin-top-15">{{property.p.operation_type}}</p> 
           <h2>{{property.p.price | currency:property.p.currency:0}}</h2>        
         </div>
 
+        <!-- Contact Skeleton -->
+        <div class="contact-skeleton" ng-show="!property.apiReady"></div>
+
         <!-- Contact -->
-        <div class="desktop-prop-detail-contact-container">
+        <div class="desktop-prop-detail-contact-container" ng-show="property.apiReady">
           <img src="{{property.p.prop.producer.picture}}" alt="">
           <div class="contact-info">
             <p>{{property.p.prop.producer.name}}</p>
@@ -95,8 +104,11 @@
           </div>
         </div>
         
+        <!-- Maps Skeleton -->
+        <div class="map-skeleton" ng-show="!property.apiReady"></div>
+
         <!-- Maps -->
-        <div id="propertyMap-container">
+        <div id="propertyMap-container" ng-show="property.apiReady">
           <div id="propertyMap"></div>
         </div>
 

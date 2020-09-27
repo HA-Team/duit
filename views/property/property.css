@@ -728,3 +728,54 @@
     opacity: 0.8;  
     pointer-events: all;
 }
+
+.left-panel-skeleton {
+    width: 100%;
+    height: 780px;
+    border-radius: 10px;
+    background-color: var(--softgrey);
+    background-image: linear-gradient(90deg, var(--softgrey) 0px, rgba(229, 229, 229, 0.8) 40px, var(--softgrey) 80px);
+    background-size: 100vw;
+    animation: shine-left-panel-skeleton 3s infinite ease-out;   
+    margin-bottom: 15px; 
+}
+
+@keyframes shine-left-panel-skeleton {
+    0% {
+        background-position: -250px;
+    }
+    50%, 100% {
+        background-position: 90vw;
+    }
+}
+
+.desktop-prop-detail-right-panel .main-info-skeleton,
+.desktop-prop-detail-right-panel .contact-skeleton,
+.desktop-prop-detail-right-panel .map-skeleton {
+    height: 150px;            
+    width: 440px;
+    background-color: var(--softgrey);
+    background-image: linear-gradient(90deg, var(--softgrey) 0px, rgba(229, 229, 229, 0.8) 40px, var(--softgrey) 80px);
+    background-size: 200vw;
+    animation: shine-desktop-skeleton 2s infinite ease-out;   
+    margin-bottom: 15px;
+}
+
+@keyframes shine-desktop-skeleton {
+    0% {
+        background-position: -50px;
+    }
+    50%, 100% {
+        background-position: 50vw;
+    }
+}
+
+.desktop-prop-detail-right-panel .contact-skeleton {
+    transform: scale(1.04);
+}
+
+.desktop-prop-detail-right-panel .map-skeleton {
+    position: absolute;
+    height: 300px;
+    z-index: 2;
+}
