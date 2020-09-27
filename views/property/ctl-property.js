@@ -67,7 +67,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
     property.featuresItems = [
       {
         icon: "fas fa-ruler-vertical",
-        value: `${parseInt(property.p.prop.total_surface)}m2`,
+        value: `${parseInt(property.p.prop.total_surface)}m²`,
         name: "Superficie total",
         isVisible: parseInt(property.p.prop.total_surface) > 0
       },
@@ -111,7 +111,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
       },
       {
         title: 'Superficie',
-        description: property.p.area != 0 ? `${parseInt(property.p.area)} m` : '',
+        description: property.p.area != 0 ? `${parseInt(property.p.area)} m²` : '',
         icon: "fas fa-ruler-vertical"
       },
       {
@@ -126,7 +126,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
       },
       {
         title: 'Antiguedad',
-        description: property.p.prop.age > 0 ? `${property.p.prop.age} años` : '',
+        description: property.p.prop.age > 0 ? `${property.p.prop.age} ${property.p.prop.age == 1 ? 'año' : 'años'}` : '',
         icon: "far fa-calendar-alt"
       },
       {
@@ -296,15 +296,16 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
   function getDevelopmentProps(id) {
     getFeaturedProperties.getDevelopmentProps(id, result => {
       property.devProps = result.map(prop => {
+        const price = prop.operations[prop.operations.length-1].prices.slice(-1)[0];
         return {
           id: prop.id,
           type: prop.operations[0].operation_type,
           title: prop.publication_title,
-          currency: prop.operations[prop.operations.length-1].prices.slice(-1)[0].currency,
-          price: prop.operations[prop.operations.length-1].prices.slice(-1)[0].price,
+          currency: price.currency,
+          price: $filter('currency')(price.price, `${price.currency} `, 0),
           cover_photo: prop.photos[0].image,
           parkings: prop.parking_lot_amount ? prop.parking_lot_amount : 0,
-          area: prop.type.id === 1 ? prop.surface : prop.roofed_surface,
+          area: prop.type.id === 1 ? `${$filter('number')(prop.surface, 0)}m²` : `${$filter('number')(prop.roofed_surface, 0)}m²`,
           sell: prop.operations.filter(p => prop.operation_type == "Venta")[0]?.prices.slice(-1)[0],
           rent: prop.operations.filter(p => prop.operation_type == "Alquiler")[0]?.prices.slice(-1)[0],
           parkings_av: prop.parking_lot_amount > 0 ? "Si" : "No",

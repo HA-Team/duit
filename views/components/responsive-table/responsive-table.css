@@ -73,6 +73,7 @@
 	height: 50px;
 	padding: 0 10px;
 	cursor: pointer;
+	white-space: nowrap;
 }
 
 .responsive-table-body-item:nth-of-type(even) {

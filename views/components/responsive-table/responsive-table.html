@@ -30,9 +30,7 @@
                 <!-- Table Body -->
                 <div class="table-body-vertical-slider">
                     <div class="responsive-table-body-item" ng-repeat="item in items" ng-click="setActiveDetail(item);">
-                        <p ng-if="col.data == 'price'">{{(item.price | currency:item.currency:0)}}</p>
-                        <p ng-if="col.data == 'area'">{{(item.area | number:0)}}m<sup>2</sup></p>
-                        <p ng-if="col.data != 'price' && col.data != 'area'">{{item[col.data]}}</p>
+                        <p>{{item[col.data]}}</p>
                     </div>
                 </div>
 
@@ -53,9 +51,7 @@
                 <!-- Table Body -->
                 <div class="table-body-vertical-slider">
                     <div class="responsive-table-body-item" ng-repeat="item in items" ng-click="setActiveDetail(item);">
-                        <p ng-if="col.data == 'price'">{{(item.price | currency:item.currency:0)}}</p>
-                        <p ng-if="col.data == 'area'">{{(item.area | number:0)}}m<sup>2</sup></p>
-                        <p ng-if="col.data != 'price' && col.data != 'area'">{{item[col.data]}}</p>
+                        <p>{{item[col.data]}}</p>
                     </div>
                 </div>
             </div>
@@ -83,9 +79,7 @@
         <!-- Details -->
         <div ng-repeat="col in columns">
             <h5>{{col.name}}</h5>
-            <p ng-if="col.data == 'price'">{{(activeDetail.price | currency:activeDetail.currency:0)}}</p>
-            <p ng-if="col.data == 'area'">{{(activeDetail.area | number:0)}}m<sup>2</sup></p>
-            <p ng-if="col.data != 'price' && col.data != 'area'">{{activeDetail[col.data]}}</p>
+            <p>{{activeDetail[col.data]}}</p>
             
             <hr style="margin: 8px;">
         </div>
