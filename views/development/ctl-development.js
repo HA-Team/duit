@@ -1,4 +1,4 @@
-app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', function ($rootScope, $scope, $timeout, tokkoApi, $stateParams, getFeaturedProperties, utils) {
+app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', 'sliderMoves', function ($rootScope, $scope, $timeout, tokkoApi, $stateParams, getFeaturedProperties, utils, sliderMoves) {
   var development = this;
   
   // #region Scoped Properties
@@ -11,6 +11,8 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
   development.devPropsReady = false;
   development.generalFeaturesToShow = 5;
   development.isContactModalOpen = false;
+  development.isGalleryOpen = false;
+  development.galleryIndex = 1;
 
   // #endregion
 
@@ -29,6 +31,9 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
 
 	tokkoApi.findOne('development', id, function (result) {
     development.d = result;
+
+    development.activeGalleryPhoto = result.photos[0].image;
+
     development.developmentMapped = {
       photos: result.photos
     };
@@ -60,22 +65,25 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
     });
     
 		development.apiReady = true;
-    $scope.$apply();
-		uiFunctions.showMoreButton();
-		uiFunctions.buildSlickCarousel();
-    uiFunctions.buildMagnificPopup();      
+    $scope.$apply();    
+
+    const gallerySlider = document.querySelector('.thumb-gallery-slider');
+    development.showGalleryArrows = gallerySlider ? gallerySlider.scrollWidth > gallerySlider.offsetWidth : false;
 
 		$timeout(() => google.maps.event.trigger(map, 'resize'));
     
     const querySubject = `Consulta por propiedad %23${development.d.id}:${development.d.publication_title}`.replace(/\s/g, '%20');    
 
     const cellPhone = development.d.users_in_charge.phone;
-    const cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351'); 
+    const cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');
+    development.d.formatedPhone = cleanCellPhone.replace(/^549351/,'+54 9 351 '); 
     const whatsAppUri = `https://api.whatsapp.com/send?phone=${cleanCellPhone}&text=${querySubject}`;  
-    document.querySelector("#mobile-dev-detail .contact-globe-modal-icons .fa-whatsapp").parentElement.setAttribute("href", whatsAppUri);            
+    document.querySelector("#mobile-dev-detail .contact-globe-modal-icons .fa-whatsapp").parentElement.setAttribute("href", whatsAppUri);
+    document.querySelector(".desktop-prop-detail-contact-container .fa-whatsapp").parentElement.setAttribute("href", whatsAppUri);            
     
     const emailUri = `mailto:${development.d.users_in_charge.email}?Subject=${querySubject}`;        
     document.querySelector("#mobile-dev-detail .contact-globe-modal-icons .fa-envelope").parentElement.setAttribute("href", emailUri);
+    document.querySelector(".desktop-prop-detail-contact-container .fa-envelope").parentElement.setAttribute("href", emailUri);
   });
 
   // #endregion
@@ -130,6 +138,10 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
           prop: prop
         }
       });
+
+      const minPriceDev = development.devProps.reduce((min, dev) => dev.price < min.price ? dev : min, development.devProps[0]);
+      development.d.price = minPriceDev.price;
+      development.d.currency = minPriceDev.currency;
 
       development.devPropsReady = true;
       $scope.$apply();
@@ -187,6 +199,65 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
 
   development.isDateGreaterThanToday = (date) => utils.isDateGreaterThanToday(date);
 
+  development.toggleGallery = () => {
+    const header = document.querySelector("#header");                
+    const body = document.querySelector("body");
+    const slider = document.querySelector(".gallery-slider");
+
+    development.isGalleryOpen = !development.isGalleryOpen;    
+
+    if (development.isGalleryOpen) {
+      header.style.display = "none";                    
+      body.style.overflow = "hidden";
+    }
+    else {
+      header.style.display = "block";                    
+      body.style.overflow = "visible";
+    }
+
+    slider.style.scrollBehavior = 'unset';
+
+    $timeout(() => {
+      slider.scrollLeft = slider.querySelector("div").offsetWidth * (development.galleryIndex - 1);
+      slider.style.scrollBehavior = 'smooth';
+    });
+  };
+
+  development.moveSlider = (slider, side) => {
+    const step = slider.querySelector('img').offsetWidth;
+
+    if (side == 'left' && slider.scrollLeft > 0) slider.scrollLeft -= step;
+
+    if (side == 'right') slider.scrollLeft = slider.scrollLeft + step;
+  };
+
+  development.moveGallerySlider = (slider, side) => {
+    const width = slider.querySelector('div').offsetWidth;
+
+    development.galleryIndex = sliderMoves.moveSliderByIndex(slider, development.galleryIndex, development.d.photos.length, side, width);
+  };
+
+  development.setActiveImage = (image) => {
+    development.activeGalleryPhoto = image.image;
+    development.galleryIndex = development.d.photos.findIndex(i => i == image) + 1;
+  };
+
+  development.toggleDescriptionDetailDesktop = () => {
+    
+    const showMore = document.querySelector(".collapsable-title");
+    const preElement = document.querySelector(".desktop-prop-detail-left-panel pre");
+    const maxHeight = `${preElement.offsetHeight + preElement.offsetTop}px`;
+
+    if (showMore.classList.contains("visible")) {
+      showMore.classList.remove("visible");
+      preElement.style.maxHeight = '';
+    }
+    else {
+      showMore.classList.add("visible");
+      preElement.style.maxHeight = maxHeight;
+    }
+  };
+
   // #endregion
 
   // #region Scoped Objects
@@ -213,6 +284,34 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
       hRef: '#',
       iconClass: 'fa fa-envelope', 
       fontSize: '2.7rem'       
+    }
+  ];
+
+  development.desktopAvailablePropsColumns = [
+    {
+      name: 'Ubicación',
+      data: 'address',
+      fixed: true
+    },
+    {
+      name: 'Precio',
+      data: 'price'
+    },
+    {
+      name: 'Dormitorios',
+      data: 'suite_amount'
+    },
+    {
+      name: 'Baños',
+      data: 'suite_amount'
+    },
+    {
+      name: 'Superficie Total',
+      data: 'area'
+    },
+    {
+      name: 'Cochera',
+      data: 'parkings_av'
     }
   ];
 
@@ -249,6 +348,7 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
       data: 'parkings_av'
     }
   ];
+  
 
   // #endregion
 }]);

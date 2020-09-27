@@ -346,6 +346,8 @@
 }
 
 .desktop-prop-detail-left-panel {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     background-color: var(--softgrey);
     padding: 30px;
@@ -359,7 +361,7 @@
 }
 
 .desktop-prop-detail-left-panel > img {
-    width: 100%;
+    margin: auto;
     height: 50vh;
     border-radius: 5px;
     object-fit: cover;
