@@ -130,7 +130,7 @@
             <div class="prop-listing-card-content prop-listing-card-dev" ng-if="p.development">
               <p>Desde</p>
               <h5>{{p.price | currency:p.currency:0}}</h5> 
-              <p>{{p.full_prop.type.name}} en {{p.type}}</p> 
+              <p>{{propsListing.pluralize(p.full_prop.type.name)}} en {{p.type}}</p> 
               <p>{{p.development.name}}</p> 
               <p>{{p.address}}</p>
             </div>
