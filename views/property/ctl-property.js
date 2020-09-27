@@ -126,7 +126,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
       },
       {
         title: 'Antiguedad',
-        description: property.p.prop.age ? `${property.p.prop.age} años` : '',
+        description: property.p.prop.age > 0 ? `${property.p.prop.age} años` : '',
         icon: "far fa-calendar-alt"
       },
       {
