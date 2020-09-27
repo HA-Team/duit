@@ -1,4 +1,4 @@
-app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', 'sliderMoves', function($rootScope, $scope, $timeout, tokkoApi, $stateParams, getFeaturedProperties, utils, sliderMoves) {   
+app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', 'sliderMoves', '$filter', function($rootScope, $scope, $timeout, tokkoApi, $stateParams, getFeaturedProperties, utils, sliderMoves, $filter) {   
   var property = this;
   
   // #region Scoped Properties
@@ -12,6 +12,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
   property.featuredPropsReady = false;
   property.similarReady = false;
   property.generalFeaturesToShow = 5;
+  property.galleryIndex = 1;
 
   // #endregion
 
@@ -104,14 +105,14 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
 
     property.desktopFeatures = [
       {
-        title: 'Superficie',
-        description: property.p.area != 0 ? `${parseInt(property.p.area)} m` : '',
-        icon: "fas fa-ruler-vertical"
-      },
-      {
         title: 'Dormitorios',
         description: property.p.rooms,
         icon: "fa fa-bed"
+      },
+      {
+        title: 'Superficie',
+        description: property.p.area != 0 ? `${parseInt(property.p.area)} m` : '',
+        icon: "fas fa-ruler-vertical"
       },
       {
         title: 'Baños',
@@ -128,6 +129,41 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
         description: property.p.prop.age ? `${property.p.prop.age} años` : '',
         icon: "far fa-calendar-alt"
       },
+      {
+        title: 'Ambientes',
+        description: property.p.enviroments,
+        icon: ""
+      },
+      {
+        title: 'Toilettes',
+        description: property.p.toilets,
+        icon: ""
+      },
+      {
+        title: 'Zonificación',
+        description: property.p.prop.zonification,
+        icon: ""
+      },
+      {
+        title: 'Condición',
+        description: property.p.prop.property_condition != '---' ? property.p.prop.property_condition : '',
+        icon: ""
+      },
+      {
+        title: 'Plantas',
+        description: property.p.prop.floors_amount,
+        icon: ""
+      },
+      {
+        title: 'Situación',
+        description: property.p.prop.situation != '---' ? property.p.prop.situation : '',
+        icon: ""
+      },
+      {
+        title: 'Expensas',
+        description: property.p.prop.expenses != 0 ? $filter('currency')(property.p.prop.expenses, '$', 0) : 0,
+        icon: ""
+      },          
       {
         title: 'Orientación',
         description: property.p.prop.orientation,
@@ -165,7 +201,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
     property.apiReady = true;
     $scope.$apply();
 
-    const gallerySlider = document.querySelector('.gallery-slider');
+    const gallerySlider = document.querySelector('.thumb-gallery-slider');
     property.showGalleryArrows = gallerySlider ? gallerySlider.scrollWidth > gallerySlider.offsetWidth : false;
 
     $timeout(() => {
@@ -193,7 +229,15 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
     if (side == 'left' && slider.scrollLeft > 0) slider.scrollLeft -= step;
 
     if (side == 'right') slider.scrollLeft = slider.scrollLeft + step;
-  } 
+  };
+
+  property.moveGallerySlider = (slider, side) => {
+    const width = slider.querySelector('div').offsetWidth;
+
+    property.galleryIndex = sliderMoves.moveSliderByIndex(slider, property.galleryIndex, property.p.prop.photos.length, side, width);
+  };
+
+  property.showGeneralFeatures = (features) => features ? features.some(feature => feature.description) : false;
 
   // #endregion
 
@@ -271,6 +315,8 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
         }
       });
 
+      property.devProps.splice(property.devProps.findIndex(prop => prop.id == property.p.id), 1);
+
       property.devPropsReady = true;
       $scope.$apply();
     });
@@ -328,7 +374,36 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
 
   property.isDateGreaterThanToday = (date) => utils.isDateGreaterThanToday(date);
 
-  property.goToOtherUnits = () => document.getElementById("other-units-table").scrollIntoView({behavior: 'smooth'});;
+  property.goToOtherUnits = () => document.getElementById("other-units-table").scrollIntoView({behavior: 'smooth'});
+
+  property.setActiveImage = (image) => {
+    property.activeGalleryPhoto = image.image;
+    property.galleryIndex = property.p.prop.photos.findIndex(i => i == image) + 1;
+  }
+
+  property.toggleGallery = () => {
+    const header = document.querySelector("#header");                
+    const body = document.querySelector("body");
+    const slider = document.querySelector(".gallery-slider");
+
+    property.isGalleryOpen = !property.isGalleryOpen;    
+
+    if (property.isGalleryOpen) {
+      header.style.display = "none";                    
+      body.style.overflow = "hidden";
+    }
+    else {
+      header.style.display = "block";                    
+      body.style.overflow = "visible";
+    }
+
+    slider.style.scrollBehavior = 'unset';
+
+    $timeout(() => {
+      slider.scrollLeft = slider.querySelector("div").offsetWidth * (property.galleryIndex - 1);
+      slider.style.scrollBehavior = 'smooth';
+    });
+  }
 
   // #endregion
 
@@ -356,6 +431,34 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
       hRef: '#',
       iconClass: 'fa fa-envelope', 
       fontSize: '2.7rem'       
+    }
+  ];
+
+  property.desktopAvailablePropsColumns = [
+    {
+      name: 'Ubicación',
+      data: 'address',
+      fixed: true
+    },
+    {
+      name: 'Precio',
+      data: 'price'
+    },
+    {
+      name: 'Dormitorios',
+      data: 'suite_amount'
+    },
+    {
+      name: 'Baños',
+      data: 'suite_amount'
+    },
+    {
+      name: 'Superficie Total',
+      data: 'area'
+    },
+    {
+      name: 'Cochera',
+      data: 'parkings_av'
     }
   ];
 

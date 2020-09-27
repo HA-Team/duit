@@ -373,7 +373,7 @@
     justify-content: center;
 }
 
-.desktop-prop-detail-left-panel .gallery-slider {
+.desktop-prop-detail-left-panel .thumb-gallery-slider {
     width: 100%;
     overflow: hidden;
     flex-wrap: nowrap;
@@ -381,6 +381,51 @@
     align-items: center;
     scroll-behavior: smooth;
     margin: 10px 0;
+}
+
+.desktop-prop-detail-left-panel .gallery-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.desktop-prop-detail-left-panel .gallery-container .slider-arrows-container {
+    z-index: 13;
+    width: 90%;
+}
+
+.desktop-prop-detail-left-panel .gallery-slider {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    flex-wrap: nowrap;
+    display: flex;
+    align-items: center;
+    scroll-behavior: smooth;
+    z-index: 12;
+    pointer-events: none;
+}
+
+.desktop-prop-detail-left-panel .gallery-slider div {
+    width: 100%;
+    height: 100%;
+    flex: 0 0 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.desktop-prop-detail-left-panel .gallery-slider img {        
+    pointer-events: all;
+    max-width: 90%;
+    max-height: 80%;
+    width: 80%;
+    height: 90%;
+    object-fit: contain;
 }
 
 .desktop-prop-detail-left-panel .slider-arrows-container {
@@ -416,7 +461,7 @@
     border-radius: 50%;
 }
 
-.desktop-prop-detail-left-panel .gallery-slider img {
+.desktop-prop-detail-left-panel .thumb-gallery-slider img {
     flex: 0 0 160px;
     width: 160px;
     height: 130px;
@@ -467,6 +512,7 @@
 .desktop-prop-detail-features-container div div {
     display: flex;
     flex-direction: column;
+    padding: 0 10px;
 }
 
 
@@ -600,7 +646,7 @@
 
 .desktop-prop-detail-contact-container .contact-info * {
     margin: 0;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .desktop-prop-detail-contact-container .contact-info i {
@@ -623,7 +669,7 @@
 }
 
 .desktop-prop-detail-featured {
-    width: 80%;
+    width: 95%;
     max-width: 1500px;
     margin: 50px auto 20px auto;
 }
@@ -663,4 +709,22 @@
 
 .desktop-prop-detail-featured .gallery-properties-cards-item:last-child {
     margin-right: 20px;
+}
+
+.desktop-prop-detail-left-panel .gallery-background {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0;
+    background-color: black;
+    z-index: 11;    
+    pointer-events: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.desktop-prop-detail-left-panel .gallery-background.open {
+    opacity: 0.8;  
+    pointer-events: all;
 }
