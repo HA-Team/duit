@@ -11,7 +11,18 @@
 
       <!-- Left Panel -->
       <div class="desktop-prop-detail-left-panel" ng-show="property.apiReady">
-        <img src="{{property.activeGalleryPhoto}}" alt="" ng-click="property.toggleGallery()">
+        <!-- Video player -->
+        <div class="video-container" ng-if="property.p.hasDuit360 && property.showDuit360">
+          <iframe ng-src="{{property.propertyMapped.video_url | trusted}}" class="video-player" allowFullScreen="true"> </iframe>
+        </div>
+
+        <img src="{{property.activeGalleryPhoto}}" alt="" ng-click="property.toggleGallery()" ng-if="!property.showDuit360">
+
+        <!-- Gallery Toggler -->
+        <div class="gallery-switcher-container" ng-if="property.p.hasDuit360 && !property.isGalleryOpen">
+          <button ng-click="property.toggleDuit360()" ng-class="{'active': !property.showDuit360}">Ver Galería<i class="fas fa-images"></i></button>
+          <button ng-click="property.toggleDuit360()" ng-class="{'active': property.showDuit360}">Ver Duit 360º<i class="fas fa-street-view"></i></button>
+        </div>
 
         <div class="gallery-container" ng-show="property.isGalleryOpen">
           

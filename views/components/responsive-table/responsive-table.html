@@ -62,7 +62,7 @@
     <!-- Table End -->
 
     <!-- Items Pagination -->
-    <div class="table-items-counter-container" ng-if="items.length > numberOfItemsToShow">
+    <div class="table-items-counter-container" ng-if="itemPages > 1">
         <i class="fa fa-angle-up" ng-click="moveItemsSlider('up')" ng-class="{'hide-me': currentItemPage == 1}"></i>
         <div class="items-counter-number-slider">
             <p ng-repeat="page in totalItemPages track by $index">{{$index + 1}}</p>

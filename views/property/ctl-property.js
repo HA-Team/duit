@@ -50,6 +50,8 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
       hasDuit360: result.videos.some(video => video.provider_id == 6)
     };
 
+    property.showDuit360 = property.p.hasDuit360;
+
     property.activeGalleryPhoto = property.p.cover_photo_original;
 
     $rootScope.activeSection = property.p.operation_type == 'Venta' ? 'properties-sell' : 'properties-rent';
@@ -239,6 +241,8 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
 
   property.showGeneralFeatures = (features) => features ? features.some(feature => feature.description) : false;
 
+  property.toggleDuit360 = () => property.showDuit360 = !property.showDuit360;
+
   // #endregion
 
   // #region Private Methods
@@ -378,6 +382,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
   property.goToOtherUnits = () => document.getElementById("other-units-table").scrollIntoView({behavior: 'smooth'});
 
   property.setActiveImage = (image) => {
+    property.showDuit360 = false;
     property.activeGalleryPhoto = image.image;
     property.galleryIndex = property.p.prop.photos.findIndex(i => i == image) + 1;
   }
