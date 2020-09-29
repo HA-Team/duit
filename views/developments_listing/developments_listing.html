@@ -1,73 +1,50 @@
-<div ng-controller="devsListingController as devsListing">
+<div ng-controller="devsListingController as devsListing">  
+  <div id="devsListing" class="hidden-on-mobile">
 
-  <div  id="devsListing" class="hidden-on-mobile">
+    <!-- Search -->
+    <section class="dev-listing-search">
+      <h2>duit emprendimientos</h2>
+      <form ng-submit="devsListing.fitlerList()">
+        <input type="text" placeholder="Ingresá barrio o ciudad" ng-model="devsListing.filterValue">
+        <i class="fas fa-search" ng-click="devsListing.fitlerList()"></i>
+      </form>
+    </section>
 
-    <!-- Content -->
-    <div class="container margin-top-50" >
-  
-      <div class='spinner' ng-include="'/views/common/spinner.html'" ng-hide="devsListing.apiReady"></div>
-  
-      <div class="col-md-12" ng-show="devsListing.apiReady">
-  
-        <!-- Sorting / Layout Switcher -->
-        <div class="row margin-bottom-15">
-  
-          <div class="col-md-6">
-            <!-- Sort by -->
-            <div class="sort-by">
-              <label>{{devsListing.resultsCount}} Emprendimientos encontrados</label>
-            </div>
-          </div>
-  
-          <div class="col-md-6">
-            <!-- Layout Switcher -->
-            <div class="layout-switcher">
-              <a href="#" class="grid-three"><i class="fa fa-th"></i></a>
-              <a href="#" class="grid"><i class="fa fa-th-large"></i></a>
-              <a href="#" class="list"><i class="fa fa-th-list"></i></a>
-            </div>
-          </div>
-  
-        </div>
-        <!-- Sorting / Layout Switcher End -->
-  
-  
-        <!-- Listings -->
-        <div class="listings-container grid-layout-three" infinite-scroll="devsListing.loadMoreProps()" infinite-scroll-distance="2" infinite-scroll-immediate-check='false'>
+    <!-- Listings -->
+    <section class="dev-listing-container">
           
-          <!-- Listing Item -->
-          <div class="listing-item " ng-repeat="d in devsListing.results">
-  
-            <a class="listing-img-container" href="/#!/development/{{d.id}}">
-  
-              <div class="listing-carousel">
-                <div ng-repeat="photo in d.photos"><img src="{{photo.image}}" alt="" ></div>
-              </div>
-            </a>
-            
-            <div class="listing-content">
-  
-              <div class="listing-title">
-                <h4><a ui-sref="development({devId: d.id})">{{d.name}}</a></h4>              
-                <i class="fa fa-map-marker"></i>
-                {{d.location.name}}
-                <a ui-sref="property({propertyId: d.id})" class="details button border">Detalles</a>
-              </div>
-  
-            </div>
-  
-          </div>
-          <!-- Listing Item / End -->
-  
+      <!-- Skeleton Loader -->
+      <section class="skeleton-container" ng-repeat="x in [].constructor(3) track by $index" ng-if="!devsListing.apiReady">
+        <div class="skeleton-image"></div>
+        <div class="skeleton-lines">
+          <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
         </div>
-        <!-- Listings Container / End -->
-  
-        <div class="clearfix"></div>
+      </section>
+      <!-- Skeleton Loader End -->
+
+      <!-- Listing Item -->
+      <div class="dev-listing-item" ng-repeat="d in devsListing.results">
+
+        <a href="/#!/development/{{d.id}}">
+          <img src="{{d.photos[0].image}}" alt="">
+        </a>
         
+        <div class="dev-listing-item-description">
+          <p ng-show="d.minPrice">Desde</p>
+          <h5 ng-show="d.minPrice">{{d.minPrice}}</h5>
+          <h5>{{d.name}}</h5>
+          <p>{{d.location.name}}</p>
+          <p>{{d.description}}</p>
+        </div>
+
       </div>
-  
-    </div>
-    <!-- Content End -->
+      <!-- Listing Item / End -->
+
+      <!-- No Results -->
+      <h3 ng-if="devsListing.apiReady && devsListing.results.length == 0">No se encontraron resultados, <a href="#!/home/#home-contact">contactános</a> para ver mas opciones!</h3>
+
+    </section>
+    <!-- Listings Container / End -->
   
   </div>
   

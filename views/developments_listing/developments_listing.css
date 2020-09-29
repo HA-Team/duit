@@ -67,3 +67,156 @@
       background-position: 100vw;
   }
 }
+
+#devsListing {
+  background: linear-gradient(rgba(255,255,255,.2), rgba(255,255,255,.2)), url('/images/parallax2.jpg') no-repeat;
+  background-size: 100vw auto;
+}
+
+.dev-listing-search {
+  margin: auto;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  height: 30vh;
+  justify-content: center;
+}
+
+.dev-listing-search h2 {  
+  height: 50px;
+  margin: 0 0 5px 0; 
+  font-size: 25px;
+  background-color: var(--primary-red);
+  padding: 10px 15px;
+  color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.dev-listing-search form {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.dev-listing-search form i {
+  cursor: pointer;
+  position: absolute;
+  margin-right: 20px;
+  font-size: 20px;
+}
+
+.dev-listing-search input {
+  height: 50px;
+  margin: 0;
+  border-radius: 0 0 10px 10px;
+}
+
+.dev-listing-container {
+  width: 90%;  
+  max-width: 1500px;
+  background-color: var(--softgrey);
+  min-height: 90vh;
+  border-radius: 10px;
+  padding: 40px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.dev-listing-item {
+  display: flex;
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+.dev-listing-item a {
+  flex: 1;
+  height: 300px;
+}
+
+.dev-listing-item a img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.dev-listing-item-description {
+  padding: 15px;
+  background-color: white;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+}
+
+.dev-listing-item-description * {
+  margin: 0;
+}
+
+.dev-listing-item-description p:first-of-type {
+  font-size: 14px;
+}
+
+.dev-listing-item-description h5:first-of-type {
+  font-size: 18px;
+}
+
+.dev-listing-item-description h5:nth-of-type(2) {
+  margin-top: 20px;
+  font-size: 19px;
+  font-weight: bold;
+  color: var(--primary-blue);
+}
+
+.dev-listing-item-description p:last-child {
+  margin-top: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dev-listing-container > .skeleton-container {
+  display: flex;
+  flex-direction: row;
+  margin: 20px auto;
+  width: 100%;
+  max-width: 1200px;
+  height: 300px;
+  margin: 20px auto;
+}
+
+.dev-listing-container > .skeleton-container > .skeleton-image {      
+  height: 100%;
+  width: 60%;
+  background-color: var(--softgrey);
+  background-image: linear-gradient(90deg, var(--softgrey) 0px, rgba(229, 229, 229, 0.8) 40px, white 80px);
+  background-size: 120vw;
+  border-radius: 10px;
+  animation: shine-skeleton 3s infinite ease-out;   
+}
+
+.dev-listing-container> .skeleton-container > .skeleton-lines {
+  width: 40%;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;     
+  justify-content: flex-start;
+  align-items: center; 
+}
+
+.dev-listing-container> .skeleton-container > .skeleton-lines > .skeleton-line { 
+  border-radius: 5px;   
+  height: 4rem;
+  width: 100%;       
+  background-color: var(--softgrey);    
+  margin: 5px 15px 15px 15px;
+  background-image: linear-gradient(90deg, var(--softgrey) 0px, rgba(229, 229, 229, 0.8) 40px, white 80px);
+  background-size: 120vw;
+  animation: shine-skeleton 3s infinite ease-out;  
+}

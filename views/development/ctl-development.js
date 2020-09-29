@@ -121,12 +121,16 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
       development.devProps = result.map(prop => {
         const price = prop.operations[prop.operations.length-1].prices.slice(-1)[0];
 
+        if (price.price < development.d.minPrice || !development.d.minPrice) {
+          development.d.minPrice = price.price;
+          development.d.minPriceCurrency = price.currency;
+        }
+        
         return {
           id: prop.id,
           type: prop.operations[0].operation_type,
           title: prop.publication_title,
           currency: price.currency,
-          unformatedPrice: price.price,
           price: $filter('currency')(price.price, `${price.currency} `, 0),
           cover_photo: prop.photos[0].image,
           parkings: prop.parking_lot_amount ? prop.parking_lot_amount : 0,
@@ -140,10 +144,6 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
           prop: prop
         }
       });
-
-      const minPriceDev = development.devProps.reduce((min, dev) => dev.unformatedPrice < min.unformatedPrice ? dev : min, development.devProps[0]);
-      development.d.price = minPriceDev.unformatedPrice;
-      development.d.currency = minPriceDev.currency;
 
       development.devPropsReady = true;
       $scope.$apply();
