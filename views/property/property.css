@@ -542,19 +542,51 @@
 	color: var(--soft-red);
 }
 
-.collapsable-title {
+.desktop-prop-detail-left-panel .collapsable-features {
+	position: relative;
+	border-radius: 5px;
+	padding: 15px;
+	max-height: 150px;
+	overflow: hidden;
+	transition: max-height 0.5s ease-in-out;
+}
+
+.desktop-show-more {
 	display: flex;
+	align-items: center;
 	justify-content: space-between;
-	width: 98%;
+	line-height: 30px;
+	width: 120px;
+	margin: auto;
 	cursor: pointer;
+	font-size: 17px;	
 }
 
-.collapsable-title i {
+.desktop-show-more i {
 	transition: all 0.5s ease-in-out;
+	font-size: 19px;
+	font-weight: bold;
 }
 
-.collapsable-title.visible i {
-	transform: rotateZ(-180deg);
+.collapsable-title.visible + pre + .desktop-show-more i {
+	transform: rotateZ(-180deg);	
+}
+
+.collapsable-features.visible + .desktop-show-more i {
+	transform: rotateZ(-180deg);	
+}
+
+.desktop-show-more span:after {
+	content:'Ver más';
+	color: var(--primary-red);
+}
+
+.collapsable-title.visible + pre + .desktop-show-more span:after {
+	content: 'Ver menos';
+}
+
+.collapsable-features.visible + .desktop-show-more span:after {
+	content: 'Ver menos';
 }
 
 .desktop-prop-detail-left-panel pre {
@@ -588,7 +620,7 @@
 }
 
 .desktop-prop-detail-right-panel {
-	margin-left: -3%;
+	margin-left: -15px;
 	max-width: 440px;
 	margin-top: 30px;
 }
@@ -597,6 +629,13 @@
 	box-shadow: 0px 0px 0px 3px rgba(0, 0, 0, 0.3);
 	border-radius: 5px;
 	background-color: white;
+}
+
+.desktop-prop-detail-right-panel #propertyMap-container {
+	width: 100%;
+	margin-top: 250px;
+	padding: 0;
+	z-index: 2;
 }
 
 .desktop-prop-detail-info-container,
@@ -615,13 +654,47 @@
 	font-weight: bold;
 }
 
+.desktop-prop-detail-info-container > p {
+	font-size: 18px;
+}
+
+.desktop-info-features {
+	margin-top: 15px;
+	display: flex;
+}
+
+.desktop-info-features-icons {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.desktop-info-features-icons i {
+	line-height: 32px;
+	font-size: 16px;
+}
+
+.desktop-info-features-values {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	margin-left: 10px;
+}
+
+.desktop-info-features-values p {
+	line-height: 32px;
+	font-size: 16px;
+}
+
 .desktop-prop-detail-contact-container {
 	display: flex;
 	flex-direction: row;
 	margin: 20px 0;
 	position: sticky;
 	top: 75px;
-	z-index: 2;
+	z-index: 3;
 	transform: scale(1.04);
 }
 
@@ -780,8 +853,8 @@
 }
 
 .desktop-prop-detail-right-panel .map-skeleton {
-	position: absolute;
 	height: 300px;
+	margin-top: 100px;
 	z-index: 2;
 }
 

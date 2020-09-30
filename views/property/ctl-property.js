@@ -11,6 +11,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
   property.isGalleryOpen = false;
   property.featuredPropsReady = false;
   property.similarReady = false;
+  property.showMoreFeatures = false;
   property.generalFeaturesToShow = 5;
   property.galleryIndex = 1;
 
@@ -109,72 +110,58 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
       {
         title: 'Dormitorios',
         description: property.p.rooms,
-        icon: "fa fa-bed"
       },
       {
         title: 'Superficie',
         description: property.p.area != 0 ? `${parseInt(property.p.area)} m²` : '',
-        icon: "fas fa-ruler-vertical"
       },
       {
         title: 'Baños',
         description: property.p.baths,
-        icon: "fas fa-bath"
       },
       {
         title: 'Cocheras',
         description: property.p.parkings,
-        icon: "fas fa-car"
       },
       {
         title: 'Antiguedad',
         description: property.p.prop.age > 0 ? `${property.p.prop.age} ${property.p.prop.age == 1 ? 'año' : 'años'}` : '',
-        icon: "far fa-calendar-alt"
       },
       {
         title: 'Ambientes',
         description: property.p.enviroments,
-        icon: ""
       },
       {
         title: 'Toilettes',
         description: property.p.toilets,
-        icon: ""
       },
       {
         title: 'Zonificación',
         description: property.p.prop.zonification,
-        icon: ""
       },
       {
         title: 'Condición',
         description: property.p.prop.property_condition != '---' ? property.p.prop.property_condition : '',
-        icon: ""
       },
       {
         title: 'Plantas',
         description: property.p.prop.floors_amount,
-        icon: ""
       },
       {
         title: 'Situación',
         description: property.p.prop.situation != '---' ? property.p.prop.situation : '',
-        icon: ""
       },
       {
         title: 'Expensas',
         description: property.p.prop.expenses != 0 ? $filter('currency')(property.p.prop.expenses, '$', 0) : 0,
-        icon: ""
       },          
       {
         title: 'Orientación',
         description: property.p.prop.orientation,
-        icon: 'fa fa-compass'
       },
       {
         title: 'Disposición',
         description: property.p.prop.disposition,
-        icon: 'fa fa-building'
       }
     ]
 
@@ -223,25 +210,11 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
     const emailUri = `mailto:${property.p.prop.producer.email}?Subject=${querySubject}`;        
     document.querySelector("#mobile-prop-detail .contact-globe-modal-icons .fa-envelope").parentElement.setAttribute("href", emailUri);
     document.querySelector(".desktop-prop-detail-contact-container .fa-envelope").parentElement.setAttribute("href", emailUri);
+
+    const featuresElement = document.querySelector(".collapsable-features");
+
+    property.showMoreFeatures = featuresElement.scrollHeight > featuresElement.clientHeight || featuresElement.scrollWidth > featuresElement.clientWidth;
   });
-  
-  property.moveSlider = (slider, side) => {
-    const step = slider.querySelector('img').offsetWidth;
-
-    if (side == 'left' && slider.scrollLeft > 0) slider.scrollLeft -= step;
-
-    if (side == 'right') slider.scrollLeft = slider.scrollLeft + step;
-  };
-
-  property.moveGallerySlider = (slider, side) => {
-    const width = slider.querySelector('div').offsetWidth;
-
-    property.galleryIndex = sliderMoves.moveSliderByIndex(slider, property.galleryIndex, property.p.prop.photos.length, side, width);
-  };
-
-  property.showGeneralFeatures = (features) => features ? features.some(feature => feature.description) : false;
-
-  property.toggleDuit360 = () => property.showDuit360 = !property.showDuit360;
 
   // #endregion
 
@@ -332,7 +305,6 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
   // #region Scoped Methods
 
   property.toggleDescriptionDetailDesktop = () => {
-    
     const showMore = document.querySelector(".collapsable-title");
     const preElement = document.querySelector(".desktop-prop-detail-left-panel pre");
     const maxHeight = `${preElement.offsetHeight + preElement.offsetTop}px`;
@@ -409,7 +381,39 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
       slider.scrollLeft = slider.querySelector("div").offsetWidth * (property.galleryIndex - 1);
       slider.style.scrollBehavior = 'smooth';
     });
-  }
+  };
+
+  property.moveSlider = (slider, side) => {
+    const step = slider.querySelector('img').offsetWidth;
+
+    if (side == 'left' && slider.scrollLeft > 0) slider.scrollLeft -= step;
+
+    if (side == 'right') slider.scrollLeft = slider.scrollLeft + step;
+  };
+
+  property.moveGallerySlider = (slider, side) => {
+    const width = slider.querySelector('div').offsetWidth;
+
+    property.galleryIndex = sliderMoves.moveSliderByIndex(slider, property.galleryIndex, property.p.prop.photos.length, side, width);
+  };
+
+  property.showGeneralFeatures = (features) => features ? features.some(feature => feature.description) : false;
+
+  property.toggleDuit360 = () => property.showDuit360 = !property.showDuit360;
+
+  property.toggleAditionalFeatures = () => {
+    const showMore = document.querySelector(".collapsable-features");
+    const maxHeight = `${showMore.offsetHeight + showMore.offsetTop}px`;
+
+    if (showMore.classList.contains("visible")) {
+      showMore.classList.remove("visible");
+      showMore.style.maxHeight = '';
+    }
+    else {
+      showMore.classList.add("visible");
+      showMore.style.maxHeight = maxHeight;
+    }
+  };
 
   // #endregion
 
