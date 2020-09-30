@@ -431,6 +431,7 @@ a.property-type + ul li:hover {
 }
 
 #home-contact-cards .home-contact-card {
+	background-color: white;
 	width: 400px;
 	height: 200px;
 	border-radius: 10px;
@@ -439,22 +440,7 @@ a.property-type + ul li:hover {
 	padding: 20px;
 }
 
-#home-contact-cards .home-contact-card:first-child {
-	background-color: var(--primary-red);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-#home-contact-cards .home-contact-card:last-child {
-	background-color: white;
-}
-
-#home-contact-cards .home-contact-card:first-child img {
-	height: 100%;
-}
-
-#home-contact-cards .home-contact-card:last-child img {
+#home-contact-cards .home-contact-card img {
 	width: 65%;
 }
 
