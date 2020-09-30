@@ -5,10 +5,23 @@
     <section class="dev-listing-search">
       <h2>duit emprendimientos</h2>
       <form ng-submit="devsListing.fitlerList()">
-        <input type="text" placeholder="Ingresá barrio o ciudad" ng-model="devsListing.filterValue">
-        <i class="fas fa-search" ng-click="devsListing.fitlerList()"></i>
+        <input type="text"
+          placeholder="Ingresá barrio, ciudad o emprendimiento"
+          ng-change="devsListing.updateFilter()"
+          ng-model="devsListing.filterValue"
+          ng-disabled="!devsListing.apiReady"
+          ng-style="{'background-color': !devsListing.apiReady && 'var(--softgrey)', 'border-radius': devsListing.filterOpen && devsListing.filterValue != '' && '0'}">
+        <i class="fas fa-search"
+          ng-click="devsListing.fitlerList()"
+          ng-disabled="!devsListing.apiReady"
+          ng-style="{cursor: !devsListing.apiReady && 'default'}"></i>
+        <ul ng-if="devsListing.filterOpen && devsListing.filterValue != ''">
+          <li ng-repeat="value in devsListing.filterResults | filter:devsListing.filterValue"
+            ng-click="devsListing.filterValue = value; devsListing.filterOpen = false; devsListing.fitlerList();">{{value}}</li>
+        </ul>
       </form>
     </section>
+    <!-- Search End -->
 
     <!-- Listings -->
     <section class="dev-listing-container">

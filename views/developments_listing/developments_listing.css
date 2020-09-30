@@ -73,7 +73,7 @@
   background-size: 100vw auto;
 }
 
-.dev-listing-search {
+.dev-listing-search {  
   margin: auto;
   width: 500px;
   display: flex;
@@ -94,6 +94,7 @@
 }
 
 .dev-listing-search form {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -112,9 +113,39 @@
   border-radius: 0 0 10px 10px;
 }
 
+.dev-listing-search ul {
+  position: absolute;
+  top: 0;
+  margin-top: 52px;
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+.dev-listing-search ul li {
+  cursor: pointer;
+  line-height: 30px;
+  background-color: white;
+  padding: 0 20px;
+  border: 1px solid #e0e0e0;
+  border-top: none;
+}
+
+.dev-listing-search ul li:hover {
+  background-color: var(--softgrey);
+}
+
+.dev-listing-search ul li:first-child {
+  border-top: 1px solid #e0e0e0;
+}
+
+.dev-listing-search ul li:last-child {
+  border-radius: 0 0 8px 8px;
+}
+
 .dev-listing-container {
   width: 90%;  
-  max-width: 1500px;
+  max-width: 1200px;
   background-color: var(--softgrey);
   min-height: 90vh;
   border-radius: 10px;
@@ -127,12 +158,12 @@
 .dev-listing-item {
   display: flex;
   margin: 20px auto;
-  max-width: 1200px;
+  max-width: 1000px;
 }
 
 .dev-listing-item a {
   flex: 1;
-  height: 300px;
+  height: 270px;
 }
 
 .dev-listing-item a img {
@@ -175,7 +206,7 @@
 .dev-listing-item-description p:last-child {
   margin-top: 20px;
   display: -webkit-box;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -186,8 +217,8 @@
   flex-direction: row;
   margin: 20px auto;
   width: 100%;
-  max-width: 1200px;
-  height: 300px;
+  max-width: 1000px;
+  height: 270px;
   margin: 20px auto;
 }
 
