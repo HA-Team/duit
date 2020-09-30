@@ -180,10 +180,12 @@
 }
 
 .gallery-multiple-properties-slider .desktop-info-container {
+    position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     width: 35%;
-    height: 400px;
+    height: 100%;
     padding: 10px 20px;
 }
 
@@ -192,7 +194,12 @@
 }
 
 .gallery-multiple-properties .desktop-slider .slider-info-card h3 {
-    margin-top: 10px;
+    margin-top: 0;
+}
+
+.gallery-multiple-properties .desktop-slider .slider-info-card > p:first-of-type {
+    font-size: 16px;
+    margin: 15px 0 0 0;
 }
 
 .gallery-multiple-properties .desktop-slider .slider-info-card div p {
@@ -207,12 +214,16 @@
 }
 
 .gallery-multiple-properties .desktop-slider .slider-info-card .info-card-price {
+    margin: 0 0 15px 0;
     font-size: 25px;
     font-weight: normal;
 }
 
 .gallery-multiple-properties .contact-globe {
-    margin-bottom: 10px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 20px;
 }
 
 .gallery-multiple-properties .slider-info-card a {
@@ -228,10 +239,11 @@
 @media only screen and (min-width: 1024px) {
     .gallery-multiple-properties {
         height: 50vh;
-        max-height: 450px;
+        max-height: 400px;
     }
 
     .gallery-multiple-properties .slider-info-card {
+        padding: 0;
         height: 100%;
         justify-content: flex-start;
     }
