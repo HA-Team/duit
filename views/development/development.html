@@ -51,8 +51,11 @@
 
         <hr ng-if="development.d.tags.length > 0">
 
-        <h3 class="collapsable-title" ng-click="development.toggleDescriptionDetailDesktop()">Descripción <i class="fa fa-angle-down"></i></h3>
+        <h3 class="collapsable-title">Descripción</h3>
         <pre>{{development.d.description.trim()}}</pre>
+        <div ng-click="development.toggleDescriptionDetailDesktop()" class="desktop-show-more">
+          <span></span><i class="fa fa-angle-down"></i>
+        </div> 
                 
       </div>
       <!-- Left Panel End -->
@@ -65,8 +68,8 @@
 
         <!-- Main Info -->
         <div class="desktop-prop-detail-info-container" ng-show="development.devPropsReady">
-          <p ng-if="development.d.construction_date && development.isDateGreaterThanToday(development.d.construction_date)">Entrega {{development.d.construction_date | date:'MM/yyyy'}}</p>
-          <h3>{{development.d.publication_title}}</h3> 
+          <p ng-if="development.d.construction_date">Entrega {{development.isDateGreaterThanToday(development.d.construction_date) ? (development.d.construction_date | date:'MM/yyyy') : 'inmediata'}}</p>
+          <h3>{{development.d.name}}{{development.d.fake_address ? ' - ' + development.d.fake_address : ''}}</h3> 
           <p class="margin-top-15" ng-show="development.d.minPrice">Desde</p> 
           <h2 ng-show="development.d.minPrice">{{development.d.minPrice | currency:development.d.minPriceCurrency:0}}</h2>        
         </div>
