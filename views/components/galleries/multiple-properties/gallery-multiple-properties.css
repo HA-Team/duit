@@ -187,6 +187,10 @@
     padding: 10px 20px;
 }
 
+.desktop-slider-item-container > img {
+    cursor: pointer;
+}
+
 .gallery-multiple-properties .desktop-slider .slider-info-card h3 {
     margin-top: 10px;
 }

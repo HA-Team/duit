@@ -17,7 +17,7 @@
       <div class="desktop-slider-item-container" ng-repeat="item in items">
 
         <!-- Video player -->
-        <img src="{{item.coverPhoto}}">
+        <img src="{{item.coverPhoto}}" ng-click="goToProperty(item.id)">
 
         <div class="desktop-info-container">
 
