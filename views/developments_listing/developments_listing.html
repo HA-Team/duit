@@ -36,7 +36,7 @@
       <!-- Skeleton Loader End -->
 
       <!-- Listing Item -->
-      <div class="dev-listing-item" ng-repeat="d in devsListing.results">
+      <div class="dev-listing-item" ng-repeat="d in devsListing.results" ng-if="devsListing.apiReady">
 
         <a href="/#!/development/{{d.id}}">
           <img src="{{d.photos[0].image}}" alt="">
