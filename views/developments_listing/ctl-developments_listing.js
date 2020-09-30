@@ -50,6 +50,20 @@ app.controller('devsListingController', ['$rootScope', '$scope', 'tokkoApi', 'ge
           devsListing.results = devsListing.results.filter(dev => dev.minPrice);
           results = devsListing.results;
 
+          devsListing.resultsMapped = devsListing.results.map(develop => {    
+            return {
+              id: develop.id,
+              name: develop.name,
+              location: develop.location,
+              photos: develop.photos,
+              hRef: `/#!/development/${develop.id}`
+            };
+          });
+
+          devsListing.resultsCount = results.length;
+
+          if (devsListing.resultsCount == 0) devsListing.ifResults = false;
+
           devsListing.filterResults = devsListing.results.map(dev => dev.name);
 
           devsListing.results.forEach(dev => {
@@ -72,24 +86,9 @@ app.controller('devsListingController', ['$rootScope', '$scope', 'tokkoApi', 'ge
   // #region On Init
 
   tokkoApi.find('development', args, function(result) {
-    devsListing.results = result;    
-    devsListing.resultsMapped = result.map(develop => {    
-      return {
-        id: develop.id,
-        name: develop.name,
-        location: develop.location,
-        photos: develop.photos,
-        hRef: `/#!/development/${develop.id}`
-      };
-    });
+    devsListing.results = result;
 
-    getPropertiesMinPrice();    
-
-    devsListing.resultsCount = result.length;
-
-    if (devsListing.resultsCount == 0) devsListing.ifResults = false;
-    
-    $scope.$apply();
+    getPropertiesMinPrice();
   });
 
   // #endregion

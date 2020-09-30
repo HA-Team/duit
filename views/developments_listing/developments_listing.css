@@ -4,9 +4,13 @@
 
 #mobile-dev-listing .listings-container {
   padding: 15px;
+  padding: 15px;
+  position: relative;
+  width: 100%;
 }
 
 #mobile-dev-listing .listing-item {
+  position: relative;
   padding: 0px 10px;
 }
 
