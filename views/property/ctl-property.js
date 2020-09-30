@@ -211,6 +211,9 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
     document.querySelector("#mobile-prop-detail .contact-globe-modal-icons .fa-envelope").parentElement.setAttribute("href", emailUri);
     document.querySelector(".desktop-prop-detail-contact-container .fa-envelope").parentElement.setAttribute("href", emailUri);
 
+    const shareMessage = `https://wa.me/?text=${window.encodeURIComponent(`Mira que bueno para ${property.p.operation_type == 'Venta' ? 'comprar' : 'alquilar'}! ${window.location.href}`)}`;
+    document.querySelector('.share-container a').setAttribute('href', shareMessage);
+
     const featuresElement = document.querySelector(".collapsable-features");
 
     property.showMoreFeatures = featuresElement.scrollHeight > featuresElement.clientHeight || featuresElement.scrollWidth > featuresElement.clientWidth;
