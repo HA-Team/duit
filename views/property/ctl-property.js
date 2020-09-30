@@ -212,7 +212,9 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
     document.querySelector(".desktop-prop-detail-contact-container .fa-envelope").parentElement.setAttribute("href", emailUri);
 
     const shareMessage = `https://wa.me/?text=${window.encodeURIComponent(`Mira que bueno para ${property.p.operation_type == 'Venta' ? 'comprar' : 'alquilar'}! ${window.location.href}`)}`;
-    document.querySelector('.share-container a').setAttribute('href', shareMessage);
+    console.log(shareMessage);
+    document.querySelector('.desktop-prop-detail-main-container .share-container a').setAttribute('href', shareMessage);
+    document.querySelector('#mobile-prop-detail .share-container a').setAttribute('href', shareMessage);
 
     const featuresElement = document.querySelector(".collapsable-features");
 

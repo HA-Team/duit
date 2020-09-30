@@ -246,7 +246,7 @@
       <section class="mobile-property-general-features">
         <h3 class="desc-headline">Características Generales</h3>
         <ul>
-          <li ng-repeat="tag in property.p.prop.tags">{{tag.name}}</li>
+          <li ng-repeat="tag in property.p.prop.tags"><i class="fa fa-check-square"></i> {{tag.name}}</li>
         </ul>
         <div class="description-detail-button-container" ng-click="property.toggleGeneralFeatures()" ng-show="property.p.prop.tags.length > property.generalFeaturesToShow">
           <p><i class="fa fa-angle-down"></i></p>
@@ -269,6 +269,10 @@
         </div> 
       </section>
       <!-- Location End -->
+
+      <div class="share-container">
+        <a href="https://wa.me/?text=urlencodedtext"><i class="fas fa-share-alt"></i></a>
+      </div>
       
       <!-- Contact Modal -->
       <contact-globe is-open="property.isContactModalOpen" main-img="property.p.prop.producer.picture" open-icon="property.contactGlobeOpenIcon" 

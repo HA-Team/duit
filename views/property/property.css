@@ -210,6 +210,12 @@
 	text-indent: 10px;
 }
 
+#mobile-prop-detail .mobile-property-general-features ul li i {
+	font-size: 18px;
+    margin-right: 7px;
+    color: var(--soft-red);
+}
+
 #mobile-prop-detail .mobile-property-general-features p::before {
 	content: 'Mostrar más ';
 }
@@ -233,6 +239,7 @@
 #mobile-prop-detail .mobile-property-location {
 	width: 100%;
 	padding: 10px;
+	margin-bottom: 25px;
 }
 
 #property-map-container {
@@ -313,6 +320,27 @@
 	background-image: linear-gradient(90deg, var(--softgrey) 0px, rgba(229, 229, 229, 0.8) 40px, var(--softgrey) 80px);
 	background-size: 100vw;
 	animation: shine-circles 2s infinite ease-out;
+}
+
+#mobile-prop-detail .share-container {
+	margin-bottom: -50px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    bottom: 4rem;
+    background-color: var(--soft-red);
+    color: white;
+    left: 2rem;
+    box-shadow: 0 0 3px 1px lightgrey;
+    z-index: 12;
+}
+
+#mobile-prop-detail .share-container a {
+	color: white;	
 }
 
 @keyframes shine-skeleton {
@@ -765,7 +793,6 @@
 .desktop-prop-detail-right-panel > div.share-container a i {
 	margin-left: 5px;
 }
-
 
 .desktop-prop-detail-featured {
 	width: 95%;

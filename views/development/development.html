@@ -201,6 +201,10 @@
       <!-- Available Units -->
       <responsive-table ng-if="development.devProps && development.devProps.length > 0" items="development.devProps" title="'Unidades disponibles'" columns="development.availablePropsColumns"></responsive-table>
       
+      <div class="share-container">
+        <a href="https://wa.me/?text=urlencodedtext"><i class="fas fa-share-alt"></i></a>
+      </div>
+
       <!-- Contact Modal -->
       <contact-globe is-open="development.isContactModalOpen" main-img="development.d.users_in_charge.picture" open-icon="development.contactGlobeOpenIcon" 
         close-icon="development.contactGlobeCloseIcon" title="development.d.users_in_charge.name" actions="development.contactGlobeActions" toggle-modal="development.toggleContactModal()">

@@ -269,6 +269,36 @@
   animation: shine-skeleton 2s infinite ease-out;  
 }
 
+#mobile-dev-detail .responsive-table {
+  margin-bottom: 25px;
+}
+
+#mobile-dev-detail .contact-globe {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#mobile-dev-detail .share-container {
+	margin-bottom: -65px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  bottom: 4rem;
+  background-color: var(--soft-red);
+  color: white;
+  left: 2rem;
+  box-shadow: 0 0 3px 1px lightgrey;
+  z-index: 12;
+}
+
+#mobile-dev-detail .share-container a {
+	color: white;	
+}
+
 @keyframes shine-skeleton {
   0% {
       background-position: -10px;
@@ -276,9 +306,4 @@
   50%, 100% {
       background-position: 100vw;
   }
-}
-
-#mobile-dev-detail .contact-globe {
-  margin-top: 15px;
-  margin-bottom: 15px;
 }

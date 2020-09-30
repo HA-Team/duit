@@ -86,7 +86,8 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
     document.querySelector(".desktop-prop-detail-contact-container .fa-envelope").parentElement.setAttribute("href", emailUri);
 
     const shareMessage = `https://wa.me/?text=${window.encodeURIComponent(`Mira que bueno este emprendimiento de duit! ${window.location.href}`)}`;
-    document.querySelector('.share-container a').setAttribute('href', shareMessage);
+    document.querySelector('.desktop-prop-detail-main-container .share-container a').setAttribute('href', shareMessage);
+    document.querySelector('#mobile-dev-detail .share-container a').setAttribute('href', shareMessage);
   });
 
   // #endregion
