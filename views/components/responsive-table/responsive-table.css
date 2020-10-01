@@ -276,6 +276,10 @@
 
 @media only screen and (min-width: 1024px) {
 
+	.responsive-table-column {
+		flex: 0;
+	}
+
 	.responsive-table-header {
 		padding: 10px 0;
 	}
@@ -295,6 +299,8 @@
 		cursor: default;
 		pointer-events: none;
 		border-bottom: 3px solid white;
+		min-width: 150px;
+		flex: 0;
 	}
 	
 	.responsive-table-header-item h5 {

@@ -10,6 +10,13 @@ app.directive('responsiveTable', function() {
         controller: ['$scope', '$element', '$timeout', 'sliderMoves', 'utils', 'navigation', function ($scope, $element, $timeout, sliderMoves, utils, navigation) {
             // #region Scoped Properties
 
+            // Remove Empty Columns
+            $scope.columns = $scope.columns.filter(col => {
+                const hasSomeValue = !col.fixed && col.data != "parkings_av" && $scope.items.some(item => item[col.data]);
+                const hasSomeParking = !col.fixed && col.data == "parkings_av" && $scope.items.some(item => item[col.data] == "Si");
+                return col.fixed || hasSomeValue || hasSomeParking;
+            });
+
             $scope.isDetailOpen = false;
             $scope.currentIndex = 1; 
             $scope.numberOfItemsToShow = 6;
@@ -125,7 +132,7 @@ app.directive('responsiveTable', function() {
                     itemsPageCounter.scrollTop += 30;
                     $scope.currentItemPage++;
                 }
-            }
+            };
 
             // #endregion
 
@@ -141,8 +148,6 @@ app.directive('responsiveTable', function() {
                     moveSlider(side.oposite);
                 }, {capture: true});
             });
-
-
 
             // #endregion
         }]            
