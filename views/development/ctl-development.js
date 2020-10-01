@@ -301,31 +301,38 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
     {
       name: 'Ubicación',
       data: 'address',
-      fixed: true
+      fixed: true,
+      sort: 'az'
     },
     {
       name: 'Precio',
-      data: 'price'
+      data: 'price',
+      sort: 'number'
     },
     {
       name: 'Unidad',
-      data: 'property_type'
+      data: 'property_type',
+      sort: 'az'
     },
     {
       name: 'Dormitorios',
-      data: 'suite_amount'
+      data: 'suite_amount',
+      sort: 'number'
     },
     {
       name: 'Baños',
-      data: 'bathroom_amount'
+      data: 'bathroom_amount',
+      sort: 'number'
     },
     {
       name: 'Superficie Total',
-      data: 'area'
+      data: 'area',
+      sort: 'number'
     },
     {
       name: 'Cochera',
-      data: 'parkings_av'
+      data: 'parkings_av',
+      sort: 'az'
     }
   ];
 
@@ -334,38 +341,45 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
       name: 'Ubicación',
       icon: 'fa fa-map-marker',
       data: 'address',
-      fixed: true
+      fixed: true,
+      sort: 'az'
     },
     {
       name: 'Precio',
       icon: 'fa fa-dollar-sign',
-      data: 'price'
+      data: 'price',
+      sort: 'number'
     },
     ,
     {
       name: 'Unidad',
       icon: 'fas fa-home',
-      data: 'property_type'
+      data: 'property_type',
+      sort: 'az'
     },
     {
       name: 'Dormitorios',
       icon: 'fas fa-bed',
-      data: 'suite_amount'
+      data: 'suite_amount',
+      sort: 'number'
     },
     {
       name: 'Baños',
       icon: 'fas fa-bath',
-      data: 'bathroom_amount'
+      data: 'bathroom_amount',
+      sort: 'number'
     },
     {
       name: 'Superficie Total',
       icon: 'fas fa-ruler-vertical',
-      data: 'area'
+      data: 'area',
+      sort: 'number'
     },
     {
       name: 'Cochera',
       icon: 'fas fa-car',
-      data: 'parkings_av'
+      data: 'parkings_av',
+      sort: 'az'
     }
   ];
   

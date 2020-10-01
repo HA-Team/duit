@@ -101,7 +101,7 @@
 #mobile-dev-detail h3 {
   font-size: 20px;
   margin: 0px;
-  line-height: 35px;
+  line-height: 25px;
 }
 
 #mobile-dev-detail .description-detail {
@@ -292,7 +292,7 @@
   color: white;
   left: 2rem;
   box-shadow: 0 0 3px 1px lightgrey;
-  z-index: 12;
+  z-index: 10;
 }
 
 #mobile-dev-detail .share-container a {

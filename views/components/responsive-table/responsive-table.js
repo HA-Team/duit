@@ -12,9 +12,10 @@ app.directive('responsiveTable', function() {
 
             // Remove Empty Columns
             $scope.columns = $scope.columns.filter(col => {
-                const hasSomeValue = !col.fixed && col.data != "parkings_av" && $scope.items.some(item => item[col.data]);
-                const hasSomeParking = !col.fixed && col.data == "parkings_av" && $scope.items.some(item => item[col.data] == "Si");
-                return col.fixed || hasSomeValue || hasSomeParking;
+                const hasSomeValue = col.data != 'parkings_av' && col.data != 'area' && $scope.items.some(item => item[col.data]);
+                const hasSomeParking = col.data == 'parkings_av' && $scope.items.some(item => item[col.data] == 'Si');
+                const hasSomeArea = col.data == 'area' && $scope.items.some(item => item[col.data] != '0m²');
+                return hasSomeValue || hasSomeParking || hasSomeArea;
             });
 
             $scope.isDetailOpen = false;
@@ -132,6 +133,34 @@ app.directive('responsiveTable', function() {
                     itemsPageCounter.scrollTop += 30;
                     $scope.currentItemPage++;
                 }
+            };
+
+            $scope.hasDifferentValues = (col) => !$scope.items.every(item => item[col.data] === $scope.items[0][col.data]);
+
+            $scope.sortByAz = (col, way) => {
+                $scope.items.sort((a, b) => {
+                    a = a[col].toLowerCase();
+                    b = b[col].toLowerCase();
+
+                    if (a > b) return way == 'desc' ? -1 : 1;
+                    if (b > a) return way == 'desc' ? 1 : -1;
+                    return 0;
+                });
+
+                $scope.isSortOpen = false;
+            };
+
+            $scope.sortByNumber = (col, way) => {
+                $scope.items.sort((a, b) => {
+                    a = typeof a[col] === 'string' ? Number(a[col].replace(/[^\d]/g, '')) : a[col];
+                    b = typeof b[col] === 'string' ? Number(b[col].replace(/[^\d]/g, '')) : b[col];
+
+                    if (a > b) return way == 'desc' ? -1 : 1;
+                    if (b > a) return way == 'desc' ? 1 : -1;
+                    return 0;
+                });
+
+                $scope.isSortOpen = false;
             };
 
             // #endregion
