@@ -1,10 +1,12 @@
 app.service('getFeaturedProperties', ['tokkoApi', 'sharedData', function(tokkoApi, sharedData) {     
-    this.getSimilarProps = (operationType, typeId, customTags, callback) => {
+    this.getSimilarProps = (operationType, typeId, price, customTags, callback) => {
 
         let data = sharedData.tokkoSearchArgs.data;
-
+        
         data.operation_types = [operationType];
         data.property_types = [typeId];
+        data.price_from = price * 0.8;
+        data.price_to = price * 1.2;
         data.filters = [];
 
         if (customTags > 0) data.with_custom_tags = [customTags.slice(-1)[0].id];
