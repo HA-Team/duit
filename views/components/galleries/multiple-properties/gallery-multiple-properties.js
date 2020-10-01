@@ -27,7 +27,7 @@ app.directive('galleryMultipleProperties', function() {
                 const currentProperty = $scope.items[index];
                 const producer = currentProperty.producer;
 
-                const querySubject = `Consulta por propiedad %23${currentProperty.id}:${currentProperty.title}`.replace(/\s/g, '%20');    
+                const querySubject = window.decodeURIComponent(`Consulta por propiedad #${currentProperty.id}:${currentProperty.title}`);    
 
                 const cellPhone = producer.cellphone ? producer.cellphone : producer.phone;
                 const cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351'); 
