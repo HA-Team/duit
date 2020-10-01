@@ -72,7 +72,7 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
 
 		$timeout(() => google.maps.event.trigger(map, 'resize'));
     
-    const querySubject = `Consulta por propiedad %23${development.d.id}:${development.d.publication_title}`.replace(/\s/g, '%20');    
+    const querySubject = window.decodeURIComponent(`Consulta por propiedad #${development.d.id}:${development.d.publication_title}`);    
 
     const cellPhone = development.d.users_in_charge.phone;
     const cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');
@@ -129,11 +129,15 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
           development.d.minPrice = price.price;
           development.d.minPriceCurrency = price.currency;
         }
+
+        const getSpecificAddressReg = /.+(\-.+)$/gs;
+        const address = getSpecificAddressReg.exec(prop.address);
         
         return {
           id: prop.id,
           type: prop.operations[0].operation_type,
           title: prop.publication_title,
+          property_type: prop.type.name,
           currency: price.currency,
           price: $filter('currency')(price.price, `${price.currency} `, 0),
           cover_photo: prop.photos[0].image,
@@ -144,7 +148,7 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
           parkings_av: prop.parking_lot_amount > 0 ? "Si" : "No",
           suite_amount: prop.suite_amount,
           bathroom_amount: result.bathroom_amount ? result.bathroom_amount : 0,
-          address: prop.fake_address,
+          address: address ? address[1].replace('-', '').trim() : prop.fake_address,
           prop: prop
         }
       });
@@ -304,12 +308,16 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
       data: 'price'
     },
     {
+      name: 'Unidad',
+      data: 'property_type'
+    },
+    {
       name: 'Dormitorios',
       data: 'suite_amount'
     },
     {
       name: 'Baños',
-      data: 'suite_amount'
+      data: 'bathroom_amount'
     },
     {
       name: 'Superficie Total',
@@ -333,6 +341,12 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
       icon: 'fa fa-dollar-sign',
       data: 'price'
     },
+    ,
+    {
+      name: 'Unidad',
+      icon: 'fas fa-home',
+      data: 'property_type'
+    },
     {
       name: 'Dormitorios',
       icon: 'fas fa-bed',
@@ -341,7 +355,7 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
     {
       name: 'Baños',
       icon: 'fas fa-bath',
-      data: 'suite_amount'
+      data: 'bathroom_amount'
     },
     {
       name: 'Superficie Total',

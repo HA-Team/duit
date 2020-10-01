@@ -57,7 +57,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
 
     $rootScope.activeSection = property.p.operation_type == 'Venta' ? 'properties-sell' : 'properties-rent';
     
-    getSimilarProps(result.operations[0].operation_type == 'Venta' ? 1 : 2, result.type.id, result.custom_tags);
+    getSimilarProps(result.operations[0].operation_type == 'Venta' ? 1 : 2, result.type.id, property.p.price, result.custom_tags);
     
     if (result.development) getDevelopmentProps(result.development.id);
 
@@ -198,7 +198,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
       google.maps.event.trigger(mobileMap, 'resize');
     });
 
-    const querySubject = `Consulta por propiedad %23${property.p.id}: ${property.p.prop.publication_title}`.replace(/\s/g, '%20');    
+    const querySubject = window.encodeURIComponent(`Consulta por propiedad #${property.p.id}: ${property.p.prop.publication_title}`);    
 
     const cellPhone = property.p.prop.producer.cellphone ? property.p.prop.producer.cellphone : property.p.prop.producer.phone;
     const cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');
@@ -212,13 +212,14 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
     document.querySelector(".desktop-prop-detail-contact-container .fa-envelope").parentElement.setAttribute("href", emailUri);
 
     const shareMessage = `https://wa.me/?text=${window.encodeURIComponent(`Mira que bueno para ${property.p.operation_type == 'Venta' ? 'comprar' : 'alquilar'}! ${window.location.href}`)}`;
-    console.log(shareMessage);
     document.querySelector('.desktop-prop-detail-main-container .share-container a').setAttribute('href', shareMessage);
     document.querySelector('#mobile-prop-detail .share-container a').setAttribute('href', shareMessage);
 
     const featuresElement = document.querySelector(".collapsable-features");
 
     property.showMoreFeatures = featuresElement.scrollHeight > featuresElement.clientHeight || featuresElement.scrollWidth > featuresElement.clientWidth;
+
+    $scope.$apply();
   });
 
   // #endregion
@@ -250,8 +251,8 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
     });
   };
 
-  function getSimilarProps(operationType, typeId, customTags) {
-    getFeaturedProperties.getSimilarProps(operationType, typeId, customTags, result => {
+  function getSimilarProps(operationType, typeId, price, customTags) {
+    getFeaturedProperties.getSimilarProps(operationType, typeId, price, customTags, result => {
       property.similarProps = result.map(prop => {
         return {
           id: prop.id,
@@ -266,7 +267,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
           bathroomAmount: prop.bathroom_amount ? prop.bathroom_amount : 0,
           prop: prop
         }
-      });
+      }).filter(p => p.id != property.p.id);
 
       property.similarProps = _.shuffle(property.similarProps);
 
@@ -279,12 +280,17 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
     getFeaturedProperties.getDevelopmentProps(id, result => {
       property.devProps = result.map(prop => {
         const price = prop.operations[prop.operations.length-1].prices.slice(-1)[0];
+
+        const getSpecificAddressReg = /.+(\-.+)$/gs;
+        const address = getSpecificAddressReg.exec(prop.address);
+
         return {
           id: prop.id,
           type: prop.operations[0].operation_type,
           title: prop.publication_title,
           currency: price.currency,
           price: $filter('currency')(price.price, `${price.currency} `, 0),
+          property_type: prop.type.name,
           cover_photo: prop.photos[0].image,
           parkings: prop.parking_lot_amount ? prop.parking_lot_amount : 0,
           area: prop.type.id === 1 ? `${$filter('number')(prop.surface, 0)}m²` : `${$filter('number')(prop.roofed_surface, 0)}m²`,
@@ -293,7 +299,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
           parkings_av: prop.parking_lot_amount > 0 ? "Si" : "No",
           suite_amount: prop.suite_amount,
           bathroom_amount: result.bathroom_amount ? result.bathroom_amount : 0,
-          address: prop.fake_address,
+          address: address ? address[1].replace('-', '').trim() : prop.fake_address,
           prop: prop
         }
       });
@@ -460,12 +466,16 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
       data: 'price'
     },
     {
+      name: 'Unidad',
+      data: 'property_type'
+    },
+    {
       name: 'Dormitorios',
       data: 'suite_amount'
     },
     {
       name: 'Baños',
-      data: 'suite_amount'
+      data: 'bathroom_amount'
     },
     {
       name: 'Superficie Total',
@@ -490,6 +500,11 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
       data: 'price'
     },
     {
+      name: 'Unidad',
+      icon: 'fas fa-home',
+      data: 'property_type'
+    },
+    {
       name: 'Dormitorios',
       icon: 'fas fa-bed',
       data: 'suite_amount'
@@ -497,7 +512,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
     {
       name: 'Baños',
       icon: 'fas fa-bath',
-      data: 'suite_amount'
+      data: 'bathroom_amount'
     },
     {
       name: 'Superficie Total',
