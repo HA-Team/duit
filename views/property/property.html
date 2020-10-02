@@ -1,296 +1,292 @@
-<div ng-controller="propertyController as property">
-
-  <!-- Desktop Property Detail -->
-  <div class="hidden-on-mobile">
+<!-- Desktop Property Detail -->
+<div class="hidden-on-mobile">
     
-    <!-- Main Container -->
-    <section class="desktop-prop-detail-main-container">
+  <!-- Main Container -->
+  <section class="desktop-prop-detail-main-container">
 
-      <!-- Left Panel Skeleton -->
-      <div class="left-panel-skeleton" ng-show="!property.apiReady"></div>
+    <!-- Left Panel Skeleton -->
+    <div class="left-panel-skeleton" ng-show="!property.apiReady"></div>
 
-      <!-- Left Panel -->
-      <div class="desktop-prop-detail-left-panel" ng-show="property.apiReady">
-        <!-- Video player -->
-        <div class="video-container" ng-if="property.p.hasDuit360 && property.showDuit360">
-          <iframe ng-src="{{property.propertyMapped.video_url | trusted}}" class="video-player" allowFullScreen="true"> </iframe>
-        </div>
-
-        <img src="{{property.activeGalleryPhoto}}" alt="" ng-click="property.toggleGallery()" ng-if="!property.showDuit360">
-
-        <!-- Gallery Toggler -->
-        <div class="gallery-switcher-container" ng-if="property.p.hasDuit360 && !property.isGalleryOpen">
-          <button ng-click="property.toggleDuit360()" ng-class="{'active': !property.showDuit360}">Ver Galería<i class="fas fa-images"></i></button>
-          <button ng-click="property.toggleDuit360()" ng-class="{'active': property.showDuit360}">Ver Duit 360º<i class="fas fa-street-view"></i></button>
-        </div>
-
-        <div class="gallery-container" ng-show="property.isGalleryOpen">
-          
-          <div class="gallery-slider">
-            <div ng-repeat="i in property.p.prop.photos">
-              <img src="{{i.image}}" alt="" ng-click="property.toggleGallery()">
-            </div>          
-          </div>
-
-          <!-- Arrows -->
-          <div class="slider-arrows-container" ng-if="property.p.prop.photos.length > 1">
-            <i class="fa fa-angle-left" ng-click="property.moveGallerySlider($event.target.parentElement.previousElementSibling, 'left')"></i>
-            <i class="fa fa-angle-right" ng-click="property.moveGallerySlider($event.target.parentElement.previousElementSibling,'right')"></i>
-          </div>  
-
-        </div>
-
-        <div class="gallery-background" ng-class="{'open': property.isGalleryOpen}" ng-click="property.toggleGallery()"></div>
-        
-        <div class="slider-container" ng-if="property.p.prop.photos.length > 1">
-          <div class="thumb-gallery-slider">
-            <img src="{{i.thumb}}" alt="" ng-repeat="i in property.p.prop.photos" ng-click="property.setActiveImage(i)">        
-          </div>
-    
-          <!-- Arrows -->
-          <div class="slider-arrows-container" ng-if="property.showGalleryArrows">
-            <i class="fa fa-angle-left" ng-click="property.moveSlider($event.target.parentElement.previousElementSibling, 'left')"></i>
-            <i class="fa fa-angle-right" ng-click="property.moveSlider($event.target.parentElement.previousElementSibling,'right')"></i>
-          </div>
-        </div>
-
-        <!-- Features -->
-        <h3 class="margin-top-40" ng-if="property.showGeneralFeatures(property.desktopFeatures)">Características Principales</h3>
-
-        <div class="desktop-prop-detail-features-container" ng-if="property.showGeneralFeatures(property.desktopFeatures)">
-          <div ng-repeat="feature in property.desktopFeatures" ng-if ="feature.description">            
-            <div>
-              <p>{{feature.title}}</p>
-              <h3>{{feature.description}}</h3>
-            </div>        
-          </div>      
-        </div>
-        <!-- Features End -->
-
-        <hr ng-if="property.showGeneralFeatures(property.desktopFeatures)">
-
-        <!-- Special Features -->
-        <h3 ng-if="property.p.prop.tags.length > 0">Características {{property.showGeneralFeatures(property.desktopFeatures) ? 'Adicionales' : ''}}</h3>
-        <div class="desktop-prop-detail-general-features-container collapsable-features">
-          <p ng-repeat="tag in property.p.prop.tags"><i class="fa fa-check-square"></i>{{tag.name}}</p>
-        </div>
-        <div ng-if="property.showMoreFeatures" ng-click="property.toggleAditionalFeatures()" class="desktop-show-more margin-top-10">
-          <span></span><i class="fa fa-angle-down"></i>
-        </div> 
-
-        <hr ng-if="property.p.prop.tags.length > 0">
-
-        <h3 class="collapsable-title">Descripción</h3>
-        <pre>{{property.p.prop.description.trim()}}</pre>
-        <div ng-click="property.toggleDescriptionDetailDesktop()" class="desktop-show-more">
-          <span></span><i class="fa fa-angle-down"></i>
-        </div>        
-                
+    <!-- Left Panel -->
+    <div class="desktop-prop-detail-left-panel" ng-show="property.apiReady">
+      <!-- Video player -->
+      <div class="video-container" ng-if="property.p.hasDuit360 && property.showDuit360">
+        <iframe ng-src="{{property.propertyMapped.video_url | trusted}}" class="video-player" allowFullScreen="true"> </iframe>
       </div>
-      <!-- Left Panel End -->
+
+      <img src="{{property.activeGalleryPhoto}}" alt="" ng-click="property.toggleGallery()" ng-if="!property.showDuit360">
+
+      <!-- Gallery Toggler -->
+      <div class="gallery-switcher-container" ng-if="property.p.hasDuit360 && !property.isGalleryOpen">
+        <button ng-click="property.toggleDuit360()" ng-class="{'active': !property.showDuit360}">Ver Galería<i class="fas fa-images"></i></button>
+        <button ng-click="property.toggleDuit360()" ng-class="{'active': property.showDuit360}">Ver Duit 360º<i class="fas fa-street-view"></i></button>
+      </div>
+
+      <div class="gallery-container" ng-show="property.isGalleryOpen">
+        
+        <div class="gallery-slider">
+          <div ng-repeat="i in property.p.prop.photos">
+            <img src="{{i.image}}" alt="" ng-click="property.toggleGallery()">
+          </div>
+        </div>
+
+        <!-- Arrows -->
+        <div class="slider-arrows-container" ng-if="property.p.prop.photos.length > 1">
+          <i class="fa fa-angle-left" ng-click="property.moveGallerySlider($event.target.parentElement.previousElementSibling, 'left')"></i>
+          <i class="fa fa-angle-right" ng-click="property.moveGallerySlider($event.target.parentElement.previousElementSibling,'right')"></i>
+        </div>
+
+      </div>
+
+      <div class="gallery-background" ng-class="{'open': property.isGalleryOpen}" ng-click="property.toggleGallery()"></div>
       
-      <!-- Right Panel -->  
-      <div class="desktop-prop-detail-right-panel">
-
-        <!-- Main Info Skeleton -->
-        <div class="main-info-skeleton" ng-show="!property.apiReady"></div>
-
-        <!-- Main Info -->
-        <div class="desktop-prop-detail-info-container" ng-show="property.apiReady">
-          <p ng-if="property.p.prop.development.construction_date">Entrega {{property.isDateGreaterThanToday(property.p.prop.development.construction_date) ? (property.p.prop.development.construction_date | date:'MM/yyyy') : 'inmediata'}}</p>
-          <h3>{{property.p.prop.fake_address ? property.p.prop.fake_address : property.p.prop.publication_title}}</h3> 
-          <p class="margin-top-15">{{property.p.operation_type}}</p> 
-          <h2>{{property.p.price | currency:property.p.currency:0}}</h2>
-          
-          <div class="desktop-info-features">
-            <div class="desktop-info-features-icons">
-              <i class="fa fa-bed" ng-if="property.p.rooms > 0"></i>
-              <i class="fas fa-bath" ng-if="property.p.baths > 0"></i>
-              <i class="fas fa-ruler-vertical" ng-if="property.p.area > 0"></i>
-              <i class="fas fa-door-closed" ng-if="property.p.enviroments > 0"></i>
-            </div>
-            <div class="desktop-info-features-values">
-              <p ng-if="property.p.rooms > 0">{{property.p.rooms}} dormitorio{{property.p.rooms > 1 ? 's' : ''}}</p>
-              <p ng-if="property.p.baths > 0">{{property.p.baths}} baño{{property.p.baths > 1 ? 's' : ''}}</p>
-              <p ng-if="property.p.area > 0">{{property.p.area | number:0}}m²</p>
-              <p ng-if="property.p.enviroments > 0">{{property.p.enviroments}} ambiente{{property.p.enviroments > 1 ? 's' : ''}}</p>
-            </div>
-          </div>
+      <div class="slider-container" ng-if="property.p.prop.photos.length > 1">
+        <div class="thumb-gallery-slider">
+          <img src="{{i.thumb}}" alt="" ng-repeat="i in property.p.prop.photos" ng-click="property.setActiveImage(i)">        
         </div>
-
-        <!-- Contact Skeleton -->
-        <div class="contact-skeleton" ng-show="!property.apiReady"></div>
-
-        <!-- Contact -->
-        <div class="desktop-prop-detail-contact-container" ng-show="property.apiReady">
-          <img src="{{property.p.prop.producer.picture}}" alt="">
-          <div class="contact-info">
-            <p>{{property.p.prop.producer.name}}</p>
-            <a>
-              <i class="fab fa-whatsapp"></i> <p>{{property.p.formatedPhone}}</p>
-            </a>
-            <a>
-              <i class="fa fa-envelope"></i> <p>{{property.p.prop.producer.email}}</p>
-            </a>                  
-          </div>
+  
+        <!-- Arrows -->
+        <div class="slider-arrows-container" ng-if="property.showGalleryArrows">
+          <i class="fa fa-angle-left" ng-click="property.moveSlider($event.target.parentElement.previousElementSibling, 'left')"></i>
+          <i class="fa fa-angle-right" ng-click="property.moveSlider($event.target.parentElement.previousElementSibling,'right')"></i>
         </div>
-
-        <div class="share-container" ng-show="property.apiReady">
-          <a href="https://wa.me/?text=urlencodedtext" target="_blank">Compartir propiedad<i class="fas fa-share-alt"></i></a>
-        </div>  
-        
-        <!-- Maps Skeleton -->
-        <div class="map-skeleton" ng-show="!property.apiReady"></div>
-
-        <!-- Maps -->
-        <div id="propertyMap-container" ng-show="property.apiReady">
-          <div id="propertyMap"></div>
-        </div>
-
       </div>
-      <!-- Right Panel End -->
 
+      <!-- Features -->
+      <h3 class="margin-top-40" ng-if="property.showGeneralFeatures(property.desktopFeatures)">Características Principales</h3>
+
+      <div class="desktop-prop-detail-features-container" ng-if="property.showGeneralFeatures(property.desktopFeatures)">
+        <div ng-repeat="feature in property.desktopFeatures" ng-if ="feature.description">            
+          <div>
+            <p>{{feature.title}}</p>
+            <h3>{{feature.description}}</h3>
+          </div>
+        </div>
+      </div>
+      <!-- Features End -->
+
+      <hr ng-if="property.showGeneralFeatures(property.desktopFeatures)">
+
+      <!-- Special Features -->
+      <h3 ng-if="property.p.prop.tags.length > 0">Características {{property.showGeneralFeatures(property.desktopFeatures) ? 'Adicionales' : ''}}</h3>
+      <div class="desktop-prop-detail-general-features-container collapsable-features">
+        <p ng-repeat="tag in property.p.prop.tags"><i class="fa fa-check-square"></i>{{tag.name}}</p>
+      </div>
+      <div ng-if="property.showMoreFeatures" ng-click="property.toggleAditionalFeatures()" class="desktop-show-more margin-top-10">
+        <span></span><i class="fa fa-angle-down"></i>
+      </div>
+
+      <hr ng-if="property.p.prop.tags.length > 0">
+
+      <h3 class="collapsable-title">Descripción</h3>
+      <pre>{{property.p.prop.description.trim()}}</pre>
+      <div ng-click="property.toggleDescriptionDetailDesktop()" class="desktop-show-more">
+        <span></span><i class="fa fa-angle-down"></i>
+      </div>
+              
+    </div>
+    <!-- Left Panel End -->
+    
+    <!-- Right Panel -->
+    <div class="desktop-prop-detail-right-panel">
+
+      <!-- Main Info Skeleton -->
+      <div class="main-info-skeleton" ng-show="!property.apiReady"></div>
+
+      <!-- Main Info -->
+      <div class="desktop-prop-detail-info-container" ng-show="property.apiReady">
+        <p ng-if="property.p.prop.development.construction_date">Entrega {{property.isDateGreaterThanToday(property.p.prop.development.construction_date) ? (property.p.prop.development.construction_date | date:'MM/yyyy') : 'inmediata'}}</p>
+        <h3>{{property.p.prop.fake_address ? property.p.prop.fake_address : property.p.prop.publication_title}}</h3> 
+        <p class="margin-top-15">{{property.p.operation_type}}</p> 
+        <h2>{{property.p.price | currency:property.p.currency:0}}</h2>
+        
+        <div class="desktop-info-features">
+          <div class="desktop-info-features-icons">
+            <i class="fa fa-bed" ng-if="property.p.rooms > 0"></i>
+            <i class="fas fa-bath" ng-if="property.p.baths > 0"></i>
+            <i class="fas fa-ruler-vertical" ng-if="property.p.area > 0"></i>
+            <i class="fas fa-door-closed" ng-if="property.p.enviroments > 0"></i>
+          </div>
+          <div class="desktop-info-features-values">
+            <p ng-if="property.p.rooms > 0">{{property.p.rooms}} dormitorio{{property.p.rooms > 1 ? 's' : ''}}</p>
+            <p ng-if="property.p.baths > 0">{{property.p.baths}} baño{{property.p.baths > 1 ? 's' : ''}}</p>
+            <p ng-if="property.p.area > 0">{{property.p.area | number:0}}m²</p>
+            <p ng-if="property.p.enviroments > 0">{{property.p.enviroments}} ambiente{{property.p.enviroments > 1 ? 's' : ''}}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Skeleton -->
+      <div class="contact-skeleton" ng-show="!property.apiReady"></div>
+
+      <!-- Contact -->
+      <div class="desktop-prop-detail-contact-container" ng-show="property.apiReady">
+        <img src="{{property.p.prop.producer.picture}}" alt="">
+        <div class="contact-info">
+          <p>{{property.p.prop.producer.name}}</p>
+          <a>
+            <i class="fab fa-whatsapp"></i> <p>{{property.p.formatedPhone}}</p>
+          </a>
+          <a>
+            <i class="fa fa-envelope"></i> <p>{{property.p.prop.producer.email}}</p>
+          </a>
+        </div>
+      </div>
+
+      <div class="share-container" ng-show="property.apiReady">
+        <a href="https://wa.me/?text=urlencodedtext" target="_blank">Compartir propiedad<i class="fas fa-share-alt"></i></a>
+      </div>
+      
+      <!-- Maps Skeleton -->
+      <div class="map-skeleton" ng-show="!property.apiReady"></div>
+
+      <!-- Maps -->
+      <div id="propertyMap-container" ng-show="property.apiReady">
+        <div id="propertyMap"></div>
+      </div>
+
+    </div>
+    <!-- Right Panel End -->
+
+  </section>
+  <!-- Main Container End -->
+
+  <!-- Available Units -->
+  <responsive-table id="desktop-other-units-table" ng-if="property.p.prop.development && property.devProps.length > 0" items="property.devProps" title="'Otras unidades del Emprendimiento'" columns="property.desktopAvailablePropsColumns"></responsive-table>
+
+  <!-- Featured Properties -->
+  <section class="desktop-prop-detail-featured">
+    <h3>Te aconsejamos estas propiedades</h3>
+    
+    <gallery-properties-cards items="property.similarProps" show-photos="property.similarReady"></gallery-properties-cards>
+  </section>
+  <!-- Featured Props End -->
+
+</div>
+<!-- Desktop Property Detail End -->
+
+<!-- Mobile Property Detail -->
+<div id="mobile-prop-detail" class="hidden-on-desktop">
+  
+  <!-- Skeleton Loader -->
+  <section class="skeleton-container" ng-show="!property.apiReady">
+    <div class="skeleton-image"></div>
+    <div class="skeleton-lines">
+      <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
+    </div>
+    <div class="skeleton-circles">
+      <div ng-repeat="x in [].constructor(4) track by $index" class="skeleton-circle"></div>     
+    </div>
+  </section>
+  <!-- Skeleton Loader End -->
+  
+  <div ng-show="property.apiReady">
+    
+    <!-- Gallery Slider  -->
+    <gallery-single-property ng-if="property.apiReady" item="property.propertyMapped"
+      show-widgets="true" show-gallery="property.apiReady" has-duit-360="property.p.hasDuit360"></gallery-single-property>   
+    <!-- Gallery Slider End -->
+
+    <!-- Subtitle -->
+    <section class="mobile-property-subtitle">
+
+      <div class="mobile-property-subtitle-text">
+        <p><strong>{{property.p.prop.type.name}} - {{property.p.area | number:0}}m<sup>2</sup> - {{property.p.enviroments}} Ambientes</strong></p>
+        <p><strong>{{property.p.prop.address}}</strong>, {{property.p.prop.location.name}}, {{property.p.state}}</p>
+        <p ng-if="property.p.prop.development.construction_date && property.isDateGreaterThanToday(property.p.prop.development.construction_date)"><strong>Entrega: {{property.p.prop.development.construction_date | date:'MM/yyyy'}}</strong></p>
+      </div>
     </section>
-    <!-- Main Container End -->
+    <!-- Subtitle End -->
+    
+    <!-- Type Card -->
+    <section class="mobile-property-type-card">
+      <h4>{{property.p.operation_type}}</h4>
+      <h4>{{property.p.price | currency:property.p.currency:0}}</h4>
+    </section>
+    <!-- Type Card End -->
+    
+    <!-- Published Days -->
+    <section class="go-to-development-section" ng-if="property.p.prop.development">
+      <a ng-click="property.goToOtherUnits()" ng-if="property.devProps.length > 0">Ver otras unidades del emprendimiento.</a>
+    </section>
+    <!-- Published Days End -->
+    
+    <!-- Property Title -->
+    <h4 class="mobile-property-title">{{property.p.prop.publication_title}}</h4>
+    
+    <!-- Features Icons -->
+    <section class="mobile-property-features-items">
+      <div class="mobile-property-feature-item" ng-repeat="item in property.featuresItems" ng-show="item.isVisible">
+        <div class="feature-item-container"><i class="{{item.icon}}"></i></div>
+        <p><strong>{{item.value}}</strong></p>
+        <p>{{item.name}}</p>
+      </div>
+    </section>
+    <!-- Features Icons End -->
+
+    <hr style="margin-top: 0px;">
+
+    <!-- Description -->
+    <section class="mobile-property-description">
+      <h3 class="desc-headline">Descripción</h3>
+      <div class="description-detail">
+        <pre>{{property.p.prop.description.trim()}}</pre>
+      </div>
+      <div class="description-detail-button-container" ng-click="property.toggleDescriptionDetail()">
+        <p><i class="fa fa-angle-down"></i></p>
+      </div>
+    </section>
+    <!-- Description End -->
+
+    <hr>
+
+    <!-- General Features -->
+    <section class="mobile-property-general-features">
+      <h3 class="desc-headline">Características Generales</h3>
+      <ul>
+        <li ng-repeat="tag in property.p.prop.tags"><i class="fa fa-check-square"></i> {{tag.name}}</li>
+      </ul>
+      <div class="description-detail-button-container" ng-click="property.toggleGeneralFeatures()" ng-show="property.p.prop.tags.length > property.generalFeaturesToShow">
+        <p><i class="fa fa-angle-down"></i></p>
+      </div>
+    </section>
+    <!-- General Features End -->
+
+    <hr>
 
     <!-- Available Units -->
-    <responsive-table id="desktop-other-units-table" ng-if="property.p.prop.development && property.devProps.length > 0" items="property.devProps" title="'Otras unidades del Emprendimiento'" columns="property.desktopAvailablePropsColumns"></responsive-table>
+    <responsive-table id="other-units-table" ng-if="property.p.prop.development && property.devProps.length > 0" items="property.devProps" title="'Otras unidades del Emprendimiento'" columns="property.availablePropsColumns"></responsive-table>
 
-    <!-- Featured Properties -->
-    <section class="desktop-prop-detail-featured">
-      <h3>Te aconsejamos estas propiedades</h3>  
+    <hr ng-if="property.p.prop.development && property.devProps.length > 0">
+
+    <!-- Location -->
+    <section class="mobile-property-location">
+      <h3 class="desc-headline no-border" id="location">Ubicación</h3>
+      <div id="property-map-container">
+        <div id="mobile-property-map"></div>
+      </div>
+    </section>
+    <!-- Location End -->
+
+    <div class="share-container">
+      <a href="https://wa.me/?text=urlencodedtext"><i class="fas fa-share-alt"></i></a>
+    </div>
+    
+    <!-- Contact Modal -->
+    <contact-globe is-open="property.isContactModalOpen" main-img="property.p.prop.producer.picture" open-icon="property.contactGlobeOpenIcon" 
+      close-icon="property.contactGlobeCloseIcon" title="property.p.prop.producer.name" actions="property.contactGlobeActions" toggle-modal="property.toggleContactModal()">
+    </contact-globe>
+    <!-- Contact Modal End -->
+
+    <!-- Featured Props -->
+    <section class="mobile-property-featured">
+      <h3>Propiedades Similares</h3>
       
       <gallery-properties-cards items="property.similarProps" show-photos="property.similarReady"></gallery-properties-cards>
     </section>
     <!-- Featured Props End -->
-
+  
   </div>
-  <!-- Desktop Property Detail End -->
-
-  <!-- Mobile Property Detail -->
-  <div id="mobile-prop-detail" class="hidden-on-desktop">
-    
-    <!-- Skeleton Loader -->
-    <section class="skeleton-container" ng-show="!property.apiReady">
-      <div class="skeleton-image"></div>
-      <div class="skeleton-lines">
-        <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
-      </div>
-      <div class="skeleton-circles">
-        <div ng-repeat="x in [].constructor(4) track by $index" class="skeleton-circle"></div>     
-      </div>
-    </section>
-    <!-- Skeleton Loader End -->
-    
-    <div ng-show="property.apiReady">
-      
-      <!-- Gallery Slider  -->
-      <gallery-single-property ng-if="property.apiReady" item="property.propertyMapped"
-        show-widgets="true" show-gallery="property.apiReady" has-duit-360="property.p.hasDuit360"></gallery-single-property>   
-      <!-- Gallery Slider End -->
-
-      <!-- Subtitle -->
-      <section class="mobile-property-subtitle">    
-
-        <div class="mobile-property-subtitle-text">
-          <p><strong>{{property.p.prop.type.name}} - {{property.p.area | number:0}}m<sup>2</sup> - {{property.p.enviroments}} Ambientes</strong></p>
-          <p><strong>{{property.p.prop.address}}</strong>, {{property.p.prop.location.name}}, {{property.p.state}}</p>
-          <p ng-if="property.p.prop.development.construction_date && property.isDateGreaterThanToday(property.p.prop.development.construction_date)"><strong>Entrega: {{property.p.prop.development.construction_date | date:'MM/yyyy'}}</strong></p>
-        </div>    
-      </section>  
-      <!-- Subtitle End -->
-      
-      <!-- Type Card -->
-      <section class="mobile-property-type-card">
-        <h4>{{property.p.operation_type}}</h4>
-        <h4>{{property.p.price | currency:property.p.currency:0}}</h4>
-      </section>
-      <!-- Type Card End -->
-      
-      <!-- Published Days -->
-      <section class="go-to-development-section" ng-if="property.p.prop.development">
-        <a ng-click="property.goToOtherUnits()" ng-if="property.devProps.length > 0">Ver otras unidades del emprendimiento.</a>
-      </section>
-      <!-- Published Days End -->
-      
-      <!-- Property Title -->
-      <h4 class="mobile-property-title">{{property.p.prop.publication_title}}</h4>
-      
-      <!-- Features Icons -->
-      <section class="mobile-property-features-items">
-        <div class="mobile-property-feature-item" ng-repeat="item in property.featuresItems" ng-show="item.isVisible">
-          <div class="feature-item-container"><i class="{{item.icon}}"></i></div>
-          <p><strong>{{item.value}}</strong></p>
-          <p>{{item.name}}</p>
-        </div>                  
-      </section>
-      <!-- Features Icons End -->
-
-      <hr style="margin-top: 0px;">
-
-      <!-- Description -->
-      <section class="mobile-property-description">    
-        <h3 class="desc-headline">Descripción</h3>
-        <div class="description-detail">
-          <pre>{{property.p.prop.description.trim()}}</pre>      
-        </div>
-        <div class="description-detail-button-container" ng-click="property.toggleDescriptionDetail()">
-          <p><i class="fa fa-angle-down"></i></p>
-        </div>
-      </section>
-      <!-- Description End -->
-
-      <hr>
-
-      <!-- General Features -->
-      <section class="mobile-property-general-features">
-        <h3 class="desc-headline">Características Generales</h3>
-        <ul>
-          <li ng-repeat="tag in property.p.prop.tags"><i class="fa fa-check-square"></i> {{tag.name}}</li>
-        </ul>
-        <div class="description-detail-button-container" ng-click="property.toggleGeneralFeatures()" ng-show="property.p.prop.tags.length > property.generalFeaturesToShow">
-          <p><i class="fa fa-angle-down"></i></p>
-        </div>
-      </section>
-      <!-- General Features End -->
-
-      <hr>
-
-      <!-- Available Units -->
-      <responsive-table id="other-units-table" ng-if="property.p.prop.development && property.devProps.length > 0" items="property.devProps" title="'Otras unidades del Emprendimiento'" columns="property.availablePropsColumns"></responsive-table>
-
-      <hr ng-if="property.p.prop.development && property.devProps.length > 0">
-
-      <!-- Location -->
-      <section class="mobile-property-location">  
-        <h3 class="desc-headline no-border" id="location">Ubicación</h3>
-        <div id="property-map-container">
-          <div id="mobile-property-map"></div>
-        </div> 
-      </section>
-      <!-- Location End -->
-
-      <div class="share-container">
-        <a href="https://wa.me/?text=urlencodedtext"><i class="fas fa-share-alt"></i></a>
-      </div>
-      
-      <!-- Contact Modal -->
-      <contact-globe is-open="property.isContactModalOpen" main-img="property.p.prop.producer.picture" open-icon="property.contactGlobeOpenIcon" 
-        close-icon="property.contactGlobeCloseIcon" title="property.p.prop.producer.name" actions="property.contactGlobeActions" toggle-modal="property.toggleContactModal()">
-      </contact-globe>
-      <!-- Contact Modal End -->
-
-      <!-- Featured Props -->
-      <section class="mobile-property-featured">
-        <h3>Propiedades Similares</h3>  
-        
-        <gallery-properties-cards items="property.similarProps" show-photos="property.similarReady"></gallery-properties-cards>
-      </section>
-      <!-- Featured Props End -->
-    
-    </div>
-
-  </div>
-  <!-- Mobile Property Detail End -->
 
 </div>
+<!-- Mobile Property Detail End -->

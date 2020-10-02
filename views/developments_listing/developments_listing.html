@@ -1,115 +1,112 @@
-<div ng-controller="devsListingController as devsListing">  
-  <div id="devsListing" class="hidden-on-mobile">
+<div id="devsListing" class="hidden-on-mobile">
 
-    <!-- Search -->
-    <section class="dev-listing-search">
-      <h2>duit emprendimientos</h2>
-      <form ng-submit="devsListing.fitlerList()">
-        <input type="text"
-          placeholder="Ingresá barrio, ciudad o emprendimiento"
-          ng-change="devsListing.updateFilter()"
-          ng-model="devsListing.filterValue"
-          ng-disabled="!devsListing.apiReady"
-          ng-style="{'background-color': !devsListing.apiReady && 'var(--softgrey)', 'border-radius': devsListing.filterOpen && devsListing.filterValue != '' && '0'}">
-        <i class="fas fa-search"
-          ng-click="devsListing.fitlerList()"
-          ng-disabled="!devsListing.apiReady"
-          ng-style="{cursor: !devsListing.apiReady && 'default'}"></i>
-        <ul ng-if="devsListing.filterOpen && devsListing.filterValue != ''">
-          <li ng-repeat="value in devsListing.filterResults | filter:devsListing.filterValue"
-            ng-click="devsListing.filterValue = value; devsListing.filterOpen = false; devsListing.fitlerList();">{{value}}</li>
-        </ul>
-      </form>
-    </section>
-    <!-- Search End -->
+  <!-- Search -->
+  <section class="dev-listing-search">
+    <h2>duit emprendimientos</h2>
+    <form ng-submit="devsListing.fitlerList()">
+      <input type="text"
+        placeholder="Ingresá barrio, ciudad o emprendimiento"
+        ng-change="devsListing.updateFilter()"
+        ng-model="devsListing.filterValue"
+        ng-disabled="!devsListing.apiReady"
+        ng-style="{'background-color': !devsListing.apiReady && 'var(--softgrey)', 'border-radius': devsListing.filterOpen && devsListing.filterValue != '' && '0'}">
+      <i class="fas fa-search"
+        ng-click="devsListing.fitlerList()"
+        ng-disabled="!devsListing.apiReady"
+        ng-style="{cursor: !devsListing.apiReady && 'default'}"></i>
+      <ul ng-if="devsListing.filterOpen && devsListing.filterValue != ''">
+        <li ng-repeat="value in devsListing.filterResults | filter:devsListing.filterValue"
+          ng-click="devsListing.filterValue = value; devsListing.filterOpen = false; devsListing.fitlerList();">{{value}}</li>
+      </ul>
+    </form>
+  </section>
+  <!-- Search End -->
 
-    <!-- Listings -->
-    <section class="dev-listing-container">
-          
-      <!-- Skeleton Loader -->
-      <section class="skeleton-container" ng-repeat="x in [].constructor(3) track by $index" ng-if="!devsListing.apiReady">
-        <div class="skeleton-image"></div>
-        <div class="skeleton-lines">
-          <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
-        </div>
-      </section>
-      <!-- Skeleton Loader End -->
-
-      <!-- Listing Item -->
-      <div class="dev-listing-item" ng-repeat="d in devsListing.results" ng-if="devsListing.apiReady">
-
-        <a href="/#!/development/{{d.id}}">
-          <img src="{{d.photos[0].image}}" alt="">
-        </a>
+  <!-- Listings -->
+  <section class="dev-listing-container">
         
-        <div class="dev-listing-item-description">
-          <p ng-show="d.minPrice">Desde</p>
-          <h5 ng-show="d.minPrice">{{d.minPrice}}</h5>
-          <h5>{{d.name}}</h5>
-          <p>{{d.location.name}}</p>
-          <p>{{d.description}}</p>
-        </div>
-
+    <!-- Skeleton Loader -->
+    <section class="skeleton-container" ng-repeat="x in [].constructor(3) track by $index" ng-if="!devsListing.apiReady">
+      <div class="skeleton-image"></div>
+      <div class="skeleton-lines">
+        <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
       </div>
-      <!-- Listing Item / End -->
-
-      <!-- No Results -->
-      <h3 ng-if="devsListing.apiReady && devsListing.results.length == 0">No se encontraron resultados, <a href="#!/home/#home-contact">contactános</a> para ver mas opciones!</h3>
-
     </section>
-    <!-- Listings Container / End -->
-  
-  </div>
-  
-  <div id="mobile-dev-listing" class="hidden-on-desktop">
-    
-      <!-- Skeleton Loader -->
-      <section class="skeleton-container" ng-show="!devsListing.apiReady" ng-repeat="x in [].constructor(2) track by $index">
-        <div class="skeleton-image"></div>
-        <div class="skeleton-lines">
-          <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
-        </div>
-      </section>
-      <!-- Skeleton Loader End -->
-  
-    <div ng-show="devsListing.apiReady">
-  
-      <h4 class="dev-listing-found-title">{{devsListing.resultsCount}} Emprendimientos encontrados</h4>
-  
-      <!-- Listing -->
-      <div class="listings-container">
-        
-        <!-- Listing Item -->
-        <div class="listing-item margin-10" ng-repeat="development in devsListing.resultsMapped">
-  
-          <gallery-single-property item="development" show-widgets="false" show-gallery="true" gallery-height="'40vh'"></gallery-single-property>
-          
-          <div class="listing-content">
-  
-            <div class="listing-title">
-              <h4><a ui-sref="development({devId: development.id})">{{development.name}}</a></h4>              
-              <i class="fa fa-map-marker"></i>
-              {{development.location.name}}
-            </div>
-  
-          </div>
-  
-        </div>
-        <!-- Listing Item End -->
-  
-      </div>
-      <!-- Listings Container End -->
-  
-      <div class="clearfix"></div>
+    <!-- Skeleton Loader End -->
+
+    <!-- Listing Item -->
+    <div class="dev-listing-item" ng-repeat="d in devsListing.results" ng-if="devsListing.apiReady">
+
+      <a href="/#!/development/{{d.id}}">
+        <img src="{{d.photos[0].image}}" alt="">
+      </a>
       
+      <div class="dev-listing-item-description">
+        <p ng-show="d.minPrice">Desde</p>
+        <h5 ng-show="d.minPrice">{{d.minPrice}}</h5>
+        <h5>{{d.name}}</h5>
+        <p>{{d.location.name}}</p>
+        <p>{{d.description}}</p>
+      </div>
+
     </div>
+    <!-- Listing Item / End -->
+
+    <!-- No Results -->
+    <h3 ng-if="devsListing.apiReady && devsListing.results.length == 0">No se encontraron resultados, <a href="#!/home/#home-contact">contactános</a> para ver mas opciones!</h3>
+
+  </section>
+  <!-- Listings Container / End -->
+
+</div>
+
+<div id="mobile-dev-listing" class="hidden-on-desktop">
   
-  </div>
-  
-  <div class="row fullwidth-layout text-center no-results" ng-hide="devsListing.ifResults">
-    <i class="fa fa-5x fa-frown-o"></i>
-    <h3>¡Ups! No hay nada aquí. ¡<a href="#!/home/#home-contact">Contactános</a> para ver mas opciones!</h3>
+    <!-- Skeleton Loader -->
+    <section class="skeleton-container" ng-show="!devsListing.apiReady" ng-repeat="x in [].constructor(2) track by $index">
+      <div class="skeleton-image"></div>
+      <div class="skeleton-lines">
+        <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
+      </div>
+    </section>
+    <!-- Skeleton Loader End -->
+
+  <div ng-show="devsListing.apiReady">
+
+    <h4 class="dev-listing-found-title">{{devsListing.resultsCount}} Emprendimientos encontrados</h4>
+
+    <!-- Listing -->
+    <div class="listings-container">
+      
+      <!-- Listing Item -->
+      <div class="listing-item margin-10" ng-repeat="development in devsListing.resultsMapped">
+
+        <gallery-single-property item="development" show-widgets="false" show-gallery="true" gallery-height="'40vh'"></gallery-single-property>
+        
+        <div class="listing-content">
+
+          <div class="listing-title">
+            <h4><a ui-sref="development({devId: development.id})">{{development.name}}</a></h4>              
+            <i class="fa fa-map-marker"></i>
+            {{development.location.name}}
+          </div>
+
+        </div>
+
+      </div>
+      <!-- Listing Item End -->
+
+    </div>
+    <!-- Listings Container End -->
+
+    <div class="clearfix"></div>
+    
   </div>
 
+</div>
+
+<div class="row fullwidth-layout text-center no-results" ng-hide="devsListing.ifResults">
+  <i class="fa fa-5x fa-frown-o"></i>
+  <h3>¡Ups! No hay nada aquí. ¡<a href="#!/home/#home-contact">Contactános</a> para ver mas opciones!</h3>
 </div>
 

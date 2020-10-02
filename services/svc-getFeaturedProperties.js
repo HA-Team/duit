@@ -1,4 +1,6 @@
-app.service('getFeaturedProperties', ['tokkoApi', 'sharedData', function(tokkoApi, sharedData) {     
+app.service('getFeaturedProperties', ['tokkoApi', 'sharedData', '$filter', function(tokkoApi, sharedData, $filter) {
+    var service = this;
+ 
     this.getSimilarProps = (operationType, typeId, price, customTags, callback) => {
 
         let data = sharedData.tokkoSearchArgs.data;
@@ -37,5 +39,29 @@ app.service('getFeaturedProperties', ['tokkoApi', 'sharedData', function(tokkoAp
         args.limit = 100;
         
         tokkoApi.find('property/search', args, callback);
+    };
+
+    this.getDevs = () => {
+        let args = {order: 'desc', limit: 100};
+
+        tokkoApi.find('development', args, function(results) {
+            results.forEach((dev, index, array) => {
+                service.getDevelopmentProps(dev.id, result => {
+                    if (result.length > 0) {          
+                        const minPriceProp = result.reduce((min, prop) => {
+                            const price = prop.operations[prop.operations.length - 1].prices.slice(-1)[0].price;
+                    
+                            return price < min.operations[min.operations.length - 1].prices.slice(-1)[0].price ? prop : min;
+                        }, result[0]);
+            
+                        const price = minPriceProp.operations[minPriceProp.operations.length - 1].prices.slice(-1)[0];
+                        
+                        dev.minPrice = $filter('currency')(price.price, `${price.currency} `, 0);
+                    }
+                    
+                    if (index === array.length -1) sharedData.setDevs(results);
+                });
+            });
+        });
     };
 }]);
