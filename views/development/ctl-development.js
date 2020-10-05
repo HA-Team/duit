@@ -1,4 +1,4 @@
-app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', 'sliderMoves', '$filter', function ($rootScope, $scope, $timeout, tokkoApi, $stateParams, getFeaturedProperties, utils, sliderMoves, $filter) {
+app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', 'sliderMoves', '$filter', '$q', function ($rootScope, $scope, $timeout, tokkoApi, $stateParams, getFeaturedProperties, utils, sliderMoves, $filter, $q) {
   var development = this;
   
   // #region Scoped Properties
@@ -29,7 +29,9 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
 
   getFeaturedProps();
 
-	tokkoApi.findOne('development', id, function (result) {
+	tokkoApi.find('development', id, $q.defer()).then(result => {
+    result = result.data.objects[0];
+
     development.d = result;
 
     development.activeGalleryPhoto = result.photos[0].image;
@@ -65,7 +67,6 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
     });
     
 		development.apiReady = true;
-    $scope.$apply();    
 
     const gallerySlider = document.querySelector('.thumb-gallery-slider');
     development.showGalleryArrows = gallerySlider ? gallerySlider.scrollWidth > gallerySlider.offsetWidth : false;
@@ -88,14 +89,15 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
     const shareMessage = `https://wa.me/?text=${window.encodeURIComponent(`Mira que bueno este emprendimiento de duit! ${window.location.href}`)}`;
     document.querySelector('.desktop-prop-detail-main-container .share-container a').setAttribute('href', shareMessage);
     document.querySelector('#mobile-dev-detail .share-container a').setAttribute('href', shareMessage);
-  });
+  }, reject => null);
 
   // #endregion
 
   // #region Private Methods
 
   function getFeaturedProps() {
-    getFeaturedProperties.getFeaturedProps(result => {
+    getFeaturedProperties.getFeaturedProps().then(result => {
+      result = result.data.objects;
 
       development.featuredProps = result.map(prop => {
         return {
@@ -117,11 +119,13 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
 
       development.featuredPropsReady = true;
       $scope.$apply();
-    });
+    }, reject => null);
   };
 
   function getDevelopmentProps(id) {
-    getFeaturedProperties.getDevelopmentProps(id, result => {
+    getFeaturedProperties.getDevelopmentProps(id).then(result => {
+      result = result.data.objects;
+
       development.devProps = result.map(prop => {
         const price = prop.operations[prop.operations.length-1].prices.slice(-1)[0];
 
@@ -154,8 +158,7 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
       });
 
       development.devPropsReady = true;
-      $scope.$apply();
-    });
+    }, reject => null );
   };
 
   // #endregion

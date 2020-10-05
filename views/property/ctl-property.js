@@ -1,4 +1,4 @@
-app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', 'sliderMoves', '$filter', function($rootScope, $scope, $timeout, tokkoApi, $stateParams, getFeaturedProperties, utils, sliderMoves, $filter) {   
+app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', 'sliderMoves', '$filter', '$q', function($rootScope, $scope, $timeout, tokkoApi, $stateParams, getFeaturedProperties, utils, sliderMoves, $filter, $q) {   
   var property = this;
   
   // #region Scoped Properties
@@ -29,9 +29,9 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
 
   // #region On Init
 
-  getFeaturedProps();
+  tokkoApi.find('property', id, $q.defer()).then(result => {
+    result = result.data.objects[0];
 
-  tokkoApi.findOne('property', id, (result) => {
     property.p =  {
       id: result.id,
       operation_type: result.operations[0].operation_type,
@@ -188,7 +188,6 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
     });
 
     property.apiReady = true;
-    $scope.$apply();
 
     const gallerySlider = document.querySelector('.thumb-gallery-slider');
     property.showGalleryArrows = gallerySlider ? gallerySlider.scrollWidth > gallerySlider.offsetWidth : false;
@@ -218,41 +217,16 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
     const featuresElement = document.querySelector(".collapsable-features");
 
     property.showMoreFeatures = featuresElement.scrollHeight > featuresElement.clientHeight || featuresElement.scrollWidth > featuresElement.clientWidth;
-
-    $scope.$apply();
-  });
+  }, reject => null);
 
   // #endregion
 
   // #region Private Methods
 
-  function getFeaturedProps() {
-    getFeaturedProperties.getFeaturedProps(result => {
-
-      property.featuredProps = result.map(prop => {
-        return {
-          id: prop.id,
-          title: prop.publication_title,
-          type: prop.operations[0].operation_type,
-          currency: prop.operations[prop.operations.length-1].prices.slice(-1)[0].currency,
-          price: prop.operations[prop.operations.length-1].prices.slice(-1)[0].price,
-          cover_photo: prop.photos[0].image,
-          parkings: prop.parking_lot_amount ? prop.parking_lot_amount : 0,
-          area: prop.type.id === 1 ? prop.surface : prop.roofed_surface,
-          suitAmount: prop.suite_amount ? prop.suite_amount : 0,
-          bathroomAmount: prop.bathroom_amount ? prop.bathroom_amount : 0,  
-          prop: prop
-        }
-      });
-
-      property.featuredPropsReady = true;
-
-      $scope.$apply();
-    });
-  };
-
   function getSimilarProps(operationType, typeId, price, customTags) {
-    getFeaturedProperties.getSimilarProps(operationType, typeId, price, customTags, result => {
+    getFeaturedProperties.getSimilarProps(operationType, typeId, price, customTags).then(result => {
+      result = result.data.objects;
+
       property.similarProps = result.map(prop => {
         return {
           id: prop.id,
@@ -272,12 +246,13 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
       property.similarProps = _.shuffle(property.similarProps);
 
       property.similarReady = true;
-      $scope.$apply();
-    });
+    }, reject => null );
   };
 
   function getDevelopmentProps(id) {
-    getFeaturedProperties.getDevelopmentProps(id, result => {
+    getFeaturedProperties.getDevelopmentProps(id).then(result => {
+      result = result.data.objects;
+
       property.devProps = result.map(prop => {
         const price = prop.operations[prop.operations.length-1].prices.slice(-1)[0];
 
@@ -307,8 +282,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
       property.devProps.splice(property.devProps.findIndex(prop => prop.id == property.p.id), 1);
 
       property.devPropsReady = true;
-      $scope.$apply();
-    });
+    }, reject => null);
   };
 
   // #endregion

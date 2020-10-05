@@ -63,7 +63,9 @@ app.controller('homeController', ['$rootScope', '$scope', '$interval', '$timeout
   };
 
   function getFeatured360Props() {
-    getFeaturedProperties.getFeatured360Props(result => {  
+    getFeaturedProperties.getFeatured360Props().then(result => {
+      result = result.data.objects;
+      
       home.featured360Props = result
         .filter(prop => prop.videos.some(video => video.provider_id == 6))
         .map(prop => {
@@ -86,8 +88,7 @@ app.controller('homeController', ['$rootScope', '$scope', '$interval', '$timeout
       home.featured360Props = _.shuffle(home.featured360Props);
 
       home.featured360PropsReady = true;
-      $scope.$apply();
-    });
+    }, reject => null);
   };
 
   // #endregion
