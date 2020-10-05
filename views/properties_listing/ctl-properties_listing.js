@@ -110,8 +110,6 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
         propsListing.isAnyTypeHouseOrDept =propsListing.sideBarParams.types.some(type => type.id == 2 || type.id == 3);
     
         propsListing.resultsCount = result.meta.total_count;
-    
-        $scope.$apply();
       }, reject => null );
     }
     

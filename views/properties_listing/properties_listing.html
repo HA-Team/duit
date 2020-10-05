@@ -157,6 +157,11 @@
         </div>
         <!-- Listings Container / End -->
 
+        <div class="no-results" ng-hide="propsListing.ifResults">
+          <i class="fa fa-5x fa-frown-o"></i>
+          <h3>¡Ups! No hay nada aquí. ¡<a href="#!/home/#home-contact">Contactános</a> para ver mas opciones!</h3>
+        </div>
+
       </section>
       <!-- Listing Container End -->
 
@@ -413,20 +418,18 @@
         <!-- Listing Item / End -->
 
       </div>
-      <!-- Listings Container / End -->
-
-      <div class="clearfix"></div>
+      <!-- Listings Container / End -->      
     </div>
 
     <!-- Skeleton Loader -->
     <skeleton-listing rows="3" lines="2" show-me="propsListing.loadingMore"></skeleton-listing>
+
+    <div class="row fullwidth-layout text-center no-results" ng-hide="propsListing.ifResults">
+      <i class="fa fa-5x fa-frown-o"></i>
+      <h3>¡Ups! No hay nada aquí. ¡<a href="#!/home/#home-contact">Contactános</a> para ver mas opciones!</h3>
+    </div>
  
   </div>
-  <!-- Mobile Content End -->
-
-  <div class="row fullwidth-layout text-center no-results" ng-hide="propsListing.ifResults">
-    <i class="fa fa-5x fa-frown-o"></i>
-    <h3>¡Ups! No hay nada aquí. ¡<a href="#!/home/#home-contact">Contactános</a> para ver mas opciones!</h3>
-  </div>
+  <!-- Mobile Content End -->  
       
 </div>
