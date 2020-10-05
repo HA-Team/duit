@@ -189,8 +189,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
 
     property.apiReady = true;
 
-    const gallerySlider = document.querySelector('.thumb-gallery-slider');
-    property.showGalleryArrows = gallerySlider ? gallerySlider.scrollWidth > gallerySlider.offsetWidth : false;
+    const gallerySlider = document.querySelector('.thumb-gallery-slider');    
 
     $timeout(() => {
       google.maps.event.trigger(map, 'resize');
