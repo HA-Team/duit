@@ -67,6 +67,13 @@ data-img-width="2500" data-img-height="1600" ng-controller="homeSearchController
   <div class="home-services-imgs">
     <div ng-repeat="service in home.services" class="home-services-img-container">
       <a ng-click="home.goToSection(service.goTo.page, service.goTo.section); service.action()"><img src="{{service.imgSrc}}"></a>
+      <div ng-if="service.hasTooltip" class="service-tooltip">
+        <p>{{service.tooltipText}}</p>
+        <div>
+          <a href="{{service.whatsAppHRef}}"><i class="fab fa-whatsapp"></i></a>
+          <a href="{{service.emailHRef}}"><i class="fa fa-envelope"></i></a>
+        </div>
+      </div>
     </div>
   </div>
 </div>

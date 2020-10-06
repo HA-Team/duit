@@ -1,4 +1,11 @@
 app.service('sharedData', function () {
+
+	this.duitWhatsapp = 5493512463530;
+	this.infoWhatsapp = 5493512463606;
+	this.infoEmail = 'info@duitpropiedades.com.ar';
+	this.contactEmail = 'contacto@duitpropiedades.com.ar';
+	this.duitPhone = '+5493512463530';
+
 	this.agents = [
 		{
 			name: 'Agustín Aznarez',

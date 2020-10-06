@@ -13,9 +13,6 @@ app.controller('homeController', ['$rootScope', '$scope', '$interval', '$timeout
   // #region Private Properties
   const parallaxElement = document.getElementById('home-search-bar');
 
-  const duitWhatsapp = '5493512463530';
-  const duitPhone = '+5493512463530';
-
   var debouncedOnScroll = utils.debounce(onScroll, 50);
   var backgroundImageIndex = 0;
 
@@ -99,7 +96,9 @@ app.controller('homeController', ['$rootScope', '$scope', '$interval', '$timeout
 
   home.formatCellPhone = (phone) => `549${phone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');
   
-  home.goToSection = (page, section) => navigation.goToSection(page, section);
+  home.goToSection = (page, section) => {
+    if (page && section) navigation.goToSection(page, section);
+  }
 
   // #endregion
 
@@ -119,17 +118,17 @@ app.controller('homeController', ['$rootScope', '$scope', '$interval', '$timeout
 
   home.contactGlobeActions = [
     {
-      hRef: `tel:${duitPhone}`,
+      hRef: `tel:${sharedData.duitPhone}`,
       iconClass: 'fa fa-phone',
       fontSize: '2.3rem'
     },
     {
-      hRef: 'mailto:contacto@duitpropiedades.com.ar',
+      hRef:  `mailto:${sharedData.contactEmail}`,
       iconClass: 'fa fa-envelope',
       fontSize: '2.5rem'
     },
     {
-      hRef: `https://api.whatsapp.com/send?phone=${duitWhatsapp}`,
+      hRef: `https://api.whatsapp.com/send?phone=${sharedData.duitWhatsapp}`,
       iconClass: 'fab fa-whatsapp',
       color: '#128c7e',
       fontSize: '3rem'
@@ -153,11 +152,17 @@ app.controller('homeController', ['$rootScope', '$scope', '$interval', '$timeout
     },
     {
       imgSrc: "/images/services/administracion.png",
-      goTo: { page: 'home', section: "home-contact" }
+      hasTooltip: true,
+      tooltipText: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+      whatsAppHRef: `https://api.whatsapp.com/send?phone=${sharedData.infoWhatsapp}&text=${window.encodeURIComponent('Hola, quiero hacer una consulta por una administración.')}`,
+      emailHRef: `mailto:${sharedData.infoEmail}?Subject=${window.encodeURIComponent('Hola, quiero hacer una consulta por una administración.')}`
     },
     {
       imgSrc: "/images/services/tasacion.png",
-      goTo: { page: 'home', section: "home-contact" }
+      hasTooltip: true,
+      tooltipText: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      whatsAppHRef: `https://api.whatsapp.com/send?phone=${sharedData.infoWhatsapp}&text=${window.encodeURIComponent('Hola, quiero hacer una consulta por una tasasión.')}`,
+      emailHRef: `mailto:${sharedData.infoEmail}?Subject=${window.encodeURIComponent('Hola, quiero hacer una consulta por una tasasión.')}`
     }
   ];
 
