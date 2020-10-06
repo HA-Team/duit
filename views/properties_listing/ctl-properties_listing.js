@@ -284,13 +284,13 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
   };
 
   propsListing.loadMoreProps = () => {
-    const numberOfPropsInResults = propsListing.results.reduce((a, b) => a + b.numberOfPropsForDevelopment, 0);
-    const areAllPropsDisplayed = !propsListing.sideBarParams || !propsListing.sideBarParams.operations ? true : propsListing.resultsCount == numberOfPropsInResults;
-    
     args.offset += 20;
     propsListing.stopInfiniteScroll = true;
     propsListing.loadingMore = true;  
     getProperties(tokkoApi, args);
+
+    const numberOfPropsInResults = propsListing.results.reduce((a, b) => a + b.numberOfPropsForDevelopment, 0);
+    const areAllPropsDisplayed = !propsListing.sideBarParams || !propsListing.sideBarParams.operations ? true : propsListing.resultsCount == numberOfPropsInResults;
 
     if (areAllPropsDisplayed) propsListing.loadingMore = false;    
   };
