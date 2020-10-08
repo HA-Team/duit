@@ -1,4 +1,4 @@
-app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', 'sliderMoves', '$filter', '$q', function ($rootScope, $scope, $timeout, tokkoApi, $stateParams, getFeaturedProperties, utils, sliderMoves, $filter, $q) {
+app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'tokkoApi', '$stateParams', 'getFeaturedProperties', 'utils', 'sliderMoves', '$filter', '$q', 'sharedData', function ($rootScope, $scope, $timeout, tokkoApi, $stateParams, getFeaturedProperties, utils, sliderMoves, $filter, $q, sharedData) {
   var development = this;
   
   // #region Scoped Properties
@@ -7,7 +7,7 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
   $rootScope.activeSection = '';
   
   development.apiReady = false;
-  development.featuredPropsReady = false;
+  development.similarDevsReady = false;
   development.devPropsReady = false;
   development.generalFeaturesToShow = 5;
   development.isContactModalOpen = false;
@@ -26,8 +26,36 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
   // #endregion
 
   // #region On Init
+  
+  var getDevsInterval = setInterval(() => {
+    if (sharedData.devs.length > 0) {
+      sharedData.devs = sharedData.devs.filter(dev => dev.minPrice);
 
-  getFeaturedProps();
+      const filteredDevs = sharedData.devs.filter(dev => dev.location.id == development.d.location.id);
+
+      development.similarDevs = filteredDevs.length > 1 ? filteredDevs : sharedData.devs;
+
+      development.similarDevs = development.similarDevs
+                                  .filter(dev => dev.id != development.d.id)
+                                  .map(dev => {    
+                                    return {
+                                      id: dev.id,
+                                      title: dev.name,
+                                      minPrice: dev.minPrice,
+                                      cover_photo: dev.photos[0] ? dev.photos[0].image : '/images/no-image.png',
+                                      address: dev.fake_address
+                                    };
+      });
+
+      development.similarDevs = _.shuffle(development.similarDevs);
+
+      development.similarDevsReady = true;
+
+      $scope.$apply();
+      
+      clearInterval(getDevsInterval);
+    }
+  }, 200);
 
 	tokkoApi.find('development', id, $q.defer()).then(result => {
     result = result.data.objects[0];
@@ -94,33 +122,6 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
   // #endregion
 
   // #region Private Methods
-
-  function getFeaturedProps() {
-    getFeaturedProperties.getFeaturedProps().then(result => {
-      result = result.data.objects;
-
-      development.featuredProps = result.map(prop => {
-        return {
-          id: prop.id,
-          title: prop.publication_title,
-          type: prop.operations[0].operation_type,
-          currency: prop.operations[prop.operations.length-1].prices.slice(-1)[0].currency,
-          price: prop.operations[prop.operations.length-1].prices.slice(-1)[0].price,
-          cover_photo: prop.photos[0].image,
-          parkings: prop.parking_lot_amount ? prop.parking_lot_amount : 0,
-          area: prop.type.id === 1 ? prop.surface : prop.roofed_surface,
-          suitAmount: prop.suite_amount ? prop.suite_amount : 0,
-          bathroomAmount: prop.bathroom_amount ? prop.bathroom_amount : 0,  
-          prop: prop
-        }
-      });
-
-      development.featuredProps = _.shuffle(development.featuredProps);
-
-      development.featuredPropsReady = true;
-      $scope.$apply();
-    }, reject => null);
-  };
 
   function getDevelopmentProps(id) {
     getFeaturedProperties.getDevelopmentProps(id).then(result => {

@@ -62,7 +62,8 @@
 	transition: transform 0.3s ease-in-out;
 }
 
-.gallery-properties-cards-item.active {
+.gallery-properties-cards-item.active,
+.gallery-properties-cards-item:hover {
 	transform: scale(1);
 }
 
@@ -89,6 +90,10 @@
 .gallery-properties-cards-item .gallery-properties-cards-item-description-container p {
 	margin: 5px 0px;
 	font-size: 12px;
+}
+
+.gallery-properties-cards-item.gallery-properties-devs .gallery-properties-cards-item-description-container h4 {
+	margin: 0;
 }
 
 .gallery-properties-cards-emtpy-item {

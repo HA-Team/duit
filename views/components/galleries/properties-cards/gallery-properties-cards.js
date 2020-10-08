@@ -3,7 +3,8 @@ app.directive('galleryPropertiesCards', function() {
         restrict: 'E',
         scope: {  
             showPhotos: '=',
-            items: '='                               
+            items: '=',
+            isDev: '='                               
         },
         templateUrl: '/views/components/galleries/properties-cards/gallery-properties-cards.html',
         controller: ['$scope', 'sliderMoves', '$element', 'utils', function ($scope, sliderMoves, $element, utils) { 

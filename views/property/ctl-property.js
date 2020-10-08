@@ -18,6 +18,8 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
   // #endregion
 
   // #region Private Properties
+  
+  let firstSimilarPropsSearch = true;
 
   const id = $stateParams.propertyId;
 
@@ -222,7 +224,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
 
   // #region Private Methods
 
-  function getSimilarProps(operationType, typeId, price, customTags) {
+  function getSimilarProps(operationType, typeId, price, customTags) {    
     getFeaturedProperties.getSimilarProps(operationType, typeId, price, customTags).then(result => {
       result = result.data.objects;
 
@@ -242,8 +244,16 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
         }
       }).filter(p => p.id != property.p.id);
 
-      property.similarProps = _.shuffle(property.similarProps);
+      if (property.similarProps.length == 0 && firstSimilarPropsSearch) {
+        getSimilarProps(operationType, typeId, 0, customTags);
 
+        firstSimilarPropsSearch = false;
+
+        return;
+      }
+
+      property.similarProps = _.shuffle(property.similarProps);
+      
       property.similarReady = true;
     }, reject => null );
   };

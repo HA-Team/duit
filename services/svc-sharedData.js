@@ -32,7 +32,7 @@ app.service('sharedData', function () {
 		{
 			name: 'Fernando Gavier',
 			position: 'Consejero',
-			phone: '(0351) 155145491',
+			phone: '(0351) 5145491',
 			email: 'fgavier@duitpropiedades.com.ar',
 			facebook: 'https://www.facebook.com/fngavier',
 			twitter: 'https://twitter.com/fngavier',

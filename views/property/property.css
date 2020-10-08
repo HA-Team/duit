@@ -800,7 +800,7 @@
 	margin: 50px auto 20px auto;
 }
 
-.desktop-prop-detail-featured h3 {
+.desktop-prop-detail-featured > h3 {
 	padding: 20px 40px;
 	color: white;
 	width: fit-content;
