@@ -1,4 +1,4 @@
-app.controller('homeController', ['$rootScope', '$scope', '$interval', '$timeout', 'navigation', 'utils', 'getFeaturedProperties', 'sharedData', function($rootScope, $scope, $interval, $timeout, navigation, utils, getFeaturedProperties, sharedData) {
+app.controller('homeController', ['$rootScope', '$scope', '$timeout', 'navigation', 'utils', 'getFeaturedProperties', 'sharedData', 'tokkoApi', '$q', function($rootScope, $scope, $timeout, navigation, utils, getFeaturedProperties, sharedData, tokkoApi, $q) {
   var home = this;
   
   // #region Scoped Properties
@@ -26,13 +26,15 @@ app.controller('homeController', ['$rootScope', '$scope', '$interval', '$timeout
   }, 100);
    
   var changeBackgroundImageInterval = setInterval(() => {
-    if (home.featured360Props) {
-      parallaxElement.style.backgroundImage = `url(${home.featured360Props[backgroundImageIndex].coverPhoto})`;
-      backgroundImageIndex = backgroundImageIndex == home.featured360Props.length - 1 ? 0 : backgroundImageIndex + 1;
+    if (home.backGroundImages) {
+      parallaxElement.style.backgroundImage = `url(${home.backGroundImages[backgroundImageIndex].image})`;
+      backgroundImageIndex = backgroundImageIndex == home.backGroundImages.length - 1 ? 0 : backgroundImageIndex + 1;
     }
   }, 6000);
 
+  getBackgroundImages();
   getFeatured360Props();
+  
 
   home.agents.forEach(agent => agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351'));
 
@@ -87,6 +89,19 @@ app.controller('homeController', ['$rootScope', '$scope', '$interval', '$timeout
       home.featured360PropsReady = true;
     }, reject => null);
   };
+
+  function getBackgroundImages() {
+    const backgroundImagesPropId = 2990223;
+
+    tokkoApi.find('property', backgroundImagesPropId, $q.defer()).then(result => {
+      result = result.data.objects[0];
+
+      home.backGroundImages = result.photos;
+
+      parallaxElement.style.backgroundImage = `url(${home.backGroundImages[0].image})`;
+      backgroundImageIndex = backgroundImageIndex == home.backGroundImages.length - 1 ? 0 : backgroundImageIndex + 1;
+    }, reject => null);
+  }
 
   // #endregion
 

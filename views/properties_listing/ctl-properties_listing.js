@@ -24,7 +24,7 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
     },
     types: {
       isActive: false,
-      default: [...Array(25 + 1).keys()].slice(1),
+      default: [...Array(25 + 1).keys()].slice(1).filter(type => type != 21), // This filter is used to avoid properties of type 'isla', because that type is used to fetch properties for using just its background images.
       action: () => propsListing.changeFilter({ type: 't', val: this.filters.types.default })
     },
     subTypes: {
@@ -48,6 +48,8 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
       action: () => propsListing.changeFilter({ type: 'l', val: this.filters.locations.default })
     }
   };
+
+  console.log(propsListing.filters.types.default);
 
   propsListing.apiReady = true;
   propsListing.ifResults = true;
@@ -114,6 +116,7 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
     }
     
     (getTokkoProperties = getFeaturedProperties.getProperties('property/search', args)).then(result => {
+      console.log(result);
       result.objects.forEach((p) => {
         const isDevAlreadyInResults = propsListing.results.some(prop => prop.development?.id == p.development?.id);
   
