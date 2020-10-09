@@ -173,7 +173,7 @@ app.controller('homeController', ['$rootScope', '$scope', '$timeout', 'navigatio
     {
       imgSrc: "/images/services/administracion.png",
       hasTooltip: true,
-      tooltipText: "Realizamos el cobro de alquilers e impuestos, y mantenimiento de tu propiedad. Damos una respuesta a los locatarios y evitamos a los propietarios las complicaciones derivadas con la administración y gestión de propiedades.",
+      tooltipText: "Realizamos el cobro de alquileres e impuestos, y mantenimiento de tu propiedad. Damos una respuesta a los locatarios y evitamos a los propietarios las complicaciones derivadas con la administración y gestión de propiedades.",
       whatsAppHRef: `https://api.whatsapp.com/send?phone=${sharedData.infoWhatsapp}&text=${window.encodeURIComponent('Hola, quiero hacer una consulta por una administración.')}`,
       emailHRef: `mailto:${sharedData.infoEmail}?Subject=${window.encodeURIComponent('Hola, quiero hacer una consulta por una administración.')}`
     },
