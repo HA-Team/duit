@@ -26,7 +26,7 @@ app.controller('homeController', ['$rootScope', '$scope', '$timeout', 'navigatio
   }, 100);
    
   var changeBackgroundImageInterval = setInterval(() => {
-    if (home.backGroundImages) {
+    if (home.backGroundImages && home.backGroundImages.length > 1) {
       parallaxElement.style.backgroundImage = `url(${home.backGroundImages[backgroundImageIndex].image})`;
       backgroundImageIndex = backgroundImageIndex == home.backGroundImages.length - 1 ? 0 : backgroundImageIndex + 1;
     }
@@ -100,6 +100,11 @@ app.controller('homeController', ['$rootScope', '$scope', '$timeout', 'navigatio
 
       parallaxElement.style.backgroundImage = `url(${home.backGroundImages[0].image})`;
       backgroundImageIndex = backgroundImageIndex == home.backGroundImages.length - 1 ? 0 : backgroundImageIndex + 1;
+
+      if (home.backGroundImages.length == 1) {
+        clearInterval(changeBackgroundImageInterval);
+      }
+      
     }, reject => null);
   }
 
