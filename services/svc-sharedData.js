@@ -140,7 +140,7 @@ app.service('sharedData', function () {
 	this.propertiesTypes = [
 		{
 			id: 3,
-			name: 'Casas',
+			name: 'Casas / Dúplex',
 		},
 		{
 			id: 2,
