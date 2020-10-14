@@ -49,8 +49,6 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
     }
   };
 
-  console.log(propsListing.filters.types.default);
-
   propsListing.apiReady = true;
   propsListing.ifResults = true;
   propsListing.stopInfiniteScroll = true;
@@ -116,7 +114,6 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
     }
     
     (getTokkoProperties = getFeaturedProperties.getProperties('property/search', args)).then(result => {
-      console.log(result);
       result.objects.forEach((p) => {
         const isDevAlreadyInResults = propsListing.results.some(prop => prop.development?.id == p.development?.id);
   
