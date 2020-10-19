@@ -1,0 +1,107 @@
+<header id="header-container" ng-controller="headerController as header" class="header-style-2">
+
+  <!-- Mobile Header -->
+  <section id="mobile-header" class="hidden-on-desktop" ng-class="{' open' : header.isHamburgOpen}">    
+
+    <div class="d-flex flex-column">
+
+      <!-- Main Header -->
+      <div class="mobile-main-header d-flex justify-content-between flex-row align-items-start">        
+        
+        <!-- Logo -->
+        <div id="logo">
+          <a href="index.html"><img src="/images/duit_id_blanco.png" alt=""></a>          
+        </div>
+
+        <!-- Hamburger Menu -->  
+        <div id="hamburguer-menu" class="d-flex justify-content-between flex-column align-items-center margin-right-30 margin-top-15"
+          ng-click="header.toggleMenu()">
+          <div class="hamburguer-menu-item"></div>
+        </div>
+
+      </div>
+
+      <!-- Arrow bellow Hamburguer Menu -->
+      <div class="mobile-arrow-header d-flex flex-row-reverse">
+        <div ng-repeat="x in [].constructor(4) track by $index" class="mobile-arrow-header-item"></div>    
+      </div> 
+
+    </div>
+    <!-- Main Header End -->
+    
+    <!-- Mobile Modal Nav -->
+    <div id="mobile-modal-nav" ng-class="{' open': header.isHamburgOpen}">
+      <nav class="mobile-modal-container" >
+        <ul>
+          <li ng-repeat="section in header.sections" class="mobile-menu-item" ng-class="{'current' : activeMenu == section.page && activeSection == section.section}"
+              ng-click="header.goToSection(section.page, section.section, section.args); section.action();">            
+            <a>{{section.title}}</a>
+          </li>          
+        </ul>
+      </nav>
+      <div class="mobile-modal-background" ng-click="header.toggleMenu()"></div>
+    </div>
+    <!-- Mobile Modal Nav End -->
+
+  </section>      
+  <!-- Mobile Header / End -->
+
+  <!-- Desktop Header -->
+  <section id="header" class="hidden-on-mobile">
+
+    <div id="main-header" class="desktop-header-container">
+      
+      <!-- Logo -->
+      <div id="logo">
+        <a href="index.html"><img src="/images/duit_id_blanco.png" alt=""></a>
+      </div>
+      <!-- Logo End -->
+      
+      <!-- Main Navigation -->
+      <nav id="navigation" class="style-2">
+        <ul id="responsive">
+          <li ng-repeat="section in header.sections" ng-class="{'current' : activeMenu == section.page && activeSection == section.section}"
+            ng-click="header.goToSection(section.page, section.section, section.args); section.action();">            
+          <a>{{section.title}}</a>
+          </li>
+        </ul>
+      </nav>
+      <!-- Main Navigation / End -->
+
+      <div class="header-social">
+        <a href="https://www.facebook.com/duitpropiedades" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/duitpropiedades/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
+
+    </div>
+
+    <div id="sticky-header" class="desktop-header-container">
+      
+      <!-- Logo -->
+      <div id="logo">
+        <a href="index.html"><img src="/images/duit_id_blanco_horizontal.png" alt=""></a>          
+      </div>
+      
+      <!-- Main Navigation -->
+      <nav id="navigation" class="style-2">
+        <ul id="responsive">
+          <li ng-repeat="section in header.sections" ng-class="{'current' : activeMenu == section.page && activeSection == section.section}"
+            ng-click="header.goToSection(section.page, section.section, section.args); section.action();">            
+          <a>{{section.title}}</a>
+          </li>
+        </ul>
+      </nav>
+      <!-- Main Navigation / End -->
+
+      <div class="header-social" style="width: 110px;">
+        <a href="https://www.facebook.com/duitpropiedades" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.instagram.com/duitpropiedades/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
+
+    </div>
+
+  </section>
+  <!-- Desktop Header / End -->
+
+</header>
+<div class="clearfix"></div>

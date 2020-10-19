@@ -9,7 +9,7 @@
   <!-- Slider -->
   <div class="gallery-properties-cards-slider">      
           
-    <!-- Skeleton Loader -->
+    <!-- Skeleton -->
     <div ng-repeat="x in [].constructor(3) track by $index" ng-show="!showPhotos">
       <div class="skeleton-container">
         <div class="skeleton-image"></div>
@@ -18,13 +18,15 @@
         </div>
       </div>
     </div>
-    <!-- Skeleton Loader End-->      
+    <!-- Skeleton End-->      
 
     <!-- Items -->
     <div class="gallery-properties-cards-emtpy-item" ng-show="showPhotos">&nbsp;</div>
 
-    <div class="gallery-properties-cards-item" ng-repeat="item in items track by $index" ng-class="{'active': $index + 1 == currentIndex}" ng-show="showPhotos">
+    <!-- Property Cards-->
+    <div class="gallery-properties-cards-item" ng-repeat="item in items track by $index" ng-class="{'active': $index + 1 == currentIndex}" ng-if="!isDev" ng-show="showPhotos">
       <a ui-sref="property({propertyId: item.id})"><img src="{{item.cover_photo}}" alt=""></a>
+
       <div class="gallery-properties-cards-item-description-container">
         <h4><strong>{{ item.price | currency:item.currency:0}}</strong></h4>
         <p ng-if="item.area > 0">{{item.area |number:0}}m<sup>2</sup>totales</p>
@@ -33,13 +35,29 @@
           {{item.bathroomAmount > 1 ? item.bathroomAmount + ' baños' : item.bathroomAmount == 1 ? item.bathroomAmount + ' baño' : ''}}
         </p>          
         <p>{{item.title}}</p>
-      </div>         
+      </div>    
     </div>
+    <!-- Property Cards End -->
+
+    <!-- Development Cards -->
+    <div class="gallery-properties-cards-item gallery-properties-devs" ng-repeat="item in items track by $index" ng-class="{'active': $index + 1 == currentIndex}" ng-if="isDev" ng-show="showPhotos">
+      <a ui-sref="development({devId: item.id})"><img src="{{item.cover_photo}}" alt=""></a>
+
+      <div class="gallery-properties-cards-item-description-container">
+        <h3>{{item.title}}</h3>
+        
+        <p>Desde</p>
+        <h4><strong>{{ item.minPrice }}</strong></h4>
+        
+        <p class="margin-top-10">{{item.address}}</p>
+      </div>    
+    </div>
+    <!-- Development Cards End -->
 
     <div class="gallery-properties-cards-emtpy-item" ng-show="showPhotos">&nbsp;</div>
     <!-- Items End -->
   
   </div> 
-  <!-- Slider End --> 
+  <!-- Slider End -->
 
 </section>

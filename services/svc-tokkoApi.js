@@ -1,23 +1,12 @@
-app.service('tokkoApi', function() {
+app.service('tokkoApi', ['$http', function($http) {
   const baseUrl = 'https://tokkobroker.com/api/v1/';
   const tokkoAuth = {
     key: 'f26431aec0277d4e7912e2709af35707fb9362e6',
     lang: 'es_ar'
   };
 
-  const httpGetAsync = function (url, callback) {
-    let xmlHttp = new XMLHttpRequest();
-
-    xmlHttp.onreadystatechange = () => { 
-      if (xmlHttp.readyState == 4 && xmlHttp.status == 200) callback(xmlHttp.responseText);
-    };
-
-    xmlHttp.open("GET", url, true); // true for asynchronous 
-    xmlHttp.send(null);
-  };
-
   return {
-    find: function (endpoint, args, callback) {
+    find: (endpoint, args, timeout) => {
       let url = `${baseUrl}${endpoint}/?format=json&`;
 
       if (typeof args == 'object') {
@@ -26,13 +15,7 @@ app.service('tokkoApi', function() {
         };
       } else url += `id=${args}&`;
 
-      httpGetAsync(`${url}key=${tokkoAuth.key}&lang=${tokkoAuth.lang}`, (response) => {
-        if (endpoint === 'property/get_search_summary') callback(JSON.parse(response));
-        else callback(JSON.parse(response).objects);
-      });
-    },
-    findOne: function (endpoint, args, callback) {
-      this.find(endpoint, args, (response) => callback(response[0]));
+      return $http({method: 'GET', url: `${url}key=${tokkoAuth.key}&lang=${tokkoAuth.lang}`, timeout: timeout.promise});
     },
     insert: function (endpoint, data, callback) {
       let http = new XMLHttpRequest(),
@@ -53,4 +36,4 @@ app.service('tokkoApi', function() {
       http.send(content);
     }
   };
-});
+}]);

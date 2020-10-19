@@ -3,42 +3,68 @@ app.directive('galleryMultipleProperties', function() {
         restrict: 'E',
         scope: {  
             showGallery: '=',
-            showSkeleton: '=',
-            showInfoCard: '=',
             items: '=',
-            showWidgets: '='
         },
         templateUrl: '/views/components/galleries/multiple-properties/gallery-multiple-properties.html',
-        controller: ['$scope', 'sliderMoves', '$element', function ($scope, sliderMoves, $element) {  
-            const gallerySlider = $element.find(".gallery-multiple-properties-slider")[0];
-            const photoCounter = $element.find(".slider-photo-counter p")[0];
-            
-            $scope.isGalleryOpen = false;            
-            $scope.currentIndex = 1;            
-            
+        controller: ['$scope', 'sliderMoves', '$element', '$timeout', 'utils', function ($scope, sliderMoves, $element, $timeout, utils) {
+            // #region Scoped Properties
+
+            $scope.currentIndex = 1; 
+            $scope.isContactModalOpen = false;
+
+            // #endregion
+
+            // #region Private Properties
+
+            const gallerySlider = $element.find(".gallery-multiple-properties-slider.mobile-slider")[0];
+            const desktopSlider = $element.find(".gallery-multiple-properties-slider.desktop-slider")[0];
+
+            // #endregion
+
+            // #region Private Methods
+
+            const updateProducersContacts = (element, index) => {
+                const currentProperty = $scope.items[index];
+                const producer = currentProperty.producer;
+
+                const querySubject = window.decodeURIComponent(`Consulta por propiedad #${currentProperty.id}:${currentProperty.title}`);    
+
+                const cellPhone = producer.cellphone ? producer.cellphone : producer.phone;
+                const cleanCellPhone = `549${cellPhone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351'); 
+                const whatsAppUri = `https://api.whatsapp.com/send?phone=${cleanCellPhone}&text=${querySubject}`;
+                element.querySelector(".contact-globe-modal-icons .fa-whatsapp").parentElement.setAttribute("href", whatsAppUri);
+
+                const emailUri = `mailto:${producer.email}?Subject=${querySubject}`;
+                element.querySelector(".contact-globe-modal-icons .fa-envelope").parentElement.setAttribute("href", emailUri);
+            }
+
+            // #endregion
+
+            // #region Scoped Methods
+
             $scope.moveSlider = (side) => { 
-                $scope.currentIndex = sliderMoves.moveSlider(gallerySlider, $scope.currentIndex,
+                $scope.currentIndex = sliderMoves.moveSliderByIndex(gallerySlider, $scope.currentIndex,
                                                              $scope.items.length, side,
                                                              gallerySlider.querySelector("img").offsetWidth);
-                setGalleryCounterLabel();
-            };        
+            };
 
-            const setGalleryCounterLabel = () => photoCounter.innerHTML = `${$scope.currentIndex}/${$scope.items.length}`;        
+            $scope.moveDesktopSlider = (side) => { 
+                $scope.currentIndex = sliderMoves.moveSliderByIndex(desktopSlider, $scope.currentIndex,
+                                                             $scope.items.length, side,
+                                                             desktopSlider.querySelector(".desktop-slider-item-container").offsetWidth);
+            };
 
-            const sides = [
-                {
-                    rotated: 'up',
-                    side: 'left',
-                    oposite: 'right'
-                },
-                {
-                    rotated: 'down',
-                    side: 'right',
-                    oposite: 'left'
-                }
-            ];            
-          
-            sides.forEach(side => {                                
+            $scope.pluralize = utils.pluralizeWithItem;
+
+            $scope.toggleContactModal = () => $scope.isContactModalOpen = !$scope.isContactModalOpen;
+
+            $scope.goToProperty = (id) => window.location.href = `/#!/property/${id}`;
+
+            // #endregion
+
+            // #region Events
+
+            utils.sides.forEach(side => {                                
                 gallerySlider.addEventListener(`swiped-${side.side}`, (e) => {
                     e.preventDefault();
                     const isLandscape = window.innerHeight < window.innerWidth;
@@ -51,22 +77,50 @@ app.directive('galleryMultipleProperties', function() {
                     if (!isLandscape && $scope.isGalleryOpen) $scope.moveSlider(side.oposite);
                 }, {capture: true});
             });
-            
-            $scope.toggleGallery = () => {        
-                const header = document.querySelector("#mobile-header");                
-                const body = document.querySelector("body");
-                
-                $scope.isGalleryOpen = !$scope.isGalleryOpen;
-            
-                if ($scope.isGalleryOpen) {
-                  header.style.display = "none";                    
-                  body.style.overflow = "hidden";
+
+            var itemsWatcher = $scope.$watch('items', function(newValue, oldvalue) {
+                if (newValue) {
+                    $timeout(() => {
+                        const sliderItems = [...desktopSlider.querySelectorAll(".desktop-info-container")];
+                        sliderItems.forEach((element, index) => {
+                            updateProducersContacts(element, index);
+                        });
+                        itemsWatcher();
+                    });
                 }
-                else {
-                  header.style.display = "block";                    
-                  body.style.overflow = "visible";
-                }
+            });
+
+            // #endregion
+
+            // #region Scoped Objects
+
+            $scope.contactGlobeOpenIcon = {
+                iconClass: 'fab fa-whatsapp',
+                color: 'var(--whatsapp-green)',
+                fontSize: '3rem'    
             };
+
+            $scope.contactGlobeCloseIcon = {
+                iconClass: 'fa fa-times',
+                color: 'var(--soft-grey)',
+                fontSize: '3rem' 
+            };
+
+            $scope.contactGlobeActions = [
+                {
+                    hRef: '#',
+                    iconClass: 'fab fa-whatsapp',
+                    color: 'var(--whatsapp-green)',      
+                },
+                {
+                    hRef: '#',
+                    iconClass: 'fa fa-envelope',
+                    color: 'var(--soft-red)', 
+                    fontSize: '2.7rem'       
+                }
+            ];
+
+            // #endregion
         }]            
     }
 });

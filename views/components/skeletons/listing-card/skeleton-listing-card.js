@@ -1,4 +1,4 @@
-app.directive('skeletonListing', function() {
+app.directive('skeletonListingCard', function() {
     return {
         restrict: 'E',
         scope: {
@@ -6,7 +6,7 @@ app.directive('skeletonListing', function() {
             lines: '@',
             showMe: '='            
         },
-        templateUrl: '/views/components/skeletons/listing/skeleton-listing.html',
+        templateUrl: '/views/components/skeletons/listing-card/skeleton-listing-card.html',
         controller: ['$scope', function ($scope) {
             // #region Scoped Properties
 

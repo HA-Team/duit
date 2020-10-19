@@ -1,4 +1,4 @@
-app.service('utils', function () {
+app.service('utils', ['$timeout', function ($timeout) {
 	this.getDaysDifference = (date) => {
 		const today = Date.now();
 		const newDate = new Date(date);
@@ -15,7 +15,7 @@ app.service('utils', function () {
 				args = arguments;
 			var callNow = immediate && !timeout;
 			clearTimeout(timeout);
-			timeout = setTimeout(function () {
+			timeout = $timeout(function () {
 				timeout = null;
 				if (!immediate) {
 					func.apply(context, args);
@@ -23,5 +23,30 @@ app.service('utils', function () {
 			}, wait);
 			if (callNow) func.apply(context, args);
 		};
-	}
-});
+	};
+	
+	this.pluralize = (name) => ['a','e','i','o','u'].includes(name.slice(-1)) ? `${name}s` : `${name}es`;
+
+	this.pluralizeWithItem = (items, name) => {
+		if (items > 1) {
+			if (['a','e','i','o','u'].includes(name.slice(-1))) return `${name}s`;
+			else return `${name}es`;
+		}
+		else return name;
+	};
+
+	this.isDateGreaterThanToday = (date) => new Date(date) >= new Date();
+
+	this.sides = [
+		{
+			rotated: 'up',
+			side: 'left',
+			oposite: 'right'
+		},
+		{
+			rotated: 'down',
+			side: 'right',
+			oposite: 'left'
+		}
+	];
+}]);

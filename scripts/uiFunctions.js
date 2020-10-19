@@ -7,125 +7,6 @@ const uiFunctions = function() {
         void 0 !== a && $(this).css('background-image', 'url(' + a + ')'), void 0 !== b && $(this).css('background', '' + b + '')
       })
     },
-    buildCarousel: function() {
-      $('.carousel').owlCarousel({
-        autoPlay: !1,
-        navigation: !0,
-        slideSpeed: 600,
-        items: 5,
-        itemsDesktop: [1239, 3],
-        itemsTablet: [991, 2],
-        itemsMobile: [767, 1]
-      }), $('.logo-carousel').owlCarousel({
-        autoPlay: !1,
-        navigation: !0,
-        slideSpeed: 600,
-        items: 5,
-        itemsDesktop: [1239, 4],
-        itemsTablet: [991, 3],
-        itemsMobile: [767, 1]
-      }), $('.listing-carousel:not(.owl-carousel)').owlCarousel({
-        autoPlay: !1,
-        navigation: !0,
-        slideSpeed: 800,
-        items: 1,
-        itemsDesktop: [1239, 1],
-        itemsTablet: [991, 1],
-        itemsMobile: [767, 1]
-      }), $('.owl-next, .owl-prev').on('click', function(a) {
-        a.preventDefault()
-      })
-    },
-    buildSlickCarousel: function() {
-      $('.property-slider').slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: !0,
-        fade: !0,
-        asNavFor: '.property-slider-nav',
-        centerMode: !0,
-        slide: '.item'
-      }), 
-      $('.property-slider-nav').slick({
-        slidesToShow: 6,
-        slidesToScroll: 1,
-        asNavFor: '.property-slider',
-        dots: !1,
-        arrows: !1,
-        centerMode: !1,
-        focusOnSelect: !0,
-        responsive: [{
-          breakpoint: 993,
-          settings: {
-            slidesToShow: 4
-          }
-        }, {
-          breakpoint: 767,
-          settings: {
-            slidesToShow: 3
-          }
-        }]
-      }),
-      $('.fullwidth-property-slider').slick({
-        dots: true,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 1,
-        centerMode: true,
-        variableWidth: true,
-        adaptiveHeight: true,
-        initialSlide: 1,
-        focusOnSelect: true,
-        responsive: [{
-          breakpoint: 1367,
-          settings: {
-            centerPadding: '15%',
-            initialSlide: 1,
-          }
-        }, {
-          breakpoint: 993,
-          settings: {
-            centerPadding: '0',
-            initialSlide: 1,
-          }
-        }]
-      }),
-      $('.fullwidth-home-slider').slick({
-        centerMode: !0,
-        centerPadding: '0',
-        slidesToShow: 1,
-        responsive: [{
-          breakpoint: 1367,
-          settings: {
-            centerPadding: '0'
-          }
-        }, {
-          breakpoint: 993,
-          settings: {
-            centerPadding: '0'
-          }
-        }]
-      }), this.inlineCss()
-    },
-    reBuildCarousel: function() {
-      this.buildCarousel()
-    },
-    buildMagnificPopup: function() {
-      $('body').magnificPopup({
-        type: 'image',
-        delegate: 'a.mfp-gallery',
-        fixedContentPos: !0,
-        fixedBgPos: !0,
-        overflowY: 'auto',
-        closeBtnInside: !1,
-        preloader: !0,
-        removalDelay: 0,
-        mainClass: 'mfp-fade',
-        gallery: {
-          enabled: !0
-        }
-      })
-    },
     buildParallax: function() {
       function c() {
         var a = $('body').height();
@@ -261,29 +142,6 @@ const uiFunctions = function() {
         }, 500), !1
       })
     },
-    buildStickyHeader: function() {
-      $('#header').not('#header-container.header-style-2 #header').clone(!0).addClass('cloned unsticky').insertAfter('#header'), $('#navigation.style-2').clone(!0).addClass('cloned unsticky').insertAfter('#navigation.style-2'), $('#logo .sticky-logo').clone(!0).prependTo('#navigation.style-2.cloned ul#responsive');
-      var a = 2 * $('#header-container').height();
-      $(window).scroll(function() {
-        $(window).scrollTop() >= a ? ($('#header.cloned').addClass('sticky').removeClass('unsticky'), $('#navigation.style-2.cloned').addClass('sticky').removeClass('unsticky')) : ($('#header.cloned').addClass('unsticky').removeClass('sticky'), $('#navigation.style-2.cloned').addClass('unsticky').removeClass('sticky'))
-      })
-    },
-    buildTopBarMobileMenu: function() {
-      const a = $.jPanelMenu({
-        menu: '#responsive',
-        animated: !1,
-        duration: 200,
-        keyboardShortcuts: !1,
-        closeOnContentClick: !0
-      });
-      $('.menu-trigger').on('click', function() {
-        var b = $(this);
-        return b.hasClass('active') ? (a.off(), b.removeClass('active')) : (a.on(), a.open(), b.addClass('active'), $('#jPanelMenu-menu').removeClass('menu'), $('ul#jPanelMenu-menu li').removeClass('dropdown'), $('ul#jPanelMenu-menu li ul').removeAttr('style'), $('ul#jPanelMenu-menu li div').removeClass('mega').removeAttr('style'), $('ul#jPanelMenu-menu li div div').removeClass('mega-container')), !1
-      }), $(window).resize(function() {
-        var b = $(window).width();
-        992 < b && a.close()
-      })
-    },
     gridSwitcher: function() {
       (function() {
         function b(b) {
@@ -313,12 +171,6 @@ const uiFunctions = function() {
           }), $('.listing-item').each(function() {
             $(this).find(g).css('height', 'auto')
           }))
-        }
-
-        function f() {
-          $('.listing-carousel').each(function() {
-            $(this).data('owlCarousel').reload()
-          })
         }
         var c = $('.listings-container');
         $(c).is('.list-layout') && (f(), $('.layout-switcher a.grid, .layout-switcher a.grid-three').removeClass('active'), $('.layout-switcher a.list').addClass('active')), $(c).is('.grid-layout') && (f(), $('.layout-switcher a.grid').addClass('active'), $('.layout-switcher a.grid-three, .layout-switcher a.list').removeClass('active'), b(2)), $(c).is('.grid-layout-three') && (f(), $('.layout-switcher a.grid, .layout-switcher a.list').removeClass('active'), $('.layout-switcher a.grid-three').addClass('active'), b(3));

@@ -1,0 +1,114 @@
+<section class="responsive-table">
+
+    <div class="responsive-table-header">
+        <h3>{{title}}</h3>
+        <i class="fas fa-sort" ng-show="items.length > 1" ng-click="isSortOpen = true;" ></i>
+
+        <!-- Columns Pagination -->
+        <div class="responsive-table-page-counter" ng-show="columnsPages > 1">
+            <i class="fa fa-angle-left" ng-class="{'hide-me': currentIndex == 1}"></i>
+            <div class="responsive-table-page-counter-dots">
+                <div ng-repeat="page in totalColumnsPages track by $index" ng-class="{'active': $index + 1 == currentIndex}"></div>
+            </div>
+            <i class="fa fa-angle-right" ng-class="{'hide-me': columnsPages == currentIndex}"></i>
+        </div>
+        <!-- Columns Pagination End -->
+    </div>
+
+    <!-- Table -->
+    <div class="responsive-table-container">
+
+        <!-- Fixed Columns -->
+        <div class="responsive-table-fixed">
+            <div class="responsive-table-column" ng-repeat="col in columns" ng-if="col.fixed">
+
+                <!-- Table Header -->
+                <div class="responsive-table-header-item" ng-class="{'active ': col.isTooltipOpen}">
+                    <h5 ng-if ="!col.icon">{{col.name}}</h5>
+                    <i ng-if ="col.icon" class="{{col.icon}}" data-before-content="{{col.name}}" ng-click="toggleTooltip(col)"></i>
+                </div>
+
+                <!-- Table Body -->
+                <div class="table-body-vertical-slider">
+                    <div class="responsive-table-body-item" ng-repeat="item in items" ng-click="setActiveDetail(item);">
+                        <p>{{item[col.data]}}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Fixed Columns End -->
+    
+        <!-- Fixed Slider -->
+        <div class="responsive-table-slider">
+            <div class="responsive-table-column" ng-repeat="col in columns" ng-if="!col.fixed">
+
+                <!-- Table Header -->
+                <div class="responsive-table-header-item" ng-class="{'active ': col.isTooltipOpen}" ng-style="{'width': columnWidth + 'px'}">
+                    <h5 ng-if ="!col.icon">{{col.name}}</h5>
+                    <i ng-if ="col.icon" class="{{col.icon}}" data-before-content="{{col.name}}" ng-click="toggleTooltip(col)"></i>
+                </div>
+
+                <!-- Table Body -->
+                <div class="table-body-vertical-slider">
+                    <div class="responsive-table-body-item" ng-repeat="item in items" ng-click="setActiveDetail(item);">
+                        <p>{{item[col.data]}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fixed Slider End -->
+
+    </div>
+    <!-- Table End -->
+
+    <!-- Items Pagination -->
+    <div class="table-items-counter-container" ng-if="itemPages > 1">
+        <i class="fa fa-angle-up" ng-click="moveItemsSlider('up')" ng-class="{'hide-me': currentItemPage == 1}"></i>
+        <div class="items-counter-number-slider">
+            <p ng-repeat="page in totalItemPages track by $index">{{$index + 1}}</p>
+        </div>
+        <i class="fa fa-angle-down" ng-click="moveItemsSlider('down')" ng-class="{'hide-me': currentItemPage == itemPages}"></i></i>
+    </div>
+    <!-- Items Pagination End -->
+    
+    <!-- Property Detail Modal -->
+    <div class="responsive-table-detail-modal" ng-class="{ 'open': isDetailOpen }">
+
+        <a href="/#!/property/{{activeDetail.id}}">Ir a propiedad</a>
+
+        <!-- Details -->
+        <div ng-repeat="col in columns">
+            <h5>{{col.name}}</h5>
+            <p>{{activeDetail[col.data]}}</p>
+            
+            <hr style="margin: 8px;">
+        </div>
+        
+    </div>
+    <!-- Property Detail Modal End -->
+
+    <!-- Sort Modal -->
+    <div class="responsive-table-detail-modal sort-modal" ng-class="{ 'open': isSortOpen }" tabindex="-1">
+
+        <h3>Ordenar por</h3>
+
+        <!-- Details -->
+        <div ng-repeat="col in columns" class="sort-col-container" ng-if="hasDifferentValues(col)">
+            <h5>{{col.name}}</h5>     
+            <div ng-if="col.sort == 'az'">
+                <i class="fas fa-sort-alpha-down" ng-click="sortByAz(col.data, 'asc')"></i>
+                <i class="fas fa-sort-alpha-down-alt" ng-click="sortByAz(col.data, 'desc')"></i>
+            </div>
+            <div ng-if="col.sort == 'number'">
+                <i class="fas fa-sort-numeric-down" ng-click="sortByNumber(col.data, 'asc')"></i>
+                <i class="fas fa-sort-numeric-down-alt" ng-click="sortByNumber(col.data, 'desc')"></i>
+            </div>                  
+        </div>
+        
+    </div>
+    <!-- Sort Modal End -->
+    
+</section>
+
+<div class="responsive-table-modal-background" ng-click="isDetailOpen = false; isSortOpen = false" ng-class="{'open': isDetailOpen || isSortOpen}"></div> 

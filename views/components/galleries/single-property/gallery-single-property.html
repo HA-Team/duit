@@ -1,13 +1,4 @@
 <section class="gallery-single-property" ng-class="{' open': isGalleryOpen}" ng-style="getSectionStyle()">
-      
-  <!-- Skeleton -->
-  <div class="skeleton-container" ng-show="!showGallery && showSkeleton">
-    <div class="skeleton-image"></div>
-    <div class="skeleton-lines">
-      <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
-    </div>
-  </div>
-  <!-- Skeleton End -->
 
   <!-- Video player -->
   <div ng-if="hasDuit360 && showDuit360">
@@ -20,21 +11,22 @@
     <i class="fa fa-angle-right" ng-click="moveSlider('right')"></i>
   </div>
 
-  <!-- Slider Single Property -->
+  <!-- Slider -->
   <div class="gallery-single-property-slider" ng-show="showGallery && !showDuit360">
     <a href="{{item.hRef}}" ng-repeat="photo in item.photos"><img src="{{photo.image}}" ng-click="toggleGallery()"></a>
     <iframe ng-if="item.videos && !item.hRef" ng-repeat="video in item.videos" width="560" height="349" ng-src="{{video.player_url | trusted}}" frameborder="0" allowfullscreen></iframe>
-    <!-- <img ng-if="!item.hRef" ng-repeat="photo in item.photos" src="{{photo.image}}" > -->
   </div>  
   
   <!-- Widgets -->
   <div class="silder-widgets-container" ng-show="showWidgets && showGallery" ng-style="{'flex-direction': hasDuit360 && !isGalleryOpen ? 'row' : 'row-reverse'}"> 
 
+    <!-- Gallery Toggler -->
     <div class="gallery-switcher-container" ng-if="hasDuit360 && !isGalleryOpen">
       <button ng-click="toggleDuit360()" ng-class="{'active': !showDuit360}">Ver Galería<i class="fas fa-images"></i></button>
       <button ng-click="toggleDuit360()" ng-class="{'active': showDuit360}">Ver Duit 360º<i class="fas fa-street-view"></i></button>
     </div>
 
+    <!-- Photo Counter -->
     <div class="slider-photo-counter" ng-show="!showDuit360">
       <i class="fa fa-camera"></i>
       <p>{{currentIndex}}/{{galleryCounter}}</p>

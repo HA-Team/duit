@@ -5,39 +5,28 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
   $stateProvider.state('home', {
     url: '/',
     templateUrl: 'views/home/home.html',
+    controller: 'homeController as home'
   });
   $stateProvider.state('propertySearch', {
     url: '/propertySearch?args',
     templateUrl: 'views/properties_listing/properties_listing.html',
+    controller: 'propsListingController as propsListing',
     reloadOnSearch: false,
-  });
-  $stateProvider.state('contactUs', {
-    url: '/contactUs',
-    templateUrl: 'views/contact/contact.html'
   });
   $stateProvider.state('property', {
     url: '/property/:propertyId',
-    templateUrl: 'views/property/property.html'
-  });
-  $stateProvider.state('agents', {
-    url: '/agents',
-    templateUrl: 'views/agents/agents.html'
+    templateUrl: 'views/property/property.html',
+    controller: 'propertyController as property'
   });
   $stateProvider.state('developments', {
     url: '/developments',
-    templateUrl: 'views/developments_listing/developments_listing.html'
+    templateUrl: 'views/developments_listing/developments_listing.html',
+    controller: 'devsListingController as devsListing'
   });
   $stateProvider.state('development', {
     url: '/development/:devId',
-    templateUrl: 'views/development/development.html'
-  });
-  $stateProvider.state('favorites', {
-    url: '/favorites',
-    templateUrl: 'views/favorites/favorites.html'
-  });
-  $stateProvider.state('login', {
-    url: '/login',
-    templateUrl: 'views/accounts/login.html'
+    templateUrl: 'views/development/development.html',
+    controller: 'developmentController as development'
   });
   $provide.decorator('$uiViewScroll', function ($delegate) {
     return function (uiViewElement) {
@@ -62,11 +51,8 @@ app.config(['AnalyticsProvider', function (AnalyticsProvider) {
 * @date: 09/06/17
 */
 
-app.controller('startUp', ['$rootScope', function($rootScope) {
-  $rootScope.favorites = {dataLoaded: false, props: []};
-  $rootScope.isFavorite = propId => {
-    return $rootScope.favorites.props.findIndex(p => p.id === propId) === -1 ? false : true;
-  };
+app.controller('startUpController', ['getFeaturedProperties', function(getFeaturedProperties) {
+  getFeaturedProperties.getDevs();
 }]);
 
 // Filter to white list urls to embbed videos in iframes (required by angular)

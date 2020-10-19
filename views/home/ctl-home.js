@@ -1,97 +1,58 @@
-app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeaturedProperties', function($rootScope, $scope, navigation, utils, getFeaturedProperties) {
-  const duitWhatsapp = '5493512463530';
-  const duitPhone = '+5493512463530';
-  setTimeout(() => $rootScope.activeMenu = 'home', 100);
+app.controller('homeController', ['$rootScope', '$scope', '$timeout', 'navigation', 'utils', 'getFeaturedProperties', 'sharedData', 'tokkoApi', '$q', function($rootScope, $scope, $timeout, navigation, utils, getFeaturedProperties, sharedData, tokkoApi, $q) {
+  var home = this;
+  
+  // #region Scoped Properties
 
-  $scope.featuredPropsReady = false;
-  $scope.featured360PropsReady = false;
-  getFeaturedProps();  
-  getFeatured360Props();
+  home.featured360PropsReady = false;
+  home.isContactGlobeOpen = false;
+  home.contactGlobeTitle = "Te asesoramos!";
+  home.agents = sharedData.agents;
+  
+  // #endregion
 
-  $scope.isContactGlobeOpen = false;
-  $scope.contactGlobeTitle = "Te asesoramos!";
+  // #region Private Properties
+  const parallaxElement = document.getElementById('home-search-bar');
 
-  $scope.contactGlobeOpenIcon = {
-    iconClass: 'fab fa-whatsapp',
-      color: '#128c7e',
-      fontSize: '3rem'   
-  };
+  var debouncedOnScroll = utils.debounce(onScroll, 50);
+  var backgroundImageIndex = 0;
 
-  $scope.contactGlobeCloseIcon = {
-    iconClass: 'fa fa-times',
-    color: 'var(--soft-grey)',
-    fontSize: '3rem' 
-  };
+  // #endregion
 
-  $scope.contactGlobeActions = [
-    {
-      hRef: `tel:${duitPhone}`,
-      iconClass: 'fa fa-phone',
-      fontSize: '2.3rem'
-    },
-    {
-      hRef: 'mailto:contacto@duitpropiedades.com.ar',
-      iconClass: 'fa fa-envelope',
-      fontSize: '2.5rem'
-    },
-    {
-      hRef: `https://api.whatsapp.com/send?phone=${duitWhatsapp}`,
-      iconClass: 'fab fa-whatsapp',
-      color: '#128c7e',
-      fontSize: '3rem'
-    },
-  ];
+  // #region On Init
 
-  $scope.toggleContactModal = () => $scope.isContactGlobeOpen = !$scope.isContactGlobeOpen;
-
-  $scope.agents = agents;
-  $scope.agents.forEach(agent => agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351'));  
-  $scope.formatCellPhone = (phone) => `549${phone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');
-
-  $scope.services = [
-    {
-      imgSrc: "/images/services/consejeros.png",
-      goTo: "home-assesors" 
-    },
-    {
-      imgSrc: "/images/services/alquiler.png",
-      goTo: "home-search-bar",
-      action: () => $scope.$broadcast('homeSearchServiceLinkClicked', { type: 2})
-    },
-    {
-      imgSrc: "/images/services/venta.png",
-      goTo: "home-search-bar",
-      action: () => $scope.$broadcast('homeSearchServiceLinkClicked', { type: 1}) 
-    },
-    {
-      imgSrc: "/images/services/administracion.png",
-      goTo: "home-contact" 
-    },
-    {
-      imgSrc: "/images/services/tasacion.png",
-      goTo: "home-contact" 
+  $timeout(() => {
+    $rootScope.activeMenu = 'home';
+    document.querySelector('footer').style.display = 'none';
+  }, 100);
+   
+  var changeBackgroundImageInterval = setInterval(() => {
+    if (home.backGroundImages && home.backGroundImages.length > 1) {
+      parallaxElement.style.backgroundImage = `url(${home.backGroundImages[backgroundImageIndex].image})`;
+      backgroundImageIndex = backgroundImageIndex == home.backGroundImages.length - 1 ? 0 : backgroundImageIndex + 1;
     }
-  ];
+  }, 6000);
 
-  $scope.goToSection = (page, section) => navigation.goToSection(page, section);
+  getBackgroundImages();
+  getFeatured360Props();
+  
 
-  $scope.focusFormControl = (e) => {
-    const dataName = e.target.htmlFor;
-    const input = document.querySelector(`#home-contact .form-control[name='${dataName}']`);
-    input.focus();    
-  }
-      
+  home.agents.forEach(agent => agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351'));
+
+  // #endregion
+
+  // #region Private Methods
+
   function onScroll() {
     const duitFeaturedTop = document.querySelector("#home-featured") ? document.querySelector("#home-featured").offsetTop : 0;
     const servicesTop = document.querySelector("#home-services") ? document.querySelector("#home-services").offsetTop : 0;
-    const assesorsTop = document.querySelector("#home-assesors") ? document.querySelector("#home-assesors").offsetTop : 0;
+    const assesorsTop = document.querySelector("#home-agents") ? document.querySelector("#home-agents").offsetTop : 0;
     const contactTop = document.querySelector("#home-contact") ? document.querySelector("#home-contact").offsetTop : 0;
 
     const scrollY = window.scrollY;
     
     switch (true) {
       case scrollY > contactTop - 100: $rootScope.activeSection = 'home-contact'; break;  
-      case scrollY > assesorsTop - 100: $rootScope.activeSection = 'home-assesors'; break;
+      case scrollY > assesorsTop - 100: $rootScope.activeSection = 'home-agents'; break;
       case scrollY > servicesTop - 100: $rootScope.activeSection = 'home-services'; break;
       case scrollY > duitFeaturedTop - 100: $rootScope.activeSection = 'home-featured-anchor'; break;
       default: $rootScope.activeSection = ''; break;
@@ -100,41 +61,11 @@ app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeatu
     $scope.$apply();
   };
 
-  var debouncedOnScroll = utils.debounce(onScroll, 50)
-
-  window.addEventListener('scroll', debouncedOnScroll);  
-
-  $scope.$on('$destroy', () => window.removeEventListener('scroll', debouncedOnScroll));
-
-  function getFeaturedProps() {
-    getFeaturedProperties.getFeaturedProps(result => {
-      $scope.featured = result.map(prop => {
-        return {
-          id: prop.id,
-          title: prop.publication_title,
-          area: prop.type.id === 1 ? prop.surface : prop.roofed_surface,
-          type: prop.operations[0].operation_type,
-          currency: prop.operations[prop.operations.length-1].prices.slice(-1)[0].currency,
-          price: prop.operations[prop.operations.length-1].prices.slice(-1)[0].price,
-          rooms: prop.suite_amount,
-          baths: prop.bathroom_amount,
-          parkings: prop.parking_lot_amount,
-          cover_photo: prop.photos[0].image,
-          prop: prop
-        }
-      });
-
-      $scope.featuredPropsReady = true;
-      $scope.$apply();
-
-      uiFunctions.buildCarousel();
-      $(window).trigger('resize');
-    });
-  };
-
   function getFeatured360Props() {
-    getFeaturedProperties.getFeatured360Props(result => {     
-      $scope.featured360Props = result
+    getFeaturedProperties.getFeatured360Props().then(result => {
+      result = result.data.objects;
+      
+      home.featured360Props = result
         .filter(prop => prop.videos.some(video => video.provider_id == 6))
         .map(prop => {
           return {
@@ -142,12 +73,118 @@ app.controller('home', ['$rootScope', '$scope', 'navigation', 'utils', 'getFeatu
             coverPhoto: prop.photos[0].image,
             price: prop.operations[prop.operations.length-1].prices.slice(-1)[0].price,
             currency: prop.operations[prop.operations.length-1].prices.slice(-1)[0].currency,
-            title: prop.publication_title
+            title: prop.publication_title,
+            type: prop.type.name,
+            operationType: prop.operations[0].operation_type,
+            area: prop.surface,
+            bedrooms: prop.suite_amount ? prop.suite_amount : 0,
+            bathrooms: prop.bathroom_amount ? prop.bathroom_amount : 0,
+            video_url: `${prop.videos[0].player_url}?rel=0&enablejsapi=1`,
+            producer: prop.producer
           }
       });
 
-      $scope.featured360PropsReady = true;
-      $scope.$apply();
-    });
+      home.featured360Props = _.shuffle(home.featured360Props);
+
+      home.featured360PropsReady = true;
+    }, reject => null);
   };
+
+  function getBackgroundImages() {
+    const backgroundImagesPropId = 2990223;
+
+    tokkoApi.find('property', backgroundImagesPropId, $q.defer()).then(result => {
+      result = result.data.objects[0];
+
+      home.backGroundImages = result.photos;
+
+      parallaxElement.style.backgroundImage = `url(${home.backGroundImages[0].image})`;
+      backgroundImageIndex = backgroundImageIndex == home.backGroundImages.length - 1 ? 0 : backgroundImageIndex + 1;
+
+      if (home.backGroundImages.length == 1) {
+        clearInterval(changeBackgroundImageInterval);
+      }
+      
+    }, reject => null);
+  }
+
+  // #endregion
+
+  // #region Scoped Methods
+
+  home.toggleContactModal = () => home.isContactGlobeOpen = !home.isContactGlobeOpen;
+
+  home.formatCellPhone = (phone) => `549${phone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');
+  
+  home.goToSection = (page, section) => {
+    if (page && section) navigation.goToSection(page, section);
+  }
+
+  // #endregion
+
+  // #region Events
+
+  window.addEventListener('scroll', debouncedOnScroll);  
+
+  $scope.$on('$destroy', () => {
+    window.removeEventListener('scroll', debouncedOnScroll);
+    clearInterval(changeBackgroundImageInterval);
+    document.querySelector('footer').style.display = 'flex';
+  });
+
+  // #endregion
+
+  // #region Scoped Objects
+
+  home.contactGlobeActions = [
+    {
+      hRef: `tel:${sharedData.duitPhone}`,
+      iconClass: 'fa fa-phone',
+      fontSize: '2.3rem'
+    },
+    {
+      hRef:  `mailto:${sharedData.contactEmail}`,
+      iconClass: 'fa fa-envelope',
+      fontSize: '2.5rem'
+    },
+    {
+      hRef: `https://api.whatsapp.com/send?phone=${sharedData.duitWhatsapp}`,
+      iconClass: 'fab fa-whatsapp',
+      color: '#128c7e',
+      fontSize: '3rem'
+    },
+  ];
+
+  home.services = [
+    {
+      imgSrc: "/images/services/consejeros.png",
+      goTo: { page: 'home', section: "home-agents" }
+    },
+    {
+      imgSrc: "/images/services/alquiler.png",
+      goTo: { page: 'home', section: "home-search-bar" },
+      action: () => $scope.$broadcast('homeSearchServiceLinkClicked', { type: 2})
+    },
+    {
+      imgSrc: "/images/services/venta.png",
+      goTo: { page: 'home', section: "home-search-bar" },
+      action: () => $scope.$broadcast('homeSearchServiceLinkClicked', { type: 1}) 
+    },
+    {
+      imgSrc: "/images/services/administracion.png",
+      hasTooltip: true,
+      tooltipText: "Realizamos el cobro de alquileres e impuestos, y mantenimiento de tu propiedad. Damos una respuesta a los locatarios y evitamos a los propietarios las complicaciones derivadas con la administración y gestión de propiedades.",
+      whatsAppHRef: `https://api.whatsapp.com/send?phone=${sharedData.infoWhatsapp}&text=${window.encodeURIComponent('Hola, quiero hacer una consulta por una administración.')}`,
+      emailHRef: `mailto:${sharedData.infoEmail}?Subject=${window.encodeURIComponent('Hola, quiero hacer una consulta por una administración.')}`
+    },
+    {
+      imgSrc: "/images/services/tasacion.png",
+      hasTooltip: true,
+      tooltipText: "Nuestro asesores matriculados CPCPI valuarán tu inmueble, para que sepas cuanto vale realemente tu propiedad.",
+      whatsAppHRef: `https://api.whatsapp.com/send?phone=${sharedData.infoWhatsapp}&text=${window.encodeURIComponent('Hola, quiero hacer una consulta por una tasasión.')}`,
+      emailHRef: `mailto:${sharedData.infoEmail}?Subject=${window.encodeURIComponent('Hola, quiero hacer una consulta por una tasasión.')}`
+    }
+  ];
+
+  // #endregion
 }]);
