@@ -181,12 +181,12 @@ app.service('sharedData', function () {
 			price_from: 0,
 			price_to: 999999999,
 			operation_types: [1, 2],
-			property_types: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
+			property_types: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25], // ID 21 is removed to avoid properties of type 'isla', because that type is used to fetch properties for using just its background images in home page.
 			currency: 'ANY',
 			filters: [],
 		},
 		sData:
-			'{"current_localization_id":0,"current_localization_type":"country","price_from":0,"price_to":999999999,"operation_types":[1,2],"property_types":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],"currency":"ANY","filters":[]}',
+			'{"current_localization_id":0,"current_localization_type":"country","price_from":0,"price_to":999999999,"operation_types":[1,2],"property_types":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,22,23,24,25],"currency":"ANY","filters":[]}',
 	};
 
 	this.devs = [];

@@ -24,7 +24,7 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
     },
     types: {
       isActive: false,
-      default: [...Array(25 + 1).keys()].slice(1).filter(type => type != 21), // This filter is used to avoid properties of type 'isla', because that type is used to fetch properties for using just its background images.
+      default: [...Array(25 + 1).keys()].slice(1).filter(type => type != 21), // This filter is used to avoid properties of type 'isla', because that type is used to fetch properties for using just its background images in home page.
       action: () => propsListing.changeFilter({ type: 't', val: this.filters.types.default })
     },
     subTypes: {
@@ -363,7 +363,6 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
   // #region Events
 
   $rootScope.$on('changeFilter', (event, {operationType}) => {
-    propsListing.tags = propsListing.tags.filter(tag => tag.type != 'o');
     propsListing.changeFilter({type: 'o', name: propsListing.opName(operationType), val: [operationType]});
   });
 
