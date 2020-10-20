@@ -96,7 +96,7 @@
       <!-- Main Info -->
       <div class="desktop-prop-detail-info-container" ng-show="property.apiReady">
         <p ng-if="property.p.prop.development.construction_date">Entrega {{property.isDateGreaterThanToday(property.p.prop.development.construction_date) ? (property.p.prop.development.construction_date | date:'MM/yyyy') : 'inmediata'}}</p>
-        <h3>{{property.p.prop.fake_address ? property.p.prop.fake_address : property.p.prop.publication_title}}</h3> 
+        <h3>{{ property.p.prop.development ? property.p.prop.development.type.name + ' - ' + property.p.prop.development.name + ' - ' : ''}}{{property.p.prop.fake_address ? property.p.prop.fake_address : property.p.prop.publication_title}}</h3> 
         <p class="margin-top-15">{{property.p.operation_type}}</p> 
         <h2>{{property.p.price | currency:property.p.currency:0}}</h2>
         

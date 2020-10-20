@@ -67,7 +67,7 @@
       <!-- Main Info -->
       <div class="desktop-prop-detail-info-container" ng-show="development.devPropsReady">
         <p ng-if="development.d.construction_date">Entrega {{development.isDateGreaterThanToday(development.d.construction_date) ? (development.d.construction_date | date:'MM/yyyy') : 'inmediata'}}</p>
-        <h3>{{development.d.name}}{{development.d.fake_address ? ' - ' + development.d.fake_address : ''}}</h3> 
+        <h3>{{development.d.type.name}} - {{development.d.name}}{{development.d.fake_address ? ' - ' + development.d.fake_address : ''}}</h3> 
         <p class="margin-top-15" ng-show="development.d.minPrice">Desde</p> 
         <h2 ng-show="development.d.minPrice">{{development.d.minPrice | currency:development.d.minPriceCurrency:0}}</h2>        
       </div>
