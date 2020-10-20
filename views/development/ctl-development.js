@@ -153,7 +153,7 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
           parkings_av: prop.parking_lot_amount > 0 ? "Si" : "No",
           suite_amount: prop.suite_amount,
           bathroom_amount: result.bathroom_amount ? result.bathroom_amount : 0,
-          address: address ? address[1].replace('-', '').trim() : prop.fake_address,
+          address: address ? address[1].replace('-', '').trim() : prop.fake_address ? prop.fake_address : prop.address,
           prop: prop
         }
       });
