@@ -136,7 +136,7 @@ app.controller('developmentController', ['$rootScope', '$scope', '$timeout', 'to
         }
 
         const getSpecificAddressReg = /.+(\-.+)$/gs;
-        const address = getSpecificAddressReg.exec(prop.address);
+        const address = getSpecificAddressReg.exec(prop.real_address);
         
         return {
           id: prop.id,
