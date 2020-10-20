@@ -94,6 +94,7 @@
     padding: 0 25px;
     align-self: center;
     top: 25vh;
+    pointer-events: none;
 }
 
 .gallery-multiple-properties .slider-arrows-container > i {
@@ -107,7 +108,8 @@
     cursor: pointer;
     z-index: 2;
     background-color: rgba(0,0,0,0.25);
-    border-radius: 50%;    
+    border-radius: 50%;
+    pointer-events: all;
 }
 
 .gallery-multiple-properties {
