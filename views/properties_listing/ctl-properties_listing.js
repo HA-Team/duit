@@ -115,14 +115,14 @@ app.controller('propsListingController', ['$location', '$rootScope', '$scope', '
     
     (getTokkoProperties = getFeaturedProperties.getProperties('property/search', args)).then(result => {
       result.objects.forEach((p) => {
-        const isDevAlreadyInResults = propsListing.results.some(prop => prop.development?.id == p.development?.id);
+        const isDevAlreadyInResults = propsListing.results.some(prop => prop.development && p.development ? prop.development.id == p.development.id : false);
   
         if (p.development && isDevAlreadyInResults) {
-          const isTypeAlreadyInResults = propsListing.results.some(prop => prop.development?.id == p.development?.id && prop.full_prop.type.id == p.type.id);
+          const isTypeAlreadyInResults = propsListing.results.some(prop => prop.development && p.development ? prop.development.id == p.development.id && prop.full_prop.type.id == p.type.id : false);
   
           if (!isTypeAlreadyInResults) pushPropertyToResults(p);
           else {
-            const existingProp = propsListing.results.filter(prop => prop.development?.id == p.development?.id && prop.full_prop.type.id == p.type.id)[0];
+            const existingProp = propsListing.results.filter(prop => prop.development && p.development ? prop.development.id == p.development.id && prop.full_prop.type.id == p.type.id : false)[0];
             const newPropPrice = p.operations[p.operations.length - 1].prices.slice(-1)[0].price;
   
             if (newPropPrice < existingProp.price) {
