@@ -15,6 +15,20 @@
     padding: 15px 5px;
 }
 
+.responsive-table-header > span {
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+    line-height: 100%;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.responsive-table-header > span > span {
+	margin-bottom: 2px;
+}
+
 .table-body-vertical-slider {
 	overflow-y: hidden;
 	max-height: 300px;
@@ -289,7 +303,6 @@
     display: flex;
     align-items: center;
 	justify-content: center;
-	cursor: pointer;
 }
 
 .sort-col-container {
@@ -342,6 +355,17 @@
 		padding: 10px 0;
 		justify-content: flex-start;
 	}
+
+
+	.responsive-table-header > span {
+		flex-direction: row;
+		font-size: 18px;
+	}
+
+	.responsive-table-header > span > span {
+		margin-bottom: 0;
+	}
+
 	.responsive-table {
 		width: 95%;
 		max-width: 1500px;

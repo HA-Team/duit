@@ -2,7 +2,7 @@
 
     <div class="responsive-table-header">
         <h3>{{title}}</h3>
-        <i class="fas fa-sort" ng-show="items.length > 1" ng-click="isSortOpen = true;" ></i>
+        <span ng-click="isSortOpen = true;"><span>Ordenar</span><i class="fas fa-sort" ng-show="items.length > 1"></i></span> 
 
         <!-- Columns Pagination -->
         <div class="responsive-table-page-counter" ng-show="columnsPages > 1">
