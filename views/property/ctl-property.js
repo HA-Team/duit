@@ -266,7 +266,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
         const price = prop.operations[prop.operations.length-1].prices.slice(-1)[0];
 
         const getSpecificAddressReg = /.+(\-.+)$/gs;
-        const address = getSpecificAddressReg.exec(prop.address);
+        const address = getSpecificAddressReg.exec(prop.real_address);
 
         return {
           id: prop.id,
@@ -283,7 +283,7 @@ app.controller('propertyController', ['$rootScope', '$scope', '$timeout', 'tokko
           parkings_av: prop.parking_lot_amount > 0 ? "Si" : "No",
           suite_amount: prop.suite_amount,
           bathroom_amount: result.bathroom_amount ? result.bathroom_amount : 0,
-          address: address ? address[1].replace('-', '').trim() : prop.fake_address,
+          address: address ? address[1].replace('-', '').trim() : prop.fake_address ? prop.fake_address : prop.address,
           prop: prop
         }
       });
