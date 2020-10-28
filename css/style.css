@@ -2359,26 +2359,19 @@ section.fullwidth.border-bottom {
     margin-left: 85px;
 }
 .back-to-listings {
-    height: 60px;
-    width: 60px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
     background-color: #eaeaea;
     color: #a0a0a0;
-    border-radius: 3px;
-    display: inline-block;
-    float: left;
-    position: relative;
-    top: 6px;
-    margin: 0 25px 0 0;
+    border-radius: 50%;
     text-align: center;
     transition: all .4s;
-    position: absolute;
-    top: 50%;
-    left: 15px;
-    margin-top: -5px;
-    -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
+    cursor: pointer;
+    margin: 15px;
 }
 .back-to-listings:before {
     font-family: "Font Awesome 5 Free";
@@ -9596,7 +9589,12 @@ section.fullwidth .blog-post {
     -moz-columns: 1;
 }
 a.back-to-listings {
-    display: none;
+    width: 35px;
+    height: 35px;
+    z-index: 3;
+}
+.back-to-listings:before {
+    font-size: 30px;
 }
 .property-title {
     margin-left: 0;
