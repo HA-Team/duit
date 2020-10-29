@@ -212,8 +212,8 @@
 
 #mobile-prop-detail .mobile-property-general-features ul li i {
 	font-size: 18px;
-    margin-right: 7px;
-    color: var(--soft-red);
+	margin-right: 7px;
+	color: var(--soft-red);
 }
 
 #mobile-prop-detail .mobile-property-general-features p::before {
@@ -324,23 +324,23 @@
 
 #mobile-prop-detail .share-container {
 	margin-bottom: -50px;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: sticky;
-    bottom: 4rem;
-    background-color: var(--soft-red);
-    color: white;
-    left: 2rem;
-    box-shadow: 0 0 3px 1px lightgrey;
-    z-index: 10;
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: sticky;
+	bottom: 4rem;
+	background-color: var(--soft-red);
+	color: white;
+	left: 2rem;
+	box-shadow: 0 0 3px 1px lightgrey;
+	z-index: 10;
 }
 
 #mobile-prop-detail .share-container a {
-	color: white;	
+	color: white;
 }
 
 @keyframes shine-skeleton {
@@ -587,7 +587,7 @@
 	width: 120px;
 	margin: auto;
 	cursor: pointer;
-	font-size: 17px;	
+	font-size: 17px;
 }
 
 .desktop-show-more i {
@@ -597,15 +597,15 @@
 }
 
 .collapsable-title.visible + pre + .desktop-show-more i {
-	transform: rotateZ(-180deg);	
+	transform: rotateZ(-180deg);
 }
 
 .collapsable-features.visible + .desktop-show-more i {
-	transform: rotateZ(-180deg);	
+	transform: rotateZ(-180deg);
 }
 
 .desktop-show-more span:after {
-	content:'Ver más';
+	content: 'Ver más';
 	color: var(--primary-red);
 }
 
@@ -774,20 +774,20 @@
 
 .desktop-prop-detail-right-panel > div.share-container {
 	margin-top: -5px;
-    top: 220px;
-    position: sticky;
-    width: fit-content;
-    padding: 2px 10px;
-    background-color: var(--soft-red);
-    color: white;
-    float: right;
-    box-shadow: none;
+	top: 220px;
+	position: sticky;
+	width: fit-content;
+	padding: 2px 10px;
+	background-color: var(--soft-red);
+	color: white;
+	float: right;
+	box-shadow: none;
 	z-index: 3;
 	box-shadow: none;
 }
 
 .desktop-prop-detail-right-panel > div.share-container a {
-	color: white;	
+	color: white;
 }
 
 .desktop-prop-detail-right-panel > div.share-container a i {
@@ -915,8 +915,8 @@
 	justify-content: center;
 	width: 130px;
 	height: 30px;
-    margin-left: 15px;
-    margin-top: 8px;
+	margin-left: 15px;
+	margin-top: 8px;
 }
 
 .desktop-prop-detail-left-panel .gallery-switcher-container i {
@@ -949,13 +949,14 @@
 }
 
 .desktop-prop-detail-left-panel .video-container {
-    display: flex;
+	display: flex;
 }
 
 .desktop-prop-detail-left-panel iframe {
-    width: 90%;
-    margin: auto;
+	width: 90%;
+	margin: auto;
 	height: 50vh;
 	flex-grow: 0;
 	flex-shrink: 0;
+	pointer-events: all;
 }

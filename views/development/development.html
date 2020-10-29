@@ -2,226 +2,269 @@
 
 <!-- Desktop Development Detail -->
 <div class="hidden-on-mobile">
-      
-  <!-- Main Container -->
-  <section class="desktop-prop-detail-main-container">
+	<!-- Main Container -->
+	<section class="desktop-prop-detail-main-container">
+		<!-- Left Panel Skeleton -->
+		<div class="left-panel-skeleton" ng-show="!development.apiReady"></div>
 
-    <!-- Left Panel Skeleton -->
-    <div class="left-panel-skeleton" ng-show="!development.apiReady"></div>
+		<!-- Left Panel -->
+		<div class="desktop-prop-detail-left-panel" ng-show="development.apiReady">
+			<!-- Video player -->
+			<div class="video-container" ng-if="development.d.hasDuit360 && development.showDuit360">
+				<iframe ng-src="{{development.d.duit360Url | trusted}}" class="video-player" allowfullscreen="true"> </iframe>
+			</div>
 
-    <!-- Left Panel -->
-    <div class="desktop-prop-detail-left-panel" ng-show="development.apiReady">
-      <img src="{{development.activeGalleryPhoto}}" alt="" ng-click="development.toggleGallery()">
+			<img ng-if="!development.showGalleryVideo" src="{{development.activeGalleryPhoto}}" alt="" ng-click="development.toggleGallery()" />
+			<iframe
+				ng-if="development.showGalleryVideo"
+				width="560"
+				height="349"
+				ng-src="{{development.activeGalleryVideo.player_url | trusted}}"
+				frameborder="0"
+				allowfullscreen
+			></iframe>
 
-      <div class="gallery-container" ng-show="development.isGalleryOpen">
-        
-        <div class="gallery-slider">
-          <div ng-repeat="i in development.d.photos">
-            <img src="{{i.image}}" alt="" ng-click="development.toggleGallery()">
-          </div>
-        </div>
+			<!-- Gallery Toggler -->
+			<div class="gallery-switcher-container" ng-if="development.p.hasDuit360 && !development.isGalleryOpen">
+				<button ng-click="development.showDuit360 = !development.showDuit360" ng-class="{'active': !development.showDuit360}">
+					Ver Galería<i class="fas fa-images"></i>
+				</button>
+				<button ng-click="development.showDuit360 = !development.showDuit360" ng-class="{'active': development.showDuit360}">
+					Ver Duit 360º<i class="fas fa-street-view"></i>
+				</button>
+			</div>
 
-        <!-- Arrows -->
-        <div class="slider-arrows-container" ng-if="development.d.photos.length > 1">
-          <i class="fa fa-angle-left" ng-click="development.moveGallerySlider($event.target.parentElement.previousElementSibling, 'left')"></i>
-          <i class="fa fa-angle-right" ng-click="development.moveGallerySlider($event.target.parentElement.previousElementSibling,'right')"></i>
-        </div>
+			<div class="gallery-container" ng-show="development.isGalleryOpen">
+				<div class="gallery-slider">
+					<div ng-repeat="photo in development.d.photos">
+						<img src="{{photo.image}}" alt="" ng-click="development.toggleGallery()" />
+					</div>
+					<div ng-repeat="video in development.d.youTubeVideos">
+						<iframe width="560" height="349" ng-src="{{video.player_url | trusted}}" frameborder="0" allowfullscreen></iframe>
+					</div>
+				</div>
 
-      </div>
+				<!-- Arrows -->
+				<div class="slider-arrows-container" ng-if="development.d.photos.length > 1">
+					<i class="fa fa-angle-left" ng-click="development.moveGallerySlider($event.target.parentElement.previousElementSibling, 'left')"></i>
+					<i class="fa fa-angle-right" ng-click="development.moveGallerySlider($event.target.parentElement.previousElementSibling,'right')"></i>
+				</div>
+			</div>
 
-      <div class="gallery-background" ng-class="{'open': development.isGalleryOpen}" ng-click="development.toggleGallery()"></div>
-      
-      <div class="slider-container" ng-if="development.d.photos.length > 1">
-        <div class="thumb-gallery-slider">
-          <img src="{{i.thumb}}" alt="" ng-repeat="i in development.d.photos" ng-click="development.setActiveImage(i)">        
-        </div>
-  
-        <!-- Arrows -->
-        <div class="slider-arrows-container" ng-if="development.showGalleryArrows">
-          <i class="fa fa-angle-left" ng-click="development.moveSlider($event.target.parentElement.previousElementSibling, 'left')"></i>
-          <i class="fa fa-angle-right" ng-click="development.moveSlider($event.target.parentElement.previousElementSibling,'right')"></i>
-        </div>
-      </div>
+			<div class="gallery-background" ng-class="{'open': development.isGalleryOpen}" ng-click="development.toggleGallery()"></div>
 
-      <!-- Special Features -->
-      <h3 ng-if="development.d.tags.length > 0">Características</h3>
-      <div class="desktop-prop-detail-general-features-container">
-        <p ng-repeat="tag in development.d.tags"><i class="fa fa-check-square"></i>{{tag.name}}</p>
-      </div>
+			<div class="slider-container" ng-if="development.d.photos.length > 1">
+				<div class="thumb-gallery-slider">
+					<img src="{{photo.thumb}}" alt="" ng-repeat="photo in development.d.photos" ng-click="development.setActiveImage(photo)" />
+					<img ng-repeat="video in development.d.youTubeVideos" src="images/video-placeholder.jpg" alt="" ng-click="development.setActiveVideo(video)" />
+				</div>
 
-      <hr ng-if="development.d.tags.length > 0">
+				<!-- Arrows -->
+				<div class="slider-arrows-container">
+					<i class="fa fa-angle-left" ng-click="development.moveSlider($event.target.parentElement.previousElementSibling, 'left')"></i>
+					<i class="fa fa-angle-right" ng-click="development.moveSlider($event.target.parentElement.previousElementSibling,'right')"></i>
+				</div>
+			</div>
 
-      <h3 class="collapsable-title">Descripción</h3>
-      <pre>{{development.d.description.trim()}}</pre>
-      <div ng-click="development.toggleDescriptionDetailDesktop()" class="desktop-show-more">
-        <span></span><i class="fa fa-angle-down"></i>
-      </div>
-              
-    </div>
-    <!-- Left Panel End -->
-    
-    <!-- Right Panel -->
-    <div class="desktop-prop-detail-right-panel">
+			<!-- Special Features -->
+			<h3 ng-if="development.d.tags.length > 0">Características</h3>
+			<div class="desktop-prop-detail-general-features-container">
+				<p ng-repeat="tag in development.d.tags"><i class="fa fa-check-square"></i>{{tag.name}}</p>
+			</div>
 
-      <!-- Main Info Skeleton -->
-      <div class="main-info-skeleton" ng-show="!development.devPropsReady"></div>
+			<hr ng-if="development.d.tags.length > 0" />
 
-      <!-- Main Info -->
-      <div class="desktop-prop-detail-info-container" ng-show="development.devPropsReady">
-        <p ng-if="development.d.construction_date">Entrega {{development.isDateGreaterThanToday(development.d.construction_date) ? (development.d.construction_date | date:'MM/yyyy') : 'inmediata'}}</p>
-        <h3>{{development.d.type.name}} - {{development.d.name}}{{development.d.fake_address ? ' - ' + development.d.fake_address : ''}}</h3> 
-        <p class="margin-top-15" ng-show="development.d.minPrice">Desde</p> 
-        <h2 ng-show="development.d.minPrice">{{development.d.minPrice | currency:development.d.minPriceCurrency:0}}</h2>        
-      </div>
+			<h3 class="collapsable-title">Descripción</h3>
+			<pre>{{development.d.description.trim()}}</pre>
+			<div ng-click="development.toggleDescriptionDetailDesktop()" class="desktop-show-more"><span></span><i class="fa fa-angle-down"></i></div>
+		</div>
+		<!-- Left Panel End -->
 
-      <!-- Contact Skeleton -->
-      <div class="contact-skeleton" ng-show="!development.apiReady"></div>
+		<!-- Right Panel -->
+		<div class="desktop-prop-detail-right-panel">
+			<!-- Main Info Skeleton -->
+			<div class="main-info-skeleton" ng-show="!development.devPropsReady"></div>
 
-      <!-- Contact -->
-      <div class="desktop-prop-detail-contact-container" ng-show="development.apiReady">
-        <img src="{{development.d.users_in_charge.picture}}" alt="">
-        <div class="contact-info">
-          <p>{{development.d.users_in_charge.name}}</p>
-          <a>
-            <i class="fab fa-whatsapp"></i> <p>{{development.d.formatedPhone}}</p>
-          </a>
-          <a>
-            <i class="fa fa-envelope"></i> <p>{{development.d.users_in_charge.email}}</p>
-          </a>
-        </div>
-      </div>
+			<!-- Main Info -->
+			<div class="desktop-prop-detail-info-container" ng-show="development.devPropsReady">
+				<p ng-if="development.d.construction_date">
+					Entrega {{development.isDateGreaterThanToday(development.d.construction_date) ? (development.d.construction_date | date:'MM/yyyy') : 'inmediata'}}
+				</p>
+				<h3>{{development.d.type.name}} - {{development.d.name}}{{development.d.fake_address ? ' - ' + development.d.fake_address : ''}}</h3>
+				<p class="margin-top-15" ng-show="development.d.minPrice">Desde</p>
+				<h2 ng-show="development.d.minPrice">{{development.d.minPrice | currency:development.d.minPriceCurrency:0}}</h2>
+			</div>
 
-      <div class="share-container" ng-show="development.apiReady">
-        <a href="https://wa.me/?text=urlencodedtext" target="_blank">Compartir emprendimiento<i class="fas fa-share-alt"></i></a>
-      </div>
-      
-      <!-- Maps Skeleton -->
-      <div class="map-skeleton" ng-show="!development.apiReady"></div>
+			<!-- Contact Skeleton -->
+			<div class="contact-skeleton" ng-show="!development.apiReady"></div>
 
-      <!-- Maps -->
-      <div id="propertyMap-container" ng-show="development.apiReady">
-        <div id="propertyMap"></div>
-      </div>
+			<!-- Contact -->
+			<div class="desktop-prop-detail-contact-container" ng-show="development.apiReady">
+				<img src="{{development.d.users_in_charge.picture}}" alt="" />
+				<div class="contact-info">
+					<p>{{development.d.users_in_charge.name}}</p>
+					<a>
+						<i class="fab fa-whatsapp"></i>
+						<p>{{development.d.formatedPhone}}</p>
+					</a>
+					<a>
+						<i class="fa fa-envelope"></i>
+						<p>{{development.d.users_in_charge.email}}</p>
+					</a>
+				</div>
+			</div>
 
-    </div>
-    <!-- Right Panel End -->
+			<div class="share-container" ng-show="development.apiReady">
+				<a href="https://wa.me/?text=urlencodedtext" target="_blank">Compartir emprendimiento<i class="fas fa-share-alt"></i></a>
+			</div>
 
-  </section>
-  <!-- Main Container End -->
+			<!-- Maps Skeleton -->
+			<div class="map-skeleton" ng-show="!development.apiReady"></div>
 
-  <!-- Available Units -->
-  <responsive-table id="desktop-other-units-table" ng-if="development.devProps && development.devProps.length > 0" items="development.devProps" title="'Unidades disponibles'" columns="development.desktopAvailablePropsColumns"></responsive-table>
+			<!-- Maps -->
+			<div id="propertyMap-container" ng-show="development.apiReady">
+				<div id="propertyMap"></div>
+			</div>
+		</div>
+		<!-- Right Panel End -->
+	</section>
+	<!-- Main Container End -->
 
-  <!-- Featured Properties -->
-  <section class="desktop-prop-detail-featured">
-    <h3>Te aconsejamos est{{development.similarDevs.length == 1 ? 'e' : 'os'}} emprendimiento{{development.similarDevs.length == 1 ? '' : 's'}}</h3>
-    
-    <gallery-properties-cards items="development.similarDevs" show-photos="development.similarDevsReady" is-dev="true"></gallery-properties-cards>
-  </section>
-  <!-- Featured Props End -->
+	<!-- Available Units -->
+	<responsive-table
+		id="desktop-other-units-table"
+		ng-if="development.devProps && development.devProps.length > 0"
+		items="development.devProps"
+		title="'Unidades disponibles'"
+		columns="development.desktopAvailablePropsColumns"
+	></responsive-table>
 
+	<!-- Featured Properties -->
+	<section class="desktop-prop-detail-featured">
+		<h3>Te aconsejamos est{{development.similarDevs.length == 1 ? 'e' : 'os'}} emprendimiento{{development.similarDevs.length == 1 ? '' : 's'}}</h3>
+
+		<gallery-properties-cards items="development.similarDevs" show-photos="development.similarDevsReady" is-dev="true"></gallery-properties-cards>
+	</section>
+	<!-- Featured Props End -->
 </div>
 <!-- Desktop Development Detail End -->
 
 <!-- Mobile Development Detail -->
 <div id="mobile-dev-detail" class="hidden-on-desktop">
-  
-  <!-- Skeleton Loader -->
-  <section class="skeleton-container" ng-show="!development.apiReady">
-    <div class="skeleton-image"></div>
-    <div class="skeleton-lines">
-      <div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>            
-    </div>
-  </section>
-  <!-- Skeleton Loader End -->
-  
-  <div ng-show="development.apiReady">
-    
-    <!-- Gallery Slider  -->
-    <gallery-single-property ng-if="development.apiReady" item="development.developmentMapped" show-widgets="true" show-gallery="development.apiReady"></gallery-single-property>   
-    <!-- Gallery Slider End -->
+	<!-- Skeleton Loader -->
+	<section class="skeleton-container" ng-show="!development.apiReady">
+		<div class="skeleton-image"></div>
+		<div class="skeleton-lines">
+			<div ng-repeat="x in [].constructor(2) track by $index" class="skeleton-line"></div>
+		</div>
+	</section>
+	<!-- Skeleton Loader End -->
 
-    <!-- Subtitle -->
-    <section class="mobile-property-subtitle">
-      <div class="main-subtitle">
-        <h2>{{development.d.name}}</h2>
-        <span class="property-badge">{{development.d.type.name}}</span>        
-      </div>
+	<div ng-show="development.apiReady">
+		<!-- Gallery Slider  -->
+		<gallery-single-property
+			ng-if="development.apiReady"
+			item="development.developmentMapped"
+			show-widgets="true"
+			show-gallery="development.apiReady"
+		></gallery-single-property>
+		<!-- Gallery Slider End -->
 
-      <div class="subtitle-address">
-        <i class="fa fa-map-marker"></i>
-        <p>&nbsp {{development.d.address}}</p>
-      </div>
-      
-      <div class="subtitle-address">
-        <p ng-if="development.d.construction_date && development.isDateGreaterThanToday(development.d.construction_date)">Posesión: {{development.d.construction_date | date:'MM/yyyy'}}</p>
-      </div>
-    </section>
-    <!-- Subtitle End -->
+		<!-- Subtitle -->
+		<section class="mobile-property-subtitle">
+			<div class="main-subtitle">
+				<h2>{{development.d.name}}</h2>
+				<span class="property-badge">{{development.d.type.name}}</span>
+			</div>
 
-    <!-- Description -->
-    <section class="mobile-property-description">
-      <h3 class="desc-headline">Descripción</h3>
-      <div class="description-detail">
-        <pre>{{development.d.description.trim()}}</pre>
-      </div>
-      <div class="description-detail-button-container" ng-click="development.toggleDescriptionDetail()">
-        <p><i class="fa fa-angle-down"></i></p>
-      </div>
-    </section>
-    <!-- Description End -->
+			<div class="subtitle-address">
+				<i class="fa fa-map-marker"></i>
+				<p>&nbsp {{development.d.address}}</p>
+			</div>
 
-    <hr>
-    
-    <!-- General Features --> 
-    <section class="mobile-dev-general-features">
-      <h3 class="desc-headline">Características Generales</h3>
-      <ul>
-        <li ng-repeat="tag in development.d.tags">{{tag.name}}</li>
-      </ul>
-      <div class="description-detail-button-container" ng-click="development.toggleGeneralFeatures()" ng-show="development.d.tags.length > development.generalFeaturesToShow">
-        <p><i class="fa fa-angle-down"></i></p>
-      </div>
-    </section>
-    <!-- General Features End -->
+			<div class="subtitle-address">
+				<p ng-if="development.d.construction_date && development.isDateGreaterThanToday(development.d.construction_date)">
+					Posesión: {{development.d.construction_date | date:'MM/yyyy'}}
+				</p>
+			</div>
+		</section>
+		<!-- Subtitle End -->
 
-    <hr>
+		<!-- Description -->
+		<section class="mobile-property-description">
+			<h3 class="desc-headline">Descripción</h3>
+			<div class="description-detail">
+				<pre>{{development.d.description.trim()}}</pre>
+			</div>
+			<div class="description-detail-button-container" ng-click="development.toggleDescriptionDetail()">
+				<p><i class="fa fa-angle-down"></i></p>
+			</div>
+		</section>
+		<!-- Description End -->
 
-    <!-- Location -->
-    <section class="mobile-dev-location">
-      <h3 class="desc-headline no-border" id="location">Ubicación</h3>
-      <div id="dev-map-container">
-        <div id="mobile-dev-map"></div>
-      </div>
-    </section>
-    <!-- Location End -->
-    
-    <hr>
+		<hr />
 
-    <!-- Available Units -->
-    <responsive-table ng-if="development.devProps && development.devProps.length > 0" items="development.devProps" title="'Unidades disponibles'" columns="development.availablePropsColumns"></responsive-table>
-    
-    <div class="share-container">
-      <a href="https://wa.me/?text=urlencodedtext"><i class="fas fa-share-alt"></i></a>
-    </div>
+		<!-- General Features -->
+		<section class="mobile-dev-general-features">
+			<h3 class="desc-headline">Características Generales</h3>
+			<ul>
+				<li ng-repeat="tag in development.d.tags">{{tag.name}}</li>
+			</ul>
+			<div
+				class="description-detail-button-container"
+				ng-click="development.toggleGeneralFeatures()"
+				ng-show="development.d.tags.length > development.generalFeaturesToShow"
+			>
+				<p><i class="fa fa-angle-down"></i></p>
+			</div>
+		</section>
+		<!-- General Features End -->
 
-    <!-- Contact Modal -->
-    <contact-globe is-open="development.isContactModalOpen" main-img="development.d.users_in_charge.picture" open-icon="development.contactGlobeOpenIcon" 
-      close-icon="development.contactGlobeCloseIcon" title="development.d.users_in_charge.name" actions="development.contactGlobeActions" toggle-modal="development.toggleContactModal()">
-    </contact-globe>
-    <!-- Contact Modal End -->
+		<hr />
 
-    <!-- Featured Props -->
-    <section class="mobile-property-featured">
-      <h3>Te aconsejamos est{{development.similarDevs.length == 1 ? 'e' : 'os'}} emprendimiento{{development.similarDevs.length == 1 ? '' : 's'}}</h3>    
-      
-      <gallery-properties-cards items="development.similarDevs" show-photos="development.similarDevsReady" is-dev="true"></gallery-properties-cards>
-    </section>
-    <!-- Featured Props End -->
-  
-  </div>
+		<!-- Location -->
+		<section class="mobile-dev-location">
+			<h3 class="desc-headline no-border" id="location">Ubicación</h3>
+			<div id="dev-map-container">
+				<div id="mobile-dev-map"></div>
+			</div>
+		</section>
+		<!-- Location End -->
 
+		<hr />
+
+		<!-- Available Units -->
+		<responsive-table
+			ng-if="development.devProps && development.devProps.length > 0"
+			items="development.devProps"
+			title="'Unidades disponibles'"
+			columns="development.availablePropsColumns"
+		></responsive-table>
+
+		<div class="share-container">
+			<a href="https://wa.me/?text=urlencodedtext"><i class="fas fa-share-alt"></i></a>
+		</div>
+
+		<!-- Contact Modal -->
+		<contact-globe
+			is-open="development.isContactModalOpen"
+			main-img="development.d.users_in_charge.picture"
+			open-icon="development.contactGlobeOpenIcon"
+			close-icon="development.contactGlobeCloseIcon"
+			title="development.d.users_in_charge.name"
+			actions="development.contactGlobeActions"
+			toggle-modal="development.toggleContactModal()"
+		>
+		</contact-globe>
+		<!-- Contact Modal End -->
+
+		<!-- Featured Props -->
+		<section class="mobile-property-featured">
+			<h3>Te aconsejamos est{{development.similarDevs.length == 1 ? 'e' : 'os'}} emprendimiento{{development.similarDevs.length == 1 ? '' : 's'}}</h3>
+
+			<gallery-properties-cards items="development.similarDevs" show-photos="development.similarDevsReady" is-dev="true"></gallery-properties-cards>
+		</section>
+		<!-- Featured Props End -->
+	</div>
 </div>
 <!-- Mobile Development Detail End -->
-
-
