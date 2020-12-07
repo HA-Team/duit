@@ -181,14 +181,13 @@ app.service('sharedData', function () {
 			price_from: 0,
 			price_to: 999999999,
 			operation_types: [1, 2],
-			property_types: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 23, 24, 25], // ID 21 is removed to avoid properties of type 'isla', because that type is used to fetch properties for using just its background images in home page.
+			property_types: [1, 2, 3, 5, 7, 10, 14], // Search only for types listed in this.propertiesTypes array.
 			currency: 'ANY',
 			filters: [],
-		},
-		sData:
-			'{"current_localization_id":0,"current_localization_type":"country","price_from":0,"price_to":999999999,"operation_types":[1,2],"property_types":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,22,23,24,25],"currency":"ANY","filters":[]}',
+		}
 	};
-
+	this.tokkoSearchArgs.sData = `{"current_localization_id":${this.tokkoSearchArgs.data.current_localization_id},"current_localization_type":"${this.tokkoSearchArgs.data.current_localization_type}","price_from":${this.tokkoSearchArgs.data.price_from},"price_to":${this.tokkoSearchArgs.data.price_to},"operation_types":[${this.tokkoSearchArgs.data.operation_types}],"property_types":[${this.tokkoSearchArgs.data.property_types}],"currency":"${this.tokkoSearchArgs.data.currency}","filters":[${this.tokkoSearchArgs.data.filters}]}`;
+	
 	this.devs = [];
 
 	this.setDevs = (value) => this.devs = value;
