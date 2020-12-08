@@ -66,7 +66,11 @@ app.controller('propertyController', [
 					hasDuit360: result.videos.some((video) => video.provider_id == 6),
 				};
 
-				document.title = `${result.publication_title} - ${$filter('currency')(property.p.price, property.p.currency, 0)}  en DUIT`;
+				const pageTitle = `${result.publication_title} - ${$filter('currency')(property.p.price, property.p.currency, 0)}  en DUIT`;
+				document.title = pageTitle;
+				document.querySelector('meta[property="og:title"]').setAttribute("content", pageTitle);
+				document.querySelector('meta[property="og:description"]').setAttribute("content", result.description);
+				document.querySelector('meta[property="og:image"]').setAttribute("content", property.p.cover_photo);
 
 				property.showDuit360 = property.p.hasDuit360;
 				property.activeGalleryPhoto = property.p.cover_photo_original;
