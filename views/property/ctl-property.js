@@ -71,6 +71,7 @@ app.controller('propertyController', [
 				document.querySelector('meta[property="og:title"]').setAttribute("content", pageTitle);
 				document.querySelector('meta[property="og:description"]').setAttribute("content", result.description);
 				document.querySelector('meta[property="og:image"]').setAttribute("content", property.p.cover_photo);
+				document.querySelector('meta[property="og:url"]').setAttribute("content", location.href);
 
 				property.showDuit360 = property.p.hasDuit360;
 				property.activeGalleryPhoto = property.p.cover_photo_original;
