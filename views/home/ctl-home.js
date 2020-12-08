@@ -20,6 +20,8 @@ app.controller('homeController', ['$rootScope', '$scope', '$timeout', 'navigatio
 
   // #region On Init
 
+  document.title = 'Duit Propiedades Inmobiliaria';
+
   $timeout(() => {
     $rootScope.activeMenu = 'home';
     document.querySelector('footer').style.display = 'none';

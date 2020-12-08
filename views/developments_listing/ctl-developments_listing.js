@@ -24,6 +24,8 @@ app.controller('devsListingController', ['$rootScope', '$scope', 'tokkoApi', 'ge
 
   // #region On Init
 
+  document.title = 'Duit Propiedades Inmobiliaria';
+
   var getDevsInterval = setInterval(() => {
     if (sharedData.devs.length > 0) {
       devsListing.results = sharedData.devs;

@@ -395,6 +395,8 @@ app.controller('propsListingController', [
 
 		// #region On Init
 
+		document.title = 'Duit Propiedades Inmobiliaria';
+		
 		setActiveSection(propsListing.operationType);
 		$anchorScroll();
 

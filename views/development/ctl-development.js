@@ -89,6 +89,8 @@ app.controller('developmentController', [
 					videos: result.videos
 				};
 
+				document.title = `Emprendimiento: ${result.name} en DUIT`;
+
 				getDevelopmentProps(result.id);
 
 				let myLatLng = { lat: parseFloat(result.geo_lat), lng: parseFloat(result.geo_long) };

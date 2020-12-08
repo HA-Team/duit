@@ -65,6 +65,9 @@ app.controller('propertyController', [
 					youTubeVideos: result.videos.filter((video) => video.provider_id != 6),
 					hasDuit360: result.videos.some((video) => video.provider_id == 6),
 				};
+
+				document.title = `${result.publication_title} - ${$filter('currency')(property.p.price, property.p.currency, 0)}  en DUIT`;
+
 				property.showDuit360 = property.p.hasDuit360;
 				property.activeGalleryPhoto = property.p.cover_photo_original;
 
