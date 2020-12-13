@@ -13,7 +13,7 @@
 
   <!-- Slider -->
   <div class="gallery-single-property-slider" ng-show="showGallery && !showDuit360">
-    <a href="{{item.hRef}}" ng-repeat="photo in item.photos"><img src="{{photo.image}}" ng-click="toggleGallery()"></a>
+    <a href="{{item.hRef}}" ng-repeat="photo in item.photos"><img src="{{photo.image}}" double-tap="toggleGallery()"></a>
     <iframe ng-if="item.videos && !item.hRef" ng-repeat="video in item.videos" width="560" height="349" ng-src="{{video.player_url | trusted}}" frameborder="0" allowfullscreen></iframe>
   </div>  
   
