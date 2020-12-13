@@ -37,6 +37,18 @@ app.service('utils', ['$timeout', function ($timeout) {
 
 	this.isDateGreaterThanToday = (date) => new Date(date) >= new Date();
 
+	this.toggleFullScreen = () => {		
+		function getFullScreenElement() {
+			return document.fullscreenElement || document.webkitFillscreenElement || document.mozFulscreenElement || document.msFullscreenElement;
+		};
+		
+		if (getFullScreenElement()) {
+			document.exitFullscreen();
+		} else {
+			document.documentElement.requestFullscreen().catch(console.log);
+		}
+	}
+
 	this.sides = [
 		{
 			rotated: 'up',

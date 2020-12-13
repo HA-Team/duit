@@ -1,34 +1,29 @@
-app.directive('doubleTap',
-    function () {
-        console.log("hola");
+app.directive('doubleTap', function () {
+	const DblClickInterval = 300; //milliseconds
 
-        const DblClickInterval = 300; //milliseconds
+	var firstClickTime;
+	var waitingSecondClick = false;
 
-        var firstClickTime;
-        var waitingSecondClick = false;
+	return {
+		restrict: 'A',
+		link: function (scope, element, attrs) {
+			element.bind('click', function (e) {
+				if (!waitingSecondClick) {
+					firstClickTime = new Date().getTime();
+					waitingSecondClick = true;
 
-        return {
-            restrict: 'A',
-            link: function (scope, element, attrs) {
-                element.bind('click', function (e) {
+					setTimeout(function () {
+						waitingSecondClick = false;
+					}, DblClickInterval);
+				} else {
+					waitingSecondClick = false;
 
-                    if (!waitingSecondClick) {
-                        firstClickTime = (new Date()).getTime();
-                        waitingSecondClick = true;
-
-                        setTimeout(function () {
-                            waitingSecondClick = false;
-                        }, DblClickInterval);
-                    }
-                    else {
-                        waitingSecondClick = false;
-
-                        var time = (new Date()).getTime();
-                        if (time - firstClickTime < DblClickInterval) {
-                            scope.$apply(attrs.doubleTap);
-                        }
-                    }
-                });
-            }
-        };
-    });
+					var time = new Date().getTime();
+					if (time - firstClickTime < DblClickInterval) {
+						scope.$apply(attrs.doubleTap);
+					}
+				}
+			});
+		},
+	};
+});

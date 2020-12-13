@@ -64,7 +64,9 @@ app.directive('gallerySingleProperty', function() {
                         gallerySlider.scrollLeft = gallerySlider.querySelector("img").offsetWidth * ($scope.currentIndex - 1);
                         gallerySlider.style.scrollBehavior = 'smooth';
                     });
-                }        
+                }      
+                
+                utils.toggleFullScreen();
             };
 
             $scope.getSectionStyle = () => {
