@@ -1,7 +1,6 @@
 app.controller('propsListingController', [
 	'$location',
 	'$rootScope',
-	'$scope',
 	'tokkoApi',
 	'$stateParams',
 	'$state',
@@ -10,7 +9,7 @@ app.controller('propsListingController', [
 	'sharedData',
 	'getFeaturedProperties',
 	'$q',
-	function ($location, $rootScope, $scope, tokkoApi, $stateParams, $state, $anchorScroll, utils, sharedData, getFeaturedProperties, $q) {
+	function ($location, $rootScope, tokkoApi, $stateParams, $state, $anchorScroll, utils, sharedData, getFeaturedProperties, $q) {
 		var propsListing = this;
 
 		// #region Private Properties
@@ -35,27 +34,22 @@ app.controller('propsListingController', [
 				action: () => propsListing.changeFilter({ type: 'o', val: this.filters.operations.default }),
 			},
 			types: {
-				isActive: false,
 				default: sharedData.tokkoSearchArgs.data.property_types,
 				action: () => propsListing.changeFilter({ type: 't', val: this.filters.types.default }),
 			},
 			subTypes: {
-				isActive: false,
 				default: [],
 				action: () => propsListing.changeFilter({ type: 'st', val: this.filters.subTypes.default }),
 			},
 			rooms: {
-				isActive: false,
 				default: [],
 				action: () => propsListing.changeFilter({ type: 'r', val: this.filters.rooms.default }),
 			},
 			cities: {
-				isActive: false,
 				default: [],
 				action: () => propsListing.changeFilter({ type: 'c', val: this.filters.cities.default }),
 			},
 			locations: {
-				isActive: false,
 				default: [],
 				action: () => propsListing.changeFilter({ type: 'l', val: this.filters.locations.default }),
 			},
@@ -91,7 +85,7 @@ app.controller('propsListingController', [
 
 				tokkoApi.find('property/get_search_summary', args, $q.defer()).then(
 					(result) => {
-            result = result.data;
+						result = result.data;
 						const cities = result.objects.locations.map((loc) => {
 							city = {
 								id: loc.parent_id,
@@ -270,7 +264,7 @@ app.controller('propsListingController', [
 			args.order = propsListing.order ? propsListing.order.order : 'asc';
 			args.offset = 0;
 
-      getProperties(tokkoApi, args);      
+			getProperties(tokkoApi, args);
 
 			$location.search({ args: JSON.stringify(args) });
 
@@ -285,16 +279,16 @@ app.controller('propsListingController', [
 
 			if (filter.type === 't') {
 				if (filter.val.length == propsListing.filters.types.default.length) {
-          propsListing.propertyType = filter.val;
-          cleanFilter('subTypes');
+					propsListing.propertyType = filter.val;
+					cleanFilter('subTypes');
 				} else {
 					if (propsListing.propertyType.length == propsListing.filters.types.default.length) {
 						propsListing.propertyType = filter.val;
 					} else {
 						propsListing.propertyType.push(filter.val);
 					}
-				}				
-        propsListing.subTypeSelected = [];        
+				}
+				propsListing.subTypeSelected = [];
 				handleFilter(filter, 'types');
 			}
 
@@ -396,7 +390,7 @@ app.controller('propsListingController', [
 		// #region On Init
 
 		document.title = 'Duit Propiedades Inmobiliaria';
-		
+
 		setActiveSection(propsListing.operationType);
 		$anchorScroll();
 
