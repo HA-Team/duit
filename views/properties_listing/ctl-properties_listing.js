@@ -139,13 +139,13 @@ app.controller('propsListingController', [
 
 						if (p.development && isDevAlreadyInResults) {
 							const isTypeAlreadyInResults = propsListing.results.some((prop) =>
-								prop.development && p.development ? prop.development.id == p.development.id && prop.full_prop.type.id == p.type.id : false
+								prop.development && p.development ? prop.development.id == p.development.id && prop.propType.id == p.type.id : false
 							);
 
 							if (!isTypeAlreadyInResults) pushPropertyToResults(p);
 							else {
 								const existingProp = propsListing.results.filter((prop) =>
-									prop.development && p.development ? prop.development.id == p.development.id && prop.full_prop.type.id == p.type.id : false
+									prop.development && p.development ? prop.development.id == p.development.id && prop.propType.id == p.type.id : false
 								)[0];
 								const newPropPrice = p.operations[p.operations.length - 1].prices.slice(-1)[0].price;
 
@@ -183,12 +183,13 @@ app.controller('propsListingController', [
 				rooms: prop.suite_amount ? prop.suite_amount : 0,
 				baths: prop.bathroom_amount ? prop.bathroom_amount : 0,
 				parkings: prop.parking_lot_amount ? prop.parking_lot_amount : 0,
-				cover_photo: prop.photos.length > 0 ? prop.photos[0].thumb : '/images/no-image.png',
+				coverPhoto: prop.photos.length > 0 ? prop.photos[0].thumb : '/images/no-image.png',
 				photos: prop.photos.length > 0 ? prop.photos : [{ image: '/images/no-image.png' }],
 				location: prop.location,
 				development: prop.development,
 				numberOfPropsForDevelopment: 1,
-				full_prop: prop,
+				propType: prop.type,
+				webPrice: prop.web_price				
 			});
 		};
 
@@ -365,7 +366,7 @@ app.controller('propsListingController', [
 			propsListing.find();
 		};
 
-		propsListing.doesPropertyHasEnvironments = (p) => p.full_prop.type.id != 10 && p.full_prop.type.id != 1;
+		propsListing.doesPropertyHasEnvironments = (p) => p.propType.id != 10 && p.propType.id != 1;
 
 		propsListing.toggleMoreLocations = (event) => {
 			const itemsContainerElement = event.target.previousElementSibling;

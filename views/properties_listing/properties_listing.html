@@ -131,13 +131,13 @@
           <!-- Listing Item -->
           <article class="prop-listing-item-card" ng-repeat="p in propsListing.results">
             <a href="{{'/#!/property/' + p.id}}">
-              <img src="{{p.cover_photo}}" alt="">            
+              <img src="{{p.coverPhoto}}" alt="">            
             </a>
             
             <div class="prop-listing-card-content prop-listing-card-not-dev" ng-if="!p.development">
               <h5>{{p.price | currency:p.currency:0}}</h5> 
               <p>{{p.area > 0 ? (p.area | number:0) + 'm': ''}}<sup ng-show="p.area > 0">2</sup> {{p.rooms == 1 ? ( p.area > 0 ? '| ' : '') + p.rooms + ' Dormitorio' : p.rooms > 1 ? (p.area > 0 ? '| ' : '') + p.rooms + ' Dormitorios' : ''}}</p> 
-              <p>{{p.full_prop.type.name}} en {{p.type}}</p> 
+              <p>{{p.propType.name}} en {{p.type}}</p> 
               <p>{{p.title}}</p> 
               <p>{{p.address}}</p>
             </div>
@@ -145,7 +145,7 @@
             <div class="prop-listing-card-content prop-listing-card-dev" ng-if="p.development">
               <p>Desde</p>
               <h5>{{p.price | currency:p.currency:0}}</h5> 
-              <p>{{propsListing.pluralize(p.full_prop.type.name)}} en {{p.type}}</p> 
+              <p>{{propsListing.pluralize(p.propType.name)}} en {{p.type}}</p> 
               <p>{{p.development.name}}</p> 
               <p>{{p.address}}</p>
             </div>
@@ -384,7 +384,7 @@
             <div class="mobile-list-card-details d-flex flex-column">              
               <a href="/#!/property/{{p.id}}"><p>{{p.title}} - {{p.address}}</p></a>
 
-              <span class="listing-price" ng-show="p.full_prop.web_price">{{p.price | currency:p.currency:0}}</span>
+              <span class="listing-price" ng-show="p.webPrice">{{p.price | currency:p.currency:0}}</span>
               
               <div class="mobile-card-icon-listing">
                 <p>{{p.area | number : 0}} m<sup>2</sup> {{propsListing.doesPropertyHasEnvironments(p) ? '-' : ''}}</p>
@@ -407,8 +407,8 @@
             <div class="mobile-list-card-details d-flex flex-column">              
               <a href="/#!/property/{{p.id}}"><p>{{p.development.name}} - {{p.development.address}}</p></a>
 
-              <p>{{propsListing.pluralize(p.full_prop.type.name)}} desde:</p>
-              <span class="listing-price" ng-show="p.full_prop.web_price">{{p.price | currency:p.currency:0}}</span>            
+              <p>{{propsListing.pluralize(p.propType.name)}} desde:</p>
+              <span class="listing-price" ng-show="p.webPrice">{{p.price | currency:p.currency:0}}</span>            
             </div>    
           </div>  
           <!-- Development Properties End -->
