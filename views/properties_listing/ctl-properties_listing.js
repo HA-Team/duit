@@ -29,7 +29,6 @@ app.controller('propsListingController', [
 		propsListing.tags = [];
 		propsListing.filters = {
 			operations: {
-				isActive: false,
 				default: sharedData.tokkoSearchArgs.data.operation_types,
 				action: () => propsListing.changeFilter({ type: 'o', val: this.filters.operations.default }),
 			},
@@ -335,10 +334,6 @@ app.controller('propsListingController', [
 
 			if (areAllPropsDisplayed) propsListing.loadingMore = false;
 		};
-
-		propsListing.toggleOrderModal = () => (propsListing.isOrderOpen = !propsListing.isOrderOpen);
-
-		propsListing.toggleFilterModal = () => (propsListing.isFilterOpen = !propsListing.isFilterOpen);
 
 		propsListing.changeOrder = (newVal) => {
 			propsListing.orderBy = newVal;

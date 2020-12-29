@@ -20,7 +20,7 @@
         <!-- Order Section -->
         <div class="desktop-prop-listing-order" ng-class="{'open': propsListing.isOrderOpen}">
           <h4>Ordenar Publicaciones</h4>
-          <p ng-click="propsListing.toggleOrderModal()" tabindex="-1" ng-blur="propsListing.isOrderOpen = false">{{propsListing.orderBy.text}}<i class="fas fa-angle-down"></i></p>
+          <p ng-click="propsListing.isOrderOpen = !propsListing.isOrderOpen" tabindex="-1" ng-blur="propsListing.isOrderOpen = false">{{propsListing.orderBy.text}}<i class="fas fa-angle-down"></i></p>
           <ul class="desktop-order-modal" >
             <li class="desktop-order-modal-item" ng-repeat="option in propsListing.orderOptions track by option.val" ng-click="propsListing.changeOrder(option)"
             ng-class="{' selected': option.val == propsListing.orderBy.val}">            
@@ -176,16 +176,16 @@
     <!-- Mobile Filter Menu --> 
     <div class="d-flex flex-row mobile-filter-menu-container">      
       <div class="mobile-filter-menu-item">
-        <div class="margin-right-10 mobile-filter-menu-icon" ng-click="propsListing.toggleOrderModal()">
+        <div class="margin-right-10 mobile-filter-menu-icon" ng-click="propsListing.isOrderOpen = !propsListing.isOrderOpen">
           <i class="fa fa-long-arrow-down"></i>
           <i class="fa fa-long-arrow-up"></i>
         </div>        
-        <h4 ng-click="propsListing.toggleOrderModal()">Ordenar</h4>
+        <h4 ng-click="propsListing.isOrderOpen = !propsListing.isOrderOpen">Ordenar</h4>
       </div> 
       <div class="vertical-line"></div>     
       <div class="mobile-filter-menu-item">
-        <i class="fa fa-sliders margin-right-10 mobile-filter-menu-icon" ng-click="propsListing.toggleFilterModal()"></i>
-        <h4 ng-click="propsListing.toggleFilterModal()">Filtrar</h4>
+        <i class="fa fa-sliders margin-right-10 mobile-filter-menu-icon" ng-click="propsListing.isFilterOpen = !propsListing.isFilterOpen"></i>
+        <h4 ng-click="propsListing.isFilterOpen = !propsListing.isFilterOpen">Filtrar</h4>
       </div>
     </div>
     <!-- Mobile Filter Menu End -->
@@ -202,7 +202,7 @@
           </li>          
         </ul>
       </div>  
-      <div class="mobile-modal-background" ng-click="propsListing.toggleOrderModal()"></div>    
+      <div class="mobile-modal-background" ng-click="propsListing.isOrderOpen = !propsListing.isOrderOpen"></div>    
     </div>
     <!-- Mobile Order Modal End -->
 
@@ -360,7 +360,7 @@
 
         </ul>
       </div>  
-      <div class="mobile-modal-background" ng-click="propsListing.toggleFilterModal()"></div>    
+      <div class="mobile-modal-background" ng-click="propsListing.isFilterOpen = !propsListing.isFilterOpen"></div>    
     </div>
     <!-- Mobile Filter Modal End -->
 
