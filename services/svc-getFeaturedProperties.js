@@ -80,7 +80,6 @@ app.service('getFeaturedProperties', [
 							});
 
 							sharedData.setDevs(results);
-							console.log(results);
 							sessionStorage.setItem('developments', JSON.stringify(results));
 						});
 					},
