@@ -656,15 +656,12 @@
 }
 
 .prop-listing-desktop-container .prop-listing-card-dev p:nth-of-type(2) {
-  margin-top: 10px;
-}
-
-.prop-listing-desktop-container .prop-listing-card-dev p:nth-of-type(3) {
+  margin-top: 5px;
   font-size: 18px;
   color: black;
 }
 
-.prop-listing-desktop-container .prop-listing-card-dev p:nth-of-type(4) {
+.prop-listing-desktop-container .prop-listing-card-dev p:nth-of-type(3) {
   margin-top: 10px;
 }
 
@@ -701,3 +698,48 @@
   transform: rotateZ(180deg);
 }
 
+nav.listing-nav-arrows {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 15px;
+}
+
+nav.listing-nav-arrows button {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 35px;
+  height: 35px;
+  margin: 0 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--soft-red);
+  color: white;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+}
+
+nav.listing-nav-arrows button i {
+  font-size: 20px;
+}
+
+nav.listing-nav-arrows button.active {
+  background-color: var(--primary-red);
+  transform: scale(1.1);
+  pointer-events: none;
+}
+
+nav.listing-nav-arrows button:hover {
+  background-color: var(--primary-red);
+}
+
+nav.listing-nav-arrows button:disabled {
+  background-color: #eabac1;
+}
+
+nav.listing-nav-arrows button:first-child,
+nav.listing-nav-arrows button:last-child {
+  width: 100px;
+}

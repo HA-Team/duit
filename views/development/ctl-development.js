@@ -40,7 +40,7 @@ app.controller('developmentController', [
 		// #region On Init
 
 		var getDevsInterval = setInterval(() => {
-			if (sharedData.devs.length > 0) {
+			if (sharedData.devs.length > 0 && development.d) {
 				sharedData.devs = sharedData.devs.filter((dev) => dev.minPrice);
 
 				const filteredDevs = sharedData.devs.filter((dev) => dev.location.id == development.d.location.id);
@@ -153,7 +153,7 @@ app.controller('developmentController', [
 					result = result.data.objects;
 
 					development.devProps = result.map((prop) => {
-						const price = prop.operations[prop.operations.length - 1].prices.slice(-1)[0];
+						const price = utils.getPrice(prop);
 
 						if (price.price < development.d.minPrice || !development.d.minPrice) {
 							development.d.minPrice = price.price;

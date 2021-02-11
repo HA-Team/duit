@@ -1,4 +1,4 @@
-const app = angular.module('duit', ['ui.router', 'infinite-scroll', 'angular-google-analytics']);
+const app = angular.module('duit', ['ui.router', 'angular-google-analytics']);
 
 app.config(function($stateProvider, $urlRouterProvider, $provide) {
   $urlRouterProvider.otherwise('/');

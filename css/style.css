@@ -2359,19 +2359,19 @@ section.fullwidth.border-bottom {
     margin-left: 85px;
 }
 .back-to-listings {
-    position: absolute;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     height: 50px;
-    width: 50px;
+    width: 100px;
     background-color: #eaeaea;
     color: #a0a0a0;
-    border-radius: 50%;
+    border-radius: 5px;
     text-align: center;
     transition: all .4s;
     cursor: pointer;
     margin: 15px;
+    font-size: 18px;
 }
 .back-to-listings:before {
     font-family: "Font Awesome 5 Free";
@@ -9589,7 +9589,7 @@ section.fullwidth .blog-post {
     -moz-columns: 1;
 }
 a.back-to-listings {
-    width: 35px;
+    width: 95px;
     height: 35px;
     z-index: 3;
 }
@@ -9965,6 +9965,11 @@ div.layout-style {
 
 .align-items-baseline {
     align-items: baseline;
+}
+
+.hide-me {
+    visibility: hidden;
+	pointer-events: none;
 }
 
 @media only screen and (max-width: 1024px) {

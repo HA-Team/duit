@@ -1,91 +1,114 @@
-app.service('getFeaturedProperties', ['tokkoApi', 'sharedData', '$filter', '$q', function(tokkoApi, sharedData, $filter, $q) {
-    var service = this;
- 
-    this.getSimilarProps = (operationType, typeId, price, customTags) => {
+app.service('getFeaturedProperties', [
+	'tokkoApi',
+	'sharedData',
+	'$filter',
+	'$q',
+	'utils',
+	function (tokkoApi, sharedData, $filter, $q, utils) {
+		var service = this;
 
-        let data = sharedData.tokkoSearchArgs.data;
-        
-        data.operation_types = [operationType];
-        data.property_types = [typeId];
-        data.price_from = Math.round(price * 0.8);
-        data.price_to = Math.round(price * 1.2);
-        data.filters = [];
+		this.getSimilarProps = (operationType, typeId, price, customTags) => {
+			let data = sharedData.tokkoSearchArgs.data;
 
-        if (customTags > 0) data.with_custom_tags = [customTags.slice(-1)[0].id];
+			data.operation_types = [operationType];
+			data.property_types = [typeId];
+			data.price_from = Math.round(price * 0.8);
+			data.price_to = Math.round(price * 1.2);
+			data.filters = [];
 
-        const args = {data: JSON.stringify(data), order: 'desc'};
+			if (customTags > 0) data.with_custom_tags = [customTags.slice(-1)[0].id];
 
-        return tokkoApi.find('property/search', args, $q.defer());  
-    };
+			const args = { data: JSON.stringify(data), order: 'desc' };
 
-    this.getDevelopmentProps = (id) => {
-        const args = {development: id, order: 'desc'};
-        return tokkoApi.find('property', args, $q.defer());
-    };
-        
-    this.getFeaturedProps = () => {
-        let data = JSON.parse(_.clone(sharedData.tokkoSearchArgs.sData));
-        data.filters.push(["is_starred_on_web", "=", "true"]);
-        let args = {data: JSON.stringify(data), order: 'desc'};
-        
-        return tokkoApi.find('property/search', args, $q.defer());
-    };
+			return tokkoApi.find('property/search', args, $q.defer());
+		};
 
-    this.getFeatured360Props = () => {
-        let data = JSON.parse(_.clone(sharedData.tokkoSearchArgs.sData));
-        data.filters.push(["is_starred_on_web", "=", "true"]);
-        let args = {data: JSON.stringify(data), order: 'desc'};
+		this.getDevelopmentProps = (id) => {
+			const args = { development: id, order: 'desc' };
+			return tokkoApi.find('property', args, $q.defer());
+		};
 
-        args.limit = 100;
-        
-        return tokkoApi.find('property/search', args, $q.defer());
-    };
+		this.getFeaturedProps = () => {
+			let data = JSON.parse(_.clone(sharedData.tokkoSearchArgs.sData));
+			data.filters.push(['is_starred_on_web', '=', 'true']);
+			let args = { data: JSON.stringify(data), order: 'desc' };
 
-    this.getDevs = () => {
-        let args = {order: 'desc', limit: 100};
+			return tokkoApi.find('property/search', args, $q.defer());
+		};
 
-        tokkoApi.find('development', args, $q.defer()).then(results => {
-            results = results.data.objects;
+		this.getFeatured360Props = () => {
+			let data = JSON.parse(_.clone(sharedData.tokkoSearchArgs.sData));
+			data.filters.push(['is_starred_on_web', '=', 'true']);
+			let args = { data: JSON.stringify(data), order: 'desc' };
 
-            results.forEach((dev, index, array) => {
-                service.getDevelopmentProps(dev.id).then(result => {
-                    result = result.data.objects;
+			args.limit = 100;
 
-                    if (result.length > 0) {          
-                        const minPriceProp = result.reduce((min, prop) => {
-                            const price = prop.operations[prop.operations.length - 1].prices.slice(-1)[0].price;
-                    
-                            return price < min.operations[min.operations.length - 1].prices.slice(-1)[0].price ? prop : min;
-                        }, result[0]);
-            
-                        const price = minPriceProp.operations[minPriceProp.operations.length - 1].prices.slice(-1)[0];
-                        
-                        dev.minPrice = $filter('currency')(price.price, `${price.currency} `, 0);
-                    }
-                    
-                    if (index === array.length -1) sharedData.setDevs(results);
-                }, reject => null);
-            });
-        }, reject => null);
-    };
+			return tokkoApi.find('property/search', args, $q.defer());
+		};
 
-    this.getProperties = (url, args) => {
-        var deferredAbort = $q.defer();
+		this.getDevs = () => {
+			let args = { order: 'desc', limit: 100 };
 
-        var request = tokkoApi.find(url, args, deferredAbort);
+			var sessionDevs = JSON.parse(sessionStorage.getItem('developments'));
 
-        var promise = request.then(
-            response => response.data,
-            reject => $q.reject('Something went wrong!')
-        );
+			if (!sessionDevs) {
+				tokkoApi.find('development', args, $q.defer()).then(
+					(results) => {
+						results = results.data.objects;
 
-        promise.abort = () => deferredAbort.resolve();
+						var arr = [];
+						results.forEach((dev) => {
+							arr.push(service.getDevelopmentProps(dev.id));
+						});
 
-        promise.finally = () => {
-            promise.abort = angular.noop;
-            deferredAbort = request = promise = null;
-        };
+						$q.all(arr).then((result) => {
+							result.forEach((res, index) => {
+								res = res.data.objects;
 
-        return promise;
-    };
-}]);
+								if (res.length > 0) {
+									const minPriceProp = res.reduce((min, prop) => {
+										const price = utils.getPrice(prop).price;
+
+										return price < utils.getPrice(min).price ? prop : min;
+									}, res[0]);
+
+									const price = utils.getPrice(minPriceProp);
+
+									results[index].minPrice = $filter('currency')(price.price, `${price.currency} `, 0);
+									results[index].minPriceId = minPriceProp.id;
+								}
+							});
+
+							sharedData.setDevs(results);
+							console.log(results);
+							sessionStorage.setItem('developments', JSON.stringify(results));
+						});
+					},
+					(reject) => null
+				);
+			} else {
+				sharedData.setDevs(sessionDevs);
+			}
+		};
+
+		this.getProperties = (url, args) => {
+			var deferredAbort = $q.defer();
+
+			var request = tokkoApi.find(url, args, deferredAbort);
+
+			var promise = request.then(
+				(response) => response.data,
+				(reject) => $q.reject('Something went wrong!')
+			);
+
+			promise.abort = () => deferredAbort.resolve();
+
+			promise.finally = () => {
+				promise.abort = angular.noop;
+				deferredAbort = request = promise = null;
+			};
+
+			return promise;
+		};
+	},
+]);

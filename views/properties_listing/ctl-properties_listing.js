@@ -14,20 +14,34 @@ app.controller('propsListingController', [
 
 		// #region Private Properties
 
-		let args = JSON.parse($stateParams.args);
-		let data = JSON.parse(args.data);
-		var getTokkoProperties = null;
+		propsListing.args = JSON.parse($stateParams.args);
+		let data = JSON.parse(propsListing.args.data);
+		var newSearch = true;
+		var isDevReady = false;
+		var updateSubtype = true;
+		var updateLocation = true;
+		const MAX_PAGES_TO_SHOW = 10;
+		const PROPS_PER_PAGE = 40;
 
 		// #endregion
 
 		// #region Scoped Properties
 
 		$rootScope.activeMenu = 'propertySearch';
+
 		propsListing.results = [];
-		propsListing.resultsCount = 0;
-		propsListing.sideBarParams = {};
 		propsListing.tags = [];
+
+		propsListing.resultsCount = 0;
+
+		propsListing.sideBarParams = {};
 		propsListing.filters = {
+			minPrice: {
+				default: ''
+			},
+			maxPrice: {
+				default: ''
+			},
 			operations: {
 				default: sharedData.tokkoSearchArgs.data.operation_types,
 				action: () => propsListing.changeFilter({ type: 'o', val: this.filters.operations.default }),
@@ -38,7 +52,8 @@ app.controller('propsListingController', [
 			},
 			subTypes: {
 				default: [],
-				action: () => propsListing.changeFilter({ type: 'st', val: this.filters.subTypes.default }),
+				selected: [],
+				action: (value) => propsListing.changeFilter({ type: 'st', val: value }),
 			},
 			rooms: {
 				default: [],
@@ -50,14 +65,18 @@ app.controller('propsListingController', [
 			},
 			locations: {
 				default: [],
-				action: () => propsListing.changeFilter({ type: 'l', val: this.filters.locations.default }),
+				selected: [],
+				action: (value) => propsListing.changeFilter({ type: 'l', val: value }),
 			},
 		};
+		propsListing.pages = {
+			activePage: 1,
+			pages: 1,
+			pagesToShow: [1],
+		};
 
-		propsListing.apiReady = true;
+		propsListing.apiReady = false;
 		propsListing.ifResults = true;
-		propsListing.stopInfiniteScroll = true;
-		propsListing.loadingMore = false;
 		propsListing.isOrderOpen = false;
 		propsListing.isFilterOpen = false;
 
@@ -71,100 +90,99 @@ app.controller('propsListingController', [
 		const setActiveSection = (operationType) => ($rootScope.activeSection = operationType == 1 ? 'properties-sell' : 'properties-rent');
 
 		const getProperties = (tokkoApi, rargs) => {
-			let args = {
-				data: rargs.data,
-				order: rargs.order,
-				order_by: rargs.order_by,
-				limit: rargs.limit ? rargs.limit : 20,
-				offset: rargs.offset ? rargs.offset : 0,
-			};
-			if (args.offset == 0) {
+			if (isDevReady) {
+				let args = {
+					data: rargs.data,
+					order: rargs.order,
+					order_by: rargs.order_by,
+					limit: rargs.limit ? rargs.limit : PROPS_PER_PAGE,
+					offset: rargs.offset ? rargs.offset : 0,
+				};
+
 				propsListing.apiReady = false;
 				propsListing.results = [];
 
-				tokkoApi.find('property/get_search_summary', args, $q.defer()).then(
-					(result) => {
-						result = result.data;
-						const cities = result.objects.locations.map((loc) => {
-							city = {
-								id: loc.parent_id,
-								name: loc.parent_name,
+				if (newSearch) {
+					tokkoApi.find('property/get_search_summary', args, $q.defer()).then(
+						(result) => {
+							result = result.data;
+							const cities = result.objects.locations.map((loc) => {
+								city = {
+									id: loc.parent_id,
+									name: loc.parent_name,
+								};
+
+								return city;
+							});
+
+							let types = result.objects.property_types;
+							propsListing.sideBarParams = {
+								locations: updateLocation ? result.objects.locations : propsListing.sideBarParams.locations,
+								cities: cities.filter((val, ind, arr) => arr.findIndex((t) => val.id && t.id === val.id) === ind),
+								types: types.sort((a, b) => b.count - a.count),
+								subTypes: (() => {
+									if (updateSubtype) {
+										if (propsListing.subTypeSelected && propsListing.subTypeSelected.length > 0 && types[0]) {
+											return [sharedData.propertiesSubTypes[types[0].id].find((x) => x.id === propsListing.subTypeSelected[0])];
+										} else {
+											return types.length === 1 ? sharedData.propertiesSubTypes[types[0].id] : [];
+										}
+									} else {
+										return propsListing.sideBarParams.subTypes;
+									}
+								})(),
+								operations: result.objects.operation_types.sort((a, b) => b.count - a.count),
+								rooms: result.objects.suite_amount.sort((a, b) => b.count - a.count),
 							};
 
-							return city;
-						});
+							propsListing.sideBarParams.cities.forEach((city) => {
+								city.count = cities.filter((c) => c.id == city.id).length;
+							});
 
-						let types = result.objects.property_types;
-						propsListing.sideBarParams = {
-							locations: result.objects.locations,
-							cities: cities.filter((val, ind, arr) => arr.findIndex((t) => val.id && t.id === val.id) === ind),
-							types: types.sort((a, b) => b.count - a.count),
-							subTypes: (() => {
-								if (propsListing.subTypeSelected && propsListing.subTypeSelected.length > 0 && types[0]) {
-									return [sharedData.propertiesSubTypes[types[0].id].find((x) => x.id === propsListing.subTypeSelected[0])];
-								} else {
-									return types.length === 1 ? sharedData.propertiesSubTypes[types[0].id] : [];
+							if (propsListing.sideBarParams.rooms.find((room) => room.amount == 0)) {
+								const propsWithoutRoomsDiffThanHousesOrDepts =
+									propsListing.sideBarParams.types.filter((type) => type.id != 2 && type.id != 3).length > 0
+										? propsListing.sideBarParams.types.reduce((total, type) => (type.id != 2 && type.id != 3 ? (total += type.count) : 0), 0)
+										: 0;
+								propsListing.sideBarParams.rooms.find((room) => room.amount == 0).count -= propsWithoutRoomsDiffThanHousesOrDepts;
+							}
+
+							propsListing.isAnyTypeHouseOrDept = propsListing.sideBarParams.types.some((type) => type.id == 2 || type.id == 3);
+
+							propsListing.resultsCount = result.meta.total_count;
+							propsListing.pages.cant = Math.ceil(propsListing.resultsCount / PROPS_PER_PAGE);
+							propsListing.pages.pagesToShow = [
+								...Array(parseInt(propsListing.pages.cant > MAX_PAGES_TO_SHOW ? MAX_PAGES_TO_SHOW : propsListing.pages.cant)).keys(),
+							].map((x) => ++x);
+
+							newSearch = false;
+						},
+						(reject) => null
+					);
+				}
+
+				(getTokkoProperties = getFeaturedProperties.getProperties('property/search', args)).then(
+					(result) => {
+						result.objects.forEach((p) => {
+							const isDevAlreadyInResults = propsListing.results.some((prop) => prop.development && p.development && prop.development.id == p.development.id);
+
+							if (!isDevAlreadyInResults) {
+								const dev = sharedData.devs.filter((dev) => dev.id == p.development?.id)[0];
+								if (p.development && dev) {
+									p.minPrice = dev.minPrice;
+									p.id = dev.minPriceId;
+									p.address = dev.address;
 								}
-							})(),
-							operations: result.objects.operation_types.sort((a, b) => b.count - a.count),
-							rooms: result.objects.suite_amount.sort((a, b) => b.count - a.count),
-						};
-
-						propsListing.sideBarParams.cities.forEach((city) => {
-							city.count = cities.filter((c) => c.id == city.id).length;
+								pushPropertyToResults(p);
+							}
 						});
 
-						if (propsListing.sideBarParams.rooms.find((room) => room.amount == 0)) {
-							const propsWithoutRoomsDiffThanHousesOrDepts =
-								propsListing.sideBarParams.types.filter((type) => type.id != 2 && type.id != 3).length > 0
-									? propsListing.sideBarParams.types.reduce((total, type) => (type.id != 2 && type.id != 3 ? (total += type.count) : 0), 0)
-									: 0;
-							propsListing.sideBarParams.rooms.find((room) => room.amount == 0).count -= propsWithoutRoomsDiffThanHousesOrDepts;
-						}
-
-						propsListing.isAnyTypeHouseOrDept = propsListing.sideBarParams.types.some((type) => type.id == 2 || type.id == 3);
-
-						propsListing.resultsCount = result.meta.total_count;
+						propsListing.results.length > 0 ? (propsListing.ifResults = true) : (propsListing.ifResults = false);
+						propsListing.apiReady = true;
 					},
 					(reject) => null
 				);
 			}
-
-			(getTokkoProperties = getFeaturedProperties.getProperties('property/search', args)).then(
-				(result) => {
-					result.objects.forEach((p) => {
-						const isDevAlreadyInResults = propsListing.results.some((prop) =>
-							prop.development && p.development ? prop.development.id == p.development.id : false
-						);
-
-						if (p.development && isDevAlreadyInResults) {
-							const isTypeAlreadyInResults = propsListing.results.some((prop) =>
-								prop.development && p.development ? prop.development.id == p.development.id && prop.propType.id == p.type.id : false
-							);
-
-							if (!isTypeAlreadyInResults) pushPropertyToResults(p);
-							else {
-								const existingProp = propsListing.results.filter((prop) =>
-									prop.development && p.development ? prop.development.id == p.development.id && prop.propType.id == p.type.id : false
-								)[0];
-								const newPropPrice = p.operations[p.operations.length - 1].prices.slice(-1)[0].price;
-
-								if (newPropPrice < existingProp.price) {
-									existingProp.price = newPropPrice;
-									existingProp.id = p.id;
-								}
-								existingProp.numberOfPropsForDevelopment++;
-							}
-						} else pushPropertyToResults(p);
-					});
-
-					propsListing.results.length > 0 ? (propsListing.ifResults = true) : (propsListing.ifResults = false);
-					propsListing.apiReady = true;
-					propsListing.stopInfiniteScroll = false;
-					propsListing.loadingMore = false;
-				},
-				(reject) => null
-			);
 		};
 
 		const pushPropertyToResults = (prop) => {
@@ -175,11 +193,9 @@ app.controller('propsListingController', [
 				agent: prop.branch ? prop.branch.name : '',
 				area: prop.type.id === 1 ? prop.surface : prop.roofed_surface,
 				type: prop.operations[0].operation_type,
-				currency:
-					prop.operations[prop.operations.length - 1].prices.slice(-1)[0].currency === 'ARS'
-						? '$'
-						: prop.operations[prop.operations.length - 1].prices.slice(-1)[0].currency,
-				price: prop.operations[prop.operations.length - 1].prices.slice(-1)[0].price,
+				currency: utils.getPrice(prop).currency === 'ARS' ? '$' : utils.getPrice(prop).currency,
+				price: utils.getPrice(prop).price,
+				minPrice: prop.minPrice,
 				rooms: prop.suite_amount ? prop.suite_amount : 0,
 				baths: prop.bathroom_amount ? prop.bathroom_amount : 0,
 				parkings: prop.parking_lot_amount ? prop.parking_lot_amount : 0,
@@ -187,9 +203,8 @@ app.controller('propsListingController', [
 				photos: prop.photos.length > 0 ? prop.photos : [{ image: '/images/no-image.png' }],
 				location: prop.location,
 				development: prop.development,
-				numberOfPropsForDevelopment: 1,
 				propType: prop.type,
-				webPrice: prop.web_price				
+				webPrice: prop.web_price,
 			});
 		};
 
@@ -243,12 +258,19 @@ app.controller('propsListingController', [
 		propsListing.roomAmtName = (amount) => (parseInt(amount) > 0 ? (amount == 1 ? `${amount} Dormitorio` : `${amount} Dormitorios`) : 'Loft ');
 
 		propsListing.find = () => {
-			getTokkoProperties.abort();
 			let data = JSON.parse(_.clone(sharedData.tokkoSearchArgs.sData));
 
 			data.operation_types = propsListing.operationType;
 			data.property_types = propsListing.propertyType;
-			data.with_custom_tags = propsListing.subTypeSelected;
+
+			if (!propsListing.subTypeSelected || propsListing.subTypeSelected.length <= 1) {
+				data.with_custom_tags = propsListing.subTypeSelected;
+			} else {
+				data.without_custom_tags = propsListing.sideBarParams.subTypes
+					.filter((subType) => !propsListing.subTypeSelected.some((subTypeSelected) => subType.id == subTypeSelected))
+					.map((subType) => subType.id);
+			}
+
 			data.current_localization_id = propsListing.location;
 			data.filters = [propsListing.rooms];
 
@@ -259,19 +281,23 @@ app.controller('propsListingController', [
 				data.property_types = data.property_types.filter((type) => type == 2 || type == 3);
 			}
 
-			args.data = JSON.stringify(data);
-			args.order_by = propsListing.order ? propsListing.order.order_by : 'price';
-			args.order = propsListing.order ? propsListing.order.order : 'asc';
-			args.offset = 0;
+			propsListing.args.data = JSON.stringify(data);
+			propsListing.args.order_by = propsListing.order ? propsListing.order.order_by : 'price';
+			propsListing.args.order = propsListing.order ? propsListing.order.order : 'asc';
+			propsListing.args.offset = 0;
 
-			getProperties(tokkoApi, args);
+			getProperties(tokkoApi, propsListing.args);
 
-			$location.search({ args: JSON.stringify(args) });
+			$location.search({ args: JSON.stringify(propsListing.args) });
 
 			setActiveSection(propsListing.operationType);
 		};
 
 		propsListing.changeFilter = (filter) => {
+			newSearch = true;
+			updateSubtype = true;
+			updateLocation = true;
+
 			if (filter.type === 'o') {
 				propsListing.operationType = filter.val;
 				handleFilter(filter, 'operations');
@@ -293,8 +319,15 @@ app.controller('propsListingController', [
 			}
 
 			if (filter.type === 'st') {
-				propsListing.subTypeSelected = filter.val;
-				handleFilter(filter, 'subTypes');
+				if (propsListing.filters.subTypes.selected.indexOf(filter.val) == -1) {
+					propsListing.filters.subTypes.selected.push(filter.val);
+				} else {
+					propsListing.filters.subTypes.selected.splice(propsListing.filters.subTypes.selected.indexOf(filter.val), 1);
+				}
+
+				propsListing.subTypeSelected = propsListing.filters.subTypes.selected.map((type) => type.id);
+
+				updateSubtype = false;
 			}
 
 			if (filter.type === 'r') {
@@ -311,29 +344,45 @@ app.controller('propsListingController', [
 			}
 
 			if (filter.type === 'l') {
-				propsListing.location = filter.val;
-				cleanFilter('cities');
-				handleFilter(filter, 'locations');
+				if (propsListing.filters.locations.selected.indexOf(filter.val) == -1) {
+					propsListing.filters.locations.selected.push(filter.val);
+				} else {
+					propsListing.filters.locations.selected.splice(propsListing.filters.locations.selected.indexOf(filter.val), 1);
+				}
+
+				propsListing.location = propsListing.filters.locations.selected.map((loc) => loc.location_id);
+				
+				updateLocation = false;
 			}
 
 			if (filter.type === 'or') {
 				propsListing.order = { order_by: propsListing.orderBy.val.split('_')[0], order: propsListing.orderBy.val.split('_')[1] };
+				newSearch = false;
 			}
 
 			propsListing.find();
 		};
 
-		propsListing.loadMoreProps = () => {
-			args.offset += 20;
-			propsListing.stopInfiniteScroll = true;
-			propsListing.loadingMore = true;
-			getProperties(tokkoApi, args);
+		propsListing.goToPage = (index) => {
+			propsListing.pages.activePage = index;
+			const halfCantOfPages = MAX_PAGES_TO_SHOW / 2;
+			const isActivePageInFirstHalf = propsListing.pages.activePage < halfCantOfPages;
+			const isActivePageInLastHalf = propsListing.pages.activePage > propsListing.pages.cant - halfCantOfPages;
 
-			const numberOfPropsInResults = propsListing.results.reduce((a, b) => a + b.numberOfPropsForDevelopment, 0);
-			const areAllPropsDisplayed =
-				!propsListing.sideBarParams || !propsListing.sideBarParams.operations ? true : propsListing.resultsCount == numberOfPropsInResults;
+			let pagesOffset = isActivePageInFirstHalf
+				? 1
+				: isActivePageInLastHalf
+				? propsListing.pages.cant - MAX_PAGES_TO_SHOW + 1
+				: propsListing.pages.activePage - halfCantOfPages + 1;
 
-			if (areAllPropsDisplayed) propsListing.loadingMore = false;
+			propsListing.pages.pagesToShow = [
+				...Array(parseInt(propsListing.pages.cant > MAX_PAGES_TO_SHOW ? MAX_PAGES_TO_SHOW : propsListing.pages.cant)).keys(),
+			].map((x) => (x += pagesOffset));
+
+			propsListing.args.offset = (index - 1) * PROPS_PER_PAGE;
+			window.scrollTo(0, 0);
+
+			getProperties(tokkoApi, propsListing.args);
 		};
 
 		propsListing.changeOrder = (newVal) => {
@@ -391,8 +440,15 @@ app.controller('propsListingController', [
 		$anchorScroll();
 
 		delete data.current_localization_id;
-		args.data = JSON.stringify(data);
-		getProperties(tokkoApi, args);
+		propsListing.args.data = JSON.stringify(data);
+
+		var getDevsInterval = setInterval(() => {
+			if (sharedData.devs.length > 0) {
+				isDevReady = true;
+				getProperties(tokkoApi, propsListing.args);
+				clearInterval(getDevsInterval);
+			}
+		}, 200);
 
 		setInitialTags();
 

@@ -49,8 +49,8 @@ app.controller('propertyController', [
 				property.p = {
 					id: result.id,
 					operation_type: result.operations[0].operation_type,
-					currency: result.operations[result.operations.length - 1].prices.slice(-1)[0].currency,
-					price: result.operations[result.operations.length - 1].prices.slice(-1)[0].price,
+					currency: utils.getPrice(result).currency,
+					price: utils.getPrice(result).price,
 					rooms: result.suite_amount ? result.suite_amount : 0,
 					enviroments: result.room_amount ? result.room_amount : 0,
 					baths: result.bathroom_amount ? result.bathroom_amount : 0,
@@ -87,7 +87,7 @@ app.controller('propertyController', [
 				property.propertyMapped = {
 					photos: result.photos,
 					videos: result.videos,
-					video_url: result.videos.length ? result.videos[0].player_url + '?rel=0&enablejsapi=1' : null,
+					video_url: result.videos.some((video) => video.provider_id == 6) ? result.videos.filter(video => video.provider_id == 6)[0].player_url + '?rel=0&enablejsapi=1' : null,
 				};
 
 				property.featuresItems = [
@@ -260,8 +260,8 @@ app.controller('propertyController', [
 								id: prop.id,
 								title: prop.publication_title,
 								type: prop.operations[0].operation_type,
-								currency: prop.operations[prop.operations.length - 1].prices.slice(-1)[0].currency,
-								price: prop.operations[prop.operations.length - 1].prices.slice(-1)[0].price,
+								currency: utils.getPrice(prop).currency,
+								price: utils.getPrice(prop).price,
 								cover_photo: prop.photos[0] ? prop.photos[0].image : '/images/no-image.png',
 								parkings: prop.parking_lot_amount ? prop.parking_lot_amount : 0,
 								area: prop.type.id === 1 ? prop.surface : prop.roofed_surface,
@@ -294,7 +294,7 @@ app.controller('propertyController', [
 					result = result.data.objects;
 
 					property.devProps = result.map((prop) => {
-						const price = prop.operations[prop.operations.length - 1].prices.slice(-1)[0];
+						const price = utils.getPrice(prop);
 
 						const getSpecificAddressReg = /.+(\-.+)$/gs;
 						const address = getSpecificAddressReg.exec(prop.real_address);

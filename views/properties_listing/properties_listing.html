@@ -15,6 +15,9 @@
           <p class="badge badge-default" ng-repeat="(key, value) in propsListing.filters" ng-if="value.isActive">
             {{value.name}} <span class="badge badge-danger" ng-click="value.action();"><i class="fa fa-times"></i></span>
           </p>
+          <p class="badge badge-default" ng-repeat="subType in propsListing.filters.subTypes.selected">
+            {{subType.name}} <span class="badge badge-danger" ng-click="propsListing.filters.subTypes.action(subType);"><i class="fa fa-times"></i></span>
+          </p>
         </div>
 
         <!-- Order Section -->
@@ -69,10 +72,10 @@
         <!-- Condition Filter -->
         <div class="margin-top-20" ng-if="propsListing.sideBarParams.types.length == 1 && propsListing.sideBarParams.subTypes.length > 0">
           <h4>Condición</h4>
-          <p class="badge badge-default" ng-if="propsListing.filters.subTypes.isActive && subType.id == propsListing.filters.subTypes.selected" ng-repeat="subType in propsListing.sideBarParams.subTypes">
-            {{subType.name}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'st', val: propsListing.filters.subTypes.default})"><i class="fa fa-times"></i></span>
+          <p class="badge badge-default" ng-if="propsListing.filters.subTypes.selected.indexOf(subType) != -1" ng-repeat="subType in propsListing.sideBarParams.subTypes">
+            {{subType.name}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'st', val: subType})"><i class="fa fa-times"></i></span>
           </p>
-          <p class="badge badge-info" ng-if="!propsListing.filters.subTypes.isActive" ng-repeat="subType in propsListing.sideBarParams.subTypes" ng-click="propsListing.changeFilter({type: 'st', val: [subType.id], name: subType.name})">
+          <p class="badge badge-info" ng-if="propsListing.filters.subTypes.selected.indexOf(subType) == -1" ng-repeat="subType in propsListing.sideBarParams.subTypes" ng-click="propsListing.changeFilter({type: 'st', val: subType})">
             {{subType.name}}</i></span>
           </p>
         </div>
@@ -107,10 +110,10 @@
         <!-- Location Filter -->
         <div class="margin-top-20 prop-listing-location-filter">
           <h4>Barrio</h4>
-          <p class="badge badge-default" ng-if="propsListing.filters.locations.isActive && location.location_id == propsListing.filters.locations.selected" ng-repeat="location in propsListing.sideBarParams.locations">
-            {{location.location_name}}<span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'l', val: propsListing.filters.locations.default})"><i class="fa fa-times"></i></span>
+          <p class="badge badge-default" ng-if="propsListing.filters.locations.selected.indexOf(location) != -1" ng-repeat="location in propsListing.sideBarParams.locations">
+            {{location.location_name}}<span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'l', val: location })"><i class="fa fa-times"></i></span>
           </p>
-          <p class="badge badge-info" ng-if="!propsListing.filters.locations.isActive" ng-repeat="location in propsListing.sideBarParams.locations" ng-click="propsListing.changeFilter({type: 'l', val: [location.location_id], name: location.location_name})">
+          <p class="badge badge-info" ng-if="propsListing.filters.locations.selected.indexOf(location) == -1" ng-repeat="location in propsListing.sideBarParams.locations" ng-click="propsListing.changeFilter({type: 'l', val: location })">
             {{location.location_name}} ({{location.count}})</i></span>
           </p>          
         </div>
@@ -122,12 +125,12 @@
       <!-- Sidebar / End -->
 
       <!-- Listing Container -->
-      <section class="prop-listing-main">
-        
-        <skeleton-listing-card rows="3" lines="2" show-me="!propsListing.apiReady"></skeleton-listing-card>
+      <section class="prop-listing-main">      
 
-        <div class="prop-listing-items-container" infinite-scroll="propsListing.loadMoreProps()" infinite-scroll-disabled="propsListing.stopInfiniteScroll" ng-show="propsListing.apiReady">
-          
+        <skeleton-listing-card rows="4" lines="2" show-me="!propsListing.apiReady"></skeleton-listing-card>
+
+        <div class="prop-listing-items-container" ng-show="propsListing.apiReady">
+
           <!-- Listing Item -->
           <article class="prop-listing-item-card" ng-repeat="p in propsListing.results">
             <a href="{{'/#!/property/' + p.id}}">
@@ -143,19 +146,23 @@
             </div>
 
             <div class="prop-listing-card-content prop-listing-card-dev" ng-if="p.development">
-              <p>Desde</p>
-              <h5>{{p.price | currency:p.currency:0}}</h5> 
-              <p>{{propsListing.pluralize(p.propType.name)}} en {{p.type}}</p> 
+              <p>Propiedades Desde</p>
+              <h5>{{p.minPrice ? p.minPrice : (p.price | currency:p.currency:0)}}</h5> 
               <p>{{p.development.name}}</p> 
               <p>{{p.address}}</p>
             </div>
           </article>
           <!-- Listing Item / End -->
 
-          <skeleton-listing-card rows="1" lines="2" show-me="propsListing.loadingMore"></skeleton-listing-card>
-
         </div>
         <!-- Listings Container / End -->
+
+        <!-- Navigation Arrows -->
+        <nav ng-show="propsListing.pages.cant > 1" class="listing-nav-arrows">
+          <button ng-click="propsListing.goToPage(propsListing.pages.activePage - 1)" ng-disabled="propsListing.pages.activePage == 1"> <i class="fa fa-angle-left"></i> Anterior</button>
+          <button ng-repeat="page in propsListing.pages.pagesToShow track by $index" ng-click="propsListing.goToPage(page);" ng-class="{'active': page == propsListing.pages.activePage}">{{page}}</button>
+          <button ng-click="propsListing.goToPage(propsListing.pages.activePage + 1)" ng-disabled="propsListing.pages.activePage == propsListing.pages.cant">Siguiente <i class="fa fa-angle-right"></i></button>
+        </nav>
 
         <div class="no-results" ng-hide="propsListing.ifResults">
           <i class="fa fa-5x fa-frown-o"></i>
@@ -288,10 +295,10 @@
           </li> 
           <div class="mobile-filter-detail-container" ng-if="propsListing.sideBarParams.types.length == 1 && propsListing.sideBarParams.subTypes.length > 0">
             <div class="mobile-filter-item-detail">
-              <h4 class="badge badge-default" ng-if="propsListing.filters.subTypes.isActive && subType.id == propsListing.filters.subTypes.selected" ng-repeat="subType in propsListing.sideBarParams.subTypes">
-                {{subType.name}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'st', val: propsListing.filters.subTypes.default})"><i class="fa fa-times"></i></span>
+              <h4 class="badge badge-default" ng-if="propsListing.filters.subTypes.selected.indexOf(subType) != -1" ng-repeat="subType in propsListing.sideBarParams.subTypes">
+                {{subType.name}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'st', val: subType})"><i class="fa fa-times"></i></span>
               </h4>
-              <h4 class="badge badge-info" ng-if="!propsListing.filters.subTypes.isActive" ng-repeat="subType in propsListing.sideBarParams.subTypes" ng-click="propsListing.changeFilter({type: 'st', val: [subType.id]})">
+              <h4 class="badge badge-info" ng-if="propsListing.filters.subTypes.selected.indexOf(subType) == -1" ng-repeat="subType in propsListing.sideBarParams.subTypes" ng-click="propsListing.changeFilter({type: 'st', val: subType})">
                 {{subType.name}}</i></span>
               </h4>
             </div>
@@ -348,10 +355,10 @@
           </li>
           <div class="mobile-filter-detail-container">
             <div class="mobile-filter-item-detail">
-              <h4 class="badge badge-default" ng-if="propsListing.filters.locations.isActive && location.location_id == propsListing.filters.locations.selected" ng-repeat="location in propsListing.sideBarParams.locations">
-                {{location.location_name}}<span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'l', val: propsListing.filters.locations.default})"><i class="fa fa-times"></i></span>
+              <h4 class="badge badge-default" ng-if="propsListing.filters.locations.selected.indexOf(location) != -1" ng-repeat="location in propsListing.sideBarParams.locations">
+                {{location.location_name}}<span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'l', val: location})"><i class="fa fa-times"></i></span>
               </h4>
-              <h4 class="badge badge-info" ng-if="!propsListing.filters.locations.isActive" ng-repeat="location in propsListing.sideBarParams.locations" ng-click="propsListing.changeFilter({type: 'l', val: [location.location_id]})">
+              <h4 class="badge badge-info" ng-if="propsListing.filters.locations.selected.indexOf(location) == -1" ng-repeat="location in propsListing.sideBarParams.locations" ng-click="propsListing.changeFilter({type: 'l', val: location})">
                 {{location.location_name}} ({{location.count}})</i></span>
               </h4>
             </div>
@@ -370,7 +377,7 @@
     <div ng-show="propsListing.apiReady" class="margin-top-30">
 
       <!-- Listings -->
-      <div class="listings-container grid-layout-three" infinite-scroll="propsListing.loadMoreProps()" infinite-scroll-disabled="propsListing.stopInfiniteScroll">
+      <div class="listings-container grid-layout-three">
         
         <!-- Listing Item -->
         <div class="" ng-repeat="p in propsListing.results">
@@ -399,7 +406,7 @@
           <!-- Not Development Properties End -->
           
           <!-- Development Properties -->
-          <div ng-if="p.development" class="mobile-list-card-container" ng-if="!p.development">
+          <div ng-if="p.development" class="mobile-list-card-container">
             <a href="/#!/property/{{p.id}}">
               <img class="mobile-list-card-img" src="{{p.photos[0].image}}" alt="" >
             </a>
@@ -407,8 +414,8 @@
             <div class="mobile-list-card-details d-flex flex-column">              
               <a href="/#!/property/{{p.id}}"><p>{{p.development.name}} - {{p.development.address}}</p></a>
 
-              <p>{{propsListing.pluralize(p.propType.name)}} desde:</p>
-              <span class="listing-price" ng-show="p.webPrice">{{p.price | currency:p.currency:0}}</span>            
+              <p>Propiedades desde:</p>
+              <span class="listing-price" ng-show="p.webPrice">{{p.minPrice ? p.minPrice : (p.price | currency:p.currency:0)}}</span>            
             </div>    
           </div>  
           <!-- Development Properties End -->
@@ -421,8 +428,12 @@
       <!-- Listings Container / End -->      
     </div>
 
-    <!-- Skeleton Loader -->
-    <skeleton-listing rows="3" lines="2" show-me="propsListing.loadingMore"></skeleton-listing>
+    <!-- Navigation Arrows -->
+    <nav ng-show="propsListing.pages.cant > 1" class="listing-nav-arrows">
+      <button ng-click="propsListing.goToPage(propsListing.pages.activePage - 1)" ng-disabled="propsListing.pages.activePage == 1"> <i class="fa fa-angle-left"></i> Anterior</button>
+      <button class="active">{{propsListing.pages.activePage}}</button>
+      <button ng-click="propsListing.goToPage(propsListing.pages.activePage + 1)" ng-disabled="propsListing.pages.activePage == propsListing.pages.cant">Siguiente <i class="fa fa-angle-right"></i></button>
+    </nav>
 
     <div class="row fullwidth-layout text-center no-results" ng-hide="propsListing.ifResults">
       <i class="fa fa-5x fa-frown-o"></i>

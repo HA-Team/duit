@@ -1,192 +1,222 @@
-app.controller('homeController', ['$rootScope', '$scope', '$timeout', 'navigation', 'utils', 'getFeaturedProperties', 'sharedData', 'tokkoApi', '$q', function($rootScope, $scope, $timeout, navigation, utils, getFeaturedProperties, sharedData, tokkoApi, $q) {
-  var home = this;
-  
-  // #region Scoped Properties
+app.controller('homeController', [
+	'$rootScope',
+	'$scope',
+	'$timeout',
+	'navigation',
+	'utils',
+	'getFeaturedProperties',
+	'sharedData',
+	'tokkoApi',
+	'$q',
+	function ($rootScope, $scope, $timeout, navigation, utils, getFeaturedProperties, sharedData, tokkoApi, $q) {
+		var home = this;
 
-  home.featured360PropsReady = false;
-  home.isContactGlobeOpen = false;
-  home.contactGlobeTitle = "Te asesoramos!";
-  home.agents = sharedData.agents;
-  
-  // #endregion
+		// #region Scoped Properties
 
-  // #region Private Properties
-  const parallaxElement = document.getElementById('home-search-bar');
+		home.featured360PropsReady = false;
+		home.isContactGlobeOpen = false;
+		home.contactGlobeTitle = 'Te asesoramos!';
+		home.agents = sharedData.agents;
 
-  var debouncedOnScroll = utils.debounce(onScroll, 50);
-  var backgroundImageIndex = 0;
+		// #endregion
 
-  // #endregion
+		// #region Private Properties
+		const parallaxElement = document.getElementById('home-search-bar');
 
-  // #region On Init
+		var debouncedOnScroll = utils.debounce(onScroll, 50);
+		var backgroundImageIndex = 0;
 
-  document.title = 'Duit Propiedades Inmobiliaria';
+		// #endregion
 
-  $timeout(() => {
-    $rootScope.activeMenu = 'home';
-    document.querySelector('footer').style.display = 'none';
-  }, 100);
-   
-  var changeBackgroundImageInterval = setInterval(() => {
-    if (home.backGroundImages && home.backGroundImages.length > 1) {
-      parallaxElement.style.backgroundImage = `url(${home.backGroundImages[backgroundImageIndex].image})`;
-      backgroundImageIndex = backgroundImageIndex == home.backGroundImages.length - 1 ? 0 : backgroundImageIndex + 1;
-    }
-  }, 6000);
+		// #region On Init
 
-  getBackgroundImages();
-  getFeatured360Props();
-  
+		document.title = 'Duit Propiedades Inmobiliaria';
 
-  home.agents.forEach(agent => agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351'));
+		$timeout(() => {
+			$rootScope.activeMenu = 'home';
+			document.querySelector('footer').style.display = 'none';
+		}, 100);
 
-  // #endregion
+		var changeBackgroundImageInterval = setInterval(() => {
+			if (home.backGroundImages && home.backGroundImages.length > 1) {
+				parallaxElement.style.backgroundImage = `url(${home.backGroundImages[backgroundImageIndex].image})`;
+				backgroundImageIndex = backgroundImageIndex == home.backGroundImages.length - 1 ? 0 : backgroundImageIndex + 1;
+			}
+		}, 6000);
 
-  // #region Private Methods
+		getBackgroundImages();
+		getFeatured360Props();
 
-  function onScroll() {
-    const duitFeaturedTop = document.querySelector("#home-featured") ? document.querySelector("#home-featured").offsetTop : 0;
-    const servicesTop = document.querySelector("#home-services") ? document.querySelector("#home-services").offsetTop : 0;
-    const assesorsTop = document.querySelector("#home-agents") ? document.querySelector("#home-agents").offsetTop : 0;
-    const contactTop = document.querySelector("#home-contact") ? document.querySelector("#home-contact").offsetTop : 0;
+		home.agents.forEach((agent) => (agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351')));
 
-    const scrollY = window.scrollY;
-    
-    switch (true) {
-      case scrollY > contactTop - 100: $rootScope.activeSection = 'home-contact'; break;  
-      case scrollY > assesorsTop - 100: $rootScope.activeSection = 'home-agents'; break;
-      case scrollY > servicesTop - 100: $rootScope.activeSection = 'home-services'; break;
-      case scrollY > duitFeaturedTop - 100: $rootScope.activeSection = 'home-featured-anchor'; break;
-      default: $rootScope.activeSection = ''; break;
-    }    
-  
-    $scope.$apply();
-  };
+		// #endregion
 
-  function getFeatured360Props() {
-    getFeaturedProperties.getFeatured360Props().then(result => {
-      result = result.data.objects;
-      
-      home.featured360Props = result
-        .filter(prop => prop.videos.some(video => video.provider_id == 6))
-        .map(prop => {
-          return {
-            id: prop.id,
-            coverPhoto: prop.photos[0].image,
-            price: prop.operations[prop.operations.length-1].prices.slice(-1)[0].price,
-            currency: prop.operations[prop.operations.length-1].prices.slice(-1)[0].currency,
-            title: prop.publication_title,
-            type: prop.type.name,
-            operationType: prop.operations[0].operation_type,
-            area: prop.surface,
-            bedrooms: prop.suite_amount ? prop.suite_amount : 0,
-            bathrooms: prop.bathroom_amount ? prop.bathroom_amount : 0,
-            video_url: `${prop.videos[0].player_url}?rel=0&enablejsapi=1`,
-            producer: prop.producer
-          }
-      });
+		// #region Private Methods
 
-      home.featured360Props = _.shuffle(home.featured360Props);
+		function onScroll() {
+			const duitFeaturedTop = document.querySelector('#home-featured') ? document.querySelector('#home-featured').offsetTop : 0;
+			const servicesTop = document.querySelector('#home-services') ? document.querySelector('#home-services').offsetTop : 0;
+			const assesorsTop = document.querySelector('#home-agents') ? document.querySelector('#home-agents').offsetTop : 0;
+			const contactTop = document.querySelector('#home-contact') ? document.querySelector('#home-contact').offsetTop : 0;
 
-      home.featured360PropsReady = true;
-    }, reject => null);
-  };
+			const scrollY = window.scrollY + 100;
 
-  function getBackgroundImages() {
-    const backgroundImagesPropId = 2990223;
+			switch (true) {
+				case scrollY > contactTop:
+					$rootScope.activeSection = 'home-contact';
+					break;
+				case scrollY > assesorsTop:
+					$rootScope.activeSection = 'home-agents';
+					break;
+				case scrollY > servicesTop:
+					$rootScope.activeSection = 'home-services';
+					break;
+				case scrollY > duitFeaturedTop:
+					$rootScope.activeSection = 'home-featured-anchor';
+					break;
+				default:
+					$rootScope.activeSection = '';
+					break;
+			}
 
-    tokkoApi.find('property', backgroundImagesPropId, $q.defer()).then(result => {
-      result = result.data.objects[0];
+			$scope.$apply();
+		}
 
-      home.backGroundImages = result.photos;
+		function getFeatured360Props() {
+			getFeaturedProperties.getFeatured360Props().then(
+				(result) => {
+					result = result.data.objects;
 
-      parallaxElement.style.backgroundImage = `url(${home.backGroundImages[0].image})`;
-      backgroundImageIndex = backgroundImageIndex == home.backGroundImages.length - 1 ? 0 : backgroundImageIndex + 1;
+					home.featured360Props = result
+						.filter((prop) => prop.videos.some((video) => video.provider_id == 6))
+						.map((prop) => {
+							return {
+								id: prop.id,
+								coverPhoto: prop.photos[0].image,
+								price: utils.getPrice(prop).price,
+								currency: utils.getPrice(prop).currency,
+								title: prop.publication_title,
+								type: prop.type.name,
+								operationType: prop.operations[0].operation_type,
+								area: prop.surface,
+								bedrooms: prop.suite_amount ? prop.suite_amount : 0,
+								bathrooms: prop.bathroom_amount ? prop.bathroom_amount : 0,
+								video_url: `${prop.videos[0].player_url}?rel=0&enablejsapi=1`,
+								producer: prop.producer,
+							};
+						});
 
-      if (home.backGroundImages.length == 1) {
-        clearInterval(changeBackgroundImageInterval);
-      }
-      
-    }, reject => null);
-  }
+					home.featured360Props = _.shuffle(home.featured360Props);
 
-  // #endregion
+					home.featured360PropsReady = true;
+				},
+				(reject) => null
+			);
+		}
 
-  // #region Scoped Methods
+		function getBackgroundImages() {
+			const backgroundImagesPropId = 2990223;
 
-  home.toggleContactModal = () => home.isContactGlobeOpen = !home.isContactGlobeOpen;
+			tokkoApi.find('property', backgroundImagesPropId, $q.defer()).then(
+				(result) => {
+					result = result.data.objects[0];
 
-  home.formatCellPhone = (phone) => `549${phone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');
-  
-  home.goToSection = (page, section) => {
-    if (page && section) navigation.goToSection(page, section);
-  }
+					home.backGroundImages = result.photos;
 
-  // #endregion
+					parallaxElement.style.backgroundImage = `url(${home.backGroundImages[0].image})`;
+					backgroundImageIndex = backgroundImageIndex == home.backGroundImages.length - 1 ? 0 : backgroundImageIndex + 1;
 
-  // #region Events
+					if (home.backGroundImages.length == 1) {
+						clearInterval(changeBackgroundImageInterval);
+					}
+				},
+				(reject) => null
+			);
+		}
 
-  window.addEventListener('scroll', debouncedOnScroll);  
+		// #endregion
 
-  $scope.$on('$destroy', () => {
-    window.removeEventListener('scroll', debouncedOnScroll);
-    clearInterval(changeBackgroundImageInterval);
-    document.querySelector('footer').style.display = 'flex';
-  });
+		// #region Scoped Methods
 
-  // #endregion
+		home.toggleContactModal = () => (home.isContactGlobeOpen = !home.isContactGlobeOpen);
 
-  // #region Scoped Objects
+		home.formatCellPhone = (phone) => `549${phone.replace(/^0|\+|\-|\s/g, '')}`.replace(/^(54935115)/, '549351');
 
-  home.contactGlobeActions = [
-    {
-      hRef: `tel:${sharedData.duitPhone}`,
-      iconClass: 'fa fa-phone',
-      fontSize: '2.3rem'
-    },
-    {
-      hRef:  `mailto:${sharedData.contactEmail}`,
-      iconClass: 'fa fa-envelope',
-      fontSize: '2.5rem'
-    },
-    {
-      hRef: `https://api.whatsapp.com/send?phone=${sharedData.duitWhatsapp}`,
-      iconClass: 'fab fa-whatsapp',
-      color: '#128c7e',
-      fontSize: '3rem'
-    },
-  ];
+		home.goToSection = (page, section) => {
+			if (page && section) navigation.goToSection(page, section);
+		};
 
-  home.services = [
-    {
-      imgSrc: "/images/services/consejeros.png",
-      goTo: { page: 'home', section: "home-agents" }
-    },
-    {
-      imgSrc: "/images/services/alquiler.png",
-      goTo: { page: 'home', section: "home-search-bar" },
-      action: () => $scope.$broadcast('homeSearchServiceLinkClicked', { type: 2})
-    },
-    {
-      imgSrc: "/images/services/venta.png",
-      goTo: { page: 'home', section: "home-search-bar" },
-      action: () => $scope.$broadcast('homeSearchServiceLinkClicked', { type: 1}) 
-    },
-    {
-      imgSrc: "/images/services/administracion.png",
-      hasTooltip: true,
-      tooltipText: "Realizamos el cobro de alquileres e impuestos, y mantenimiento de tu propiedad. Damos una respuesta a los locatarios y evitamos a los propietarios las complicaciones derivadas con la administración y gestión de propiedades.",
-      whatsAppHRef: `https://api.whatsapp.com/send?phone=${sharedData.infoWhatsapp}&text=${window.encodeURIComponent('Hola, quiero hacer una consulta por una administración.')}`,
-      emailHRef: `mailto:${sharedData.infoEmail}?Subject=${window.encodeURIComponent('Hola, quiero hacer una consulta por una administración.')}`
-    },
-    {
-      imgSrc: "/images/services/tasacion.png",
-      hasTooltip: true,
-      tooltipText: "Nuestro asesores matriculados CPCPI valuarán tu inmueble, para que sepas cuanto vale realemente tu propiedad.",
-      whatsAppHRef: `https://api.whatsapp.com/send?phone=${sharedData.infoWhatsapp}&text=${window.encodeURIComponent('Hola, quiero hacer una consulta por una tasasión.')}`,
-      emailHRef: `mailto:${sharedData.infoEmail}?Subject=${window.encodeURIComponent('Hola, quiero hacer una consulta por una tasasión.')}`
-    }
-  ];
+		// #endregion
 
-  // #endregion
-}]);
+		// #region Events
+
+		window.addEventListener('scroll', debouncedOnScroll);
+
+		$scope.$on('$destroy', () => {
+			window.removeEventListener('scroll', debouncedOnScroll);
+			clearInterval(changeBackgroundImageInterval);
+			document.querySelector('footer').style.display = 'flex';
+		});
+
+		// #endregion
+
+		// #region Scoped Objects
+
+		home.contactGlobeActions = [
+			{
+				hRef: `tel:${sharedData.duitPhone}`,
+				iconClass: 'fa fa-phone',
+				fontSize: '2.3rem',
+			},
+			{
+				hRef: `mailto:${sharedData.contactEmail}`,
+				iconClass: 'fa fa-envelope',
+				fontSize: '2.5rem',
+			},
+			{
+				hRef: `https://api.whatsapp.com/send?phone=${sharedData.duitWhatsapp}`,
+				iconClass: 'fab fa-whatsapp',
+				color: '#128c7e',
+				fontSize: '3rem',
+			},
+		];
+
+		home.services = [
+			{
+				imgSrc: '/images/services/consejeros.png',
+				goTo: { page: 'home', section: 'home-agents' },
+			},
+			{
+				imgSrc: '/images/services/alquiler.png',
+				goTo: { page: 'home', section: 'home-search-bar' },
+				action: () => $scope.$broadcast('homeSearchServiceLinkClicked', { type: 2 }),
+			},
+			{
+				imgSrc: '/images/services/venta.png',
+				goTo: { page: 'home', section: 'home-search-bar' },
+				action: () => $scope.$broadcast('homeSearchServiceLinkClicked', { type: 1 }),
+			},
+			{
+				imgSrc: '/images/services/administracion.png',
+				hasTooltip: true,
+				tooltipText:
+					'Realizamos el cobro de alquileres e impuestos, y mantenimiento de tu propiedad. Damos una respuesta a los locatarios y evitamos a los propietarios las complicaciones derivadas con la administración y gestión de propiedades.',
+				whatsAppHRef: `https://api.whatsapp.com/send?phone=${sharedData.infoWhatsapp}&text=${window.encodeURIComponent(
+					'Hola, quiero hacer una consulta por una administración.'
+				)}`,
+				emailHRef: `mailto:${sharedData.infoEmail}?Subject=${window.encodeURIComponent('Hola, quiero hacer una consulta por una administración.')}`,
+			},
+			{
+				imgSrc: '/images/services/tasacion.png',
+				hasTooltip: true,
+				tooltipText: 'Nuestro asesores matriculados CPCPI valuarán tu inmueble, para que sepas cuanto vale realemente tu propiedad.',
+				whatsAppHRef: `https://api.whatsapp.com/send?phone=${sharedData.infoWhatsapp}&text=${window.encodeURIComponent(
+					'Hola, quiero hacer una consulta por una tasasión.'
+				)}`,
+				emailHRef: `mailto:${sharedData.infoEmail}?Subject=${window.encodeURIComponent('Hola, quiero hacer una consulta por una tasasión.')}`,
+			},
+		];
+
+		// #endregion
+	},
+]);

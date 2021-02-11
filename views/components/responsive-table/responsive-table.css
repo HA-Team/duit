@@ -118,11 +118,6 @@
 	pointer-events: all;
 }
 
-.responsive-table i.hide-me {
-    visibility: hidden;
-	pointer-events: none;
-}
-
 .responsive-table-page-counter-dots {
 	display: flex;
 	align-items: center;
