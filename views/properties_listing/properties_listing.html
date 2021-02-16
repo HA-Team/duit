@@ -18,6 +18,9 @@
           <p class="badge badge-default" ng-repeat="subType in propsListing.filters.subTypes.selected">
             {{subType.name}} <span class="badge badge-danger" ng-click="propsListing.filters.subTypes.action(subType);"><i class="fa fa-times"></i></span>
           </p>
+          <p class="badge badge-default" ng-repeat="location in propsListing.filters.locations.selected">
+            {{location.location_name}} <span class="badge badge-danger" ng-click="propsListing.filters.locations.action(location);"><i class="fa fa-times"></i></span>
+          </p>
         </div>
 
         <!-- Order Section -->
