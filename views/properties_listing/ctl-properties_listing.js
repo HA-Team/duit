@@ -37,10 +37,10 @@ app.controller('propsListingController', [
 		propsListing.sideBarParams = {};
 		propsListing.filters = {
 			minPrice: {
-				default: ''
+				default: '',
 			},
 			maxPrice: {
-				default: ''
+				default: '',
 			},
 			operations: {
 				default: sharedData.tokkoSearchArgs.data.operation_types,
@@ -339,7 +339,7 @@ app.controller('propsListingController', [
 				propsListing.location = propsListing.sideBarParams.locations
 					.filter((loc) => loc.parent_id && loc.parent_id == filter.val)
 					.map((loc) => loc.location_id);
-				cleanFilter('locations');
+				propsListing.location = propsListing.filters.locations.default;
 				handleFilter(filter, 'cities');
 			}
 
@@ -351,7 +351,7 @@ app.controller('propsListingController', [
 				}
 
 				propsListing.location = propsListing.filters.locations.selected.map((loc) => loc.location_id);
-				
+
 				updateLocation = false;
 			}
 
