@@ -3,7 +3,8 @@
 <url><loc>https://duitpropiedades.com.ar</loc><priority>0.5</priority></url>
 <url><loc>https://duitpropiedades.com.ar/#!</loc><priority>0.5</priority></url>
 <url><loc>https://duitpropiedades.com.ar/index.html</loc><priority>0.5</priority></url>
-<url><loc>https://duitpropiedades.com.ar/#!/property</loc><priority>0.5</priority></url>
-<url><loc>https://duitpropiedades.com.ar/#!/development</loc><priority>0.5</priority></url>
-<url><loc>https://duitpropiedades.com.ar/#!/developments</loc><priority>0.5</priority></url>
+<url><loc>https://duitpropiedades.com.ar/#!/propiedad</loc><priority>0.5</priority></url>
+<url><loc>https://duitpropiedades.com.ar/#!/propiedades</loc><priority>0.5</priority></url>
+<url><loc>https://duitpropiedades.com.ar/#!/emprendimiento</loc><priority>0.5</priority></url>
+<url><loc>https://duitpropiedades.com.ar/#!/emprendimientos</loc><priority>0.5</priority></url>
 </urlset>

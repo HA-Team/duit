@@ -1,9 +1,9 @@
-app.controller('devsListingController', ['$rootScope', '$scope', 'tokkoApi', 'getFeaturedProperties', '$filter', '$timeout', 'sharedData', function($rootScope, $scope, tokkoApi, getFeaturedProperties, $filter, $timeout, sharedData) {
+app.controller('devsListingController', ['$rootScope', '$scope', 'tokkoApi', 'tokkoService', '$filter', '$timeout', 'sharedData', function($rootScope, $scope, tokkoApi, tokkoService, $filter, $timeout, sharedData) {
   var devsListing = this;
 
   // #region Scoped Properties
 
-  $rootScope.activeMenu = 'developments';
+  $rootScope.activeMenu = 'emprendimientos';
 
   devsListing.results = [];
   devsListing.resultsMapped = [];
@@ -40,7 +40,7 @@ app.controller('devsListingController', ['$rootScope', '$scope', 'tokkoApi', 'ge
             name: develop.name,
             location: develop.location,
             photos: develop.photos,
-            hRef: `/#!/development/${develop.id}`
+            hRef: `/#!/emprendimiento/${develop.id}`
         };
       });
 

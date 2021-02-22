@@ -5,9 +5,8 @@ git pull origin master
 # Minify Meteor bundle, ui functions and tokkoapi
 # Require babel minify --> npm install babel-minify -g
 echo 'Minifying css and js files...'
-minify scripts/meteor-client.bundle.js -d scripts/
 minify scripts/uiFunctions.js -d scripts/
-minify services/svc-tokkoApi.js -d services/
+minify services/service.tokkoApi.js -d services/
 # Minify css
 uglifycss css/bootstrap.css --output css/bootstrap.css
 uglifycss css/icons.css --output css/icons.css

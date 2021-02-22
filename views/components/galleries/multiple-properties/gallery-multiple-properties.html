@@ -36,7 +36,7 @@
               <i class="fa fa-bath"></i><p>{{item.bathrooms}} {{pluralize(item.bathrooms, 'baño')}}</p>
             </div>
 
-            <a href="/#!/property/{{item.id}}">Ver propiedad</a>
+            <a href="/#!/propiedad/{{item.id}}">Ver propiedad</a>
           </div>
 
           <!-- Contact -->
@@ -48,7 +48,6 @@
         </div>
 
       </div>
-      <!-- <a ng-repeat="item in items" href="/#!/property/{{item.id}}"></a> -->
     </div>
     <!-- Slider Single Property End -->
   </div>
@@ -73,7 +72,7 @@
     <!-- Slider Single Property -->
     <div class="gallery-multiple-properties-slider mobile-slider" ng-show="showGallery">
 
-      <a ng-repeat="item in items" href="/#!/property/{{item.id}}">
+      <a ng-repeat="item in items" href="/#!/propiedad/{{item.id}}">
         <img src="{{item.coverPhoto}}">
 
         <!-- Info Card -->

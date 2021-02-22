@@ -136,7 +136,7 @@
 
           <!-- Listing Item -->
           <article class="prop-listing-item-card" ng-repeat="p in propsListing.results">
-            <a href="{{'/#!/property/' + p.id}}">
+            <a href="{{'/#!/propiedad/' + p.id}}">
               <img src="{{p.coverPhoto}}" alt="">            
             </a>
             
@@ -169,7 +169,7 @@
 
         <div class="no-results" ng-hide="propsListing.ifResults">
           <i class="fa fa-5x fa-frown-o"></i>
-          <h3>¡Ups! No hay nada aquí. ¡<a href="#!/#home-contact">Contactános</a> para ver mas opciones!</h3>
+          <h3>¡Ups! No hay nada aquí. ¡<a href="#!/#contacto">Contactános</a> para ver mas opciones!</h3>
         </div>
 
       </section>
@@ -387,12 +387,12 @@
 
           <!-- Not Development Properties -->
           <div class="mobile-list-card-container" ng-if="!p.development">
-            <a href="/#!/property/{{p.id}}">
+            <a href="/#!/propiedad/{{p.id}}">
               <img class="mobile-list-card-img" src="{{p.photos[0].image}}" alt="" >
             </a>
 
             <div class="mobile-list-card-details d-flex flex-column">              
-              <a href="/#!/property/{{p.id}}"><p>{{p.title}} - {{p.address}}</p></a>
+              <a href="/#!/propiedad/{{p.id}}"><p>{{p.title}} - {{p.address}}</p></a>
 
               <span class="listing-price" ng-show="p.webPrice">{{p.price | currency:p.currency:0}}</span>
               
@@ -410,12 +410,12 @@
           
           <!-- Development Properties -->
           <div ng-if="p.development" class="mobile-list-card-container">
-            <a href="/#!/property/{{p.id}}">
+            <a href="/#!/propiedad/{{p.id}}">
               <img class="mobile-list-card-img" src="{{p.photos[0].image}}" alt="" >
             </a>
 
             <div class="mobile-list-card-details d-flex flex-column">              
-              <a href="/#!/property/{{p.id}}"><p>{{p.development.name}} - {{p.development.address}}</p></a>
+              <a href="/#!/propiedad/{{p.id}}"><p>{{p.development.name}} - {{p.development.address}}</p></a>
 
               <p>Propiedades desde:</p>
               <span class="listing-price" ng-show="p.webPrice">{{p.minPrice ? p.minPrice : (p.price | currency:p.currency:0)}}</span>            
@@ -440,7 +440,7 @@
 
     <div class="row fullwidth-layout text-center no-results" ng-hide="propsListing.ifResults">
       <i class="fa fa-5x fa-frown-o"></i>
-      <h3>¡Ups! No hay nada aquí. ¡<a href="#!/home/#home-contact">Contactános</a> para ver mas opciones!</h3>
+      <h3>¡Ups! No hay nada aquí. ¡<a href="#!/home/#contacto">Contactános</a> para ver mas opciones!</h3>
     </div>
  
   </div>

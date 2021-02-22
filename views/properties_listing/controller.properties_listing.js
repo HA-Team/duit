@@ -1,4 +1,6 @@
 app.controller('propsListingController', [
+	'$scope',
+	'$timeout',
 	'$location',
 	'$rootScope',
 	'tokkoApi',
@@ -7,19 +9,24 @@ app.controller('propsListingController', [
 	'$anchorScroll',
 	'utils',
 	'sharedData',
-	'getFeaturedProperties',
+	'tokkoService',
 	'$q',
-	function ($location, $rootScope, tokkoApi, $stateParams, $state, $anchorScroll, utils, sharedData, getFeaturedProperties, $q) {
+	function ($scope, $timeout, $location, $rootScope, tokkoApi, $stateParams, $state, $anchorScroll, utils, sharedData, tokkoService, $q) {
 		var propsListing = this;
 
 		// #region Private Properties
 
 		propsListing.args = JSON.parse($stateParams.args);
 		let data = JSON.parse(propsListing.args.data);
+
 		var newSearch = true;
 		var isDevReady = false;
 		var updateSubtype = true;
 		var updateLocation = true;
+		var firstSearch = true;
+
+		var currentScrollY = 0;
+
 		const MAX_PAGES_TO_SHOW = 10;
 		const PROPS_PER_PAGE = 40;
 
@@ -27,7 +34,7 @@ app.controller('propsListingController', [
 
 		// #region Scoped Properties
 
-		$rootScope.activeMenu = 'propertySearch';
+		$rootScope.activeMenu = 'propiedades';
 
 		propsListing.results = [];
 		propsListing.tags = [];
@@ -82,12 +89,25 @@ app.controller('propsListingController', [
 
 		propsListing.operationType = data.operation_types;
 		propsListing.propertyType = data.property_types;
+		propsListing.locations = data.current_localization_id;
+
+		const getSubTypesByWhitoutTag = (tags) => {
+			for (const subType in sharedData.propertiesSubTypes) {
+				if (tags && sharedData.propertiesSubTypes[subType].some((st) => st.id == tags[0])) {
+					return sharedData.propertiesSubTypes[subType].filter((filterSubType) => !tags.includes(filterSubType.id)).map((st) => st.id);
+				}
+			}
+
+			return [];
+		};
+
+		propsListing.subTypeSelected = data.with_custom_tags?.length > 0 ? data.with_custom_tags : getSubTypesByWhitoutTag(data.without_custom_tags);
 
 		// #endregion
 
 		// #region Private Methods
 
-		const setActiveSection = (operationType) => ($rootScope.activeSection = operationType == 1 ? 'properties-sell' : 'properties-rent');
+		const setActiveSection = (operationType) => ($rootScope.activeSection = operationType == 1 ? 'venta' : 'alquiler');
 
 		const getProperties = (tokkoApi, rargs) => {
 			if (isDevReady) {
@@ -101,7 +121,6 @@ app.controller('propsListingController', [
 
 				propsListing.apiReady = false;
 				propsListing.results = [];
-
 				if (newSearch) {
 					tokkoApi.find('property/get_search_summary', args, $q.defer()).then(
 						(result) => {
@@ -116,14 +135,15 @@ app.controller('propsListingController', [
 							});
 
 							let types = result.objects.property_types;
+
 							propsListing.sideBarParams = {
-								locations: updateLocation ? result.objects.locations : propsListing.sideBarParams.locations,
+								locations: updateLocation || propsListing.locations.length == 0 ? result.objects.locations : propsListing.sideBarParams.locations,
 								cities: cities.filter((val, ind, arr) => arr.findIndex((t) => val.id && t.id === val.id) === ind),
 								types: types.sort((a, b) => b.count - a.count),
 								subTypes: (() => {
 									if (updateSubtype) {
 										if (propsListing.subTypeSelected && propsListing.subTypeSelected.length > 0 && types[0]) {
-											return [sharedData.propertiesSubTypes[types[0].id].find((x) => x.id === propsListing.subTypeSelected[0])];
+											return sharedData.propertiesSubTypes[types[0].id];
 										} else {
 											return types.length === 1 ? sharedData.propertiesSubTypes[types[0].id] : [];
 										}
@@ -134,6 +154,10 @@ app.controller('propsListingController', [
 								operations: result.objects.operation_types.sort((a, b) => b.count - a.count),
 								rooms: result.objects.suite_amount.sort((a, b) => b.count - a.count),
 							};
+
+							if (propsListing.locations.length > 0 && firstSearch) {
+								propsListing.filters.locations.selected = propsListing.sideBarParams.locations;
+							}
 
 							propsListing.sideBarParams.cities.forEach((city) => {
 								city.count = cities.filter((c) => c.id == city.id).length;
@@ -156,12 +180,13 @@ app.controller('propsListingController', [
 							].map((x) => ++x);
 
 							newSearch = false;
+							firstSearch = false;
 						},
 						(reject) => null
 					);
 				}
 
-				(getTokkoProperties = getFeaturedProperties.getProperties('property/search', args)).then(
+				(getTokkoProperties = tokkoService.getProperties('property/search', args)).then(
 					(result) => {
 						result.objects.forEach((p) => {
 							const isDevAlreadyInResults = propsListing.results.some((prop) => prop.development && p.development && prop.development.id == p.development.id);
@@ -179,6 +204,13 @@ app.controller('propsListingController', [
 
 						propsListing.results.length > 0 ? (propsListing.ifResults = true) : (propsListing.ifResults = false);
 						propsListing.apiReady = true;
+
+						if (sharedData.propertySearchScrollY) {
+							$timeout(() => {
+								document.documentElement.scrollTop = sharedData.propertySearchScrollY;
+								sharedData.propertySearchScrollY = 0;
+							});
+						}
 					},
 					(reject) => null
 				);
@@ -229,6 +261,16 @@ app.controller('propsListingController', [
 				propsListing.filters.rooms.name = name;
 				propsListing.filters.rooms.selected = ['suite_amount', '=', rooms.toString()];
 			}
+
+			if (propsListing.subTypeSelected.length > 0) {
+				for (const subType in sharedData.propertiesSubTypes) {
+					if (sharedData.propertiesSubTypes[subType].some((st) => st.id == propsListing.subTypeSelected[0])) {
+						propsListing.filters.subTypes.selected = sharedData.propertiesSubTypes[subType].filter((filterSubType) =>
+							propsListing.subTypeSelected.includes(filterSubType.id)
+						);
+					}
+				}
+			}
 		};
 
 		const cleanFilter = (name) => {
@@ -247,6 +289,12 @@ app.controller('propsListingController', [
 			}
 		};
 
+		const onScroll = () => {
+			currentScrollY = window.scrollY;
+		};
+
+		var debouncedOnScroll = utils.debounce(onScroll, 100);
+
 		// #endregion
 
 		// #region Scoped Methods
@@ -258,30 +306,30 @@ app.controller('propsListingController', [
 		propsListing.roomAmtName = (amount) => (parseInt(amount) > 0 ? (amount == 1 ? `${amount} Dormitorio` : `${amount} Dormitorios`) : 'Loft ');
 
 		propsListing.find = () => {
-			let data = JSON.parse(_.clone(sharedData.tokkoSearchArgs.sData));
+			let findData = JSON.parse(_.clone(sharedData.tokkoSearchArgs.sData));
 
-			data.operation_types = propsListing.operationType;
-			data.property_types = propsListing.propertyType;
+			findData.operation_types = propsListing.operationType;
+			findData.property_types = propsListing.propertyType;
 
 			if (!propsListing.subTypeSelected || propsListing.subTypeSelected.length <= 1) {
-				data.with_custom_tags = propsListing.subTypeSelected;
+				findData.with_custom_tags = propsListing.subTypeSelected;
 			} else {
-				data.without_custom_tags = propsListing.sideBarParams.subTypes
-					.filter((subType) => !propsListing.subTypeSelected.some((subTypeSelected) => subType.id == subTypeSelected))
+				findData.without_custom_tags = propsListing.sideBarParams.subTypes
+					.filter((subType) => !propsListing.subTypeSelected.includes(subType.id))
 					.map((subType) => subType.id);
 			}
 
-			data.current_localization_id = propsListing.location;
-			data.filters = [propsListing.rooms];
+			findData.current_localization_id = propsListing.locations;
+			findData.filters = [propsListing.rooms];
 
-			if (propsListing.minPrice) data.price_from = propsListing.minPrice;
-			if (propsListing.maxPrice) data.price_to = propsListing.maxPrice;
+			if (propsListing.minPrice) findData.price_from = propsListing.minPrice;
+			if (propsListing.maxPrice) findData.price_to = propsListing.maxPrice;
 
-			if (data.filters[0] && data.filters[0][2] == '0') {
-				data.property_types = data.property_types.filter((type) => type == 2 || type == 3);
+			if (findData.filters[0] && findData.filters[0][2] == '0') {
+				findData.property_types = findData.property_types.filter((type) => type == 2 || type == 3);
 			}
 
-			propsListing.args.data = JSON.stringify(data);
+			propsListing.args.data = JSON.stringify(findData);
 			propsListing.args.order_by = propsListing.order ? propsListing.order.order_by : 'price';
 			propsListing.args.order = propsListing.order ? propsListing.order.order : 'asc';
 			propsListing.args.offset = 0;
@@ -306,7 +354,7 @@ app.controller('propsListingController', [
 			if (filter.type === 't') {
 				if (filter.val.length == propsListing.filters.types.default.length) {
 					propsListing.propertyType = filter.val;
-					cleanFilter('subTypes');
+					propsListing.filters.subTypes.selected = [];
 				} else {
 					if (propsListing.propertyType.length == propsListing.filters.types.default.length) {
 						propsListing.propertyType = filter.val;
@@ -315,6 +363,7 @@ app.controller('propsListingController', [
 					}
 				}
 				propsListing.subTypeSelected = [];
+				propsListing.locations = [];
 				handleFilter(filter, 'types');
 			}
 
@@ -336,10 +385,10 @@ app.controller('propsListingController', [
 			}
 
 			if (filter.type === 'c') {
-				propsListing.location = propsListing.sideBarParams.locations
+				propsListing.locations = propsListing.sideBarParams.locations
 					.filter((loc) => loc.parent_id && loc.parent_id == filter.val)
 					.map((loc) => loc.location_id);
-				propsListing.location = propsListing.filters.locations.default;
+				propsListing.locations = propsListing.filters.locations.default;
 				handleFilter(filter, 'cities');
 			}
 
@@ -350,7 +399,7 @@ app.controller('propsListingController', [
 					propsListing.filters.locations.selected.splice(propsListing.filters.locations.selected.indexOf(filter.val), 1);
 				}
 
-				propsListing.location = propsListing.filters.locations.selected.map((loc) => loc.location_id);
+				propsListing.locations = propsListing.filters.locations.selected.map((loc) => loc.location_id);
 
 				updateLocation = false;
 			}
@@ -382,7 +431,7 @@ app.controller('propsListingController', [
 			propsListing.args.offset = (index - 1) * PROPS_PER_PAGE;
 			window.scrollTo(0, 0);
 
-			getProperties(tokkoApi, propsListing.args);
+			$state.go('propiedades', { args: JSON.stringify(propsListing.args) });
 		};
 
 		propsListing.changeOrder = (newVal) => {
@@ -410,7 +459,7 @@ app.controller('propsListingController', [
 			propsListing.operationType = propsListing.filters.operations.default;
 			propsListing.propertyType = propsListing.filters.types.default;
 			propsListing.subTypeSelected = propsListing.filters.subTypes.default;
-			propsListing.location = propsListing.filters.locations.default;
+			propsListing.locations = propsListing.filters.locations.default;
 			propsListing.rooms = propsListing.filters.rooms.default;
 			propsListing.find();
 		};
@@ -433,19 +482,17 @@ app.controller('propsListingController', [
 		// #endregion
 
 		// #region On Init
-
 		document.title = 'Duit Propiedades Inmobiliaria';
 
 		setActiveSection(propsListing.operationType);
 		$anchorScroll();
 
-		delete data.current_localization_id;
 		propsListing.args.data = JSON.stringify(data);
-
 		var getDevsInterval = setInterval(() => {
 			if (sharedData.devs.length > 0) {
 				isDevReady = true;
 				getProperties(tokkoApi, propsListing.args);
+				propsListing.pages.activePage = propsListing.args.offset / PROPS_PER_PAGE + 1;
 				clearInterval(getDevsInterval);
 			}
 		}, 200);
@@ -456,8 +503,30 @@ app.controller('propsListingController', [
 
 		// #region Events
 
-		$rootScope.$on('changeFilter', (event, { operationType }) => {
+		var cleanOnChangeFilter = $rootScope.$on('changeFilter', (event, { operationType }) => {
 			propsListing.changeFilter({ type: 'o', name: propsListing.opName(operationType), val: [operationType] });
+		});
+
+		var cleanLocationChangeSucess = $rootScope.$on('$locationChangeSuccess', function (event) {
+			if ($location.path().includes('propiedades') && propsListing.apiReady) {
+				window.scrollTo(0, 0);
+
+				params = $location.search();
+
+				const args = JSON.parse(params.args);
+				propsListing.pages.activePage = args.offset / PROPS_PER_PAGE + 1;
+
+				getProperties(tokkoApi, args);
+			}
+		});
+
+		window.addEventListener('scroll', debouncedOnScroll);
+
+		$scope.$on('$destroy', () => {
+			window.removeEventListener('scroll', debouncedOnScroll);
+			cleanOnChangeFilter();
+			cleanLocationChangeSucess();
+			sharedData.propertySearchScrollY = window.scrollY;
 		});
 
 		// #endregion

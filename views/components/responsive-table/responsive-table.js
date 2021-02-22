@@ -115,7 +115,7 @@ app.directive('responsiveTable', function() {
                     $scope.activeDetail = item;
                     $scope.toggleDetail();
                 }
-                else  window.location.href = `/#!/property/${item.id}`;
+                else  window.location.href = `/#!/propiedad/${item.id}`;
             };
 
             $scope.moveItemsSlider = (direction) => {

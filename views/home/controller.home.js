@@ -4,11 +4,11 @@ app.controller('homeController', [
 	'$timeout',
 	'navigation',
 	'utils',
-	'getFeaturedProperties',
+	'tokkoService',
 	'sharedData',
 	'tokkoApi',
 	'$q',
-	function ($rootScope, $scope, $timeout, navigation, utils, getFeaturedProperties, sharedData, tokkoApi, $q) {
+	function ($rootScope, $scope, $timeout, navigation, utils, tokkoService, sharedData, tokkoApi, $q) {
 		var home = this;
 
 		// #region Scoped Properties
@@ -55,24 +55,24 @@ app.controller('homeController', [
 
 		function onScroll() {
 			const duitFeaturedTop = document.querySelector('#home-featured') ? document.querySelector('#home-featured').offsetTop : 0;
-			const servicesTop = document.querySelector('#home-services') ? document.querySelector('#home-services').offsetTop : 0;
-			const assesorsTop = document.querySelector('#home-agents') ? document.querySelector('#home-agents').offsetTop : 0;
-			const contactTop = document.querySelector('#home-contact') ? document.querySelector('#home-contact').offsetTop : 0;
+			const servicesTop = document.querySelector('#servicios') ? document.querySelector('#servicios').offsetTop : 0;
+			const assesorsTop = document.querySelector('#consejeros') ? document.querySelector('#consejeros').offsetTop : 0;
+			const contactTop = document.querySelector('#contacto') ? document.querySelector('#contacto').offsetTop : 0;
 
 			const scrollY = window.scrollY + 100;
 
 			switch (true) {
 				case scrollY > contactTop:
-					$rootScope.activeSection = 'home-contact';
+					$rootScope.activeSection = 'contacto';
 					break;
 				case scrollY > assesorsTop:
-					$rootScope.activeSection = 'home-agents';
+					$rootScope.activeSection = 'consejeros';
 					break;
 				case scrollY > servicesTop:
-					$rootScope.activeSection = 'home-services';
+					$rootScope.activeSection = 'servicios';
 					break;
 				case scrollY > duitFeaturedTop:
-					$rootScope.activeSection = 'home-featured-anchor';
+					$rootScope.activeSection = 'destacados';
 					break;
 				default:
 					$rootScope.activeSection = '';
@@ -83,7 +83,7 @@ app.controller('homeController', [
 		}
 
 		function getFeatured360Props() {
-			getFeaturedProperties.getFeatured360Props().then(
+			tokkoService.getFeatured360Props().then(
 				(result) => {
 					result = result.data.objects;
 
@@ -184,7 +184,7 @@ app.controller('homeController', [
 		home.services = [
 			{
 				imgSrc: '/images/services/consejeros.png',
-				goTo: { page: 'home', section: 'home-agents' },
+				goTo: { page: 'home', section: 'consejeros' },
 			},
 			{
 				imgSrc: '/images/services/alquiler.png',

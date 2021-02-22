@@ -4,17 +4,17 @@ app.controller('propertyController', [
 	'$timeout',
 	'tokkoApi',
 	'$stateParams',
-	'getFeaturedProperties',
+	'tokkoService',
 	'utils',
 	'sliderMoves',
 	'$filter',
 	'$q',
-	function ($rootScope, $scope, $timeout, tokkoApi, $stateParams, getFeaturedProperties, utils, sliderMoves, $filter, $q) {
+	function ($rootScope, $scope, $timeout, tokkoApi, $stateParams, tokkoService, utils, sliderMoves, $filter, $q) {
 		var property = this;
 
 		// #region Scoped Properties
 
-		$rootScope.activeMenu = 'propertySearch';
+		$rootScope.activeMenu = 'propiedades';
 
 		property.utils = utils;
 		property.apiReady = false;
@@ -78,7 +78,7 @@ app.controller('propertyController', [
 
 				property.gallerySliderLength = property.p.prop.photos.length + property.p.youTubeVideos.length;
 
-				$rootScope.activeSection = property.p.operation_type == 'Venta' ? 'properties-sell' : 'properties-rent';
+				$rootScope.activeSection = property.p.operation_type == 'Venta' ? 'venta' : 'alquiler';
 
 				getSimilarProps(result.operations[0].operation_type == 'Venta' ? 1 : 2, result.type.id, property.p.price, result.custom_tags);
 
@@ -250,7 +250,7 @@ app.controller('propertyController', [
 		// #region Private Methods
 
 		function getSimilarProps(operationType, typeId, price, customTags) {
-			getFeaturedProperties.getSimilarProps(operationType, typeId, price, customTags).then(
+			tokkoService.getSimilarProps(operationType, typeId, price, customTags).then(
 				(result) => {
 					result = result.data.objects;
 
@@ -289,7 +289,7 @@ app.controller('propertyController', [
 		}
 
 		function getDevelopmentProps(id) {
-			getFeaturedProperties.getDevelopmentProps(id).then(
+			tokkoService.getDevelopmentProps(id).then(
 				(result) => {
 					result = result.data.objects;
 

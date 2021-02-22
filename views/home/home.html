@@ -43,7 +43,7 @@ data-img-width="2500" data-img-height="1600" ng-controller="homeSearchController
 
 <div class="home-featured-container">
 
-  <div class="home-featured-title" id="home-featured-anchor">
+  <div class="home-featured-title" id="destacados">
     <h5>Duit 360&deg;</h5>
   </div>
 
@@ -59,13 +59,13 @@ data-img-width="2500" data-img-height="1600" ng-controller="homeSearchController
 <!-- Featured Section End -->
   
 <!-- Services Section -->
-<section id="home-services">
+<section id="servicios">
 
-<div class="home-services-container">
+<div class="servicios-container">
   <h3>Servicios</h3>
 
-  <div class="home-services-imgs">
-    <div ng-repeat="service in home.services" class="home-services-img-container">
+  <div class="servicios-imgs">
+    <div ng-repeat="service in home.services" class="servicios-img-container">
       <a ng-click="home.goToSection(service.goTo.page, service.goTo.section); service.action()"><img src="{{service.imgSrc}}"></a>
       <div ng-if="service.hasTooltip" class="service-tooltip">
         <p>{{service.tooltipText}}</p>
@@ -82,14 +82,14 @@ data-img-width="2500" data-img-height="1600" ng-controller="homeSearchController
 <!-- Services Section End -->
 
 <!-- Assesors Section -->
-<section id="home-agents" class="home-agents">
+<section id="consejeros" class="consejeros">
 
-<div class="home-agents-container">
-  <div class="home-agents-title">
+<div class="consejeros-container">
+  <div class="consejeros-title">
     <img src="/images/consejeros.png" alt="">
   </div>
 
-  <div class="home-agents-description">
+  <div class="consejeros-description">
     <p>
       En Duit contamos con más de 10 años de experiencia en el mercado inmobiliario, somos personas con un mismo sueño, con una misma forma de ver la vida, de superarnos, de dar lo mejor.
       <br><br>
@@ -117,10 +117,10 @@ data-img-width="2500" data-img-height="1600" ng-controller="homeSearchController
 <!-- Assesors Section End -->
 
 <!-- Contact Section -->
-<section class="home-contact-container">
+<section class="contacto-container">
 
 <!-- Contact Form Section -->
-<section id="home-contact">
+<section id="contacto">
   <h3>Dejanos tu consulta</h3>
 
   <form ng-controller="contactFormController as contactForm" id="contactform" autocomplete="on">
@@ -164,10 +164,10 @@ data-img-width="2500" data-img-height="1600" ng-controller="homeSearchController
 <!-- Contact Form Section End -->
 
 <!-- Contact Cards Section -->
-<section id="home-contact-cards" class="hidden-on-mobile">
-  <div class="home-contact-card">
+<section id="contacto-cards" class="hidden-on-mobile">
+  <div class="contacto-card">
     <img src="/images/duit-rojo-horizontal.png" alt="">
-    <div class="home-contact-card-text">
+    <div class="contacto-card-text">
       <p>San Luis 145, 1° Oficina H</p>
       <p>Barrio Nueva Córdoba</p>
       <p>Córdoba - Argentina</p>
@@ -181,7 +181,7 @@ data-img-width="2500" data-img-height="1600" ng-controller="homeSearchController
 <!-- Contact Section End -->
 
 <!-- Flying Contact Globe  -->
-<ng-container id="home-contact-globe" ng-cloak>
+<ng-container id="contacto-globe" ng-cloak>
 <contact-globe is-open="home.isContactGlobeOpen" main-img="'images/whatsapp-duit.png'" show-main-img-box-shadow="false"
   title="home.contactGlobeTitle" actions="home.contactGlobeActions" toggle-modal="home.toggleContactModal()">
 </contact-globe>

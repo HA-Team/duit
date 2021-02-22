@@ -4,18 +4,18 @@ app.controller('developmentController', [
 	'$timeout',
 	'tokkoApi',
 	'$stateParams',
-	'getFeaturedProperties',
+	'tokkoService',
 	'utils',
 	'sliderMoves',
 	'$filter',
 	'$q',
 	'sharedData',
-	function ($rootScope, $scope, $timeout, tokkoApi, $stateParams, getFeaturedProperties, utils, sliderMoves, $filter, $q, sharedData) {
+	function ($rootScope, $scope, $timeout, tokkoApi, $stateParams, tokkoService, utils, sliderMoves, $filter, $q, sharedData) {
 		var development = this;
 
 		// #region Scoped Properties
 
-		$rootScope.activeMenu = 'developments';
+		$rootScope.activeMenu = 'emprendimientos';
 		$rootScope.activeSection = '';
 
 		development.apiReady = false;
@@ -148,7 +148,7 @@ app.controller('developmentController', [
 		// #region Private Methods
 
 		function getDevelopmentProps(id) {
-			getFeaturedProperties.getDevelopmentProps(id).then(
+			tokkoService.getDevelopmentProps(id).then(
 				(result) => {
 					result = result.data.objects;
 

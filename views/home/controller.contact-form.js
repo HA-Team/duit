@@ -14,7 +14,7 @@ app.controller('contactFormController', ['$rootScope', '$scope', '$timeout', 'to
 
   contactForm.focusFormControl = (e) => {
     const dataName = e.target.htmlFor;
-    const input = document.querySelector(`#home-contact .form-control[name='${dataName}']`);
+    const input = document.querySelector(`#contacto .form-control[name='${dataName}']`);
     input.focus();    
   };
 

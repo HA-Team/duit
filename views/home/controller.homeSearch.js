@@ -63,7 +63,7 @@ app.controller('homeSearchController', ['$rootScope', '$scope', '$state', '$time
     data.operation_types = [homeSearch.operationType[0]];
     if (homeSearch.propertyType) data.property_types = [homeSearch.propertyType.id];
     let args = {data: JSON.stringify(data), offset: 0};
-    $state.go('propertySearch', {args: JSON.stringify(args)});
+    $state.go('propiedades', {args: JSON.stringify(args)});
   };
 
   // #endregion

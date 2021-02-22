@@ -58,7 +58,7 @@ app.directive('galleryMultipleProperties', function() {
 
             $scope.toggleContactModal = () => $scope.isContactModalOpen = !$scope.isContactModalOpen;
 
-            $scope.goToProperty = (id) => window.location.href = `/#!/property/${id}`;
+            $scope.goToProperty = (id) => window.location.href = `/#!/propiedad/${id}`;
 
             // #endregion
 

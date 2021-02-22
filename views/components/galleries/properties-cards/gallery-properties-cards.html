@@ -25,7 +25,7 @@
 
     <!-- Property Cards-->
     <div class="gallery-properties-cards-item" ng-repeat="item in items track by $index" ng-class="{'active': $index + 1 == currentIndex}" ng-if="!isDev" ng-show="showPhotos">
-      <a ui-sref="property({propertyId: item.id})"><img src="{{item.cover_photo}}" alt=""></a>
+      <a ui-sref="propiedad({propertyId: item.id})"><img src="{{item.cover_photo}}" alt=""></a>
 
       <div class="gallery-properties-cards-item-description-container">
         <h4><strong>{{ item.price | currency:item.currency:0}}</strong></h4>
@@ -41,7 +41,7 @@
 
     <!-- Development Cards -->
     <div class="gallery-properties-cards-item gallery-properties-devs" ng-repeat="item in items track by $index" ng-class="{'active': $index + 1 == currentIndex}" ng-if="isDev" ng-show="showPhotos">
-      <a ui-sref="development({devId: item.id})"><img src="{{item.cover_photo}}" alt=""></a>
+      <a ui-sref="emprendimiento({devId: item.id})"><img src="{{item.cover_photo}}" alt=""></a>
 
       <div class="gallery-properties-cards-item-description-container">
         <h3>{{item.title}}</h3>

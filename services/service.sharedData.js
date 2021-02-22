@@ -1,5 +1,4 @@
 app.service('sharedData', function () {
-
 	this.duitWhatsapp = 5493512463530;
 	this.infoWhatsapp = 5493512463606;
 	this.infoEmail = 'info@duitpropiedades.com.ar';
@@ -134,7 +133,7 @@ app.service('sharedData', function () {
 				id: 721,
 				name: 'Cerrados',
 			},
-		]
+		],
 	};
 
 	this.propertiesTypes = [
@@ -170,7 +169,7 @@ app.service('sharedData', function () {
 			id: 99,
 			name: 'Emprendimientos',
 			showOnlyInOperationType: 1,
-			goTo: { page: 'developments', section: '' },
+			goTo: { page: 'emprendimientos', section: '' },
 		},
 	];
 
@@ -184,11 +183,14 @@ app.service('sharedData', function () {
 			property_types: [1, 2, 3, 5, 7, 10, 14], // Search only for types listed in this.propertiesTypes array.
 			currency: 'ANY',
 			filters: [],
-		}
+		},
 	};
+
 	this.tokkoSearchArgs.sData = `{"current_localization_id":${this.tokkoSearchArgs.data.current_localization_id},"current_localization_type":"${this.tokkoSearchArgs.data.current_localization_type}","price_from":${this.tokkoSearchArgs.data.price_from},"price_to":${this.tokkoSearchArgs.data.price_to},"operation_types":[${this.tokkoSearchArgs.data.operation_types}],"property_types":[${this.tokkoSearchArgs.data.property_types}],"currency":"${this.tokkoSearchArgs.data.currency}","filters":[${this.tokkoSearchArgs.data.filters}]}`;
-	
+
 	this.devs = [];
 
-	this.setDevs = (value) => this.devs = value;
+	this.setDevs = (value) => (this.devs = value);
+
+	this.propertySearchScrollY = 0;
 });

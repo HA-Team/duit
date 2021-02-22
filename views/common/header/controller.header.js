@@ -83,42 +83,42 @@ app.controller('headerController', ['$rootScope', '$location', 'navigation', 'sh
     },
     {
       title: 'Alquiler',
-      page: 'propertySearch',
+      page: 'propiedades',
       args: getOperationArgs(operationTypes.alquiler),
-      section: 'properties-rent',
+      section: 'alquiler',
       action: () => $rootScope.$broadcast('changeFilter', { operationType: 2 })     
     },
     {
       title: 'Venta',
-      page: 'propertySearch',
+      page: 'propiedades',
       args: getOperationArgs(operationTypes.venta),
-      section: 'properties-sell',
+      section: 'venta',
       action: () => $rootScope.$broadcast('changeFilter', { operationType: 1 }) 
     },
     {
       title: 'Emprendimientos',
-      page: 'developments',
+      page: 'emprendimientos',
       section: ''
     },
     {
       title: 'Duit 360º',
       page: 'home',
-      section: 'home-featured-anchor'
+      section: 'destacados'
     },
     {
       title: 'Servicios',
       page: 'home',
-      section: 'home-services'
+      section: 'servicios'
     },
     {
       title: 'Consejeros',
       page: 'home',
-      section: 'home-agents'
+      section: 'consejeros'
     },
     {
       title: 'Contacto',
       page: 'home',
-      section: 'home-contact'
+      section: 'contacto'
     }
   ];
 

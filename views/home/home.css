@@ -87,12 +87,12 @@ a.property-type + ul li:hover {
 	background-color: var(--primary-red);
 }
 
-#home-agents {
+#consejeros {
 	background-color: #f7f7f7;
 	width: 100%;
 }
 
-.home-agents-container {
+.consejeros-container {
 	width: 100%;
 	display: flex;
 	justify-content: center;
@@ -104,26 +104,26 @@ a.property-type + ul li:hover {
 	padding-bottom: 50px;
 }
 
-.home-agents-container .home-agents-title {
+.consejeros-container .consejeros-title {
 	flex: 1 1 100%;
 	text-align: center;
 	margin-top: 20px;
 }
 
-.home-agents-container .home-agents-description {
+.consejeros-container .consejeros-description {
 	padding: 0 25px;
 	margin-bottom: 20px;
 }
 
-.home-agents-container .home-agents-description p {
+.consejeros-container .consejeros-description p {
 	line-height: normal;
 }
 
-.home-agents-container .home-agents-title img {
+.consejeros-container .consejeros-title img {
 	width: 150px;
 }
 
-.home-agents-container .home-agent-card {
+.consejeros-container .home-agent-card {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -131,7 +131,7 @@ a.property-type + ul li:hover {
 	margin-bottom: 20px;
 }
 
-.home-agents-container .home-agent-card img {
+.consejeros-container .home-agent-card img {
 	width: 100px;
 	height: 100px;
 	border-radius: 50%;
@@ -139,21 +139,21 @@ a.property-type + ul li:hover {
 	margin-bottom: 15px;
 }
 
-.home-agents-container .home-agent-card > p,
-.home-agents-container .home-agent-card > a {
+.consejeros-container .home-agent-card > p,
+.consejeros-container .home-agent-card > a {
 	line-height: 20px;
 	margin: 0;
 	font-size: 13px;
 	color: #707070;
 }
 
-.home-agents-container .home-agent-card .home-agent-card-icons {
+.consejeros-container .home-agent-card .home-agent-card-icons {
 	display: flex;
 	width: 40%;
 	justify-content: space-around;
 }
 
-.home-agents-container .home-agent-card .home-agent-card-icons a {
+.consejeros-container .home-agent-card .home-agent-card-icons a {
 	font-size: 20px;
 	color: #707070;
 }
@@ -194,7 +194,7 @@ a.property-type + ul li:hover {
 	border-radius: 10px;
 }
 
-.home-contact-container {
+.contacto-container {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -203,41 +203,41 @@ a.property-type + ul li:hover {
 	max-width: 1200px;
 }
 
-#home-contact {
+#contacto {
 	display: flex;
 	flex-direction: column;
 	padding: 20px;
 }
 
-#home-contact > h3 {
+#contacto > h3 {
 	margin: 0 0 20px 0;
 	line-height: 50px;
 }
 
-#home-contact form {
+#contacto form {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
 
-#home-contact form .contact-form-group {
+#contacto form .contact-form-group {
 	width: 100%;
 	display: flex;
 	align-items: center;
 	margin-bottom: 25px;
 }
 
-#home-contact form .contact-form-group .form-control {
+#contacto form .contact-form-group .form-control {
 	border-radius: 10px;
 }
 
-#home-contact form input,
-#home-contact form textarea {
+#contacto form input,
+#contacto form textarea {
 	margin: 0;
 }
 
-#home-contact form .input-placeholder {
+#contacto form .input-placeholder {
 	position: absolute;
 	margin: 0;
 	padding-left: 20px;
@@ -246,19 +246,19 @@ a.property-type + ul li:hover {
 	cursor: text;
 }
 
-#home-contact form .form-control:focus + .input-placeholder,
-#home-contact form .form-control:not(:placeholder-shown) + .input-placeholder {
+#contacto form .form-control:focus + .input-placeholder,
+#contacto form .form-control:not(:placeholder-shown) + .input-placeholder {
 	font-size: 90%;
 	transform: translatey(-35px);
 	opacity: 1;
 }
 
-#home-contact form .form-control:focus + .textarea-placeholder,
-#home-contact form .form-control:not(:placeholder-shown) + .textarea-placeholder {
+#contacto form .form-control:focus + .textarea-placeholder,
+#contacto form .form-control:not(:placeholder-shown) + .textarea-placeholder {
 	transform: translatey(-75px);
 }
 
-#home-contact form > button {
+#contacto form > button {
 	width: 100%;
 	max-width: 300px;
 	margin: 0;
@@ -266,12 +266,12 @@ a.property-type + ul li:hover {
 	z-index: 10;
 }
 
-#home-services {
+#servicios {
 	background-color: #f7f7f7;
 	width: 100%;
 }
 
-#home-services .home-services-container {
+#servicios .servicios-container {
 	background-color: var(--primary-red);
 	display: flex;
 	flex-direction: column;
@@ -283,12 +283,12 @@ a.property-type + ul li:hover {
 	max-width: 1200px;
 }
 
-#home-services h3 {
+#servicios h3 {
 	color: white;
 	font-size: 16px;
 }
 
-#home-services .home-services-imgs {
+#servicios .servicios-imgs {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
@@ -296,7 +296,7 @@ a.property-type + ul li:hover {
 	width: 100%;
 }
 
-#home-services .home-services-img-container {
+#servicios .servicios-img-container {
 	min-width: 130px;
 	display: flex;
 	align-items: center;
@@ -304,13 +304,13 @@ a.property-type + ul li:hover {
 	position: relative;
 }
 
-#home-services .home-services-imgs img {
+#servicios .servicios-imgs img {
 	width: 100px;
 	height: 100px;
 	cursor: pointer;
 }
 
-#home-services-description .icon-boxes-container {
+#servicios-description .icon-boxes-container {
 	display: flex;
 	flex-wrap: wrap;
 	width: 80%;
@@ -319,12 +319,12 @@ a.property-type + ul li:hover {
 	margin: auto;
 }
 
-#home-services-description .icon-boxes-container .icon-box-1 {
+#servicios-description .icon-boxes-container .icon-box-1 {
 	flex: 1 1 300px;
 	max-width: 300px;
 }
 
-#home-services-description .icon-container {
+#servicios-description .icon-container {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -334,29 +334,29 @@ a.property-type + ul li:hover {
 	cursor: pointer;
 }
 
-#home-services-description .icon-container img {
+#servicios-description .icon-container img {
 	max-width: 80%;
 	max-height: 80%;
 }
 
-#home-services-description .icon-box-1 .icon-container img {
+#servicios-description .icon-box-1 .icon-container img {
 	opacity: 1;
 	transform: translate3d(0, 0, 0) scale(1);
 	transition: all 0.2s ease-in;
 	display: inline-block;
 }
 
-#home-services-description .icon-box-1:hover .icon-container img {
+#servicios-description .icon-box-1:hover .icon-container img {
 	opacity: 0;
 	transform: translate3d(0, 0, 0) scale(1.16);
 }
 
-#home-services-description .icon-box-1.alternative:hover .icon-container img {
+#servicios-description .icon-box-1.alternative:hover .icon-container img {
 	opacity: 1;
 	transform: translate3d(0, 0, 0) scale(1);
 }
 
-#home-services-description .icon-box-1 .icon-container .icon-links a {
+#servicios-description .icon-box-1 .icon-container .icon-links a {
 	margin: 0;
 	padding: 0;
 	font-size: 14px;
@@ -420,18 +420,18 @@ a.property-type + ul li:hover {
 	transition: background-image 1s ease-in-out;
 }
 
-#home-contact-globe .contact-globe {
+#contacto-globe .contact-globe {
 	margin-bottom: 20px;
 }
 
-#home-contact-cards {
+#contacto-cards {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-around;
 }
 
-#home-contact-cards .home-contact-card {
+#contacto-cards .contacto-card {
 	background-color: white;
 	width: 400px;
 	height: 200px;
@@ -441,16 +441,16 @@ a.property-type + ul li:hover {
 	padding: 20px;
 }
 
-#home-contact-cards .home-contact-card img {
+#contacto-cards .contacto-card img {
 	width: 65%;
 }
 
-#home-contact-cards .home-contact-card-text {
+#contacto-cards .contacto-card-text {
 	line-height: 20px;
 	padding: 10px;
 }
 
-#home-contact-cards .home-contact-card-text p {
+#contacto-cards .contacto-card-text p {
 	margin: 0;
 	padding: 0;
 }
@@ -471,7 +471,7 @@ a.property-type + ul li:hover {
 	transition: all 0.2s ease-in-out;
 }
 
-.home-services-img-container:hover .service-tooltip {
+.servicios-img-container:hover .service-tooltip {
 	opacity: 1;
 	visibility: visible;
 }
@@ -528,42 +528,42 @@ a.property-type + ul li:hover {
 }
 
 @media (min-width: 437px) {
-	#home-services {
+	#servicios {
 		height: 320px;
 	}
 }
 
 @media (min-width: 698px) {
-	#home-services {
+	#servicios {
 		height: 200px;
 	}
 }
 
 @media only screen and (min-width: 1024px) {
-	#home-contact-globe .contact-globe {
+	#contacto-globe .contact-globe {
 		bottom: 10rem;
 	}
 
-	.home-contact-container > * {
+	.contacto-container > * {
 		flex: 0 0 45%;
 	}
 
-	#home-services .home-services-imgs img {
+	#servicios .servicios-imgs img {
 		width: 135px;
 		height: 135px;
 	}
 
-	#home-contact form {
+	#contacto form {
 		flex-direction: row;
 		flex-wrap: wrap;
 		justify-content: space-between;
 	}
 
-	#home-contact form > * {
+	#contacto form > * {
 		flex: 0 0 48%;
 	}
 
-	#home-contact form > div:nth-child(5) {
+	#contacto form > div:nth-child(5) {
 		flex: 1 1 100%;
 	}
 

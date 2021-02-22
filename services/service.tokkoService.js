@@ -1,4 +1,4 @@
-app.service('getFeaturedProperties', [
+app.service('tokkoService', [
 	'tokkoApi',
 	'sharedData',
 	'$filter',
