@@ -22,7 +22,7 @@
 				ng-if="!property.showDuit360"
 			/>
 			<iframe
-				ng-if="property.showGalleryVideo"
+				ng-if="property.showGalleryVideo && !property.showDuit360"
 				width="560"
 				height="349"
 				ng-src="{{property.activeGalleryVideo.player_url | trusted}}"
