@@ -40,17 +40,6 @@ app.service('sharedData', function () {
 			pic: '/images/team/fernando-gavier-profile.jpg',
 		},
 		{
-			name: 'Hugo Miranda',
-			position: 'Consejero',
-			phone: '(351) 2462630',
-			email: 'hmiranda@duitpropiedades.com.ar',
-			facebook: ' ',
-			twitter: '',
-			linkedin: '',
-			instagram: '',
-			pic: '/images/team/hugo-miranda-profile.jpg',
-		},
-		{
 			name: 'Severo Sosa',
 			position: 'Consejero',
 			phone: '(351) 5648467',
