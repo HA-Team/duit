@@ -39,6 +39,11 @@
                         ng-click="header.goToSection(section.page, section.section, section.args); section.action();">
                         <a>{{section.title}}</a>
                     </li>
+                    <li class="mobile-menu-item"
+                        ng-class="{'current' : activeMenu == section.page && activeSection == section.section}"
+                        ng-click="header.goToSection('asistente', '', '');">
+                        <a>Asistente Personal Inmobiliario</a>
+                    </li>
                 </ul>
             </nav>
             <div class="mobile-modal-background" ng-click="header.toggleMenu()"></div>

@@ -116,6 +116,10 @@ app.controller('homeController', [
 			if (page && section) navigation.goToSection(page, section);
 		};
 
+        home.goToAsistente = () => {
+            navigation.goToSection('asistente');
+        }
+
 		// #endregion
 
 		// #region Events

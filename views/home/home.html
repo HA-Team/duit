@@ -64,6 +64,9 @@
   <h3>Servicios</h3>
 
   <div class="servicios-imgs">
+    <div class="servicios-img-container">
+        <img src="../../../images/asistente-personal-blanco.png" alt="" ng-click="home.goToAsistente();" style="height: auto;">
+    </div>
     <div ng-repeat="service in home.services" class="servicios-img-container">
       <a ng-click="home.goToSection(service.goTo.page, service.goTo.section); service.action()"><img src="{{service.imgSrc}}"></a>
       <div ng-if="service.hasTooltip" class="service-tooltip">
