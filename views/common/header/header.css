@@ -310,3 +310,9 @@
 		margin-right: 10px;
 	}
 }
+
+img.asistente-personal {
+    object-fit: cover;
+    height: 70px;
+    cursor: pointer;
+}

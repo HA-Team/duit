@@ -32,6 +32,11 @@ app.config([
 			templateUrl: 'views/development/development.html',
 			controller: 'developmentController as development',
 		});
+        $stateProvider.state('asistente', {
+			url: '/asistente',
+			templateUrl: 'views/asistente/asistente.html',
+			controller: 'asistenteController as asistente',
+		});
 		$urlRouterProvider.otherwise('/');
 
 		$provide.decorator('$uiViewScroll', function ($delegate) {
