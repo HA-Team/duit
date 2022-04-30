@@ -21,8 +21,6 @@ app.controller('homeController', [
 		// #endregion
 
 		// #region Private Properties
-		const parallaxElement = document.getElementById('home-search-bar');
-
 		var debouncedOnScroll = utils.debounce(onScroll, 50);
 		var backgroundImageIndex = 0;
 
@@ -37,14 +35,6 @@ app.controller('homeController', [
 			document.querySelector('footer').style.display = 'none';
 		}, 100);
 
-		var changeBackgroundImageInterval = setInterval(() => {
-			if (home.backGroundImages && home.backGroundImages.length > 1) {
-				parallaxElement.style.backgroundImage = `url(${home.backGroundImages[backgroundImageIndex].image})`;
-				backgroundImageIndex = backgroundImageIndex == home.backGroundImages.length - 1 ? 0 : backgroundImageIndex + 1;
-			}
-		}, 6000);
-
-		getBackgroundImages();
 		getFeatured360Props();
 
 		home.agents.forEach((agent) => (agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351')));
@@ -114,26 +104,6 @@ app.controller('homeController', [
 			);
 		}
 
-		function getBackgroundImages() {
-			const backgroundImagesPropId = 2990223;
-
-			tokkoApi.find('property', backgroundImagesPropId, $q.defer()).then(
-				(result) => {
-					result = result.data.objects[0];
-
-					home.backGroundImages = result.photos;
-
-					parallaxElement.style.backgroundImage = `url(${home.backGroundImages[0].image})`;
-					backgroundImageIndex = backgroundImageIndex == home.backGroundImages.length - 1 ? 0 : backgroundImageIndex + 1;
-
-					if (home.backGroundImages.length == 1) {
-						clearInterval(changeBackgroundImageInterval);
-					}
-				},
-				(reject) => null
-			);
-		}
-
 		// #endregion
 
 		// #region Scoped Methods
@@ -154,7 +124,6 @@ app.controller('homeController', [
 
 		$scope.$on('$destroy', () => {
 			window.removeEventListener('scroll', debouncedOnScroll);
-			clearInterval(changeBackgroundImageInterval);
 			document.querySelector('footer').style.display = 'flex';
 		});
 

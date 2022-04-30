@@ -1,16 +1,15 @@
 <!-- Searcher Section -->
-<section id="home-search-bar" ui-router-styles  class="parallax" data-color="#36383e"
-data-img-width="2500" data-img-height="1600" ng-controller="homeSearchController as homeSearch">
+<section id="home-search-bar" ui-router-styles class="parallax" data-color="#36383e" data-background="images/familia.png" ng-controller="homeSearchController as homeSearch">
 
 <div class="parallax-content">
 
   <!-- Main Search Container -->
   <div class="main-search-container">
-    <h2>Encontrá el <strong>lugar</strong>, construí tu <strong>historia</strong>.</h2> 
-    
+    <h2>Encontrá el <strong>lugar</strong>, construí tu <strong>historia</strong>.</h2>
+
     <!-- Mobile Search -->
     <form class="main-search-form">
-      
+
       <!-- Type -->
       <div class="search-type">
         <label class="active"><input class="first-tab operationType" ng-model="homeSearch.operationType" name="tab" checked="checked" type="radio" value="2">Alquiler</label>
@@ -19,12 +18,12 @@ data-img-width="2500" data-img-height="1600" ng-controller="homeSearchController
 
       <!-- Property Type -->
       <div class="property-type-dropdown-container" ng-class="{' warning': homeSearch.isPropertyPlaceholderWarningActive}" tabindex="-1" ng-blur="homeSearch.isPropertyTypeOpen = false;">
-        <a class="property-type" ng-click="homeSearch.togglePropertyTypeDropdown()" ng-class="{' open': homeSearch.isPropertyTypeOpen}">{{homeSearch.propertyType.name}} <i class="fas fa-angle-down"></i></a>                      
+        <a class="property-type" ng-click="homeSearch.togglePropertyTypeDropdown()" ng-class="{' open': homeSearch.isPropertyTypeOpen}">{{homeSearch.propertyType.name}} <i class="fas fa-angle-down"></i></a>
         <ul class="col-md-5" ng-class="{' open': homeSearch.isPropertyTypeOpen}">
-          <li ng-repeat="type in homeSearch.propertiesTypes track by type.id" ng-click="homeSearch.updateTypeChosen(type)" ng-show="!type.showOnlyInOperationType || type.showOnlyInOperationType == homeSearch.operationType">{{type.name}}</li>                        
+          <li ng-repeat="type in homeSearch.propertiesTypes track by type.id" ng-click="homeSearch.updateTypeChosen(type)" ng-show="!type.showOnlyInOperationType || type.showOnlyInOperationType == homeSearch.operationType">{{type.name}}</li>
         </ul>
       </div>
-      
+
       <button class="button" ng-click="homeSearch.findProperties()">Buscar <i class="fas fa-search"></i></button>
 
     </form>
@@ -57,7 +56,7 @@ data-img-width="2500" data-img-height="1600" ng-controller="homeSearchController
 
 </section>
 <!-- Featured Section End -->
-  
+
 <!-- Services Section -->
 <section id="servicios">
 
