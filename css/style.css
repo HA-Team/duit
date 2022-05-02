@@ -11,6 +11,7 @@
 @import url("../views/home/home.css");
 @import url("../views/property/property.css");
 @import url("../views/properties_listing/properties_listing.css");
+@import url("../views/asistente/asistente.css");
 
 
 /* Components */
@@ -598,7 +599,7 @@ button.widget-button {
     transition: all .35s;
 }
 #navigation.style-2 .current, #navigation.style-2 ul li:hover {
-    
+
 }
 #navigation.style-2 ul li:hover a {
     color: #fff;
@@ -611,6 +612,12 @@ button.widget-button {
     border-radius: 0;
     cursor: pointer;
 }
+
+#navigation.style-2 ul li:last-child a {
+    width: 125px;
+    line-height: normal;
+}
+
 #navigation.style-2 ul ul li {
     margin: 0;
 }
@@ -1856,7 +1863,7 @@ button.fs-map-btn.button {
     .badge-default {
       background-color: white;
     }
-  
+
     .badge {
       color: black;
       border-radius: 4px;
@@ -2248,7 +2255,7 @@ section.fullwidth {
     width: 100%;
     display: block;
     position: relative;
-    padding: 90px 0;    
+    padding: 90px 0;
     background-color: #f7f7f7;
 }
 section.fullwidth.border-top {
@@ -2630,7 +2637,7 @@ section.fullwidth.border-bottom {
     border-radius: 50%;
     width: 80px;
     height: 80px;
-    object-fit: cover; 
+    object-fit: cover;
 }
 .agent-title .agent-photo {
     float: left;
@@ -6175,7 +6182,7 @@ img.mfp-img {
     height: 5px;
     display: inline-block;
     color: silver;
-    float: right;    
+    float: right;
 }
 .chosen-container-single .chosen-search {
     position: relative;

@@ -39,11 +39,6 @@
                         ng-click="header.goToSection(section.page, section.section, section.args); section.action();">
                         <a>{{section.title}}</a>
                     </li>
-                    <li class="mobile-menu-item"
-                        ng-class="{'current' : activeMenu == section.page && activeSection == section.section}"
-                        ng-click="header.goToSection('asistente', '', '');">
-                        <a>Asistente Personal Inmobiliario</a>
-                    </li>
                 </ul>
             </nav>
             <div class="mobile-modal-background" ng-click="header.toggleMenu()"></div>
@@ -72,9 +67,6 @@
                         ng-click="header.goToSection(section.page, section.section, section.args); section.action();">
                         <a>{{section.title}}</a>
                     </li>
-                    <li>
-                        <img class="asistente-personal" src="../../../images/asistente-personal-blanco.png" alt="" ng-click="header.goToSection('asistente', '', '');">
-                    </li>
                 </ul>
             </nav>
             <!-- Main Navigation / End -->
@@ -99,12 +91,9 @@
                 <ul id="responsive">
                     <li ng-repeat="section in header.sections"
                         ng-class="{'current' : activeMenu == section.page && activeSection == section.section}"
-                        ng-click="header.goToSection(section.page, section.section, section.args); section.action();">
+                        ng-click="header.goToSection(section.page, section.section, section.args); section.action();"
+                        ng-style="section.styles">
                         <a>{{section.title}}</a>
-                    </li>
-                    <li>
-                        <img class="asistente-personal" ng-click="header.goToSection('asistente', '', '');"
-                             src="../../../images/asistente-personal-blanco.png" alt="">
                     </li>
                 </ul>
             </nav>
