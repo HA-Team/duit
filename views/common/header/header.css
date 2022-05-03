@@ -224,6 +224,7 @@
 	justify-content: space-around;
 	align-items: center;
 	background-color: var(--primary-red);
+    height: 80px;
 }
 
 #header .desktop-header-container > * {
@@ -300,10 +301,13 @@
 	opacity: 0.80;
 }
 
-@media only screen and (max-width: 1250px) {
+@media only screen and (max-width: 1480px) {
+    #navigation.style-2 {
+        padding: 0;
+    }
 	#navigation.style-2 ul a {
-		padding: 0 10px !important;
-		font-size: 15px !important;
+		padding: 0 8px !important;
+		font-size: 14px !important;
 	}
 
 	#header .desktop-header-container .header-social {

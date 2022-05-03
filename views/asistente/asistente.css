@@ -370,5 +370,137 @@
     margin-left: 30px;
 }
 
+@media only screen and (max-width: 1024px) {
+    #asistente-personal .presentacion h2 {
+        width: auto;
+        padding: 15px;
+        font-size: 20px;
+        margin: 25px;
+    }
+
+    #asistente-personal .presentacion img.comprar {
+        height: 30%;
+    }
+
+    #asistente-personal .opciones {
+        margin-bottom: 25px;
+    }
+
+    #asistente-personal .opciones h2 {
+        font-size: 25px;
+        margin-top: 100px;
+    }
+
+    #asistente-personal .opciones ul {
+        flex-direction: column;
+        margin-top: 10px;
+        align-items: center;
+        padding: 0;
+    }
+
+    #asistente-personal .opciones ul li h3 {
+        margin: 10px 0;
+    }
+
+    #asistente-personal .opciones ul li {
+        width: 100%;
+    }
+
+    #asistente-personal .opciones ul li img {
+        width: 60%;
+    }
+
+    #asistente-personal .servicio-integral {
+        height: fit-content;
+        padding: 20px 0;
+    }
+
+    #asistente-personal .servicio-integral h2 {
+        font-size: 25px;
+    }
+
+    #asistente-personal .servicio-integral h2 br {
+        display: none;
+    }
+
+    #asistente-personal .servicio-integral .images-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #asistente-personal .servicio-integral img.circulo {
+        display: none;
+    }
+
+    #asistente-personal .servicio-integral img:not(.circulo) {
+        position: relative;
+        top: 0;
+        right: 0;
+        left: 0;
+        width: auto;
+        height: 150px;
+    }
+
+    #asistente-personal .beneficios h2 {
+        font-size: 25px;
+        margin: 25px 0;
+    }
+
+    #asistente-personal .beneficios ul {
+        flex-wrap: wrap;
+    }
+
+    #asistente-personal .beneficios ul li h1 {
+        font-size: 3rem;
+        padding: 0;
+    }
+
+    #asistente-personal .beneficios ul li {
+        width: 150px;
+        height: 150px;
+        padding: 0;
+        margin-bottom: 10px;
+    }
+
+    #asistente-personal .beneficios ul li p {
+        font-size: 13px;
+    }
+
+    #asistente-personal .asistentes {
+        flex-direction: column;
+        height: fit-content;
+    }
+
+    #asistente-personal .asistentes .listado-asistentes {
+        margin-top: 15px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #asistente-personal .contacto h3 {
+        width: 90%;
+        text-align: center;
+        margin: 25px;
+    }
+
+    #asistente-personal .contacto {
+        flex-direction: column;
+        height: fit-content;
+    }
+
+    #asistente-personal .contacto form {
+        flex-direction: column;
+        width: 80%;
+        margin-bottom: 30px;
+    }
+
+    #asistente-personal .contacto form .contact-form-group {
+        width: 100%
+    }
+}
+
 
 
