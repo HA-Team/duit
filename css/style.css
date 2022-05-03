@@ -613,7 +613,7 @@ button.widget-button {
     cursor: pointer;
 }
 
-#navigation.style-2 ul li:last-child a {
+#navigation.style-2 ul li:nth-child(2) a {
     width: 125px;
     line-height: normal;
     text-align: center;

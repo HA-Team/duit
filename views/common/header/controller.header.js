@@ -82,6 +82,11 @@ app.controller('headerController', ['$rootScope', '$location', 'navigation', 'sh
       section: ''
     },
     {
+        title: 'Asistente Personal',
+        page: 'asistente',
+        section: ''
+    },
+    {
       title: 'Alquiler',
       page: 'propiedades',
       args: getOperationArgs(operationTypes.alquiler),
@@ -119,11 +124,6 @@ app.controller('headerController', ['$rootScope', '$location', 'navigation', 'sh
       title: 'Contacto',
       page: 'home',
       section: 'contacto'
-    },
-    {
-      title: 'Asistente Inmobiliario',
-      page: 'asistente',
-      section: ''
     }
   ];
 

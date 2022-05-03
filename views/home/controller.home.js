@@ -117,7 +117,7 @@ app.controller('homeController', [
 		};
 
         home.goToAsistente = () => {
-            navigation.goToSection('asistente');
+            navigation.goToSection('asistente', '');
         }
 
 		// #endregion
