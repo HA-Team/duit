@@ -7,7 +7,8 @@
 
             <img class="logo-principal" src="../../images/asistente-personal-blanco.png" alt="">
 
-            <h2>El nuevo servicio de Duit para ayudar a las personas a tomar una de las decisiones más importantes de su vida.</h2>
+            <h2>El nuevo servicio de Duit para ayudar a las personas a tomar una de las decisiones más importantes de su
+                vida.</h2>
         </div>
 
         <img class="comprar" src="../../images/comprar.png" alt="">
@@ -37,6 +38,19 @@
 
     <section class="servicio-integral">
         <h2>Somos el acompañamiento perfecto <br> para un mercado cada vez más complejo.</h2>
+
+        <div class="images-container">
+            <img class="circulo" src="../../images/servicio-integral.png" alt="">
+
+            <img data-img="financiacion" src="../../images/financiacion.png" alt="">
+            <img data-img="tasacion" src="../../images/tasacion.png" alt="">
+            <img data-img="gastos" src="../../images/gastos.png" alt="">
+            <img data-img="problemas" src="../../images/problemas-ocultos.png" alt="">
+            <img data-img="garantias" src="../../images/garantias-legales.png" alt="">
+            <img data-img="precio" src="../../images/precio-correcto.png" alt="">
+            <img data-img="caracteristicas" src="../../images/caracteristicas.png" alt="">
+            <img data-img="localizacion" src="../../images/localizacion.png" alt="">
+        </div>
     </section>
 
     <section class="beneficios">
@@ -67,5 +81,64 @@
                 </li>
             </ul>
         </div>
+    </section>
+
+    <section class="asistentes">
+        <div class="titulo-container">
+            <h3>Elegí a tu</h3>
+            <img src="../../images/asistente-personal-color.png" alt="">
+        </div>
+
+        <div class="listado-asistentes">
+            <div class="home-agent-card" ng-repeat="agent in asistente.agents">
+                <img src="{{agent.pic}}" alt="">
+                <p>{{agent.name}}</p>
+                <a href="tel:{{agent.phone}}">{{agent.phone}}</a>
+
+                <div class="home-agent-card-icons">
+                    <a href="mailto:{{agent.email}}"><i class="fa fa-envelope"></i></a>
+                    <a href="https://api.whatsapp.com/send?phone={{asistente.formatCellPhone(agent.phone)}}"><i
+                            class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contacto">
+        <h3>Dejanos tus datos y nos comunicamos con vos.</h3>
+        <form id="contactform" autocomplete="on">
+            <div class="contact-form-group">
+                <input class="form-control" name="name" placeholder=" " type="text" ng-model="asistente.name" required />
+                <label class="input-placeholder no-select" for="name" ng-click="asistente.focusFormControl($event)">Nombre *</label>
+            </div>
+
+            <div class="contact-form-group">
+                <input class="form-control" name="last-name" placeholder=" " type="text" ng-model="asistente.lastName" required />
+                <label class="input-placeholder no-select" for="last-name" ng-click="asistente.focusFormControl($event)">Apellido *</label>
+            </div>
+
+            <div class="contact-form-group">
+                <input class="form-control" name="email" placeholder=" " type="email" ng-model="asistente.email"
+                    pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" required />
+                <label class="input-placeholder no-select" for="email"
+                    ng-click="asistente.focusFormControl($event)">Email *</label>
+            </div>
+
+            <div class="contact-form-group">
+                <input class="form-control" name="subject" placeholder=" " type="text" ng-model="asistente.phone" required/>
+                <label class="input-placeholder no-select" for="subject" ng-click="asistente.focusFormControl($event)">Teléfono *</label>
+            </div>
+
+            <button class="button" ng-click="asistente.send()">Contactar<i class='fa fa-spinner fa-spin' ng-show="asistente.sending"></i></button>
+
+            <div class="notification success closeable" ng-show="asistente.success">
+                <p>Tu consulta fue enviada con éxito.</p>
+            </div>
+
+            <div class="notification success closeable" ng-show="asistente.error">
+                <p>Ha ocurrido un error al intentar enviar tu consulta. Perdon por las molestias.</p>
+            </div>
+
+        </form>
     </section>
 </div>

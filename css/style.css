@@ -616,6 +616,7 @@ button.widget-button {
 #navigation.style-2 ul li:last-child a {
     width: 125px;
     line-height: normal;
+    text-align: center;
 }
 
 #navigation.style-2 ul ul li {
