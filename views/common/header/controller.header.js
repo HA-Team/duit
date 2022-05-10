@@ -65,8 +65,8 @@ app.controller('headerController', ['$rootScope', '$location', 'navigation', 'sh
 
     var currentScrollPos = window.pageYOffset;
 
-    stickyHeader.style.top = window.pageYOffset > mainHeader.offsetHeight ? "0" : "-75px";
-    mobileHeader.style.top = prevScrollpos > currentScrollPos ? "0" : "-75px";
+    stickyHeader.style.top = window.pageYOffset > mainHeader.offsetHeight ? "0" : "-85px";
+    mobileHeader.style.top = prevScrollpos > currentScrollPos ? "0" : "-85px";
 
     prevScrollpos = currentScrollPos;
   };

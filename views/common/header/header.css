@@ -290,7 +290,7 @@
 #sticky-header {
 	position: fixed;
 	width: 100%;
-	top: -75px;
+	top: -85px;
 	left: 0;
 	transition: top 0.2s ease-in-out;
 	min-height: 50px;
