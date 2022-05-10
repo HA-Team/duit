@@ -54,7 +54,7 @@
 
 #asistente-personal .opciones {
     width: 100%;
-    margin-bottom: 100px;
+    margin-bottom: 60px;
 }
 
 #asistente-personal .opciones h2 {
@@ -64,38 +64,13 @@
     color: #606060;
 }
 
-#asistente-personal .opciones ul {
-    display: flex;
-    list-style: none;
-    width: 80%;
-    margin: auto;
-    justify-content: space-around;
-    align-items: start;
-}
-
-#asistente-personal .opciones ul li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 20%;
-    max-width: 250px;
-}
-
-#asistente-personal .opciones ul li img {
-    object-fit: cover;
-    width: 100%;
-}
-
-#asistente-personal .opciones ul li h3 {
-    color: #606060;
-    font-weight: bold;
-    margin: 30px 0;
-}
-
-#asistente-personal .opciones ul li p {
+#asistente-personal .opciones p {
+    max-width: 700px;
     text-align: center;
-    font-size: 17px;
+    margin: auto;
+    margin-top: 30px;
+    font-size: 18px;
+    padding: 0 25px;
 }
 
 #asistente-personal .servicio-integral {
@@ -123,42 +98,42 @@
     background-color: #EA291A;
 }
 
-#asistente-personal .servicio-integral img[data-img="financiacion"] {
-    top: 0px;
-    left: 280px;
-}
-
-#asistente-personal .servicio-integral img[data-img="tasacion"] {
-    top: 0px;
-    right: 280px;
-}
-
-#asistente-personal .servicio-integral img[data-img="gastos"] {
-    top: 70px;
-    right: 40px;
-}
-
-#asistente-personal .servicio-integral img[data-img="problemas"] {
-    top: 260px;
-    right: 40px;
-}
-
-#asistente-personal .servicio-integral img[data-img="garantias"] {
-    bottom: 0;
-    right: 280px;
-}
-
-#asistente-personal .servicio-integral img[data-img="precio"] {
-    bottom: 0;
-    left: 280px;
-}
-
-#asistente-personal .servicio-integral img[data-img="caracteristicas"] {
+#asistente-personal .servicio-integral img:nth-child(2) {
     top: 70px;
     left: 40px;
 }
 
-#asistente-personal .servicio-integral img[data-img="localizacion"] {
+#asistente-personal .servicio-integral img:nth-child(3) {
+    top: 0px;
+    left: 280px;
+}
+
+#asistente-personal .servicio-integral img:nth-child(4) {
+    top: 0px;
+    right: 280px;
+}
+
+#asistente-personal .servicio-integral img:nth-child(5) {
+    top: 70px;
+    right: 40px;
+}
+
+#asistente-personal .servicio-integral img:nth-child(6) {
+    top: 260px;
+    right: 40px;
+}
+
+#asistente-personal .servicio-integral img:nth-child(7) {
+    bottom: 0;
+    right: 280px;
+}
+
+#asistente-personal .servicio-integral img:nth-child(8) {
+    bottom: 0;
+    left: 280px;
+}
+
+#asistente-personal .servicio-integral img:nth-child(9) {
     top: 260px;
     left: 40px;
 }
@@ -389,25 +364,6 @@
     #asistente-personal .opciones h2 {
         font-size: 25px;
         margin-top: 100px;
-    }
-
-    #asistente-personal .opciones ul {
-        flex-direction: column;
-        margin-top: 10px;
-        align-items: center;
-        padding: 0;
-    }
-
-    #asistente-personal .opciones ul li h3 {
-        margin: 10px 0;
-    }
-
-    #asistente-personal .opciones ul li {
-        width: 100%;
-    }
-
-    #asistente-personal .opciones ul li img {
-        width: 60%;
     }
 
     #asistente-personal .servicio-integral {

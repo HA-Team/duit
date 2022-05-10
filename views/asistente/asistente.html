@@ -15,41 +15,33 @@
     </section>
 
     <section class="opciones">
-        <h2>Un asistente personal <br> para todas tus opciones.</h2>
+        <h2>Én qué consiste <br> nuestro servicio?</h2>
 
-        <ul>
-            <li>
-                <img src="images/comprar.png" alt="">
-                <h3>Comprar</h3>
-                <p>Lorem ipsum dolor sit amet, consec- tetuer adipiscing elit, sed diam nonummy nibh euis-mod tincid</p>
-            </li>
-            <li>
-                <img src="images/vender.png" alt="">
-                <h3>Vender</h3>
-                <p>Lorem ipsum dolor sit amet, consec- tetuer adipiscing elit, sed diam nonummy nibh euis-mod tincid</p>
-            </li>
-            <li>
-                <img src="images/vender-para-comprar.png" alt="">
-                <h3>Vender para Comprar</h3>
-                <p>Lorem ipsum dolor sit amet, consec- tetuer adipiscing elit, sed diam nonummy nibh euis-mod tincid</p>
-            </li>
-        </ul>
+        <p>
+            Nuestro servicio de Asistente Personal Inmobiliario es la solución integral desarrollada por DUIT y pensada
+            para que nuestros clientes obtengan los mayores beneficios a la hora de comprar un inmueble.
+        </p>
+
+        <p>
+            Un verdadero trabajo a medida que consiste en buscar las mejores propiedades que se ajusten a lo que el
+            cliente está buscando, <b>resguardando al máximo sus intereses y acompañándolo en cada momento de la operación.</b>
+        </p>
     </section>
 
     <section class="servicio-integral">
         <h2>Somos el acompañamiento perfecto <br> para un mercado cada vez más complejo.</h2>
 
         <div class="images-container">
-            <img class="circulo" src="../../images/servicio-integral.png" alt="" >
+            <img class="circulo" src="../../images/servicio-integral.png" alt="">
 
-            <img data-img="financiacion" src="../../images/financiacion.png" alt="">
-            <img data-img="tasacion" src="../../images/tasacion.png" alt="">
-            <img data-img="gastos" src="../../images/gastos.png" alt="">
-            <img data-img="problemas" src="../../images/problemas-ocultos.png" alt="">
-            <img data-img="garantias" src="../../images/garantias-legales.png" alt="">
-            <img data-img="precio" src="../../images/precio-correcto.png" alt="">
             <img data-img="caracteristicas" src="../../images/caracteristicas.png" alt="">
             <img data-img="localizacion" src="../../images/localizacion.png" alt="">
+            <img data-img="gastos" src="../../images/gastos.png" alt="">
+            <img data-img="informe" src="../../images/informe.png" alt="">
+            <img data-img="financiacion" src="../../images/financiacion.png" alt="">
+            <img data-img="precio" src="../../images/precio-correcto.png" alt="">
+            <img data-img="garantias" src="../../images/garantias-legales.png" alt="">
+            <img data-img="tramites" src="../../images/tramites.png" alt="">
         </div>
     </section>
 
@@ -77,6 +69,10 @@
                 </li>
                 <li>
                     <h1>#5</h1>
+                    <p>Equipo de profesionales dedicados exlusivamente.</p>
+                </li>
+                <li>
+                    <h1>#6</h1>
                     <p>Te conocemos y entendemos lo que necesitás.</p>
                 </li>
             </ul>
@@ -108,28 +104,36 @@
         <h3>Dejanos tus datos y nos comunicamos con vos.</h3>
         <form id="contactform" autocomplete="on">
             <div class="contact-form-group">
-                <input class="form-control" name="name" placeholder=" " type="text" ng-model="asistente.name" required />
-                <label class="input-placeholder no-select" for="name" ng-click="asistente.focusFormControl($event)">Nombre *</label>
+                <input class="form-control" name="name" placeholder=" " type="text" ng-model="asistente.name"
+                    required />
+                <label class="input-placeholder no-select" for="name"
+                    ng-click="asistente.focusFormControl($event)">Nombre *</label>
             </div>
 
             <div class="contact-form-group">
-                <input class="form-control" name="last-name" placeholder=" " type="text" ng-model="asistente.lastName" required />
-                <label class="input-placeholder no-select" for="last-name" ng-click="asistente.focusFormControl($event)">Apellido *</label>
+                <input class="form-control" name="last-name" placeholder=" " type="text" ng-model="asistente.lastName"
+                    required />
+                <label class="input-placeholder no-select" for="last-name"
+                    ng-click="asistente.focusFormControl($event)">Apellido *</label>
             </div>
 
             <div class="contact-form-group">
                 <input class="form-control" name="email" placeholder=" " type="email" ng-model="asistente.email"
-                    pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$" required />
+                    pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$"
+                    required />
                 <label class="input-placeholder no-select" for="email"
                     ng-click="asistente.focusFormControl($event)">Email *</label>
             </div>
 
             <div class="contact-form-group">
-                <input class="form-control" name="subject" placeholder=" " type="text" ng-model="asistente.phone" required/>
-                <label class="input-placeholder no-select" for="subject" ng-click="asistente.focusFormControl($event)">Teléfono *</label>
+                <input class="form-control" name="subject" placeholder=" " type="text" ng-model="asistente.phone"
+                    required />
+                <label class="input-placeholder no-select" for="subject"
+                    ng-click="asistente.focusFormControl($event)">Teléfono *</label>
             </div>
 
-            <button class="button" ng-click="asistente.send()">Contactar<i class='fa fa-spinner fa-spin' ng-show="asistente.sending"></i></button>
+            <button class="button" ng-click="asistente.send()">Contactar<i class='fa fa-spinner fa-spin'
+                    ng-show="asistente.sending"></i></button>
 
             <div class="notification success closeable" ng-show="asistente.success">
                 <p>Tu consulta fue enviada con éxito.</p>
