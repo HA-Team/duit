@@ -224,7 +224,7 @@
 	justify-content: space-around;
 	align-items: center;
 	background-color: var(--primary-red);
-    height: 80px;
+    height: 70px;
 }
 
 #header .desktop-header-container > * {
@@ -309,6 +309,10 @@
 		padding: 0 8px !important;
 		font-size: 14px !important;
 	}
+
+    #navigation.style-2 ul li:nth-child(2) a {
+        width: 90px !important;
+    }
 
 	#header .desktop-header-container .header-social {
 		margin-right: 10px;

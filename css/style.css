@@ -614,7 +614,7 @@ button.widget-button {
 }
 
 #navigation.style-2 ul li:nth-child(2) a {
-    width: 125px;
+    width: 120px;
     line-height: normal;
     text-align: center;
 }
@@ -636,6 +636,16 @@ button.widget-button {
     }
     .property-titlebar{
         position: inherit !important;
+    }
+
+    a.asistente-btn {
+        left: 30px;
+        width: 25%;
+        min-width: 125px;
+        max-width: 150px;
+        bottom: 28px;
+        opacity: 1;
+        top: unset;
     }
 }
 @media only screen and (max-width:991px) {

@@ -1,4 +1,4 @@
-app.controller('devsListingController', ['$rootScope', '$scope', 'tokkoApi', 'tokkoService', '$filter', '$timeout', 'sharedData', function($rootScope, $scope, tokkoApi, tokkoService, $filter, $timeout, sharedData) {
+app.controller('devsListingController', ['$rootScope', '$scope', '$timeout', 'sharedData', 'navigation', function($rootScope, $scope, $timeout, sharedData, navigation) {
   var devsListing = this;
 
   // #region Scoped Properties
@@ -13,6 +13,25 @@ app.controller('devsListingController', ['$rootScope', '$scope', 'tokkoApi', 'to
   devsListing.apiReady = false;
   devsListing.ifResults = true;
   devsListing.filterOpen = false;
+  devsListing.contactGlobeTitle = 'Te asesoramos!';
+  devsListing.contactGlobeActions = [
+    {
+        hRef: `tel:${sharedData.duitPhone}`,
+        iconClass: 'fa fa-phone',
+        fontSize: '2.3rem',
+    },
+    {
+        hRef: `mailto:${sharedData.contactEmail}`,
+        iconClass: 'fa fa-envelope',
+        fontSize: '2.5rem',
+    },
+    {
+        hRef: `https://api.whatsapp.com/send?phone=${sharedData.duitWhatsapp}`,
+        iconClass: 'fab fa-whatsapp',
+        color: '#128c7e',
+        fontSize: '3rem',
+    },
+];
 
   // #endregion
 
@@ -34,7 +53,7 @@ app.controller('devsListingController', ['$rootScope', '$scope', 'tokkoApi', 'to
 
       results = devsListing.results;
 
-      devsListing.resultsMapped = devsListing.results.map(develop => {    
+      devsListing.resultsMapped = devsListing.results.map(develop => {
         return {
             id: develop.id,
             name: develop.name,
@@ -60,7 +79,7 @@ app.controller('devsListingController', ['$rootScope', '$scope', 'tokkoApi', 'to
       devsListing.apiReady = true;
 
       $scope.$apply();
-      
+
       clearInterval(getDevsInterval);
     }
   }, 200);
@@ -91,6 +110,10 @@ app.controller('devsListingController', ['$rootScope', '$scope', 'tokkoApi', 'to
   };
 
   devsListing.closeFilter = () => $timeout( () => devsListing.filterOpen = false);
+
+  devsListing.goToAsistente = () => {
+    navigation.goToSection('asistente', '');
+}
 
   // #endregion
 

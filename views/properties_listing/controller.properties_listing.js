@@ -11,8 +11,29 @@ app.controller('propsListingController', [
 	'sharedData',
 	'tokkoService',
 	'$q',
-	function ($scope, $timeout, $location, $rootScope, tokkoApi, $stateParams, $state, $anchorScroll, utils, sharedData, tokkoService, $q) {
+    'navigation',
+	function ($scope, $timeout, $location, $rootScope, tokkoApi, $stateParams, $state, $anchorScroll, utils, sharedData, tokkoService, $q, navigation) {
 		var propsListing = this;
+
+        propsListing.contactGlobeTitle = 'Te asesoramos!';
+        propsListing.contactGlobeActions = [
+            {
+                hRef: `tel:${sharedData.duitPhone}`,
+                iconClass: 'fa fa-phone',
+                fontSize: '2.3rem',
+            },
+            {
+                hRef: `mailto:${sharedData.contactEmail}`,
+                iconClass: 'fa fa-envelope',
+                fontSize: '2.5rem',
+            },
+            {
+                hRef: `https://api.whatsapp.com/send?phone=${sharedData.duitWhatsapp}`,
+                iconClass: 'fab fa-whatsapp',
+                color: '#128c7e',
+                fontSize: '3rem',
+            },
+        ];
 
 		// #region Private Properties
 
@@ -540,6 +561,10 @@ app.controller('propsListingController', [
 			{ val: 'price_desc', text: 'Mayor Precio' },
 			{ val: 'id_asc', text: 'Más Recientes' },
 		];
+
+        propsListing.goToAsistente = () => {
+            navigation.goToSection('asistente', '');
+        }
 
 		// #endregion
 	},

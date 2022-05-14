@@ -1,449 +1,591 @@
 <div id="propsListing">
-  
-  <!-- Desktop Content -->
-  <div class="hidden-on-mobile">
-    
-    <div class="prop-listing-desktop-container">
+    <a class="asistente-btn" ng-click="propsListing.goToAsistente();"><img src="../../images/asistente-personal-color.png" alt=""></a>
 
-      <!-- Sidebar -->
-      <section class="prop-listing-sidebar">
+    <!-- Desktop Content -->
+    <div class="hidden-on-mobile">
 
-        <h2>{{propsListing.sideBarParams.types.length == 1 ? propsListing.pluralize(propsListing.sideBarParams.types[0].type) : 'Inmuebles'}} {{propsListing.operationType.length == 1 ? 'en ' + propsListing.opName(propsListing.operationType[0]) : ''}}</h2>
-        <p>{{propsListing.resultsCount}} resultados</p>
+        <div class="prop-listing-desktop-container">
 
-        <div class="prop-listing-tags">
-          <p class="badge badge-default" ng-repeat="(key, value) in propsListing.filters" ng-if="value.isActive">
-            {{value.name}} <span class="badge badge-danger" ng-click="value.action();"><i class="fa fa-times"></i></span>
-          </p>
-          <p class="badge badge-default" ng-repeat="subType in propsListing.filters.subTypes.selected">
-            {{subType.name}} <span class="badge badge-danger" ng-click="propsListing.filters.subTypes.action(subType);"><i class="fa fa-times"></i></span>
-          </p>
-          <p class="badge badge-default" ng-repeat="location in propsListing.filters.locations.selected">
-            {{location.location_name}} <span class="badge badge-danger" ng-click="propsListing.filters.locations.action(location);"><i class="fa fa-times"></i></span>
-          </p>
+            <!-- Sidebar -->
+            <section class="prop-listing-sidebar">
+
+                <h2>{{propsListing.sideBarParams.types.length == 1 ?
+                    propsListing.pluralize(propsListing.sideBarParams.types[0].type) : 'Inmuebles'}}
+                    {{propsListing.operationType.length == 1 ? 'en ' +
+                    propsListing.opName(propsListing.operationType[0]) : ''}}</h2>
+                <p>{{propsListing.resultsCount}} resultados</p>
+
+                <div class="prop-listing-tags">
+                    <p class="badge badge-default" ng-repeat="(key, value) in propsListing.filters"
+                        ng-if="value.isActive">
+                        {{value.name}} <span class="badge badge-danger" ng-click="value.action();"><i
+                                class="fa fa-times"></i></span>
+                    </p>
+                    <p class="badge badge-default" ng-repeat="subType in propsListing.filters.subTypes.selected">
+                        {{subType.name}} <span class="badge badge-danger"
+                            ng-click="propsListing.filters.subTypes.action(subType);"><i class="fa fa-times"></i></span>
+                    </p>
+                    <p class="badge badge-default" ng-repeat="location in propsListing.filters.locations.selected">
+                        {{location.location_name}} <span class="badge badge-danger"
+                            ng-click="propsListing.filters.locations.action(location);"><i
+                                class="fa fa-times"></i></span>
+                    </p>
+                </div>
+
+                <!-- Order Section -->
+                <div class="desktop-prop-listing-order" ng-class="{'open': propsListing.isOrderOpen}">
+                    <h4>Ordenar Publicaciones</h4>
+                    <p ng-click="propsListing.isOrderOpen = !propsListing.isOrderOpen" tabindex="-1"
+                        ng-blur="propsListing.isOrderOpen = false">{{propsListing.orderBy.text}}<i
+                            class="fas fa-angle-down"></i></p>
+                    <ul class="desktop-order-modal">
+                        <li class="desktop-order-modal-item"
+                            ng-repeat="option in propsListing.orderOptions track by option.val"
+                            ng-click="propsListing.changeOrder(option)"
+                            ng-class="{' selected': option.val == propsListing.orderBy.val}">
+                            <div>{{option.text}}</div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Order Section End -->
+
+                <!-- Price Filter Section -->
+                <div class="desktop-prop-listing-price">
+                    <h4>Precio</h4>
+                    <div class="desktop-prop-listing-price-items">
+                        <input type="number" min="0.00" step="0.01" placeholder="Mínimo" data-unit="USD"
+                            ng-model="propsListing.minPrice" ng-model-options='{ debounce: 1500 }'
+                            ng-change="propsListing.find()"> -
+                        <input type="number" min="0.00" step="0.01" placeholder="Máximo" data-unit="USD"
+                            ng-model="propsListing.maxPrice" ng-model-options='{ debounce: 1500 }'
+                            ng-change="propsListing.find()">
+                    </div>
+                </div>
+                <!-- Price Filter Section End -->
+
+                <!-- Operation Filter  -->
+                <div class="margin-top-30">
+                    <h4>Operación</h4>
+                    <p class="badge badge-default"
+                        ng-if="propsListing.filters.operations.isActive && operation.operation_type == propsListing.filters.operations.selected"
+                        ng-repeat="operation in propsListing.sideBarParams.operations">
+                        {{propsListing.opName(operation.operation_type)}} <span class="badge badge-danger"
+                            ng-click="propsListing.changeFilter({type: 'o', val: propsListing.filters.operations.default});"><i
+                                class="fa fa-times"></i></span>
+                    </p>
+                    <p class="badge badge-info" ng-if="!propsListing.filters.operations.isActive"
+                        ng-repeat="operation in propsListing.sideBarParams.operations"
+                        ng-click="propsListing.changeFilter({type: 'o', val: [operation.operation_type], name: propsListing.opName(operation.operation_type)});">
+                        {{propsListing.opName(operation.operation_type)}} ({{operation.count}})</i></span>
+                    </p>
+                </div>
+                <!-- Operation Filter End -->
+
+                <!-- Type Filter -->
+                <div class="margin-top-20">
+                    <h4>Tipo</h4>
+                    <p class="badge badge-default"
+                        ng-if="propsListing.filters.types.isActive && type.id == propsListing.filters.types.selected"
+                        ng-repeat="type in propsListing.sideBarParams.types">
+                        {{type.type}} <span class="badge badge-danger"
+                            ng-click="propsListing.changeFilter({type: 't', val: propsListing.filters.types.default});"><i
+                                class="fa fa-times"></i></span>
+                    </p>
+                    <p class="badge badge-info" ng-if="!propsListing.filters.types.isActive"
+                        ng-repeat="type in propsListing.sideBarParams.types"
+                        ng-click="propsListing.changeFilter({type: 't', val: [type.id], name: type.type});">
+                        {{type.type}} ({{type.count}})</i></span>
+                    </p>
+
+                </div>
+                <!-- Type Filter End -->
+
+                <!-- Condition Filter -->
+                <div class="margin-top-20"
+                    ng-if="propsListing.sideBarParams.types.length == 1 && propsListing.sideBarParams.subTypes.length > 0">
+                    <h4>Condición</h4>
+                    <p class="badge badge-default" ng-if="propsListing.filters.subTypes.selected.indexOf(subType) != -1"
+                        ng-repeat="subType in propsListing.sideBarParams.subTypes">
+                        {{subType.name}} <span class="badge badge-danger"
+                            ng-click="propsListing.changeFilter({type: 'st', val: subType})"><i
+                                class="fa fa-times"></i></span>
+                    </p>
+                    <p class="badge badge-info" ng-if="propsListing.filters.subTypes.selected.indexOf(subType) == -1"
+                        ng-repeat="subType in propsListing.sideBarParams.subTypes"
+                        ng-click="propsListing.changeFilter({type: 'st', val: subType})">
+                        {{subType.name}}</i></span>
+                    </p>
+                </div>
+                <!-- Condition Filter End -->
+
+                <!-- Rooms Filter -->
+                <div class="margin-top-20" ng-if="propsListing.isAnyTypeHouseOrDept">
+                    <h4>Dormitorios</h4>
+                    <p class="badge badge-default"
+                        ng-if="propsListing.filters.rooms.isActive && room.amount.toString() == propsListing.filters.rooms.selected[2]"
+                        ng-repeat="room in propsListing.sideBarParams.rooms">
+                        {{propsListing.roomAmtName(room.amount)}}<span class="badge badge-danger"
+                            ng-click="propsListing.changeFilter({type: 'r', val: propsListing.filters.rooms.default})"><i
+                                class="fa fa-times"></i></span>
+                    </p>
+                    <p class="badge badge-info" ng-if="!propsListing.filters.rooms.isActive"
+                        ng-repeat="room in propsListing.sideBarParams.rooms"
+                        ng-click="propsListing.changeFilter({type: 'r', val: ['suite_amount', '=', room.amount.toString()], name: propsListing.roomAmtName(room.amount)})">
+                        {{propsListing.roomAmtName(room.amount)}} ({{room.count}})</i></span>
+                    </p>
+                </div>
+                <!-- Rooms Filter End -->
+
+                <!-- City Filter -->
+                <div class="margin-top-20 prop-listing-location-filter">
+                    <h4>Ciudad</h4>
+                    <p class="badge badge-default"
+                        ng-if="propsListing.filters.cities.isActive && city.id == propsListing.filters.cities.selected"
+                        ng-repeat="city in propsListing.sideBarParams.cities">
+                        {{city.name}}<span class="badge badge-danger"
+                            ng-click="propsListing.changeFilter({type: 'c', val: propsListing.filters.cities.default})"><i
+                                class="fa fa-times"></i></span>
+                    </p>
+                    <p class="badge badge-info" ng-if="!propsListing.filters.cities.isActive"
+                        ng-repeat="city in propsListing.sideBarParams.cities"
+                        ng-click="propsListing.changeFilter({type: 'c', val: city.id, name: city.name})">
+                        {{city.name}} ({{city.count}})</i></span>
+                    </p>
+                </div>
+
+                <p class="props-listing-show-more-locations" ng-click="propsListing.toggleMoreLocations($event)"
+                    ng-if="propsListing.sideBarParams.cities.length > 9 && !propsListing.filters.cities.isActive"><i
+                        class="fa fa-angle-down"></i></p>
+                <!-- City Filter End -->
+
+                <!-- Location Filter -->
+                <div class="margin-top-20 prop-listing-location-filter">
+                    <h4>Barrio</h4>
+                    <p class="badge badge-default"
+                        ng-if="propsListing.filters.locations.selected.indexOf(location) != -1"
+                        ng-repeat="location in propsListing.sideBarParams.locations">
+                        {{location.location_name}}<span class="badge badge-danger"
+                            ng-click="propsListing.changeFilter({type: 'l', val: location })"><i
+                                class="fa fa-times"></i></span>
+                    </p>
+                    <p class="badge badge-info" ng-if="propsListing.filters.locations.selected.indexOf(location) == -1"
+                        ng-repeat="location in propsListing.sideBarParams.locations"
+                        ng-click="propsListing.changeFilter({type: 'l', val: location })">
+                        {{location.location_name}} ({{location.count}})</i></span>
+                    </p>
+                </div>
+
+                <p class="props-listing-show-more-locations" ng-click="propsListing.toggleMoreLocations($event)"
+                    ng-if="propsListing.sideBarParams.locations.length > 9 && !propsListing.filters.locations.isActive">
+                    <i class="fa fa-angle-down"></i></p>
+                <!-- Location Filter End -->
+
+            </section>
+            <!-- Sidebar / End -->
+
+            <!-- Listing Container -->
+            <section class="prop-listing-main">
+
+                <skeleton-listing-card rows="4" lines="2" show-me="!propsListing.apiReady"></skeleton-listing-card>
+
+                <div class="prop-listing-items-container" ng-show="propsListing.apiReady">
+
+                    <!-- Listing Item -->
+                    <article class="prop-listing-item-card" ng-repeat="p in propsListing.results">
+                        <a href="{{'/#!/propiedad/' + p.id}}">
+                            <img src="{{p.coverPhoto}}" alt="">
+                        </a>
+
+                        <div class="prop-listing-card-content prop-listing-card-not-dev" ng-if="!p.development">
+                            <h5>{{p.price | currency:p.currency:0}}</h5>
+                            <p>{{p.area > 0 ? (p.area | number:0) + 'm': ''}}<sup ng-show="p.area > 0">2</sup> {{p.rooms
+                                == 1 ? ( p.area > 0 ? '| ' : '') + p.rooms + ' Dormitorio' : p.rooms > 1 ? (p.area > 0 ?
+                                '| ' : '') + p.rooms + ' Dormitorios' : ''}}</p>
+                            <p>{{p.propType.name}} en {{p.type}}</p>
+                            <p>{{p.title}}</p>
+                            <p>{{p.address}}</p>
+                        </div>
+
+                        <div class="prop-listing-card-content prop-listing-card-dev" ng-if="p.development">
+                            <p>Propiedades Desde</p>
+                            <h5>{{p.minPrice ? p.minPrice : (p.price | currency:p.currency:0)}}</h5>
+                            <p>{{p.development.name}}</p>
+                            <p>{{p.address}}</p>
+                        </div>
+                    </article>
+                    <!-- Listing Item / End -->
+
+                </div>
+                <!-- Listings Container / End -->
+
+                <!-- Navigation Arrows -->
+                <nav ng-show="propsListing.pages.cant > 1" class="listing-nav-arrows">
+                    <button ng-click="propsListing.goToPage(propsListing.pages.activePage - 1)"
+                        ng-disabled="propsListing.pages.activePage == 1"> <i class="fa fa-angle-left"></i>
+                        Anterior</button>
+                    <button ng-repeat="page in propsListing.pages.pagesToShow track by $index"
+                        ng-click="propsListing.goToPage(page);"
+                        ng-class="{'active': page == propsListing.pages.activePage}">{{page}}</button>
+                    <button ng-click="propsListing.goToPage(propsListing.pages.activePage + 1)"
+                        ng-disabled="propsListing.pages.activePage == propsListing.pages.cant">Siguiente <i
+                            class="fa fa-angle-right"></i></button>
+                </nav>
+
+                <div class="no-results" ng-hide="propsListing.ifResults">
+                    <i class="fa fa-5x fa-frown-o"></i>
+                    <h3>¡Ups! No hay nada aquí. ¡<a href="#!/#contacto">Contactános</a> para ver mas opciones!</h3>
+                </div>
+
+            </section>
+            <!-- Listing Container End -->
+
         </div>
 
-        <!-- Order Section -->
-        <div class="desktop-prop-listing-order" ng-class="{'open': propsListing.isOrderOpen}">
-          <h4>Ordenar Publicaciones</h4>
-          <p ng-click="propsListing.isOrderOpen = !propsListing.isOrderOpen" tabindex="-1" ng-blur="propsListing.isOrderOpen = false">{{propsListing.orderBy.text}}<i class="fas fa-angle-down"></i></p>
-          <ul class="desktop-order-modal" >
-            <li class="desktop-order-modal-item" ng-repeat="option in propsListing.orderOptions track by option.val" ng-click="propsListing.changeOrder(option)"
-            ng-class="{' selected': option.val == propsListing.orderBy.val}">            
-              <div>{{option.text}}</div>            
-            </li>          
-          </ul>
-        </div>
-        <!-- Order Section End -->
+    </div>
+    <!-- Desktop Content End -->
 
-        <!-- Price Filter Section -->
-        <div class="desktop-prop-listing-price">
-          <h4>Precio</h4>
-          <div class="desktop-prop-listing-price-items">
-            <input type="number" min="0.00" step="0.01" placeholder="Mínimo" data-unit="USD" ng-model="propsListing.minPrice" ng-model-options='{ debounce: 1500 }' ng-change="propsListing.find()"> - 
-            <input type="number" min="0.00" step="0.01" placeholder="Máximo" data-unit="USD" ng-model="propsListing.maxPrice" ng-model-options='{ debounce: 1500 }' ng-change="propsListing.find()">
-          </div>
-        </div>
-        <!-- Price Filter Section End -->
+    <!-- Mobile Content -->
+    <div id="mobile-props-listing" class="container hidden-on-desktop">
 
-        <!-- Operation Filter  -->
-        <div class="margin-top-30">
-          <h4>Operación</h4>
-          <p class="badge badge-default" ng-if="propsListing.filters.operations.isActive && operation.operation_type == propsListing.filters.operations.selected" ng-repeat="operation in propsListing.sideBarParams.operations">
-            {{propsListing.opName(operation.operation_type)}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'o', val: propsListing.filters.operations.default});"><i class="fa fa-times"></i></span>
-          </p>
-          <p class="badge badge-info" ng-if="!propsListing.filters.operations.isActive" ng-repeat="operation in propsListing.sideBarParams.operations"
-            ng-click="propsListing.changeFilter({type: 'o', val: [operation.operation_type], name: propsListing.opName(operation.operation_type)});">
-            {{propsListing.opName(operation.operation_type)}} ({{operation.count}})</i></span>
-          </p>
-        </div>
-        <!-- Operation Filter End -->
-
-        <!-- Type Filter -->
-        <div class="margin-top-20">
-          <h4>Tipo</h4>
-          <p class="badge badge-default" ng-if="propsListing.filters.types.isActive && type.id == propsListing.filters.types.selected" ng-repeat="type in propsListing.sideBarParams.types">
-            {{type.type}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 't', val: propsListing.filters.types.default});"><i class="fa fa-times"></i></span>
-          </p>
-          <p class="badge badge-info" ng-if="!propsListing.filters.types.isActive" ng-repeat="type in propsListing.sideBarParams.types" ng-click="propsListing.changeFilter({type: 't', val: [type.id], name: type.type});">
-            {{type.type}} ({{type.count}})</i></span>
-          </p>
-          
-        </div>
-        <!-- Type Filter End -->
-
-        <!-- Condition Filter -->
-        <div class="margin-top-20" ng-if="propsListing.sideBarParams.types.length == 1 && propsListing.sideBarParams.subTypes.length > 0">
-          <h4>Condición</h4>
-          <p class="badge badge-default" ng-if="propsListing.filters.subTypes.selected.indexOf(subType) != -1" ng-repeat="subType in propsListing.sideBarParams.subTypes">
-            {{subType.name}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'st', val: subType})"><i class="fa fa-times"></i></span>
-          </p>
-          <p class="badge badge-info" ng-if="propsListing.filters.subTypes.selected.indexOf(subType) == -1" ng-repeat="subType in propsListing.sideBarParams.subTypes" ng-click="propsListing.changeFilter({type: 'st', val: subType})">
-            {{subType.name}}</i></span>
-          </p>
-        </div>
-        <!-- Condition Filter End -->
-
-        <!-- Rooms Filter -->
-        <div class="margin-top-20" ng-if="propsListing.isAnyTypeHouseOrDept">
-          <h4>Dormitorios</h4>
-          <p class="badge badge-default" ng-if="propsListing.filters.rooms.isActive && room.amount.toString() == propsListing.filters.rooms.selected[2]" ng-repeat="room in propsListing.sideBarParams.rooms">
-            {{propsListing.roomAmtName(room.amount)}}<span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'r', val: propsListing.filters.rooms.default})"><i class="fa fa-times"></i></span>
-          </p>
-          <p class="badge badge-info" ng-if="!propsListing.filters.rooms.isActive" ng-repeat="room in propsListing.sideBarParams.rooms" ng-click="propsListing.changeFilter({type: 'r', val: ['suite_amount', '=', room.amount.toString()], name: propsListing.roomAmtName(room.amount)})">
-            {{propsListing.roomAmtName(room.amount)}} ({{room.count}})</i></span>
-          </p>
-        </div>
-        <!-- Rooms Filter End -->
-
-        <!-- City Filter -->
-        <div class="margin-top-20 prop-listing-location-filter">
-          <h4>Ciudad</h4>
-          <p class="badge badge-default" ng-if="propsListing.filters.cities.isActive && city.id == propsListing.filters.cities.selected" ng-repeat="city in propsListing.sideBarParams.cities">
-            {{city.name}}<span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'c', val: propsListing.filters.cities.default})"><i class="fa fa-times"></i></span>
-          </p>
-          <p class="badge badge-info" ng-if="!propsListing.filters.cities.isActive" ng-repeat="city in propsListing.sideBarParams.cities" ng-click="propsListing.changeFilter({type: 'c', val: city.id, name: city.name})">
-            {{city.name}} ({{city.count}})</i></span>
-          </p>          
-        </div>
-
-        <p class="props-listing-show-more-locations" ng-click="propsListing.toggleMoreLocations($event)" ng-if="propsListing.sideBarParams.cities.length > 9 && !propsListing.filters.cities.isActive"><i class="fa fa-angle-down"></i></p>
-        <!-- City Filter End -->
-
-        <!-- Location Filter -->
-        <div class="margin-top-20 prop-listing-location-filter">
-          <h4>Barrio</h4>
-          <p class="badge badge-default" ng-if="propsListing.filters.locations.selected.indexOf(location) != -1" ng-repeat="location in propsListing.sideBarParams.locations">
-            {{location.location_name}}<span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'l', val: location })"><i class="fa fa-times"></i></span>
-          </p>
-          <p class="badge badge-info" ng-if="propsListing.filters.locations.selected.indexOf(location) == -1" ng-repeat="location in propsListing.sideBarParams.locations" ng-click="propsListing.changeFilter({type: 'l', val: location })">
-            {{location.location_name}} ({{location.count}})</i></span>
-          </p>          
-        </div>
-
-        <p class="props-listing-show-more-locations" ng-click="propsListing.toggleMoreLocations($event)" ng-if="propsListing.sideBarParams.locations.length > 9 && !propsListing.filters.locations.isActive"><i class="fa fa-angle-down"></i></p>
-        <!-- Location Filter End -->
-
-      </section>    
-      <!-- Sidebar / End -->
-
-      <!-- Listing Container -->
-      <section class="prop-listing-main">      
-
-        <skeleton-listing-card rows="4" lines="2" show-me="!propsListing.apiReady"></skeleton-listing-card>
-
-        <div class="prop-listing-items-container" ng-show="propsListing.apiReady">
-
-          <!-- Listing Item -->
-          <article class="prop-listing-item-card" ng-repeat="p in propsListing.results">
-            <a href="{{'/#!/propiedad/' + p.id}}">
-              <img src="{{p.coverPhoto}}" alt="">            
-            </a>
-            
-            <div class="prop-listing-card-content prop-listing-card-not-dev" ng-if="!p.development">
-              <h5>{{p.price | currency:p.currency:0}}</h5> 
-              <p>{{p.area > 0 ? (p.area | number:0) + 'm': ''}}<sup ng-show="p.area > 0">2</sup> {{p.rooms == 1 ? ( p.area > 0 ? '| ' : '') + p.rooms + ' Dormitorio' : p.rooms > 1 ? (p.area > 0 ? '| ' : '') + p.rooms + ' Dormitorios' : ''}}</p> 
-              <p>{{p.propType.name}} en {{p.type}}</p> 
-              <p>{{p.title}}</p> 
-              <p>{{p.address}}</p>
+        <!-- Mobile Filter Menu -->
+        <div class="d-flex flex-row mobile-filter-menu-container">
+            <div class="mobile-filter-menu-item">
+                <div class="margin-right-10 mobile-filter-menu-icon"
+                    ng-click="propsListing.isOrderOpen = !propsListing.isOrderOpen">
+                    <i class="fa fa-long-arrow-down"></i>
+                    <i class="fa fa-long-arrow-up"></i>
+                </div>
+                <h4 ng-click="propsListing.isOrderOpen = !propsListing.isOrderOpen">Ordenar</h4>
             </div>
-
-            <div class="prop-listing-card-content prop-listing-card-dev" ng-if="p.development">
-              <p>Propiedades Desde</p>
-              <h5>{{p.minPrice ? p.minPrice : (p.price | currency:p.currency:0)}}</h5> 
-              <p>{{p.development.name}}</p> 
-              <p>{{p.address}}</p>
+            <div class="vertical-line"></div>
+            <div class="mobile-filter-menu-item">
+                <i class="fa fa-sliders margin-right-10 mobile-filter-menu-icon"
+                    ng-click="propsListing.isFilterOpen = !propsListing.isFilterOpen"></i>
+                <h4 ng-click="propsListing.isFilterOpen = !propsListing.isFilterOpen">Filtrar</h4>
             </div>
-          </article>
-          <!-- Listing Item / End -->
-
         </div>
-        <!-- Listings Container / End -->
+        <!-- Mobile Filter Menu End -->
+
+        <!-- Mobile Order Modal -->
+        <div id="mobile-props-order-modal" ng-class="{' open': propsListing.isOrderOpen}">
+            <div class="arrow-up"></div>
+            <div class="mobile-order-modal-container">
+                <h4>Ordenar por</h4>
+                <ul>
+                    <li class="mobile-order-modal-item"
+                        ng-repeat="option in propsListing.orderOptions track by option.val"
+                        ng-click="propsListing.changeOrder(option)"
+                        ng-class="{' selected': option.val == propsListing.orderBy.val}">
+                        <div>{{option.text}}</div>
+                    </li>
+                </ul>
+            </div>
+            <div class="mobile-modal-background" ng-click="propsListing.isOrderOpen = !propsListing.isOrderOpen"></div>
+        </div>
+        <!-- Mobile Order Modal End -->
+
+        <!-- Mobile Filter Modal -->
+        <div id="mobile-props-filter-modal" ng-class="{' open': propsListing.isFilterOpen}">
+            <div class="arrow-up"></div>
+            <div class="mobile-filter-modal-container">
+                <div class="mobile-filter-modal-header">
+                    <h4>Filtrar por</h4>
+                    <p ng-click="propsListing.clearAllFilters()">Limpiar filtros</p>
+                </div>
+                <ul>
+                    <!-- Filtro Precio -->
+                    <li class="mobile-filter-modal-item" ng-click="propsListing.toggleActiveItem($event)">
+                        <div class="mobile-filter-item-text">
+                            <h5>Rango de Precio</h5>
+                            <p>
+                                {{!propsListing.maxPrice && propsListing.minPrice ? 'Más de ' + (propsListing.minPrice |
+                                currency:"$":0) :
+                                !propsListing.minPrice && propsListing.maxPrice ? 'Menos de ' + (propsListing.maxPrice |
+                                currency:"$":0) :
+                                propsListing.maxPrice && propsListing.minPrice ? 'Entre ' + (propsListing.minPrice |
+                                currency:"$":0) + ' y ' + (propsListing.maxPrice | currency:"$":0) : 'Todos'}}
+                            </p>
+                        </div>
+                        <i class="fa fa-angle-down"></i>
+                    </li>
+                    <div class="mobile-filter-detail-container">
+                        <div class="price-filter mobile-filter-item-detail">
+                            <!-- Min Price -->
+                            <input type="number" placeholder="Mínimo" data-unit="USD" ng-model="propsListing.minPrice"
+                                ng-model-options='{ debounce: 1500 }' ng-change="propsListing.find()">
+                            <!-- Max Price -->
+                            <input type="number" placeholder="Máximo" data-unit="USD" ng-model="propsListing.maxPrice"
+                                ng-model-options='{ debounce: 1500 }' ng-change="propsListing.find()">
+                        </div>
+                    </div>
+                    <!-- Filtro Precio End -->
+
+                    <!-- Filtro Operación -->
+                    <li class="mobile-filter-modal-item" ng-click="propsListing.toggleActiveItem($event)">
+                        <div class="mobile-filter-item-text">
+                            <h5>Operación</h5>
+                            <p>{{propsListing.sideBarParams.operations.length == 1 ? 'Solo ' +
+                                propsListing.pluralize(propsListing.opName(propsListing.sideBarParams.operations[0].operation_type))
+                                : 'Todos'}}</p>
+                        </div>
+                        <i class="fa fa-angle-down"></i>
+                    </li>
+                    <div class="mobile-filter-detail-container">
+                        <div class="mobile-filter-item-detail">
+                            <h4 class="badge badge-default"
+                                ng-if="propsListing.filters.operations.isActive && operation.operation_type == propsListing.filters.operations.selected"
+                                ng-repeat="operation in propsListing.sideBarParams.operations">
+                                {{propsListing.opName(operation.operation_type)}} <span class="badge badge-danger"
+                                    ng-click="propsListing.changeFilter({type: 'o', val: propsListing.filters.operations.default})"><i
+                                        class="fa fa-times"></i></span>
+                            </h4>
+                            <h4 class="badge badge-info" ng-if="!propsListing.filters.operations.isActive"
+                                ng-repeat="operation in propsListing.sideBarParams.operations"
+                                ng-click="propsListing.changeFilter({type: 'o', val: [operation.operation_type]})">
+                                {{propsListing.opName(operation.operation_type)}} ({{operation.count}})</i></span>
+                            </h4>
+                        </div>
+                    </div>
+                    <!-- Filtro Operación End -->
+
+                    <!-- Filtro Tipo -->
+                    <li class="mobile-filter-modal-item" ng-click="propsListing.toggleActiveItem($event)">
+                        <div class="mobile-filter-item-text">
+                            <h5>Tipo</h5>
+                            <p>{{propsListing.sideBarParams.types.length == 1 ? 'Solo ' +
+                                propsListing.pluralize(propsListing.sideBarParams.types[0].type) : 'Todos'}}</p>
+                        </div>
+                        <i class="fa fa-angle-down"></i>
+                    </li>
+                    <div class="mobile-filter-detail-container">
+                        <div class="mobile-filter-item-detail">
+                            <h4 class="badge badge-default"
+                                ng-if="propsListing.filters.types.isActive && type.id == propsListing.filters.types.selected"
+                                ng-repeat="type in propsListing.sideBarParams.types">
+                                {{type.type}} <span class="badge badge-danger"
+                                    ng-click="propsListing.changeFilter({type: 't', val: propsListing.filters.types.default})"><i
+                                        class="fa fa-times"></i></span>
+                            </h4>
+                            <h4 class="badge badge-info" ng-if="!propsListing.filters.types.isActive"
+                                ng-repeat="type in propsListing.sideBarParams.types"
+                                ng-click="propsListing.changeFilter({type: 't', val: [type.id]})">
+                                {{type.type}} ({{type.count}})</i></span>
+                            </h4>
+                        </div>
+                    </div>
+                    <!-- Filtro Tipo End -->
+
+                    <!-- Filtro Condición -->
+                    <li class="mobile-filter-modal-item" ng-click="propsListing.toggleActiveItem($event)"
+                        ng-if="propsListing.sideBarParams.types.length == 1">
+                        <div class="mobile-filter-item-text">
+                            <h5>Condición</h5>
+                            <p>{{propsListing.sideBarParams.subTypes.length == 1 ? 'Solo ' +
+                                propsListing.sideBarParams.subTypes[0].name : 'Todos'}}</p>
+                        </div>
+                        <i class="fa fa-angle-down"></i>
+                    </li>
+                    <div class="mobile-filter-detail-container"
+                        ng-if="propsListing.sideBarParams.types.length == 1 && propsListing.sideBarParams.subTypes.length > 0">
+                        <div class="mobile-filter-item-detail">
+                            <h4 class="badge badge-default"
+                                ng-if="propsListing.filters.subTypes.selected.indexOf(subType) != -1"
+                                ng-repeat="subType in propsListing.sideBarParams.subTypes">
+                                {{subType.name}} <span class="badge badge-danger"
+                                    ng-click="propsListing.changeFilter({type: 'st', val: subType})"><i
+                                        class="fa fa-times"></i></span>
+                            </h4>
+                            <h4 class="badge badge-info"
+                                ng-if="propsListing.filters.subTypes.selected.indexOf(subType) == -1"
+                                ng-repeat="subType in propsListing.sideBarParams.subTypes"
+                                ng-click="propsListing.changeFilter({type: 'st', val: subType})">
+                                {{subType.name}}</i></span>
+                            </h4>
+                        </div>
+                    </div>
+                    <!-- Filtro Condición End -->
+
+                    <!-- Filtro Dormitorios -->
+                    <li class="mobile-filter-modal-item" ng-click="propsListing.toggleActiveItem($event)"
+                        ng-if="propsListing.isAnyTypeHouseOrDept">
+                        <div class="mobile-filter-item-text">
+                            <h5>Dormitorios</h5>
+                            <p>{{propsListing.sideBarParams.rooms.length == 1 ? 'Solo ' +
+                                propsListing.roomAmtName(propsListing.sideBarParams.rooms[0].amount) : 'Todos'}}</p>
+                        </div>
+                        <i class="fa fa-angle-down"></i>
+                    </li>
+                    <div class="mobile-filter-detail-container" ng-if="propsListing.isAnyTypeHouseOrDept">
+                        <div class="mobile-filter-item-detail">
+                            <h4 class="badge badge-default"
+                                ng-if="propsListing.filters.rooms.isActive && room.amount.toString() == propsListing.filters.rooms.selected[2]"
+                                ng-repeat="room in propsListing.sideBarParams.rooms">
+                                {{propsListing.roomAmtName(room.amount)}}<span class="badge badge-danger"
+                                    ng-click="propsListing.changeFilter({type: 'r', val: propsListing.filters.rooms.default})"><i
+                                        class="fa fa-times"></i></span>
+                            </h4>
+                            <h4 class="badge badge-info" ng-if="!propsListing.filters.rooms.isActive"
+                                ng-repeat="room in propsListing.sideBarParams.rooms"
+                                ng-click="propsListing.changeFilter({type: 'r', val: ['suite_amount', '=', room.amount.toString()]})">
+                                {{propsListing.roomAmtName(room.amount)}} ({{room.count}})</i></span>
+                            </h4>
+                        </div>
+                    </div>
+                    <!-- Filtro Dormitorios End -->
+
+                    <!-- Filtro Ciudad -->
+                    <li class="mobile-filter-modal-item" ng-click="propsListing.toggleActiveItem($event)">
+                        <div class="mobile-filter-item-text">
+                            <h5>Ciudad</h5>
+                            <p>{{propsListing.sideBarParams.cities.length == 1 ? 'Solo ' +
+                                propsListing.sideBarParams.cities[0].name : 'Todos'}}</p>
+                        </div>
+                        <i class="fa fa-angle-down"></i>
+                    </li>
+                    <div class="mobile-filter-detail-container">
+                        <div class="mobile-filter-item-detail">
+                            <h4 class="badge badge-default"
+                                ng-if="propsListing.filters.cities.isActive && city.id == propsListing.filters.cities.selected"
+                                ng-repeat="city in propsListing.sideBarParams.cities">
+                                {{city.name}}<span class="badge badge-danger"
+                                    ng-click="propsListing.changeFilter({type: 'c', val: propsListing.filters.cities.default})"><i
+                                        class="fa fa-times"></i></span>
+                            </h4>
+                            <h4 class="badge badge-info" ng-if="!propsListing.filters.cities.isActive"
+                                ng-repeat="city in propsListing.sideBarParams.cities"
+                                ng-click="propsListing.changeFilter({type: 'c', val: city.id})">
+                                {{city.name}} ({{city.count}})</i></span>
+                            </h4>
+                        </div>
+                    </div>
+                    <!-- Filtro Ciudad End -->
+
+                    <!-- Filtro Barrio -->
+                    <li class="mobile-filter-modal-item" ng-click="propsListing.toggleActiveItem($event)">
+                        <div class="mobile-filter-item-text">
+                            <h5>Barrio</h5>
+                            <p>{{propsListing.sideBarParams.locations.length == 1 ? 'Solo ' +
+                                propsListing.sideBarParams.locations[0].location_name : 'Todos'}}</p>
+                        </div>
+                        <i class="fa fa-angle-down"></i>
+                    </li>
+                    <div class="mobile-filter-detail-container">
+                        <div class="mobile-filter-item-detail">
+                            <h4 class="badge badge-default"
+                                ng-if="propsListing.filters.locations.selected.indexOf(location) != -1"
+                                ng-repeat="location in propsListing.sideBarParams.locations">
+                                {{location.location_name}}<span class="badge badge-danger"
+                                    ng-click="propsListing.changeFilter({type: 'l', val: location})"><i
+                                        class="fa fa-times"></i></span>
+                            </h4>
+                            <h4 class="badge badge-info"
+                                ng-if="propsListing.filters.locations.selected.indexOf(location) == -1"
+                                ng-repeat="location in propsListing.sideBarParams.locations"
+                                ng-click="propsListing.changeFilter({type: 'l', val: location})">
+                                {{location.location_name}} ({{location.count}})</i></span>
+                            </h4>
+                        </div>
+                    </div>
+                    <!-- Filtro Barrio End -->
+
+                </ul>
+            </div>
+            <div class="mobile-modal-background" ng-click="propsListing.isFilterOpen = !propsListing.isFilterOpen">
+            </div>
+        </div>
+        <!-- Mobile Filter Modal End -->
+
+        <!-- Skeleton Loader -->
+        <skeleton-listing rows="3" lines="2" show-me="!propsListing.apiReady"></skeleton-listing>
+
+        <div ng-show="propsListing.apiReady" class="margin-top-30">
+
+            <!-- Listings -->
+            <div class="listings-container grid-layout-three">
+
+                <!-- Listing Item -->
+                <div class="" ng-repeat="p in propsListing.results">
+
+                    <!-- Not Development Properties -->
+                    <div class="mobile-list-card-container" ng-if="!p.development">
+                        <a href="/#!/propiedad/{{p.id}}">
+                            <img class="mobile-list-card-img" src="{{p.photos[0].image}}" alt="">
+                        </a>
+
+                        <div class="mobile-list-card-details d-flex flex-column">
+                            <a href="/#!/propiedad/{{p.id}}">
+                                <p>{{p.title}} - {{p.address}}</p>
+                            </a>
+
+                            <span class="listing-price" ng-show="p.webPrice">{{p.price | currency:p.currency:0}}</span>
+
+                            <div class="mobile-card-icon-listing">
+                                <p>{{p.area | number : 0}} m<sup>2</sup> {{propsListing.doesPropertyHasEnvironments(p) ?
+                                    '-' : ''}}</p>
+                                <div ng-if="propsListing.doesPropertyHasEnvironments(p)" class="d-flex">
+                                    <i class="fa fa-bed"></i>
+                                    <p>&nbsp{{p.rooms}}</p>
+                                    <i class="fa fa-bath"></i>
+                                    <p>&nbsp{{p.baths}}</p>
+                                    <i class="fa fa-car"></i>
+                                    <p>&nbsp{{p.parkings}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Not Development Properties End -->
+
+                    <!-- Development Properties -->
+                    <div ng-if="p.development" class="mobile-list-card-container">
+                        <a href="/#!/propiedad/{{p.id}}">
+                            <img class="mobile-list-card-img" src="{{p.photos[0].image}}" alt="">
+                        </a>
+
+                        <div class="mobile-list-card-details d-flex flex-column">
+                            <a href="/#!/propiedad/{{p.id}}">
+                                <p>{{p.development.name}} - {{p.development.address}}</p>
+                            </a>
+
+                            <p>Propiedades desde:</p>
+                            <span class="listing-price" ng-show="p.webPrice">{{p.minPrice ? p.minPrice : (p.price |
+                                currency:p.currency:0)}}</span>
+                        </div>
+                    </div>
+                    <!-- Development Properties End -->
+
+                    <hr>
+                </div>
+                <!-- Listing Item / End -->
+
+            </div>
+            <!-- Listings Container / End -->
+        </div>
 
         <!-- Navigation Arrows -->
         <nav ng-show="propsListing.pages.cant > 1" class="listing-nav-arrows">
-          <button ng-click="propsListing.goToPage(propsListing.pages.activePage - 1)" ng-disabled="propsListing.pages.activePage == 1"> <i class="fa fa-angle-left"></i> Anterior</button>
-          <button ng-repeat="page in propsListing.pages.pagesToShow track by $index" ng-click="propsListing.goToPage(page);" ng-class="{'active': page == propsListing.pages.activePage}">{{page}}</button>
-          <button ng-click="propsListing.goToPage(propsListing.pages.activePage + 1)" ng-disabled="propsListing.pages.activePage == propsListing.pages.cant">Siguiente <i class="fa fa-angle-right"></i></button>
+            <button ng-click="propsListing.goToPage(propsListing.pages.activePage - 1)"
+                ng-disabled="propsListing.pages.activePage == 1"> <i class="fa fa-angle-left"></i> Anterior</button>
+            <button class="active">{{propsListing.pages.activePage}}</button>
+            <button ng-click="propsListing.goToPage(propsListing.pages.activePage + 1)"
+                ng-disabled="propsListing.pages.activePage == propsListing.pages.cant">Siguiente <i
+                    class="fa fa-angle-right"></i></button>
         </nav>
 
-        <div class="no-results" ng-hide="propsListing.ifResults">
-          <i class="fa fa-5x fa-frown-o"></i>
-          <h3>¡Ups! No hay nada aquí. ¡<a href="#!/#contacto">Contactános</a> para ver mas opciones!</h3>
+        <div class="row fullwidth-layout text-center no-results" ng-hide="propsListing.ifResults">
+            <i class="fa fa-5x fa-frown-o"></i>
+            <h3>¡Ups! No hay nada aquí. ¡<a href="#!/home/#contacto">Contactános</a> para ver mas opciones!</h3>
         </div>
 
-      </section>
-      <!-- Listing Container End -->
-
     </div>
+    <!-- Mobile Content End -->
 
-  </div>
-  <!-- Desktop Content End -->
-  
-  <!-- Mobile Content -->
-  <div id="mobile-props-listing" class="container hidden-on-desktop" >    
-
-    <!-- Mobile Filter Menu --> 
-    <div class="d-flex flex-row mobile-filter-menu-container">      
-      <div class="mobile-filter-menu-item">
-        <div class="margin-right-10 mobile-filter-menu-icon" ng-click="propsListing.isOrderOpen = !propsListing.isOrderOpen">
-          <i class="fa fa-long-arrow-down"></i>
-          <i class="fa fa-long-arrow-up"></i>
-        </div>        
-        <h4 ng-click="propsListing.isOrderOpen = !propsListing.isOrderOpen">Ordenar</h4>
-      </div> 
-      <div class="vertical-line"></div>     
-      <div class="mobile-filter-menu-item">
-        <i class="fa fa-sliders margin-right-10 mobile-filter-menu-icon" ng-click="propsListing.isFilterOpen = !propsListing.isFilterOpen"></i>
-        <h4 ng-click="propsListing.isFilterOpen = !propsListing.isFilterOpen">Filtrar</h4>
-      </div>
-    </div>
-    <!-- Mobile Filter Menu End -->
-
-    <!-- Mobile Order Modal -->    
-    <div id="mobile-props-order-modal" ng-class="{' open': propsListing.isOrderOpen}">
-      <div class="arrow-up"></div>
-      <div class="mobile-order-modal-container">
-        <h4>Ordenar por</h4>
-        <ul>
-          <li class="mobile-order-modal-item" ng-repeat="option in propsListing.orderOptions track by option.val" ng-click="propsListing.changeOrder(option)"
-          ng-class="{' selected': option.val == propsListing.orderBy.val}">            
-            <div>{{option.text}}</div>            
-          </li>          
-        </ul>
-      </div>  
-      <div class="mobile-modal-background" ng-click="propsListing.isOrderOpen = !propsListing.isOrderOpen"></div>    
-    </div>
-    <!-- Mobile Order Modal End -->
-
-    <!-- Mobile Filter Modal -->    
-    <div id="mobile-props-filter-modal" ng-class="{' open': propsListing.isFilterOpen}">
-      <div class="arrow-up"></div>
-      <div class="mobile-filter-modal-container">
-        <div class="mobile-filter-modal-header">
-          <h4>Filtrar por</h4>
-          <p ng-click="propsListing.clearAllFilters()">Limpiar filtros</p>
-        </div>        
-        <ul>
-          <!-- Filtro Precio -->
-          <li class="mobile-filter-modal-item" ng-click="propsListing.toggleActiveItem($event)">    
-            <div class="mobile-filter-item-text">
-              <h5>Rango de Precio</h5>
-              <p>
-                {{!propsListing.maxPrice && propsListing.minPrice ? 'Más de ' + (propsListing.minPrice | currency:"$":0) :
-                  !propsListing.minPrice && propsListing.maxPrice ? 'Menos de ' + (propsListing.maxPrice | currency:"$":0) :
-                  propsListing.maxPrice && propsListing.minPrice ? 'Entre ' + (propsListing.minPrice | currency:"$":0) + ' y ' + (propsListing.maxPrice | currency:"$":0) : 'Todos'}}
-              </p>
-            </div>        
-            <i class="fa fa-angle-down"></i>             
-          </li> 
-          <div class="mobile-filter-detail-container">
-            <div class="price-filter mobile-filter-item-detail">            
-              <!-- Min Price -->              
-              <input type="number" placeholder="Mínimo" data-unit="USD" ng-model="propsListing.minPrice" ng-model-options='{ debounce: 1500 }' ng-change="propsListing.find()">              
-              <!-- Max Price -->              
-              <input type="number" placeholder="Máximo" data-unit="USD" ng-model="propsListing.maxPrice" ng-model-options='{ debounce: 1500 }' ng-change="propsListing.find()"> 
-            </div>
-          </div> 
-          <!-- Filtro Precio End -->
-
-          <!-- Filtro Operación -->
-          <li class="mobile-filter-modal-item" ng-click="propsListing.toggleActiveItem($event)">                        
-            <div class="mobile-filter-item-text">
-              <h5>Operación</h5>  
-              <p>{{propsListing.sideBarParams.operations.length == 1 ? 'Solo ' + propsListing.pluralize(propsListing.opName(propsListing.sideBarParams.operations[0].operation_type)) : 'Todos'}}</p>
-            </div>        
-            <i class="fa fa-angle-down"></i>         
-          </li> 
-          <div class="mobile-filter-detail-container">
-            <div class="mobile-filter-item-detail">
-              <h4 class="badge badge-default" ng-if="propsListing.filters.operations.isActive && operation.operation_type == propsListing.filters.operations.selected" ng-repeat="operation in propsListing.sideBarParams.operations">
-                {{propsListing.opName(operation.operation_type)}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'o', val: propsListing.filters.operations.default})"><i class="fa fa-times"></i></span>
-              </h4>
-              <h4 class="badge badge-info" ng-if="!propsListing.filters.operations.isActive" ng-repeat="operation in propsListing.sideBarParams.operations"
-                  ng-click="propsListing.changeFilter({type: 'o', val: [operation.operation_type]})">
-                {{propsListing.opName(operation.operation_type)}} ({{operation.count}})</i></span>
-              </h4>
-            </div>
-          </div> 
-          <!-- Filtro Operación End -->
-
-          <!-- Filtro Tipo -->
-          <li class="mobile-filter-modal-item" ng-click="propsListing.toggleActiveItem($event)">            
-            <div class="mobile-filter-item-text">
-              <h5>Tipo</h5>              
-              <p>{{propsListing.sideBarParams.types.length == 1 ? 'Solo ' + propsListing.pluralize(propsListing.sideBarParams.types[0].type) : 'Todos'}}</p>
-            </div>        
-            <i class="fa fa-angle-down"></i>                       
-          </li> 
-          <div class="mobile-filter-detail-container">
-            <div class="mobile-filter-item-detail">
-              <h4 class="badge badge-default" ng-if="propsListing.filters.types.isActive && type.id == propsListing.filters.types.selected" ng-repeat="type in propsListing.sideBarParams.types">
-                {{type.type}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 't', val: propsListing.filters.types.default})"><i class="fa fa-times"></i></span>
-              </h4>
-              <h4 class="badge badge-info" ng-if="!propsListing.filters.types.isActive" ng-repeat="type in propsListing.sideBarParams.types" ng-click="propsListing.changeFilter({type: 't', val: [type.id]})">
-                {{type.type}} ({{type.count}})</i></span>
-              </h4>
-            </div>
-          </div> 
-          <!-- Filtro Tipo End -->
-
-          <!-- Filtro Condición -->
-          <li class="mobile-filter-modal-item" ng-click="propsListing.toggleActiveItem($event)" ng-if="propsListing.sideBarParams.types.length == 1">            
-            <div class="mobile-filter-item-text">
-              <h5>Condición</h5>              
-              <p>{{propsListing.sideBarParams.subTypes.length == 1 ? 'Solo ' + propsListing.sideBarParams.subTypes[0].name : 'Todos'}}</p>
-            </div>        
-            <i class="fa fa-angle-down"></i>                       
-          </li> 
-          <div class="mobile-filter-detail-container" ng-if="propsListing.sideBarParams.types.length == 1 && propsListing.sideBarParams.subTypes.length > 0">
-            <div class="mobile-filter-item-detail">
-              <h4 class="badge badge-default" ng-if="propsListing.filters.subTypes.selected.indexOf(subType) != -1" ng-repeat="subType in propsListing.sideBarParams.subTypes">
-                {{subType.name}} <span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'st', val: subType})"><i class="fa fa-times"></i></span>
-              </h4>
-              <h4 class="badge badge-info" ng-if="propsListing.filters.subTypes.selected.indexOf(subType) == -1" ng-repeat="subType in propsListing.sideBarParams.subTypes" ng-click="propsListing.changeFilter({type: 'st', val: subType})">
-                {{subType.name}}</i></span>
-              </h4>
-            </div>
-          </div> 
-          <!-- Filtro Condición End -->
-
-          <!-- Filtro Dormitorios -->
-          <li class="mobile-filter-modal-item" ng-click="propsListing.toggleActiveItem($event)" ng-if="propsListing.isAnyTypeHouseOrDept">
-            <div class="mobile-filter-item-text">
-              <h5>Dormitorios</h5>  
-              <p>{{propsListing.sideBarParams.rooms.length == 1 ? 'Solo ' + propsListing.roomAmtName(propsListing.sideBarParams.rooms[0].amount) : 'Todos'}}</p>
-            </div>        
-            <i class="fa fa-angle-down"></i>           
-          </li>  
-          <div class="mobile-filter-detail-container" ng-if="propsListing.isAnyTypeHouseOrDept">
-            <div class="mobile-filter-item-detail">
-              <h4 class="badge badge-default" ng-if="propsListing.filters.rooms.isActive && room.amount.toString() == propsListing.filters.rooms.selected[2]" ng-repeat="room in propsListing.sideBarParams.rooms">
-                {{propsListing.roomAmtName(room.amount)}}<span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'r', val: propsListing.filters.rooms.default})"><i class="fa fa-times"></i></span>
-              </h4>
-              <h4 class="badge badge-info" ng-if="!propsListing.filters.rooms.isActive" ng-repeat="room in propsListing.sideBarParams.rooms" ng-click="propsListing.changeFilter({type: 'r', val: ['suite_amount', '=', room.amount.toString()]})">
-                {{propsListing.roomAmtName(room.amount)}} ({{room.count}})</i></span>
-              </h4>
-            </div>
-          </div>
-          <!-- Filtro Dormitorios End -->
-
-          <!-- Filtro Ciudad -->
-          <li class="mobile-filter-modal-item" ng-click="propsListing.toggleActiveItem($event)">            
-            <div class="mobile-filter-item-text">              
-              <h5>Ciudad</h5>   
-              <p>{{propsListing.sideBarParams.cities.length == 1 ? 'Solo ' + propsListing.sideBarParams.cities[0].name : 'Todos'}}</p>
-            </div>        
-            <i class="fa fa-angle-down"></i>          
-          </li>
-          <div class="mobile-filter-detail-container">
-            <div class="mobile-filter-item-detail">
-              <h4 class="badge badge-default" ng-if="propsListing.filters.cities.isActive && city.id == propsListing.filters.cities.selected" ng-repeat="city in propsListing.sideBarParams.cities">
-                {{city.name}}<span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'c', val: propsListing.filters.cities.default})"><i class="fa fa-times"></i></span>
-              </h4>
-              <h4 class="badge badge-info" ng-if="!propsListing.filters.cities.isActive" ng-repeat="city in propsListing.sideBarParams.cities" ng-click="propsListing.changeFilter({type: 'c', val: city.id})">
-                {{city.name}} ({{city.count}})</i></span>
-              </h4>
-            </div>
-          </div>  
-          <!-- Filtro Ciudad End -->
-
-          <!-- Filtro Barrio -->
-          <li class="mobile-filter-modal-item" ng-click="propsListing.toggleActiveItem($event)">            
-            <div class="mobile-filter-item-text">              
-              <h5>Barrio</h5>   
-              <p>{{propsListing.sideBarParams.locations.length == 1 ? 'Solo ' + propsListing.sideBarParams.locations[0].location_name : 'Todos'}}</p>
-            </div>        
-            <i class="fa fa-angle-down"></i>          
-          </li>
-          <div class="mobile-filter-detail-container">
-            <div class="mobile-filter-item-detail">
-              <h4 class="badge badge-default" ng-if="propsListing.filters.locations.selected.indexOf(location) != -1" ng-repeat="location in propsListing.sideBarParams.locations">
-                {{location.location_name}}<span class="badge badge-danger" ng-click="propsListing.changeFilter({type: 'l', val: location})"><i class="fa fa-times"></i></span>
-              </h4>
-              <h4 class="badge badge-info" ng-if="propsListing.filters.locations.selected.indexOf(location) == -1" ng-repeat="location in propsListing.sideBarParams.locations" ng-click="propsListing.changeFilter({type: 'l', val: location})">
-                {{location.location_name}} ({{location.count}})</i></span>
-              </h4>
-            </div>
-          </div>  
-          <!-- Filtro Barrio End -->
-
-        </ul>
-      </div>  
-      <div class="mobile-modal-background" ng-click="propsListing.isFilterOpen = !propsListing.isFilterOpen"></div>    
-    </div>
-    <!-- Mobile Filter Modal End -->
-
-    <!-- Skeleton Loader -->
-    <skeleton-listing rows="3" lines="2" show-me="!propsListing.apiReady"></skeleton-listing>
-        
-    <div ng-show="propsListing.apiReady" class="margin-top-30">
-
-      <!-- Listings -->
-      <div class="listings-container grid-layout-three">
-        
-        <!-- Listing Item -->
-        <div class="" ng-repeat="p in propsListing.results">
-
-          <!-- Not Development Properties -->
-          <div class="mobile-list-card-container" ng-if="!p.development">
-            <a href="/#!/propiedad/{{p.id}}">
-              <img class="mobile-list-card-img" src="{{p.photos[0].image}}" alt="" >
-            </a>
-
-            <div class="mobile-list-card-details d-flex flex-column">              
-              <a href="/#!/propiedad/{{p.id}}"><p>{{p.title}} - {{p.address}}</p></a>
-
-              <span class="listing-price" ng-show="p.webPrice">{{p.price | currency:p.currency:0}}</span>
-              
-              <div class="mobile-card-icon-listing">
-                <p>{{p.area | number : 0}} m<sup>2</sup> {{propsListing.doesPropertyHasEnvironments(p) ? '-' : ''}}</p>
-                <div ng-if="propsListing.doesPropertyHasEnvironments(p)" class="d-flex">
-                  <i class="fa fa-bed"></i><p>&nbsp{{p.rooms}}</p>
-                  <i class="fa fa-bath"></i><p>&nbsp{{p.baths}}</p>
-                  <i class="fa fa-car"></i><p>&nbsp{{p.parkings}}</p>
-                </div>
-              </div>
-            </div>    
-          </div>
-          <!-- Not Development Properties End -->
-          
-          <!-- Development Properties -->
-          <div ng-if="p.development" class="mobile-list-card-container">
-            <a href="/#!/propiedad/{{p.id}}">
-              <img class="mobile-list-card-img" src="{{p.photos[0].image}}" alt="" >
-            </a>
-
-            <div class="mobile-list-card-details d-flex flex-column">              
-              <a href="/#!/propiedad/{{p.id}}"><p>{{p.development.name}} - {{p.development.address}}</p></a>
-
-              <p>Propiedades desde:</p>
-              <span class="listing-price" ng-show="p.webPrice">{{p.minPrice ? p.minPrice : (p.price | currency:p.currency:0)}}</span>            
-            </div>    
-          </div>  
-          <!-- Development Properties End -->
-
-          <hr>
-        </div>
-        <!-- Listing Item / End -->
-
-      </div>
-      <!-- Listings Container / End -->      
-    </div>
-
-    <!-- Navigation Arrows -->
-    <nav ng-show="propsListing.pages.cant > 1" class="listing-nav-arrows">
-      <button ng-click="propsListing.goToPage(propsListing.pages.activePage - 1)" ng-disabled="propsListing.pages.activePage == 1"> <i class="fa fa-angle-left"></i> Anterior</button>
-      <button class="active">{{propsListing.pages.activePage}}</button>
-      <button ng-click="propsListing.goToPage(propsListing.pages.activePage + 1)" ng-disabled="propsListing.pages.activePage == propsListing.pages.cant">Siguiente <i class="fa fa-angle-right"></i></button>
-    </nav>
-
-    <div class="row fullwidth-layout text-center no-results" ng-hide="propsListing.ifResults">
-      <i class="fa fa-5x fa-frown-o"></i>
-      <h3>¡Ups! No hay nada aquí. ¡<a href="#!/home/#contacto">Contactános</a> para ver mas opciones!</h3>
-    </div>
- 
-  </div>
-  <!-- Mobile Content End -->  
-      
 </div>
+
+<!-- Flying Contact Globe  -->
+<ng-container id="contacto-globe" ng-cloak>
+    <contact-globe is-open="propsListing.isContactGlobeOpen" main-img="'images/whatsapp-duit.png'"
+        show-main-img-box-shadow="false" title="propsListing.contactGlobeTitle" actions="propsListing.contactGlobeActions"
+        toggle-modal="propsListing.isContactGlobeOpen = !propsListing.isContactGlobeOpen">
+    </contact-globe>
+</ng-container>
+<!-- Flying Contact Globe End -->

@@ -9,7 +9,8 @@ app.controller('propertyController', [
 	'sliderMoves',
 	'$filter',
 	'$q',
-	function ($rootScope, $scope, $timeout, tokkoApi, $stateParams, tokkoService, utils, sliderMoves, $filter, $q) {
+    'navigation',
+	function ($rootScope, $scope, $timeout, tokkoApi, $stateParams, tokkoService, utils, sliderMoves, $filter, $q, navigation) {
 		var property = this;
 
 		// #region Scoped Properties
@@ -449,6 +450,10 @@ app.controller('propertyController', [
 				showMore.style.maxHeight = maxHeight;
 			}
 		};
+
+        property.goToAsistente = () => {
+            navigation.goToSection('asistente', '');
+        }
 
 		// #endregion
 

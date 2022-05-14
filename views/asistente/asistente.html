@@ -24,7 +24,8 @@
 
         <p>
             Un verdadero trabajo a medida que consiste en buscar las mejores propiedades que se ajusten a lo que el
-            cliente está buscando, <b>resguardando al máximo sus intereses y acompañándolo en cada momento de la operación.</b>
+            cliente está buscando, <b>resguardando al máximo sus intereses y acompañándolo en cada momento de la
+                operación.</b>
         </p>
     </section>
 
@@ -146,3 +147,12 @@
         </form>
     </section>
 </div>
+
+<!-- Flying Contact Globe  -->
+<ng-container id="contacto-globe" ng-cloak>
+    <contact-globe is-open="asistente.isContactGlobeOpen" main-img="'images/whatsapp-duit.png'"
+        show-main-img-box-shadow="false" title="asistente.contactGlobeTitle" actions="asistente.contactGlobeActions"
+        toggle-modal="asistente.isContactGlobeOpen = !asistente.isContactGlobeOpen">
+    </contact-globe>
+</ng-container>
+<!-- Flying Contact Globe End -->

@@ -1,5 +1,25 @@
-app.controller('asistenteController', ['tokkoApi', '$timeout', '$scope', function(tokkoApi, $timeout, $scope) {
+app.controller('asistenteController', ['tokkoApi', '$timeout', '$scope', 'sharedData', function(tokkoApi, $timeout, $scope, sharedData) {
     var asistente = this;
+
+    asistente.contactGlobeTitle = 'Te asesoramos!';
+    asistente.contactGlobeActions = [
+      {
+          hRef: `tel:${sharedData.duitPhone}`,
+          iconClass: 'fa fa-phone',
+          fontSize: '2.3rem',
+      },
+      {
+          hRef: `mailto:${sharedData.contactEmail}`,
+          iconClass: 'fa fa-envelope',
+          fontSize: '2.5rem',
+      },
+      {
+          hRef: `https://api.whatsapp.com/send?phone=${sharedData.duitWhatsapp}`,
+          iconClass: 'fab fa-whatsapp',
+          color: '#128c7e',
+          fontSize: '3rem',
+      },
+  ];
 
     asistente.agents = [
 		{
