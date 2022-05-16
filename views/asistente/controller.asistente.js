@@ -21,41 +21,7 @@ app.controller('asistenteController', ['tokkoApi', '$timeout', '$scope', 'shared
       },
   ];
 
-    asistente.agents = [
-		{
-			name: 'Agustín Aznarez',
-			position: 'Consejero',
-			phone: '(351) 3102556',
-			email: 'agustin@duitpropiedades.com.ar',
-			facebook: 'https://www.facebook.com/agustin.aznarez',
-			twitter: '',
-			linkedin: '',
-			instagram: '',
-			pic: '/images/team/agustin-aznarez-profile.jpg',
-		},
-		{
-			name: 'Daniel Ganim',
-			position: 'Consejero',
-			phone: '(351) 5647780',
-			email: 'danielganim@duitpropiedades.com.ar',
-			facebook: '',
-			twitter: '',
-			linkedin: '',
-			instagram: '',
-			pic: '/images/team/daniel-ganim-profile.jpg',
-		},
-		{
-			name: 'Carolina Valarolo',
-			position: 'Consejera',
-			phone: '(351) 5513711',
-			email: 'carolina@duitpropiedades.com.ar',
-			facebook: '',
-			twitter: '',
-			linkedin: '',
-			instagram: '',
-			pic: '/images/team/carolina-valarolo-1-profile.jpg',
-		}
-	];
+    asistente.agents = sharedData.agents.filter(agent => agent.name != 'Teresita Sciortino');
 
     asistente.agents.forEach((agent) => (agent.phone = agent.phone.replace(/[()]/g, '').replace(/^0351/, '351')));
 
