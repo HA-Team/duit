@@ -1,3 +1,39 @@
+.asistente-btn-contacto {
+    position: fixed;
+    right: 25px;
+    top: 80px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background-color: var(--primary-red);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.asistente-btn-contacto * {
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+@media only screen and (max-width: 1024px) {
+    .asistente-btn-contacto {
+        left: 30px;
+        width: 125px;
+        height: 125px;
+        bottom: 28px;
+        opacity: 1;
+        top: unset;
+    }
+
+    .asistente-btn-contacto h3 {
+        font-size: 18px;
+    }
+}
+
 #asistente-personal .presentacion {
     margin-top: -80px;
     height: 90vh;
