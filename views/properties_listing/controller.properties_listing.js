@@ -11,29 +11,29 @@ app.controller('propsListingController', [
 	'sharedData',
 	'tokkoService',
 	'$q',
-    'navigation',
+	'navigation',
 	function ($scope, $timeout, $location, $rootScope, tokkoApi, $stateParams, $state, $anchorScroll, utils, sharedData, tokkoService, $q, navigation) {
 		var propsListing = this;
 
-        propsListing.contactGlobeTitle = 'Te asesoramos!';
-        propsListing.contactGlobeActions = [
-            {
-                hRef: `tel:${sharedData.duitPhone}`,
-                iconClass: 'fa fa-phone',
-                fontSize: '2.3rem',
-            },
-            {
-                hRef: `mailto:${sharedData.contactEmail}`,
-                iconClass: 'fa fa-envelope',
-                fontSize: '2.5rem',
-            },
-            {
-                hRef: `https://api.whatsapp.com/send?phone=${sharedData.duitWhatsapp}`,
-                iconClass: 'fab fa-whatsapp',
-                color: '#128c7e',
-                fontSize: '3rem',
-            },
-        ];
+		propsListing.contactGlobeTitle = 'Te asesoramos!';
+		propsListing.contactGlobeActions = [
+			{
+				hRef: `tel:${sharedData.duitPhone}`,
+				iconClass: 'fa fa-phone',
+				fontSize: '2.3rem',
+			},
+			{
+				hRef: `mailto:${sharedData.contactEmail}`,
+				iconClass: 'fa fa-envelope',
+				fontSize: '2.5rem',
+			},
+			{
+				hRef: `https://api.whatsapp.com/send?phone=${sharedData.duitWhatsapp}`,
+				iconClass: 'fab fa-whatsapp',
+				color: '#128c7e',
+				fontSize: '3rem',
+			},
+		];
 
 		// #region Private Properties
 
@@ -409,7 +409,6 @@ app.controller('propsListingController', [
 				propsListing.locations = propsListing.sideBarParams.locations
 					.filter((loc) => loc.parent_id && loc.parent_id == filter.val)
 					.map((loc) => loc.location_id);
-				propsListing.locations = propsListing.filters.locations.default;
 				handleFilter(filter, 'cities');
 			}
 
@@ -442,8 +441,8 @@ app.controller('propsListingController', [
 			let pagesOffset = isActivePageInFirstHalf
 				? 1
 				: isActivePageInLastHalf
-				? propsListing.pages.cant - MAX_PAGES_TO_SHOW + 1
-				: propsListing.pages.activePage - halfCantOfPages + 1;
+					? propsListing.pages.cant - MAX_PAGES_TO_SHOW + 1
+					: propsListing.pages.activePage - halfCantOfPages + 1;
 
 			propsListing.pages.pagesToShow = [
 				...Array(parseInt(propsListing.pages.cant > MAX_PAGES_TO_SHOW ? MAX_PAGES_TO_SHOW : propsListing.pages.cant)).keys(),
@@ -562,9 +561,9 @@ app.controller('propsListingController', [
 			{ val: 'id_asc', text: 'Más Recientes' },
 		];
 
-        propsListing.goToAsistente = () => {
-            navigation.goToSection('asistente', '');
-        }
+		propsListing.goToAsistente = () => {
+			navigation.goToSection('asistente', '');
+		}
 
 		// #endregion
 	},

@@ -165,7 +165,7 @@ app.service('sharedData', function () {
 	this.tokkoSearchArgs = {
 		data: {
 			current_localization_id: 0,
-			current_localization_type: 'country',
+			current_localization_type: 'city',
 			price_from: 0,
 			price_to: 999999999,
 			operation_types: [1, 2],
