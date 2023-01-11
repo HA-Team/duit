@@ -170,7 +170,7 @@ app.controller('developmentController', [
 							property_type: prop.type.name,
 							currency: price.currency,
 							price: $filter('currency')(price.price, `${price.currency} `, 0),
-							cover_photo: prop.photos[0].image,
+							cover_photo: prop.photos[0]?.image,
 							parkings: prop.parking_lot_amount ? prop.parking_lot_amount : 0,
 							area: prop.type.id === 1 ? `${$filter('number')(prop.surface, 0)}m²` : `${$filter('number')(prop.roofed_surface, 0)}m²`,
 							sell: prop.operations.filter((p) => prop.operation_type == 'Venta')[0]
