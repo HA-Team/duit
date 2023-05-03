@@ -69,12 +69,12 @@ app.service('tokkoService', [
 									const minPriceProp = res.reduce((min, prop) => {
 										const price = utils.getPrice(prop)?.price;
 
-										return price < utils.getPrice(min).price ? prop : min;
+										return price < utils.getPrice(min)?.price ? prop : min;
 									}, res[0]);
 
 									const price = utils.getPrice(minPriceProp);
 
-									results[index].minPrice = $filter('currency')(price.price, `${price.currency} `, 0);
+									results[index].minPrice = price ? $filter('currency')(price.price, `${price.currency} `, 0) : 0;
 									results[index].minPriceId = minPriceProp.id;
 								}
 							});

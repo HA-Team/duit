@@ -49,7 +49,7 @@ app.service('utils', [
 
 		this.getPrice = (prop) => {
 			if (prop.operations.length) {
-				return prop.operations[prop.operations.length - 1].prices.slice(-1)[0];
+				return prop.operations[prop.operations.length - 1].prices?.slice(-1)[0];
 			}
 		};
 
