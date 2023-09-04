@@ -1,7 +1,7 @@
 app.directive('gallerySingleProperty', function() {
     return {
         restrict: 'E',
-        scope: {  
+        scope: {
             showGallery: '=',
             item: '=',
             showWidgets: '=',
@@ -9,15 +9,15 @@ app.directive('gallerySingleProperty', function() {
             hasDuit360: '='
         },
         templateUrl: '/views/components/galleries/single-property/gallery-single-property.html',
-        controller: ['$scope', 'sliderMoves', '$element', '$timeout', 'utils', function ($scope, sliderMoves, $element, $timeout, utils) {  
+        controller: ['$scope', 'sliderMoves', '$element', '$timeout', 'utils', function ($scope, sliderMoves, $element, $timeout, utils) {
             // #region Scoped Properties
 
-            $scope.item.videos = $scope.item.videos ? $scope.item.videos.filter(video => video.provider_id != 6) : null;
+            $scope.item.videos = $scope.item.videos ? $scope.item.videos.filter(video => video.provider_id != 22) : null;
             $scope.galleryCounter = $scope.item.videos ? $scope.item.photos.length + $scope.item.videos.length : $scope.item.photos.length;
-            
+
             $scope.isGalleryOpen = false;
             $scope.showDuit360 = $scope.hasDuit360;
-            $scope.currentIndex = 1; 
+            $scope.currentIndex = 1;
 
             // #endregion
 
@@ -30,49 +30,49 @@ app.directive('gallerySingleProperty', function() {
 
             // #region Private Methods
 
-            const setGalleryCounterLabel = () => photoCounter.innerHTML = `${$scope.currentIndex}/${$scope.galleryCounter}`; 
+            const setGalleryCounterLabel = () => photoCounter.innerHTML = `${$scope.currentIndex}/${$scope.galleryCounter}`;
 
             // #endregion
 
             // #region Scoped Methods
 
-            $scope.moveSlider = (side) => { 
+            $scope.moveSlider = (side) => {
                 $scope.currentIndex = sliderMoves.moveSliderByIndex(gallerySlider, $scope.currentIndex,
                                                             $scope.galleryCounter, side,
                                                             gallerySlider.querySelector("img").offsetWidth);
                 setGalleryCounterLabel();
-            };  
+            };
 
-            $scope.toggleGallery = () => {               
-                if (!$scope.item.hRef) {                    
-                    const header = document.querySelector("#mobile-header");                
+            $scope.toggleGallery = () => {
+                if (!$scope.item.hRef) {
+                    const header = document.querySelector("#mobile-header");
                     const body = document.querySelector("body");
-                    
+
                     $scope.isGalleryOpen = !$scope.isGalleryOpen;
-                
+
                     if ($scope.isGalleryOpen) {
-                      header.style.display = "none";                    
+                      header.style.display = "none";
                       body.style.overflow = "hidden";
                     }
                     else {
-                      header.style.display = "block";                    
+                      header.style.display = "block";
                       body.style.overflow = "visible";
                     }
 
-                    gallerySlider.style.scrollBehavior = 'unset';    
+                    gallerySlider.style.scrollBehavior = 'unset';
                     $timeout(() => {
                         gallerySlider.scrollLeft = gallerySlider.querySelector("img").offsetWidth * ($scope.currentIndex - 1);
                         gallerySlider.style.scrollBehavior = 'smooth';
                     });
-                }      
-                
+                }
+
                 utils.toggleFullScreen();
             };
 
             $scope.getSectionStyle = () => {
                 const styles = {};
 
-                styles.height = $scope.galleryHeight ? $scope.galleryHeight : '';                
+                styles.height = $scope.galleryHeight ? $scope.galleryHeight : '';
 
                 return styles;
             };
@@ -83,7 +83,7 @@ app.directive('gallerySingleProperty', function() {
 
             // #region Events
 
-            utils.sides.forEach(side => {                                
+            utils.sides.forEach(side => {
                 gallerySlider.addEventListener(`swiped-${side.side}`, (e) => {
                     e.preventDefault();
                     const isLandscape = window.innerHeight < window.innerWidth;
@@ -98,6 +98,6 @@ app.directive('gallerySingleProperty', function() {
             });
 
             // #endregion
-        }]            
+        }]
     }
 });

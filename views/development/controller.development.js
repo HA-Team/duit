@@ -75,9 +75,9 @@ app.controller('developmentController', [
 
 				development.d = result;
 
-				development.d.hasDuit360 = result.videos.some((video) => video.provider_id == 6);
+				development.d.hasDuit360 = result.videos.some((video) => video.provider_id == 22);
 				development.d.duit360Url = result.videos.length ? result.videos[0].player_url + '?rel=0&enablejsapi=1' : null;
-				development.d.youTubeVideos = development.d.videos.filter((video) => video.provider_id != 6);
+				development.d.youTubeVideos = development.d.videos.filter((video) => video.provider_id != 22);
 
 				development.showDuit360 = development.d.hasDuit360;
 				development.gallerySliderLength = development.d.photos.length + development.d.youTubeVideos.length;

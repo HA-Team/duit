@@ -63,8 +63,8 @@ app.controller('propertyController', [
 					state: result.location.short_location.replace(/\s\|.*/, ''),
 					prop: result,
 					videos: result.videos,
-					youTubeVideos: result.videos.filter((video) => video.provider_id != 6),
-					hasDuit360: result.videos.some((video) => video.provider_id == 6),
+					youTubeVideos: result.videos.filter((video) => video.provider_id != 22),
+					hasDuit360: result.videos.some((video) => video.provider_id == 22),
 				};
 
 				const pageTitle = `${result.publication_title} - ${$filter('currency')(property.p.price, property.p.currency, 0)}  en DUIT`;
@@ -88,7 +88,7 @@ app.controller('propertyController', [
 				property.propertyMapped = {
 					photos: result.photos,
 					videos: result.videos,
-					video_url: result.videos.some((video) => video.provider_id == 6) ? result.videos.filter(video => video.provider_id == 6)[0].player_url + '?rel=0&enablejsapi=1' : null,
+					video_url: result.videos.some((video) => video.provider_id == 22) ? result.videos.filter(video => video.provider_id == 22)[0].player_url + '?rel=0&enablejsapi=1' : null,
 				};
 
 				property.featuresItems = [

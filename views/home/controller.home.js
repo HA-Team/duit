@@ -78,7 +78,7 @@ app.controller('homeController', [
 					result = result.data.objects;
 
 					home.featured360Props = result
-						.filter((prop) => prop.videos.some((video) => video.provider_id == 6))
+						.filter((prop) => prop.videos.some((video) => video.provider_id == 22))
 						.map((prop) => {
 							return {
 								id: prop.id,
