@@ -140,7 +140,7 @@ a.property-type + ul li:hover {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	flex: 0 0 150px;
+	flex: 0 0 175px;
 	margin-bottom: 20px;
 }
 
